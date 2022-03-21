@@ -1,0 +1,45 @@
+﻿@page "/mm"
+@using BlazorMM.Client.Services
+@inject MMClient Client
+
+<h3>MasterMind</h3>
+
+<label for="name">Name:</label>
+<input id="name" @bind="name" />
+<br />
+<button @onclick="StartGameAsync">Start Game</button>
+<br />
+
+<BreakerSelectionContainer OnCodePegUpdated="HandleCodePegUpdated">
+    <BreakerOptions />
+    <BreakerSelection></BreakerSelection>
+</BreakerSelectionContainer>
+
+<button @onclick="MakeMoveAsync">Set Move</button>
+
+<span></span>
+
+@code {
+    private string? name;
+    private string? id;
+    private async Task StartGameAsync()
+    {
+        if (name is null)
+        {
+            name = "enter a name";
+            return;
+        }
+        id = await Client.StartGameAsync(name);
+    }
+
+    private async Task MakeMoveAsync()
+    {
+
+    }
+
+    void HandleCodePegUpdated(CodePeg codePeg)
+    {
+        
+    }
+
+}

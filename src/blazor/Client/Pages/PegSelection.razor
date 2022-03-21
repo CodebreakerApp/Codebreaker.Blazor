@@ -1,0 +1,19 @@
+﻿@using BlazorMM.Client.Models
+@foreach (var peg in pegs)
+{
+    <label>
+        <input type="radio"
+            name="peg"
+            checked=@(SelectedPeg == peg)
+            onchange="@(() => SelectedPeg = peg)" />
+            @peg
+    </label>
+}
+
+@code {
+    [Parameter]
+    public CodePeg SelectedPeg { get; set; } = new CodePeg("Black");
+
+    CodePeg[] pegs = new CodePeg[] { new("Black"), new("White"), new("Red"), new("Green"), new("Yellow") }; 
+
+}
