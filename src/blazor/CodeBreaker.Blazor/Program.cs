@@ -1,3 +1,5 @@
+using BlazorApplicationInsights;
+
 using CodeBreaker.Blazor;
 using CodeBreaker.Blazor.Services;
 
@@ -8,6 +10,7 @@ var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
+builder.Services.AddBlazorApplicationInsights();
 builder.Services.AddTransient<CodebreakerAPIClient>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["CodeBreakerServer"] ?? "localhost:5000") });
 
