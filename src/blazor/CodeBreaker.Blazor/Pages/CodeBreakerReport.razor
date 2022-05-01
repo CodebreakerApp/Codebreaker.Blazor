@@ -1,6 +1,7 @@
 ﻿@page "/report"
 @using CodeBreaker.Shared
 @inject CodebreakerAPIClient Client
+@inject ILoggerFactory LoggerFactory
 
 <h3>Report</h3>
 
@@ -77,24 +78,39 @@ else
 
 
 @code {
+    private ILogger? logger;
     private DateTime date = DateTime.Today;
     private bool requestDetail = false;
     private GamesInformationDetail? detail;
     private IEnumerable<GamesInfo>? infoList;
 
-    public async void GetReport()
+    protected override void OnInitialized()
     {
-        detail = null;
-        infoList = null;
-        if (requestDetail)
-        {
-            detail = await Client.GetDetailedReportAsync(date);
-        }
-        else
-        {
-            infoList = await Client.GetReportAsync(date);
-        }
-
+        logger = LoggerFactory.CreateLogger<CodeBreakerReport>();
     }
 
+    public async void GetReport()
+    {
+        logger?.LogInformation("Calling GetReport for {date}", date);
+
+        detail = null;
+        infoList = null;
+        try
+        {
+            if (requestDetail)
+            {
+                detail = await Client.GetDetailedReportAsync(date);
+            }
+            else
+            {
+                infoList = await Client.GetReportAsync(date);
+            }
+
+        }
+        catch (Exception ex)
+        {
+            logger?.LogError(ex, "Error calling GetReport");
+            throw;
+        }
+    }
 }
