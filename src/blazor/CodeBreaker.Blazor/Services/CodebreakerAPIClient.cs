@@ -8,9 +8,12 @@ namespace CodeBreaker.Blazor.Services;
 public class CodebreakerAPIClient
 {
     private readonly HttpClient _httpClient;
-    public CodebreakerAPIClient(HttpClient httpclient)
+    private readonly ILogger _logger;
+    public CodebreakerAPIClient(HttpClient httpclient, ILogger<CodebreakerAPIClient> logger)
     {
         _httpClient = httpclient;
+        _logger = logger;
+        _logger.LogInformation("Injected HttpClient with base address {uri}", _httpClient.BaseAddress);
     }
 
     public async Task<string> StartGameAsync(string name)
@@ -38,17 +41,20 @@ public class CodebreakerAPIClient
         {
             requestUri = $"{requestUri}?date={date.Value.ToString("yyyy-MM-dd")}";
         }
+        _logger.LogInformation("Calling Codebreaker with {uri}", requestUri);
 
         return await _httpClient.GetFromJsonAsync<IEnumerable<GamesInfo>>(requestUri);
     }
 
     public async Task<GamesInformationDetail?> GetDetailedReportAsync(DateTime? date)
     {
-        string requestUri = "/v1/report";
+        string requestUri = "/v1/reportdetail";
         if (date is not null)
         {
             requestUri = $"{requestUri}?date={date.Value.ToString("yyyy-MM-dd")}";
         }
+        _logger.LogInformation("Calling Codebreaker with {uri}", requestUri);
+        
         return await _httpClient.GetFromJsonAsync<GamesInformationDetail>(requestUri);
     }
 }

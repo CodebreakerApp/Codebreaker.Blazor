@@ -15,7 +15,7 @@
 
 
 <br />
-<input type="button" value="Submit" @onclick="GetReport" />
+<input type="button" value="Submit" @onclick="async () => await GetReport()" />
 
 @if (detail is null)
 {
@@ -31,6 +31,7 @@ else
             <th>Id</th>
             <th>Code</th>
             <th>Time</th>
+            <th>Moves</th>
         </tr>
     </thead>
     <tbody>
@@ -42,7 +43,29 @@ else
                 <td>@game.CodeBreakerGameId</td>
                 <td>@game.Code</td>
                 <td>@game.Time</td>
+                <td>
+                    <table class="table">
+                        <tr>
+                            <th>Number</th>
+                            <th>Choice</th>
+                            <th>Key Pegs</th>
+                        </tr>
+                        <tbody>
+                            @foreach (var move in game.Moves)
+                            {
+                                <tr>
+                                    <td>@move.MoveNumber</td>
+                                    <td>@move.Moves</td>
+                                    <td>@move.Keys</td>
+                               </tr>
+                            }
+                        </tbody>
+                    </table>
+
+                </td>
+
             </tr>
+            
         }
     </tbody>
 </table>
@@ -89,10 +112,10 @@ else
         logger = LoggerFactory.CreateLogger<CodeBreakerReport>();
     }
 
-    public async void GetReport()
+    public async Task GetReport()
     {
         logger?.LogInformation("Calling GetReport for {date}", date);
-
+        
         detail = null;
         infoList = null;
         try
