@@ -1,0 +1,100 @@
+﻿@page "/report"
+@using CodeBreaker.Shared
+@inject CodebreakerAPIClient Client
+
+<h3>Report</h3>
+
+<label>Select the date:
+    <input type="date" @bind="date" />
+</label>
+<br />
+<label>Detail?
+    <input type="checkbox" @bind="requestDetail" />
+</label>
+
+
+<br />
+<input type="button" value="Submit" @onclick="GetReport" />
+
+@if (detail is null)
+{
+    <div>get detail data here</div>
+}
+else 
+{
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Id</th>
+            <th>Code</th>
+            <th>Time</th>
+        </tr>
+    </thead>
+    <tbody>
+
+        @foreach (var game in detail.Games)
+        {
+            <tr>
+                <td>@game.User</td>
+                <td>@game.CodeBreakerGameId</td>
+                <td>@game.Code</td>
+                <td>@game.Time</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+
+@if (infoList == null)
+{
+    <div>get data here</div>
+}
+else 
+{
+<table class="table">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Time</th>
+            <th>Number moves</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var info in infoList)
+        {
+            <tr>
+                <td>@info.User</td>
+                <td>@info.Time</td>
+                <td>@info.NumberMoves</td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+
+
+
+@code {
+    private DateTime date = DateTime.Today;
+    private bool requestDetail = false;
+    private GamesInformationDetail? detail;
+    private IEnumerable<GamesInfo>? infoList;
+
+    public async void GetReport()
+    {
+        detail = null;
+        infoList = null;
+        if (requestDetail)
+        {
+            detail = await Client.GetDetailedReportAsync(date);
+        }
+        else
+        {
+            infoList = await Client.GetReportAsync(date);
+        }
+
+    }
+
+}
