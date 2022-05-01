@@ -9,22 +9,38 @@
     <input type="date" @bind="date" />
 </label>
 <br />
-<label>Detail?
-    <input type="checkbox" @bind="requestDetail" />
-</label>
 
-
-<br />
 <input type="button" value="Submit" @onclick="async () => await GetReport()" />
 
-@if (detail is null)
-{
-    <div>get detail data here</div>
-}
-else 
-{
 
+@if (infoList is not null)
+{
 <table class="table">
+    <thead>
+        <tr>
+            <th>User</th>
+            <th>Time</th>
+            <th>Number moves</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var info in infoList)
+        {
+            <tr>
+                <td>@info.User</td>
+                <td>@info.Time</td>
+                <td>@info.NumberMoves</td>
+                <td><input type="button" value="Details" @onclick="async () => await GetDetail(info.Id)"/></td>
+            </tr>
+        }
+    </tbody>
+</table>
+}
+
+@if (game is not null)
+{    
+    <table class="table">
     <thead>
         <tr>
             <th>User</th>
@@ -35,16 +51,14 @@ else
         </tr>
     </thead>
     <tbody>
-
-        @foreach (var game in detail.Games)
-        {
-            <tr>
-                <td>@game.User</td>
-                <td>@game.CodeBreakerGameId</td>
-                <td>@game.Code</td>
-                <td>@game.Time</td>
-                <td>
-                    <table class="table">
+        <tr>
+            <td>@game.User</td>
+            <td>@game.CodeBreakerGameId</td>       
+            <td>@game.Code</td>
+            <td>@game.Time</td>
+            
+            <td>
+                 <table class="table">
                         <tr>
                             <th>Number</th>
                             <th>Choice</th>
@@ -62,50 +76,19 @@ else
                         </tbody>
                     </table>
 
-                </td>
-
-            </tr>
-            
-        }
-    </tbody>
-</table>
-}
-
-@if (infoList == null)
-{
-    <div>get data here</div>
-}
-else 
-{
-<table class="table">
-    <thead>
-        <tr>
-            <th>User</th>
-            <th>Time</th>
-            <th>Number moves</th>
+            </td>
         </tr>
-    </thead>
-    <tbody>
-        @foreach (var info in infoList)
-        {
-            <tr>
-                <td>@info.User</td>
-                <td>@info.Time</td>
-                <td>@info.NumberMoves</td>
-            </tr>
-        }
+
     </tbody>
 </table>
 }
-
 
 
 @code {
     private ILogger? logger;
     private DateTime date = DateTime.Today;
-    private bool requestDetail = false;
-    private GamesInformationDetail? detail;
     private IEnumerable<GamesInfo>? infoList;
+    private CodeBreakerGame? game;
 
     protected override void OnInitialized()
     {
@@ -115,25 +98,32 @@ else
     public async Task GetReport()
     {
         logger?.LogInformation("Calling GetReport for {date}", date);
-        
-        detail = null;
+
         infoList = null;
         try
         {
-            if (requestDetail)
-            {
-                detail = await Client.GetDetailedReportAsync(date);
-            }
-            else
-            {
-                infoList = await Client.GetReportAsync(date);
-            }
-
+            infoList = await Client.GetReportAsync(date);
         }
         catch (Exception ex)
         {
             logger?.LogError(ex, "Error calling GetReport");
             throw;
         }
+    }
+
+    public async Task GetDetail(string id)
+    {
+        logger?.LogInformation("Calling GetDetail for {id}", id);
+
+        try
+        {
+            game = await Client.GetDetailedReportAsync(id);
+        }   
+        catch (Exception ex)
+        {
+            logger?.LogError(ex, "Error calling GetDetail");
+            throw;
+        } 
+
     }
 }

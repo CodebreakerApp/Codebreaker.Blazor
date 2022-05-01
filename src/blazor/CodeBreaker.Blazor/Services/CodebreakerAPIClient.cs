@@ -46,15 +46,24 @@ public class CodebreakerAPIClient
         return await _httpClient.GetFromJsonAsync<IEnumerable<GamesInfo>>(requestUri);
     }
 
-    public async Task<GamesInformationDetail?> GetDetailedReportAsync(DateTime? date)
-    {
-        string requestUri = "/v1/reportdetail";
-        if (date is not null)
-        {
-            requestUri = $"{requestUri}?date={date.Value.ToString("yyyy-MM-dd")}";
-        }
-        _logger.LogInformation("Calling Codebreaker with {uri}", requestUri);
+    //public async Task<GamesInformationDetail?> GetDetailedReportAsync(DateTime? date)
+    //{
+    //    string requestUri = "/v1/reportdetail";
+    //    if (date is not null)
+    //    {
+    //        requestUri = $"{requestUri}?date={date.Value.ToString("yyyy-MM-dd")}";
+    //    }
+    //    _logger.LogInformation("Calling Codebreaker with {uri}", requestUri);
         
-        return await _httpClient.GetFromJsonAsync<GamesInformationDetail>(requestUri);
+    //    return await _httpClient.GetFromJsonAsync<GamesInformationDetail>(requestUri);
+    //}
+
+    public async Task<CodeBreakerGame?> GetDetailedReportAsync(string id)
+    {
+        string requestUri = $"/v1/reportdetail/{id}";
+
+        _logger.LogInformation("Calling Codebreaker with {uri}", requestUri);
+
+        return await _httpClient.GetFromJsonAsync<CodeBreakerGame?>(requestUri);
     }
 }
