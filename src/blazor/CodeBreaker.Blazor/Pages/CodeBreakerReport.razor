@@ -10,7 +10,7 @@
 </label>
 <br />
 
-<input type="button" value="Submit" @onclick="async () => await GetReport()" />
+<input type="button" value="Submit" disabled=@isLoading @onclick="async () => await GetReport()" />
 
 
 @if (infoList is not null)
@@ -89,6 +89,7 @@
     private DateTime date = DateTime.Today;
     private IEnumerable<GamesInfo>? infoList;
     private CodeBreakerGame? game;
+    bool isLoading = false;
 
     protected override void OnInitialized()
     {
@@ -102,13 +103,16 @@
         infoList = null;
         try
         {
+            isLoading = true;
             infoList = await Client.GetReportAsync(date);
+            isLoading = false;
         }
         catch (Exception ex)
         {
             logger?.LogError(ex, "Error calling GetReport");
             throw;
         }
+       
     }
 
     public async Task GetDetail(string id)
