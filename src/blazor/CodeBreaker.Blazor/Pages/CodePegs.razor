@@ -1,0 +1,20 @@
+﻿@foreach (var color in codeValues)
+{
+    <div class="peg @color"></div>
+}
+
+@code {
+    private string codes = string.Empty;
+
+    [Parameter]
+    public string Codes 
+    { 
+        get => codes; 
+        set
+        {
+            codes = value;
+            codeValues = codes.Split("..").ToArray();
+        } 
+    }
+    string[] codeValues = new string[] { };
+}
