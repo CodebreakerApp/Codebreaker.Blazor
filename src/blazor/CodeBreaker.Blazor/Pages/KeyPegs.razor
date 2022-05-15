@@ -13,7 +13,7 @@
         set
         {
             codes = value;
-            codeValues = codes.Split(".").ToArray();
+            codeValues = codes.Split(".").Where(s => !string.IsNullOrEmpty(s)).ToArray();
         } 
     }
     string[] codeValues = new string[] { };
