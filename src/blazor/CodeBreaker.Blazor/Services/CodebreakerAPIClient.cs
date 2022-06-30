@@ -36,7 +36,7 @@ public class CodebreakerAPIClient
 
     public async Task<IEnumerable<GamesInfo>?> GetReportAsync(DateTime? date)
     {
-        string requestUri = "/v1/report";
+        string requestUri = "/report";
         if (date is not null)
         {
             requestUri = $"{requestUri}?date={date.Value.ToString("yyyy-MM-dd")}";
@@ -60,7 +60,7 @@ public class CodebreakerAPIClient
 
     public async Task<CodeBreakerGame?> GetDetailedReportAsync(string id)
     {
-        string requestUri = $"/v1/reportdetail/{id}";
+        string requestUri = $"/reportdetail/{id}";
 
         _logger.LogInformation("Calling Codebreaker with {uri}", requestUri);
 
