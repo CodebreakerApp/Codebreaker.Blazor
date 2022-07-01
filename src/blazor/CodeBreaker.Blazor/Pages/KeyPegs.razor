@@ -1,6 +1,6 @@
 ﻿@foreach (var color in codeValues)
 {
-    <div class="keypeg @color"></div>
+    <div class="keypeg @color.ToLower()"></div>
 }
 
 @code {
