@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Blazor", "blazo
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Shared", "shared\CodeBreaker.Shared\CodeBreaker.Shared.csproj", "{E0A0AF99-906A-4919-8AAD-282793AF92F8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Services", "shared\CodeBreaker.Services\CodeBreaker.Services.csproj", "{D738E1C7-41C7-4402-9755-65472D780516}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D738E1C7-41C7-4402-9755-65472D780516}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D738E1C7-41C7-4402-9755-65472D780516}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D738E1C7-41C7-4402-9755-65472D780516}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D738E1C7-41C7-4402-9755-65472D780516}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
