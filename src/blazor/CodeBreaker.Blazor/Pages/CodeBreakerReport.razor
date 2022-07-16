@@ -1,19 +1,20 @@
 ﻿@page "/report"
 @using CodeBreaker.Services
 @using CodeBreaker.Shared
+@using CodeBreaker.Shared.Models.Data
 @inject GameClient Client
 @inject ILoggerFactory LoggerFactory
 
 <h3>Report</h3>
 
 <label>Select the date:
-    <input type="date" @bind="date" />
+    <input type="date" @bind="_date" />
 </label>
 <br />
 
-<input type="button" value="Submit" disabled=@isLoading @onclick="async () => await GetReport()" />
+<input type="button" value="Submit" disabled=@_isLoadingGames @onclick="async () => await GetGames()" />
 
-@if (infoList is not null)
+@if (_games is not null)
 {
 <table class="table">
     <thead>
@@ -25,109 +26,121 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var info in infoList)
+        @foreach (Game game in _games)
         {
             <tr>
-                <td>@info.User</td>
-                <td>@info.Time</td>
-                <td>@info.NumberMoves</td>
-                <td><input type="button" value="Details" @onclick="async () => await GetDetail(info.Id)"/></td>
+                <td>@game.Username</td>
+                <td>@game.Start</td>
+                <td>@game.Moves.Count</td>
+                <td><input type="button" value="Details" @onclick="async () => await GetGame(game.GameId)"/></td>
             </tr>
         }
     </tbody>
 </table>
 }
 
-@if (game is not null)
-{    
+@if (_game is not null)
+{
+    @if (_isLoadingGame)
+    {
+        <p>Loading Game...</p>
+    }
+    
     <table class="table">
-    <thead>
-        <tr>
-            <th>User</th>
-            <th>Id</th>
-            <th>Code</th>
-            <th>Time</th>
-            <th>Moves</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>@game.User</td>
-            <td>@game.CodeBreakerGameId</td>       
-            <td><CodePegs Codes="@game.Code" /></td>
-            <td>@game.Time</td>
+        <thead>
+            <tr>
+                <th>User</th>
+                <th>Id</th>
+                <th>Code</th>
+                <th>Time</th>
+                <th>Moves</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>@_game.Username</td>
+                <td>@_game.GameId</td>       
+                @*<td><CodePegs Codes="@game.Code" /></td>*@
+                <td>Code here...</td>
+                <td>@_game.Start</td>
             
-            <td>
-                 <table class="table">
+                <td>
+                    <table class="table">
                         <tr>
                             <th>Number</th>
                             <th>Choice</th>
                             <th>Key Pegs</th>
                         </tr>
                         <tbody>
-                            @foreach (var move in game.Moves)
-                            {
-                                <tr>
-                                    <td>@move.MoveNumber</td>
-                                    <td><CodePegs Codes="@move.Moves" /></td>
-                                    <td><KeyPegs Codes="@move.Keys" /></td>
-                               </tr>
-                            }
+                        @foreach (var move in _game.Moves)
+                        {
+                            <tr>
+                                <td>@move.MoveNumber</td>
+                                <td><CodePegs Codes="@FormatGuessPegs(move.GuessPegs)" /></td>
+                                <td><KeyPegs Codes="@FormatKeyPegs(move.KeyPegs)" /></td>
+                            </tr>
+                        }
                         </tbody>
                     </table>
-
-            </td>
-        </tr>
-
-    </tbody>
-</table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
 }
 
 
 @code {
-    private ILogger? logger;
-    private DateTime date = DateTime.Today;
-    private IEnumerable<GamesInfo>? infoList;
-    private CodeBreakerGame? game;
-    bool isLoading = false;
+    private ILogger? _logger;
+    private DateTime _date = DateTime.Today;
+    private IEnumerable<Game>? _games;
+    private Game? _game;
+    private bool _isLoadingGames = false;
+    private bool _isLoadingGame = false;
 
     protected override void OnInitialized()
     {
-        logger = LoggerFactory.CreateLogger<CodeBreakerReport>();
+        _logger = LoggerFactory.CreateLogger<CodeBreakerReport>();
     }
 
-    public async Task GetReport()
+    public async Task GetGames()
     {
-        logger?.LogInformation("Calling GetReport for {date}", date);
+        _logger?.LogInformation("Calling GetReport for {date}", _date);
+        _games = null;
+        _isLoadingGames = true;
 
-        infoList = null;
         try
         {
-            isLoading = true;
-            infoList = await Client.GetReportAsync(date);
-            isLoading = false;
+            _games = await Client.GetReportAsync(_date);
         }
         catch (Exception ex)
         {
-            logger?.LogError(ex, "Error calling GetReport");
+            _logger?.LogError(ex, "Error calling GetReport");
             throw;
         }
-       
+        finally
+        {
+            _isLoadingGames = false;
+        }
     }
 
-    public async Task GetDetail(Guid id)
+    public async Task GetGame(Guid id)
     {
-        logger?.LogInformation("Calling GetDetail for {id}", id);
+        _logger?.LogInformation("Calling GetDetail for {id}", id);
 
         try
         {
-            game = await Client.GetDetailedReportAsync(id);
+            _game = await Client.GetDetailedReportAsync(id);
         }   
         catch (Exception ex)
         {
-            logger?.LogError(ex, "Error calling GetDetail");
+            _logger?.LogError(ex, "Error calling GetDetail");
             throw;
         } 
-
     }
+
+    private string FormatGuessPegs(IEnumerable<string> guessPegs) =>
+        string.Join(" - ", guessPegs);
+
+    private string FormatKeyPegs(CodeBreaker.Shared.Models.Data.KeyPegs? keyPegs) =>
+        $"Black: { keyPegs?.Black ?? 'X' } - White: { keyPegs?.White ?? 'X' }";
 }
