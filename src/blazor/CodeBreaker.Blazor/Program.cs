@@ -11,7 +11,7 @@ builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddBlazorApplicationInsights();
-builder.Services.AddTransient<GameClient>();
+builder.Services.AddTransient<IGameReportClient, GameClient>();
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.Configuration["CodeBreakerServer"] ?? "localhost:9400") });
 
 await builder.Build().RunAsync();
