@@ -1,8 +1,8 @@
 ﻿@page "/report"
 @using CodeBreaker.Services
-@using CodeBreaker.Shared
+@using CodeBreaker.Shared.Models.Api
 @using CodeBreaker.Shared.Models.Data
-@inject GameClient Client
+@inject IGameReportClient Client
 @inject ILoggerFactory LoggerFactory
 
 <h3>Report</h3>
@@ -26,12 +26,12 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (Game game in _games)
+        @foreach (GameDto game in _games)
         {
             <tr>
                 <td>@game.Username</td>
                 <td>@game.Start</td>
-                <td>@game.Moves.Count</td>
+                <td>@game.Moves.Count()</td>
                 <td><input type="button" value="Details" @onclick="async () => await GetGame(game.GameId)"/></td>
             </tr>
         }
@@ -58,26 +58,29 @@
         </thead>
         <tbody>
             <tr>
-                <td>@_game.Username</td>
-                <td>@_game.GameId</td>       
-                @*<td><CodePegs Codes="@game.Code" /></td>*@
-                <td>Code here...</td>
-                <td>@_game.Start</td>
+                <td>@_game?.Username</td>
+                <td>@_game?.GameId</td>       
+                <td>
+                    <CodePegs Pegs="@_game?.Code" />
+                </td>
+                <td>@_game?.Start</td>
             
                 <td>
                     <table class="table">
-                        <tr>
-                            <th>Number</th>
-                            <th>Choice</th>
-                            <th>Key Pegs</th>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Number</th>
+                                <th>Choice</th>
+                                <th>Key Pegs</th>
+                            </tr>
+                        </thead>
                         <tbody>
-                        @foreach (var move in _game.Moves)
+                        @foreach (var move in _game?.Moves!)
                         {
                             <tr>
                                 <td>@move.MoveNumber</td>
-                                <td><CodePegs Codes="@FormatGuessPegs(move.GuessPegs)" /></td>
-                                <td><KeyPegs Codes="@FormatKeyPegs(move.KeyPegs)" /></td>
+                                <td><CodePegs Pegs="@move.GuessPegs" /></td>
+                                <td><KeyPegs Pegs="@move.KeyPegs?.ToModel()" /></td>
                             </tr>
                         }
                         </tbody>
@@ -92,8 +95,8 @@
 @code {
     private ILogger? _logger;
     private DateTime _date = DateTime.Today;
-    private IEnumerable<Game>? _games;
-    private Game? _game;
+    private IEnumerable<GameDto>? _games;
+    private GameDto? _game;
     private bool _isLoadingGames = false;
     private bool _isLoadingGame = false;
 
@@ -110,12 +113,14 @@
 
         try
         {
-            _games = await Client.GetReportAsync(_date);
+            GetGamesResponse? response = await Client.GetGamesAsync(_date);
+            _logger?.LogDebug("Got response", response);
+            _games = response?.Games ?? Array.Empty<GameDto>();
         }
         catch (Exception ex)
         {
-            _logger?.LogError(ex, "Error calling GetReport");
-            throw;
+            _logger?.LogError(ex, "Error calling GetGames");
+            //throw;
         }
         finally
         {
@@ -129,17 +134,15 @@
 
         try
         {
-            _game = await Client.GetDetailedReportAsync(id);
+            GetGameResponse? response = await Client.GetGameAsync(id);
+            _game = response?.Game;
         }   
         catch (Exception ex)
         {
-            _logger?.LogError(ex, "Error calling GetDetail");
+            _logger?.LogError(ex, "Error calling GetGame");
             throw;
         } 
     }
-
-    private string FormatGuessPegs(IEnumerable<string> guessPegs) =>
-        string.Join(" - ", guessPegs);
 
     private string FormatKeyPegs(CodeBreaker.Shared.Models.Data.KeyPegs? keyPegs) =>
         $"Black: { keyPegs?.Black ?? 'X' } - White: { keyPegs?.White ?? 'X' }";
