@@ -14,7 +14,7 @@ builder.Services.AddBlazorApplicationInsights();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGameReportClient, GameClient>();
 builder.Services.AddScoped(sp => new HttpClient {
-    BaseAddress = new Uri(/*builder.Configuration["CodeBreakerServer"] ??*/ "http://localhost:9400")
+    BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration"))
 });
 
 await builder.Build().RunAsync();
