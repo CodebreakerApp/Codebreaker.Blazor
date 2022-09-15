@@ -1,20 +1,9 @@
-﻿@foreach (var color in codeValues)
+﻿@foreach (var color in Pegs)
 {
     <div class="peg @color.ToLower()"></div>
 }
 
 @code {
-    private string codes = string.Empty;
-
     [Parameter]
-    public string Codes 
-    { 
-        get => codes; 
-        set
-        {
-            codes = value;
-            codeValues = codes.Split("..").ToArray();
-        } 
-    }
-    string[] codeValues = new string[] { };
+    public IEnumerable<string> Pegs { get; set; } = Array.Empty<string>();
 }

@@ -1,20 +1,13 @@
-﻿@foreach (var color in codeValues)
+﻿@for (int i = 0; i < Pegs?.Black; i++)
 {
-    <div class="keypeg @color.ToLower()"></div>
+    <div class="keypeg black"></div>
+}
+@for (int i = 0; i < Pegs?.White; i++)
+{
+    <div class="keypeg white"></div>
 }
 
 @code {
-    private string codes = string.Empty;
-
     [Parameter]
-    public string Codes 
-    { 
-        get => codes; 
-        set
-        {
-            codes = value;
-            codeValues = codes.Split(".").Where(s => !string.IsNullOrEmpty(s)).ToArray();
-        } 
-    }
-    string[] codeValues = new string[] { };
+    public CodeBreaker.Shared.Models.Data.KeyPegs? Pegs { get; set; }
 }
