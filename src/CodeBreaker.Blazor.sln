@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32422.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Blazor", "blazor\CodeBreaker.Blazor\CodeBreaker.Blazor.csproj", "{AED349CD-FCB1-43A4-9254-796C093D2DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Blazor", "clients\blazor\CodeBreaker.Blazor\CodeBreaker.Blazor.csproj", "{AED349CD-FCB1-43A4-9254-796C093D2DEE}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Shared", "shared\CodeBreaker.Shared\CodeBreaker.Shared.csproj", "{E0A0AF99-906A-4919-8AAD-282793AF92F8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Services", "shared\CodeBreaker.Services\CodeBreaker.Services.csproj", "{D738E1C7-41C7-4402-9755-65472D780516}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Services", "clients\shared\CodeBreaker.Services\CodeBreaker.Services.csproj", "{D738E1C7-41C7-4402-9755-65472D780516}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.LiveService.Shared", "shared\CodeBreaker.LiveService.Shared\CodeBreaker.LiveService.Shared.csproj", "{1AFED2F2-E499-4D62-850B-26220B27130C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.LiveService.Shared", "services\shared\CodeBreaker.LiveService.Shared\CodeBreaker.LiveService.Shared.csproj", "{1AFED2F2-E499-4D62-850B-26220B27130C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
