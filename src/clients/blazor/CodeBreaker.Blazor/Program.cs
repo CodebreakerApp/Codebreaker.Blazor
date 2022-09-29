@@ -5,6 +5,7 @@ using CodeBreaker.Services;
 using CodeBreaker.Services.Authentication;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using MudBlazor.Services;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
@@ -16,5 +17,6 @@ builder.Services.AddScoped<IGameReportClient, GameClient>();
 builder.Services.AddScoped(sp => new HttpClient {
     BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration"))
 });
+builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();
