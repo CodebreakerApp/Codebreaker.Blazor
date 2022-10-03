@@ -1,4 +1,6 @@
-﻿@for (int i = 0; i < Pegs?.Black; i++)
+﻿@using CodeBreaker.Shared.Models.Api
+
+@for (int i = 0; i < Pegs?.Black; i++)
 {
     <div class="keypeg black"></div>
 }
@@ -9,5 +11,5 @@
 
 @code {
     [Parameter]
-    public CodeBreaker.Shared.Models.Data.KeyPegs? Pegs { get; set; }
+    public KeyPegsDto? Pegs { get; set; }
 }

@@ -1,0 +1,59 @@
+﻿body {
+}
+
+.peg {
+    display: inline-block;
+    border-radius: 50%;
+    width: 50px;
+    aspect-ratio: 1;
+    margin: 4px;
+}
+
+.red {
+    background: #F44336;
+}
+
+.green {
+    background: #4CAF50;
+}
+
+.cyan {
+    background: #00BCD4;
+}
+
+.blue {
+    background: #2196F3;
+}
+
+.black {
+    background: #000;
+}
+
+.white {
+    background: #fff;
+    border: 1px solid black;
+}
+
+.grey {
+    background: #9E9E9E;
+}
+
+.yellow {
+    background: #FFEB3B;
+}
+
+.orange {
+    background: #FF9800;
+}
+
+.pink {
+    background: #E91E63;
+}
+
+.purple {
+    background: #9C27B0;
+}
+
+.brown {
+    background: #795548;
+}

@@ -1,0 +1,126 @@
+﻿@page "/reports"
+@using CodeBreaker.Blazor.Components
+@using CodeBreaker.Services
+@using CodeBreaker.Shared.Models.Api
+@using CodeBreaker.Shared.Models.Data
+@using CodeBreaker.Shared.Models.Extensions
+@inject IGameReportClient Client
+@inject ILoggerFactory LoggerFactory
+
+<h2>Reports</h2>
+
+<MudGrid>
+    <MudItem xs="12" md="9">
+        <MudDatePicker Label="Select the date" @bind-Date="_date" />
+    </MudItem>
+    <MudItem xs="12" md="3">
+        <MudButton Variant="Variant.Filled" FullWidth Disabled=@_isLoadingGames @onclick="async () => await GetGames()">
+            @if (_isLoadingGames)
+            {
+                <MudProgressCircular Size="Size.Small" Indeterminate="true" />
+            }
+            Load games
+        </MudButton>
+    </MudItem>
+</MudGrid>
+
+@if (_games is not null)
+{
+    <div class="reports-table">
+        <MudTable
+            Loading="@_isLoadingGames"
+            Items="@_games"
+            Hover="true">
+            <HeaderContent>
+                <MudTh Style="width: 40px"></MudTh>
+                <MudTh>Username</MudTh>
+                <MudTh>Time</MudTh>
+                <MudTh>Number of moves</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd>
+                    @if (_game?.GameId == context.GameId)
+                    {
+                        <MudIconButton Icon="@Icons.Outlined.KeyboardArrowDown" Size="Size.Small" @onclick="HideDetails" />
+                    }
+                    else
+                    {
+                        <MudIconButton Icon="@Icons.Outlined.KeyboardArrowRight" Size="Size.Small" @onclick="async () => await ShowDetails(context.GameId)" />
+                    }
+                </MudTd>
+                <MudTd>@context.Username</MudTd>
+                <MudTd>@context.Start</MudTd>
+                <MudTd>@context.Moves.Count()</MudTd>
+            </RowTemplate>
+            <ChildRowContent>
+		    @if (_game?.GameId == context.GameId)
+            {
+                <MudTr>
+                    <td colspan="4">
+                        <ReportDetails Game="@_game" />
+                    </td>
+                </MudTr>
+            }
+            </ChildRowContent>
+        </MudTable>
+    </div>
+}
+
+@code {
+    private ILogger? _logger;
+    private DateTime? _date = DateTime.Today;
+    private IEnumerable<GameDto>? _games;
+    private GameDto? _game;
+    private bool _isLoadingGames = false;
+    private bool _isLoadingGame = false;
+
+    protected override void OnInitialized()
+    {
+        _logger = LoggerFactory.CreateLogger<Reports>();
+    }
+
+    public async Task GetGames()
+    {
+        _logger?.LogInformation("Calling GetReport for {date}", _date);
+        _games = null;
+        _isLoadingGames = true;
+
+        try
+        {
+            GetGamesResponse? response = await Client.GetGamesAsync(_date);
+            _logger?.LogDebug("Got response", response);
+            _games = response?.Games ?? Array.Empty<GameDto>();
+        }
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex, "Error calling GetGames");
+            //throw;
+        }
+        finally
+        {
+            _isLoadingGames = false;
+        }
+    }
+
+    public void HideDetails() =>
+        _game = null;
+
+    private async Task ShowDetails(Guid id)
+    {
+        _logger?.LogInformation("Calling GetDetail for {id}", id);
+
+        try
+        {
+            GetGameResponse? response = await Client.GetGameAsync(id);
+            _game = response?.Game;
+        }   
+        catch (Exception ex)
+        {
+            _logger?.LogError(ex, "Error calling GetGame");
+            throw;
+        } 
+    }
+
+    private string FormatKeyPegs(CodeBreaker.Shared.Models.Data.KeyPegs? keyPegs) =>
+        $"Black: { keyPegs?.Black ?? 'X' } - White: { keyPegs?.White ?? 'X' }";
+}

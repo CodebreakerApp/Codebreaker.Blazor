@@ -1,0 +1,19 @@
+﻿body {
+}
+
+.keypeg {
+    display: inline-block;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+	margin: 2px;
+}
+
+.black {
+    background: #000;
+}
+
+.white {
+    background: #fff;
+    border: 1px solid black;
+}

@@ -1,0 +1,37 @@
+﻿@using CodeBreaker.Shared.Models.Api
+
+<div class="component-root">
+    <MudGrid Style="width: 100%;">
+        <MudItem xs="12" Class="d-flex justify-center">
+            <CodePegs Pegs="Game?.Code" Size="70px" />
+        </MudItem>
+
+        @if (!Game.HasValue || Game.Value.Moves.Count() == 0)
+        {
+            <MudItem xs="12" Class="d-flex justify-center">
+                <MudAlert Severity="Severity.Info">No moves in this game</MudAlert>
+            </MudItem>
+        }
+        else
+        {
+            @foreach (MoveDto<string> move in Game?.Moves!)
+            {
+                <MudItem xs="12" md="6">
+                    <MudGrid Class="justify-center">
+                        <MudItem>
+                            <CodePegs Pegs="@move.GuessPegs" />
+                        </MudItem>
+                        <MudItem>
+                            <KeyPegs Pegs="@move.KeyPegs" />
+                        </MudItem>
+                    </MudGrid>
+                </MudItem>
+            }
+        }
+    </MudGrid>
+</div>
+
+@code {
+    [Parameter]
+    public GameDto? Game { get; set; }
+}

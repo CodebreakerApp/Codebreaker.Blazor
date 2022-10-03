@@ -1,9 +1,0 @@
-﻿@foreach (var color in Pegs)
-{
-    <div class="peg @color.ToLower()"></div>
-}
-
-@code {
-    [Parameter]
-    public IEnumerable<string> Pegs { get; set; } = Array.Empty<string>();
-}
