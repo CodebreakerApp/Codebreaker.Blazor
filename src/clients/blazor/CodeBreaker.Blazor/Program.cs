@@ -14,9 +14,10 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 builder.Services.AddBlazorApplicationInsights();
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IGameReportClient, GameClient>();
+builder.Services.AddScoped<IGameClient, GameClient>();
+builder.Services.AddMudServices();
 builder.Services.AddScoped(sp => new HttpClient {
     BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration"))
 });
-builder.Services.AddMudServices();
 
 await builder.Build().RunAsync();

@@ -1,0 +1,18 @@
+﻿@using CodeBreaker.Blazor.Pages
+
+<MudGrid>
+    <MudItem xs="0" md="1">
+        @GuessPegsAndKeyPegs.MoveNumber
+    </MudItem>
+    <MudItem xs="12" md="7">
+        <CodePegs Pegs="GuessPegsAndKeyPegs.GuessPegs" />
+    </MudItem>
+    <MudItem xs="12" md="4">
+        <KeyPegs Pegs="GuessPegsAndKeyPegs.KeyPegs" />
+    </MudItem>
+</MudGrid>
+
+@code {
+    [Parameter][EditorRequired]
+    public SelectionAndKeyPegs GuessPegsAndKeyPegs { get; init; }
+}

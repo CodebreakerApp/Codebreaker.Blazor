@@ -1,0 +1,45 @@
+﻿@using CodeBreaker.Blazor.Services
+
+@foreach (var message in PageMessageService.Messages)
+{
+    <div class="message-container">
+        <MudAlert Severity="message.Type" ShowCloseIcon="message.Closable" CloseIconClicked="message.Close">
+            <div class="message-text">
+                @message.Message
+            </div>
+
+            @if (message.HasAction)
+            {
+                <div class="message-action">
+                    <MudButton OnClick="() => message.Action!()">@message.ActionText</MudButton>
+                </div>
+            }
+        </MudAlert>
+    </div>
+}
+
+<style>
+.mud-alert-icon {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.mud-alert-message {
+    display: flex;
+}
+.message-container {
+    margin-bottom: 1rem;
+}
+.message-text {
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.message-action {
+    margin-left: auto;
+}
+</style>
+
+@code {
+    [Parameter]
+    [EditorRequired]
+    public PageMessageService PageMessageService { get; set; }
+}
