@@ -1,0 +1,74 @@
+﻿@page "/game"
+@using CodeBreaker.Blazor.Components
+
+<h2>Game</h2>
+
+<PageMessages PageMessageService="_pageMessageService" />
+
+@if (GameStatus == GameMode.NotRunning)
+{
+    <MudForm @ref="Form">
+        <MudGrid>
+            <MudItem xs="12" md="9">
+                <MudTextField @bind-Value="Name" Label="Enter your gamername" Variant="Variant.Text" Required="true" RequiredError="The name is required" MaxLength="100" />
+            </MudItem>
+            <MudItem xs="12" md="3">
+                <MudButton @onclick="async () => await StartGameAsync()">
+                    @if (InProgress)
+                    {
+                        <div class="button-slot-start">
+                            <MudProgressCircular Size="Size.Small" Indeterminate="true" />
+                        </div>
+                    }
+                    Start the game
+                </MudButton>
+            </MudItem>
+        </MudGrid>
+    </MudForm>
+}
+
+
+@if (GameStatus is GameMode.Started or GameMode.MoveSet)
+{
+    <MudGrid>
+        <MudItem xs="12" md="9">
+            <MudGrid>
+            @for (int i = 0; i < SelectionFields.Length; i++)
+            {
+                int localI = i;
+                <MudItem Style="min-width: 200px">
+                    <MudSelect Label="@GetPegSelectionLabel(localI)" @bind-Value="SelectionFields[localI]" Style="width: 100%">
+                    @foreach (string colorField in Game?.Type.Fields ?? Array.Empty<string>())
+                    {
+                        <MudSelectItem Value="@colorField">@colorField</MudSelectItem>
+                    }
+                    </MudSelect>
+                </MudItem>
+            }
+            </MudGrid>
+        </MudItem>
+        <MudItem xs="12" md="3">
+            <MudButton @onclick="async () => await SetMoveAsync()" Disabled="!CanSetMove">
+                @if (InProgress)
+                {
+                    <div class="button-slot-start">
+                        <MudProgressCircular Size="Size.Small" Indeterminate="true" />
+                    </div>
+                }
+                Make move
+            </MudButton>
+        </MudItem>
+    </MudGrid>
+}
+
+@if (GameStatus != GameMode.NotRunning)
+{
+    <MudGrid>
+        @foreach (SelectionAndKeyPegs move in GameMoves)
+        {
+            <MudListItem>
+                <CodeAndKeyPegs GuessPegsAndKeyPegs="move" />
+            </MudListItem>
+        }
+    </MudGrid>
+}

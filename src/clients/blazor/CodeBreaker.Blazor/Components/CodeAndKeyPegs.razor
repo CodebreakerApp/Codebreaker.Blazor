@@ -1,4 +1,6 @@
-﻿<MudGrid>
+﻿@using CodeBreaker.Blazor.Pages
+
+<MudGrid>
     <MudItem xs="0" md="1">
         @GuessPegsAndKeyPegs.MoveNumber
     </MudItem>
@@ -12,5 +14,5 @@
 
 @code {
     [Parameter][EditorRequired]
-    public CodeBreaker.ViewModels.SelectionAndKeyPegs GuessPegsAndKeyPegs { get; init; }
+    public SelectionAndKeyPegs GuessPegsAndKeyPegs { get; init; }
 }
