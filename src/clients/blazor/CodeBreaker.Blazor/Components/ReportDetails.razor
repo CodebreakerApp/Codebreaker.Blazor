@@ -17,11 +17,11 @@
             @foreach (MoveDto<string> move in Game?.Moves!)
             {
                 <MudItem xs="12" md="6">
-                    <MudGrid Class="justify-center">
-                        <MudItem>
+                    <MudGrid Class="d-flex justify-center">
+                        <MudItem xs="12" sm="6" Class="d-flex justify-center">
                             <CodePegs Pegs="@move.GuessPegs" />
                         </MudItem>
-                        <MudItem>
+                        <MudItem xs="12" sm="6" Class="d-flex justify-center">
                             <KeyPegs Pegs="@move.KeyPegs" />
                         </MudItem>
                     </MudGrid>
