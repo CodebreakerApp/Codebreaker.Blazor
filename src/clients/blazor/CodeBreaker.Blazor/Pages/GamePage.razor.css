@@ -1,0 +1,15 @@
+﻿.peg-selection-grid {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.peg-selection-grid-item {
+    min-width: 200px;
+}
+
+@media only screen and (max-width : 667px) {
+    .peg-selection-grid-item {
+        width: 100%;
+    }
+}

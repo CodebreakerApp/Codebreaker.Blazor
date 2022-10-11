@@ -14,10 +14,12 @@
         <MudDatePicker Label="Select the date" @bind-Date="_date" />
     </MudItem>
     <MudItem xs="12" md="3">
-        <MudButton Variant="Variant.Filled" FullWidth Disabled=@_isLoadingGames @onclick="async () => await GetGames()">
+        <MudButton Variant="Variant.Filled" FullWidth="true" Disabled=@_isLoadingGames @onclick="async () => await GetGames()">
             @if (_isLoadingGames)
             {
-                <MudProgressCircular Size="Size.Small" Indeterminate="true" />
+                <div class="button-slot-start">
+                    <MudProgressCircular Size="Size.Small" Indeterminate="true" />
+                </div>
             }
             Load games
         </MudButton>
@@ -32,13 +34,29 @@
             Items="@_games"
             Hover="true">
             <HeaderContent>
-                <MudTh Style="width: 40px"></MudTh>
-                <MudTh>Username</MudTh>
-                <MudTh>Time</MudTh>
+                <MudTh>Gamername</MudTh>
+                <MudTh>Start</MudTh>
+                <MudTh>End</MudTh>
                 <MudTh>Number of moves</MudTh>
+                <MudTh Style="width: 40px"></MudTh>
             </HeaderContent>
             <RowTemplate>
-                <MudTd>
+                <MudTd DataLabel="Gamername">@context.Username</MudTd>
+                <MudTd DataLabel="Start">@context.Start</MudTd>
+                <MudTd DataLabel="End">
+                    @if (context.End is null)
+                    {
+                        <MudTooltip Text="User did not finish the game">
+                            <MudIcon Icon="@Icons.Filled.Close" />
+                        </MudTooltip>
+                    }
+                    else
+                    {
+                        @context.End
+                    }
+                </MudTd>
+                <MudTd DataLabel="Number of moves">@context.Moves.Count()</MudTd>
+                <MudTd DataLabel="Expand for details">
                     @if (_game?.GameId == context.GameId)
                     {
                         <MudIconButton Icon="@Icons.Outlined.KeyboardArrowDown" Size="Size.Small" @onclick="HideDetails" />
@@ -48,9 +66,6 @@
                         <MudIconButton Icon="@Icons.Outlined.KeyboardArrowRight" Size="Size.Small" @onclick="async () => await ShowDetails(context.GameId)" />
                     }
                 </MudTd>
-                <MudTd>@context.Username</MudTd>
-                <MudTd>@context.Start</MudTd>
-                <MudTd>@context.Moves.Count()</MudTd>
             </RowTemplate>
             <ChildRowContent>
 		    @if (_game?.GameId == context.GameId)
