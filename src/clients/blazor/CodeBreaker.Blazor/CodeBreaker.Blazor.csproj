@@ -9,14 +9,10 @@
 
   <ItemGroup>
     <PackageReference Include="BlazorApplicationInsights" Version="1.6.0" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.4" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.4" PrivateAssets="all" />
-    <PackageReference Include="MudBlazor" Version="6.0.16" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\shared\CodeBreaker.Shared\CodeBreaker.Shared.csproj" />
-    <ProjectReference Include="..\..\shared\CodeBreaker.Services\CodeBreaker.Services.csproj" />
+    <PackageReference Include="CNInnovation.Codebreaker.Services" Version="2.0.0-beta1.2" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.10" PrivateAssets="all" />
+    <PackageReference Include="MudBlazor" Version="6.0.17" />
   </ItemGroup>
 
   <ItemGroup>
