@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Shared", "share
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Services", "clients\shared\CodeBreaker.Services\CodeBreaker.Services.csproj", "{D738E1C7-41C7-4402-9755-65472D780516}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeBreaker.UI.MudBlazor", "ui\blazor\CodeBreaker.UI.MudBlazor\CodeBreaker.UI.MudBlazor.csproj", "{F44C5543-8CCC-4B83-BEE7-EC2502B57737}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.UI.MudBlazor", "ui\blazor\CodeBreaker.UI.MudBlazor\CodeBreaker.UI.MudBlazor.csproj", "{F44C5543-8CCC-4B83-BEE7-EC2502B57737}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
