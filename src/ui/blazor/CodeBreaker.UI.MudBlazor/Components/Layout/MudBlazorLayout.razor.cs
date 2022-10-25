@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace CodeBreaker.UI.MudBlazor.Components.Layout
+namespace CodeBreaker.UI.MudBlazor
 {
     public partial class MudBlazorLayout
     {
