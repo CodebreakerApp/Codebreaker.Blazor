@@ -1,4 +1,4 @@
-using CodeBreaker.UI.MudBlazor.ViewModels;
+using CodeBreaker.UI.ViewModels;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace CodeBreaker.Blazor.Shared
