@@ -1,9 +1,9 @@
-using CodeBreaker.UI.MudBlazor.ViewModels;
+using CodeBreaker.UI.ViewModels;
 using Microsoft.AspNetCore.Components;
 
-namespace CodeBreaker.UI.MudBlazor
+namespace CodeBreaker.UI
 {
-    public partial class NavMenu
+    public partial class CodeBreakerNavMenu
     {
         [Parameter, EditorRequired]
         public IEnumerable<NavLinkItem> MenuItems { get; set; } = Enumerable.Empty<NavLinkItem>();
