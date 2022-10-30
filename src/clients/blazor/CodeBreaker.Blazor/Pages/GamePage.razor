@@ -7,68 +7,78 @@
 
 @if (GameStatus == GameMode.NotRunning)
 {
-    <MudForm @ref="Form">
-        <MudGrid>
-            <MudItem xs="12" md="9">
-                <MudTextField @bind-Value="Name" Label="Enter your gamername" Variant="Variant.Text" Required="true" RequiredError="The name is required" MaxLength="100" />
-            </MudItem>
-            <MudItem xs="12" md="3">
-                <MudButton Variant="Variant.Filled" FullWidth="true" @onclick="async () => await StartGameAsync()">
-                    @if (InProgress)
-                    {
-                        <div class="button-slot-start">
-                            <MudProgressCircular Size="Size.Small" Indeterminate="true" />
-                        </div>
-                    }
-                    Start the game
-                </MudButton>
-            </MudItem>
-        </MudGrid>
-    </MudForm>
-}
-
-
-@if (GameStatus is GameMode.Started or GameMode.MoveSet)
-{
-    <MudGrid>
-        <MudItem xs="12" md="9">
-            <div class="peg-selection-grid">
-            @for (int i = 0; i < SelectionFields.Length; i++)
+    <div class="d-flex start-game-container">
+        <MudTextField @bind-Value="Name" Label="Enter your gamername" Variant="Variant.Text" Required="true" RequiredError="The name is required" MaxLength="100" />
+        <MudButton Disabled="@(String.IsNullOrWhiteSpace(Name))" Variant="Variant.Filled" OnClick="async () => await StartGameAsync()">
+            @if (InProgress)
             {
-                int localI = i;
-                <div class="peg-selection-grid-item">
-                    <MudSelect Label="@GetPegSelectionLabel(localI)" @bind-Value="SelectionFields[localI]" Style="width: 100%">
-                    @foreach (string colorField in Game?.Type.Fields ?? Array.Empty<string>())
-                    {
-                        <MudSelectItem Value="@colorField">@colorField</MudSelectItem>
-                    }
-                    </MudSelect>
+                <div class="button-slot-start">
+                    <MudProgressCircular Size="Size.Small" Indeterminate="true" />
                 </div>
             }
-            </div>
-        </MudItem>
-        <MudItem xs="12" md="3">
-            <MudButton Variant="Variant.Filled" FullWidth="true" Disabled="!CanSetMove" @onclick="async () => await SetMoveAsync()">
-                @if (InProgress)
-                {
-                    <div class="button-slot-start">
-                        <MudProgressCircular Size="Size.Small" Indeterminate="true" />
-                    </div>
-                }
-                Make move
-            </MudButton>
-        </MudItem>
-    </MudGrid>
+            Start the game
+        </MudButton>
+    </div>
 }
-
-@if (GameStatus != GameMode.NotRunning)
+else if (GameStatus is GameMode.Started or GameMode.MoveSet)
 {
-    <MudList>
-        @foreach (SelectionAndKeyPegs move in GameMoves)
-        {
-            <MudListItem>
-                <CodeAndKeyPegs GuessPegsAndKeyPegs="move" />
-            </MudListItem>
-        }
-    </MudList>
+    <div class="container">
+        <div class="game-container">
+            @for (int i = OpenMoves; i > 0; i--)
+            {
+                <div class="@(i == 1 ? "game-row selectable": "game-row")">
+                    <div class="move-number">@i</div>
+                    <div class="@(i == 1 ? _currentMove[0].Item2 : "")" @onclick="() => SelectField(0)"></div>
+                    <div class="@(i == 1 ? _currentMove[1].Item2 : "")" @onclick="() => SelectField(1)"></div>
+                    <div class="@(i == 1 ? _currentMove[2].Item2 : "")" @onclick="() => SelectField(2)"></div>
+                    <div class="@(i == 1 ? _currentMove[3].Item2 : "")" @onclick="() => SelectField(3)"></div>
+                    @if (i == 1)
+                    {
+                        <div>
+                            <MudIconButton Variant="Variant.Outlined"
+                               Color="Color.Primary"
+                               Icon="@Icons.Filled.PlayCircle"
+                               OnClick="async () => await SetMoveAsync()"></MudIconButton>
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="key-pegs"></div>
+                    }
+                </div>
+            }
+            @foreach (var move in GameMoves.Reverse())
+            {
+                <div class="game-move">
+                    <div class="move-number">1</div>
+                    @foreach (var guess in move.GuessPegs)
+                    {
+
+                        <div class="@(guess.ToLower())"></div>
+                    }
+                    <div class="key-pegs">
+                        @for (int y = 0; y < move.KeyPegs.Black; y++)
+                        {
+                            <div class="black">
+                            </div>
+                        }
+                        @for (int y = 0; y < move.KeyPegs.White; y++)
+                        {
+                            <div class="white">
+                            </div>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="colors">
+            @foreach (string colorField in Game?.Type.Fields ?? Array.Empty<string>())
+            {
+                <div class="@(_selectable ? $"{colorField.ToLower()} selectable": colorField.ToLower())"
+             @onclick="() => SelectColor(colorField)">
+                    @colorField[0]
+                </div>
+            }
+        </div>
+    </div>
 }

@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <AssemblyName>CodeBreaker.UI</AssemblyName>
+    <RootNamespace>$(MSBuildProjectName.Replace(" ", "_").Replace(".MudBlazor", ""))</RootNamespace>
   </PropertyGroup>
 
 
@@ -15,10 +16,6 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" />
     <PackageReference Include="MudBlazor" Version="6.0.17" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="wwwroot\" />
   </ItemGroup>
 
 </Project>

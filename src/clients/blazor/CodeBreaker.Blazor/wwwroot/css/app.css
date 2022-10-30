@@ -1,4 +1,8 @@
-﻿.mud-container {
+﻿* {
+    -webkit-tap-highlight-color: transparent;
+}
+
+.mud-container {
     padding-top: 2em;
     padding-bottom: 2em;
 }

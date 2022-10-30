@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.Drawing;
 using System.Text.Json;
 using CodeBreaker.Blazor.Services;
 using CodeBreaker.Blazor.ViewModels;
@@ -23,13 +24,26 @@ public record SelectionAndKeyPegs(string[] GuessPegs, KeyPegsDto KeyPegs, int Mo
 public partial class GamePage
 {
     private GameDto? _game;
+    private int _maxMoves = 10;
+
+    private bool _selectable = false;
+    private int _selectedField = -1;
+
+    private Tuple<int, string>[] _currentMove = new Tuple<int, string>[]
+    {
+        new Tuple<int, string>(0, string.Empty),
+        new Tuple<int, string>(1, string.Empty),
+        new Tuple<int, string>(2, string.Empty),
+        new Tuple<int, string>(3, string.Empty)
+    };
+
 
     [Inject]
     private IGameClient Client { get; init; } = null!;
 
     private PageMessageService _pageMessageService = new();
 
-    private MudForm? Form { get; set; } = new ();
+    private MudForm? Form { get; set; } = new();
 
     public GameMode GameStatus { get; private set; } = GameMode.NotRunning;
 
@@ -39,9 +53,10 @@ public partial class GamePage
 
     public string?[] SelectionFields { get; private set; } = Array.Empty<string?>();
 
-    public BindingList<SelectionAndKeyPegs> GameMoves { get; private set; } = new ();
+    public BindingList<SelectionAndKeyPegs> GameMoves { get; private set; } = new();
 
     public int MoveNumber => GameMoves.Count;
+    public int OpenMoves => _maxMoves - MoveNumber;
 
     public bool CanSetMove =>
         SelectionFields.All(x => x is not null);
@@ -74,7 +89,7 @@ public partial class GamePage
         }
         catch (Exception ex)
         {
-            _pageMessageService.AddMessage(new (Severity.Error, ex.Message));
+            _pageMessageService.AddMessage(new(Severity.Error, ex.Message));
         }
         finally
         {
@@ -129,7 +144,7 @@ public partial class GamePage
         }
         catch (Exception ex)
         {
-            _pageMessageService.AddMessage(new (Severity.Error, ex.Message));
+            _pageMessageService.AddMessage(new(Severity.Error, ex.Message));
         }
         finally
         {
@@ -138,17 +153,47 @@ public partial class GamePage
         }
     }
 
+    private void SelectField(int index)
+    {
+        _selectedField = index;
+        for (int i = 0; i < _currentMove.Length; i++)
+        {
+            var currentClass = _currentMove[i].Item2.Replace("selected", string.Empty).Trim();
+            _currentMove[i] = new Tuple<int, string>(i, currentClass);
+        }
+        _currentMove[_selectedField] = new Tuple<int, string>(_selectedField, $"selected");
+        _selectable = true;
+    }
+
+    private void SelectColor(string color)
+    {
+        SelectionFields[_selectedField] = color;
+        _currentMove[_selectedField] = new Tuple<int, string>(_selectedField, $"selected {color.ToLower()}");
+    }
+
+
     private void InitializeValues()
     {
         ClearSelectedColor();
         GameMoves.Clear();
         GameStatus = GameMode.NotRunning;
-        
+
     }
 
-    private void ClearSelectedColor() =>
+    private void ClearSelectedColor()
+    {
         SelectionFields = new string[SelectionFields.Length];
+        _selectedField = -1;
+        _selectable = false;
+        _currentMove = new Tuple<int, string>[]
+        {
+            new Tuple<int, string>(0, string.Empty),
+            new Tuple<int, string>(1, string.Empty),
+            new Tuple<int, string>(2, string.Empty),
+            new Tuple<int, string>(3, string.Empty)
+        };
+    }
 
     private string GetPegSelectionLabel(int i) =>
-        $"Peg {i+1}";
+        $"Peg {i + 1}";
 }
