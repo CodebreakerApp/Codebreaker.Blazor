@@ -89,7 +89,7 @@ public partial class GamePage
         }
         catch (Exception ex)
         {
-            _pageMessageService.AddMessage(new(Severity.Error, ex.Message));
+            _pageMessageService.AddMessage(new(ex.Message));
         }
         finally
         {
@@ -118,7 +118,7 @@ public partial class GamePage
             if (response.Won)
             {
                 GameStatus = GameMode.Won;
-                MessageContext message = new(Severity.Info, "Congratulations - you won", true);
+                MessageContext message = new("Congratulations - you won", true);
                 message.Action = () =>
                 {
                     GameStatus = GameMode.NotRunning;
@@ -131,7 +131,7 @@ public partial class GamePage
             else if (response.Ended)
             {
                 GameStatus = GameMode.Lost;
-                MessageContext message = new(Severity.Info, "Sorry, you didn't find the matching colors!", false);
+                MessageContext message = new("Sorry, you didn't find the matching colors!", false);
                 message.Action = () =>
                 {
                     GameStatus = GameMode.NotRunning;
@@ -144,7 +144,7 @@ public partial class GamePage
         }
         catch (Exception ex)
         {
-            _pageMessageService.AddMessage(new(Severity.Error, ex.Message));
+            _pageMessageService.AddMessage(new(ex.Message));
         }
         finally
         {

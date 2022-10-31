@@ -1,6 +1,7 @@
 ﻿@using CodeBreaker.Blazor.Services
+@using CodeBreaker.Blazor.ViewModels;
 
-@foreach (var message in PageMessageService.Messages)
+@foreach (var message in Messages)
 {
     <div class="message-container">
         <MudAlert Severity="message.Type" ShowCloseIcon="message.Closable" CloseIconClicked="message.Close">
@@ -41,5 +42,5 @@
 @code {
     [Parameter]
     [EditorRequired]
-    public PageMessageService PageMessageService { get; set; }
+    public IEnumerable<MessageContext> Messages { get; set; }
 }

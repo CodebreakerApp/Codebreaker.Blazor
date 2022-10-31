@@ -3,21 +3,21 @@
 
 <h2>Game</h2>
 
-<PageMessages PageMessageService="_pageMessageService" />
+@*<PageMessages Messages="_pageMessageService.Messages" />*@
 
 @if (GameStatus == GameMode.NotRunning)
 {
     <div class="d-flex start-game-container">
-        <MudTextField @bind-Value="Name" Label="Enter your gamername" Variant="Variant.Text" Required="true" RequiredError="The name is required" MaxLength="100" />
-        <MudButton Disabled="@(String.IsNullOrWhiteSpace(Name))" Variant="Variant.Filled" OnClick="async () => await StartGameAsync()">
+        <CodeBreakerTextField @bind-Value="Name" Label="Enter your gamername" Required="true" RequiredError="The name is required" MaxLength="100" />
+        <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(Name))" OnClick="async () => await StartGameAsync()">
             @if (InProgress)
             {
                 <div class="button-slot-start">
-                    <MudProgressCircular Size="Size.Small" Indeterminate="true" />
+                    <CodeBreakerProgressCircular />
                 </div>
             }
             Start the game
-        </MudButton>
+        </CodeBreakerButton>
     </div>
 }
 else if (GameStatus is GameMode.Started or GameMode.MoveSet)
@@ -35,10 +35,8 @@ else if (GameStatus is GameMode.Started or GameMode.MoveSet)
                     @if (i == 1)
                     {
                         <div>
-                            <MudIconButton Variant="Variant.Outlined"
-                               Color="Color.Primary"
-                               Icon="@Icons.Filled.PlayCircle"
-                               OnClick="async () => await SetMoveAsync()"></MudIconButton>
+                            <CodeBreakerIconButton
+                               OnClick="async () => await SetMoveAsync()"></CodeBreakerIconButton>
                         </div>
                     }
                     else

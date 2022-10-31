@@ -4,23 +4,23 @@ namespace CodeBreaker.Blazor.ViewModels;
 
 public class MessageContext
 {
-    public MessageContext(Severity type, string message, bool closeable = true)
+    public MessageContext(string message, bool closeable = true)
     {
-        Type = type;
+        // Type = type;
         Message = message;
         Closable = closeable;
     }
 
-    public MessageContext(Severity type, string message, bool closeable, Action action, string actionText)
+    public MessageContext(string message, bool closeable, Action action, string actionText)
     {
-        Type = type;
+        // Type = type;
         Message = message;
         Closable = closeable;
         Action = action;
         ActionText = actionText;
     }
 
-    public Severity Type { get; set; }
+    //public Severity Type { get; set; }
 
     public string Message { get; set; }
 

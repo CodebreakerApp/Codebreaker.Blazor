@@ -8,6 +8,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Components\CodeAndKeyPegs.razor" />
+    <Content Remove="Components\CodePegs.razor" />
+    <Content Remove="Components\KeyPegs.razor" />
+    <Content Remove="Components\PageMessages.razor" />
+    <Content Remove="Components\PegSelection.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Components\CodeAndKeyPegs.razor.css" />
+    <None Remove="Components\CodePegs.razor.css" />
+    <None Remove="Components\KeyPegs.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BlazorApplicationInsights" Version="1.6.0" />
     <PackageReference Include="CNInnovation.Codebreaker.Services" Version="2.0.0-beta1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" />
