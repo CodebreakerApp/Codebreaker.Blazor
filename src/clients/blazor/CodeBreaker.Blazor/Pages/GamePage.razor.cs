@@ -78,6 +78,7 @@ public partial class GamePage
             InProgress = true;
             CreateGameResponse response = await Client.StartGameAsync(Name, "6x4Game");
             Game = response.Game;
+            _maxMoves = response.Game.Type.MaxMoves;
             GameStatus = GameMode.Started;
         }
         catch (Exception ex)

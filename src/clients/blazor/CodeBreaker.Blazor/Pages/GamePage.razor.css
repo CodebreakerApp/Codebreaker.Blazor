@@ -26,13 +26,14 @@
 .container,
 .game-container,
 .colors,
+.numbers,
 .game-container .game-row,
 .game-container .game-move {
     display: flex;
     gap: 1rem;
 }
 
-.game-container, .colors {
+.game-container, .colors, .numbers {
     flex-direction: column;
 }
 
@@ -41,7 +42,7 @@
         pointer-events: none;
     }
 
-        .game-container .game-row.selectable {
+        .game-container .game-row.selectable, .colors .selectable {
             cursor: pointer;
             pointer-events: initial;
         }
@@ -54,7 +55,8 @@
 
         .game-container .game-row div,
         .game-container .game-move div,
-        .colors div {
+        .colors div,
+        .numbers div {
             width: var(--game-field-width);
             height: var(--game-field-height);
             border: 1px solid #1b8ce3;

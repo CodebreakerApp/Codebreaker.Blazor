@@ -1,7 +1,7 @@
 ﻿@page "/game"
 @using CodeBreaker.Blazor.Components
 
-<h2>Game</h2>
+<h2>Game @Game?.Type.Name</h2>
 
 @*<PageMessages Messages="_pageMessageService.Messages" />*@
 
@@ -23,11 +23,15 @@
 else if (GameStatus is GameMode.Started or GameMode.MoveSet)
 {
     <div class="container">
+        <div class="numbers">
+            @for (int i = _maxMoves; i > 0; i--) {
+                <div class="move-number">@i</div>
+            }
+        </div>
         <div class="game-container">
             @for (int i = OpenMoves; i > 0; i--)
             {
                 <div class="@(i == 1 ? "game-row selectable": "game-row")">
-                    <div class="move-number">@i</div>
                     <div class="@(i == 1 ? _currentMove[0].Item2 : "")" @onclick="() => SelectField(0)"></div>
                     <div class="@(i == 1 ? _currentMove[1].Item2 : "")" @onclick="() => SelectField(1)"></div>
                     <div class="@(i == 1 ? _currentMove[2].Item2 : "")" @onclick="() => SelectField(2)"></div>
@@ -45,10 +49,9 @@ else if (GameStatus is GameMode.Started or GameMode.MoveSet)
                     }
                 </div>
             }
-            @foreach (var move in GameMoves.Reverse())
+            @foreach (var (index, move) in GameMoves.Reverse().Select((move, i) => (i, move)))
             {
                 <div class="game-move">
-                    <div class="move-number">1</div>
                     @foreach (var guess in move.GuessPegs)
                     {
 
