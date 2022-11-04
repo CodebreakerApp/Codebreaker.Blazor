@@ -1,7 +1,14 @@
 ﻿@namespace CodeBreaker.UI
 
-@*<MudNavMenu>
-    @foreach(var item in MenuItems) {
-        <MudNavLink Href="@item.Href" Match="item.Match" Icon="@item.Icon">@item.Label</MudNavLink>
+<ul>
+    @foreach (var item in MenuItems)
+    {
+        <li>
+            <FluentAnchor Href="@item.Href" Appearance=@SetAppearance(item.Href)>@item.Label</FluentAnchor>
+        </li>
     }
-</MudNavMenu>*@
+</ul>
+
+
+
+

@@ -43,7 +43,7 @@ namespace CodeBreaker.UI
         };
 
         private bool _isDark = false;
-        private bool _drawerOpen = true;
+        private bool _drawerOpen = false;
         void DrawerToggle() => _drawerOpen = !_drawerOpen;
     }
 }

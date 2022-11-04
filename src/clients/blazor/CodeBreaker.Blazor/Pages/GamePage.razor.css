@@ -57,14 +57,14 @@
         .colors div {
             width: var(--game-field-width);
             height: var(--game-field-height);
-            border: 1px solid #f3f3f3;
+            border: 1px solid #1b8ce3;
             border-radius: 0.25rem;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .game-container .game-row.selectable div:hover {
+        .game-container .game-row.selectable div:hover, .colors .selectable:hover {
             box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         }
 
@@ -133,3 +133,36 @@
         width: 100%;
     }
 }
+
+
+.white {
+    background-color: #fff;
+    color: #000;
+}
+
+.yellow {
+    background-color: yellow;
+    color: #000;
+}
+
+.red, .blue, .green, .black {
+    color: #fff;
+}
+
+.black {
+    background-color: #000;
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.green {
+    background-color: green;
+}
+
+

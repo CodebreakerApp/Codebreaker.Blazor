@@ -1,26 +1,36 @@
 ﻿@namespace CodeBreaker.UI
 
-@*<MudThemeProvider Theme="@_defaultTheme" @bind-IsDarkMode="_isDark" />
-<MudDialogProvider />
-<MudSnackbarProvider />
+<div id="container" @ref="container">
+    <header class="@(_isDark ? "dark" : "light")">
+        <input type="checkbox" id="menu-toggle" checked=@_drawerOpen @onclick=DrawerToggle />
+        <label for="menu-toggle" class="menu-icon">
+            <FluentIcon Name="@FluentIcons.Navigation" Size="IconSize.Size24" Filled=true></FluentIcon>
+        </label>
 
-<MudLayout>
-    <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="DrawerToggle" />
-        <MudText Typo="Typo.h5" Class="ml-3">Codebreaker</MudText>
-        <MudSpacer />
-        <MudToggleIconButton @bind-Toggled="@_isDark"
-                             Icon="@Icons.Filled.DarkMode" 
-                             ToggledIcon="@Icons.Filled.LightMode" />
-    </MudAppBar>
-    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
-        @DrawerContent
-    </MudDrawer>
-    <MudMainContent>
-        <MudContainer>
-            @ChildContent
-        </MudContainer>
-    </MudMainContent>
-</MudLayout>*@
+        <span>CodeBreaker</span>
 
-@ChildContent
+        <FluentSwitch @onchange=SwitchTheme>
+            <span style="padding-inline-end: 14px; color: var(--neutral-foreground-rest);"> Theme</span>
+            <span style="color: var(--neutral-foreground-rest)" slot="checked-message">Dark</span>
+            <span style="color: var(--neutral-foreground-rest)" slot="unchecked-message">Light</span>
+        </FluentSwitch>
+    </header>
+
+    <main>
+        
+        <nav class="@(_drawerOpen ? "active" : "")">
+            @DrawerContent
+        </nav>
+
+        <article class="@(_drawerOpen ? "" : "active")">
+            <ErrorBoundary>
+                <ChildContent>
+                    @ChildContent
+                </ChildContent>
+                <ErrorContent Context="ex">
+                    <div class="blazor-error-boundary">@ex.Message</div>
+                </ErrorContent>
+            </ErrorBoundary>
+        </article>
+    </main>
+</div>

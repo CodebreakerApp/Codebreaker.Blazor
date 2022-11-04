@@ -34,6 +34,9 @@ public partial class GamePage
         new Tuple<int, string>(3, string.Empty)
     };
 
+    private bool _playButtonDisabled =>
+        _currentMove.Any(m => String.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected");
+
 
     [Inject]
     private IGameClient Client { get; init; } = null!;

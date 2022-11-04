@@ -15,6 +15,8 @@ namespace CodeBreaker.UI
         [Parameter]
         public string Label { get; set; } = string.Empty;
         [Parameter]
+        public string CssClass { get; set; } = string.Empty;
+        [Parameter]
         public int MaxLength { get; set; } = int.MaxValue;
     }
 }

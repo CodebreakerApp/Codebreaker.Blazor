@@ -7,8 +7,8 @@
 
 @if (GameStatus == GameMode.NotRunning)
 {
-    <div class="d-flex start-game-container">
-        <CodeBreakerTextField @bind-Value="Name" Label="Enter your gamername" Required="true" RequiredError="The name is required" MaxLength="100" />
+    <div class="flex start-game-container">
+        <CodeBreakerTextField CssClass="flex-1" @bind-Value="Name" Label="Enter your gamername" Required="true" RequiredError="The name is required" MaxLength="100" />
         <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(Name))" OnClick="async () => await StartGameAsync()">
             @if (InProgress)
             {
@@ -35,7 +35,7 @@ else if (GameStatus is GameMode.Started or GameMode.MoveSet)
                     @if (i == 1)
                     {
                         <div>
-                            <CodeBreakerIconButton
+                            <CodeBreakerIconButton Disabled="_playButtonDisabled"
                                OnClick="async () => await SetMoveAsync()"></CodeBreakerIconButton>
                         </div>
                     }
