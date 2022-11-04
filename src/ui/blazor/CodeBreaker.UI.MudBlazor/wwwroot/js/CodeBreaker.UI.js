@@ -1,12 +1,23 @@
 ﻿function init() {
-    const cssId = 'code-breaker-ui-mudblazor-css'
+    const mudBlazorCssId = 'code-breaker-ui-mudblazor-css'
+    if (!document.getElementById(mudBlazorCssId)) {
+        var head = document.getElementsByTagName('head')[0];
+        var link = document.createElement('link');
+        link.id = mudBlazorCssId;
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '_content/MudBlazor/MudBlazor.min.css';
+        head.appendChild(link);
+    }
+
+    const cssId = 'code-breaker-ui-css'
     if (!document.getElementById(cssId)) {
         var head = document.getElementsByTagName('head')[0];
         var link = document.createElement('link');
         link.id = cssId;
         link.rel = 'stylesheet';
         link.type = 'text/css';
-        link.href = '_content/MudBlazor/MudBlazor.min.css';
+        link.href = '_content/CodeBreaker.UI/CodeBreaker.UI.min.css';
         head.appendChild(link);
     }
     if (!document.getElementById(cssId)) {

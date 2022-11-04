@@ -1,31 +1,20 @@
 ﻿@namespace CodeBreaker.UI
 
-<MudCard>
-    <div class="header">
+<MudCard Class="@Class">
+    <MudCardHeader>
         <div>
             @HeaderContent
         </div>
         <div>
             @HeaderActions
         </div>
-    </div>
-    <div>
+    </MudCardHeader>
+    <MudCardContent>
         @CardContent
-    </div>
-    <div>
+    </MudCardContent>
+    <MudCardActions Style="float: right;">
         @CardActions
-    </div>
+    </MudCardActions>
 </MudCard>
 
-@code {
-    [Parameter]
-    public RenderFragment HeaderContent { get; set; }
 
-    [Parameter]
-    public RenderFragment HeaderActions { get; set; }
-
-    [Parameter]
-    public RenderFragment CardContent { get; set; }
-    [Parameter]
-    public RenderFragment CardActions { get; set; }
-}

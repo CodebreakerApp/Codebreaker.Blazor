@@ -1,6 +1,4 @@
-﻿using MudBlazor;
-
-namespace CodeBreaker.Blazor.ViewModels;
+﻿namespace CodeBreaker.Blazor.ViewModels;
 
 public class MessageContext
 {

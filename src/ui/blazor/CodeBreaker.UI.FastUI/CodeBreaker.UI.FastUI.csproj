@@ -4,8 +4,8 @@
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>CodeBreaker.UI</AssemblyName>
-    <RootNamespace>$(MSBuildProjectName.Replace(" ", "_").Replace(".MudBlazor", ""))</RootNamespace>
+    <RootNamespace>$(MSBuildProjectName.Replace(" ", "_").Replace(".FastUI", ""))</RootNamespace>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "_").Replace(".FastUI", ""))</AssemblyName>
     <Configurations>Debug;Release;Mudblazor;FastUI</Configurations>
   </PropertyGroup>
 
@@ -16,7 +16,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" />
-    <PackageReference Include="MudBlazor" Version="6.0.17" />
+    <PackageReference Include="Microsoft.Fast.Components.FluentUI" Version="1.5.3" />
   </ItemGroup>
 
 </Project>

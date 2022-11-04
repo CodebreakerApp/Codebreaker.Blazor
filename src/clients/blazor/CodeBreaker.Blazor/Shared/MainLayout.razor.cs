@@ -7,10 +7,10 @@ namespace CodeBreaker.Blazor.Shared
     {
         private IEnumerable<NavLinkItem> _menuItems = new List<NavLinkItem>
         {
-            new NavLinkItem("Home", "/", NavLinkMatch.All, MudBlazor.Icons.Material.Filled.Home),
-            new NavLinkItem("Game", "/game", NavLinkMatch.All, MudBlazor.Icons.Material.Filled.Gamepad),
-            new NavLinkItem("Reports", "/reports", NavLinkMatch.All, MudBlazor.Icons.Material.Filled.ViewList),
-            new NavLinkItem("About", "/about", NavLinkMatch.All, MudBlazor.Icons.Material.Filled.Info)
+            new NavLinkItem("Home", "/", NavLinkMatch.All, ""),
+            new NavLinkItem("Game", "/game", NavLinkMatch.All, ""),
+            new NavLinkItem("Reports", "/reports", NavLinkMatch.All, ""),
+            new NavLinkItem("About", "/about", NavLinkMatch.All, "")
         };
     }
 }

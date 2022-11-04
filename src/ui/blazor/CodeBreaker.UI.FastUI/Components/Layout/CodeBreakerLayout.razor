@@ -1,0 +1,26 @@
+﻿@namespace CodeBreaker.UI
+
+@*<MudThemeProvider Theme="@_defaultTheme" @bind-IsDarkMode="_isDark" />
+<MudDialogProvider />
+<MudSnackbarProvider />
+
+<MudLayout>
+    <MudAppBar Elevation="1">
+        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="DrawerToggle" />
+        <MudText Typo="Typo.h5" Class="ml-3">Codebreaker</MudText>
+        <MudSpacer />
+        <MudToggleIconButton @bind-Toggled="@_isDark"
+                             Icon="@Icons.Filled.DarkMode" 
+                             ToggledIcon="@Icons.Filled.LightMode" />
+    </MudAppBar>
+    <MudDrawer @bind-Open="_drawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
+        @DrawerContent
+    </MudDrawer>
+    <MudMainContent>
+        <MudContainer>
+            @ChildContent
+        </MudContainer>
+    </MudMainContent>
+</MudLayout>*@
+
+@ChildContent

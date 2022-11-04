@@ -1,12 +1,9 @@
 ﻿using System.ComponentModel;
-using System.Drawing;
-using System.Text.Json;
 using CodeBreaker.Blazor.Services;
 using CodeBreaker.Blazor.ViewModels;
 using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
 using Microsoft.AspNetCore.Components;
-using MudBlazor;
 
 namespace CodeBreaker.Blazor.Pages;
 
@@ -43,8 +40,6 @@ public partial class GamePage
 
     private PageMessageService _pageMessageService = new();
 
-    private MudForm? Form { get; set; } = new();
-
     public GameMode GameStatus { get; private set; } = GameMode.NotRunning;
 
     public string Name { get; private set; } = string.Empty;
@@ -74,11 +69,6 @@ public partial class GamePage
 
     public async Task StartGameAsync()
     {
-        Form?.Validate();
-
-        if (!Form?.IsValid == true)
-            return;
-
         try
         {
             InitializeValues();

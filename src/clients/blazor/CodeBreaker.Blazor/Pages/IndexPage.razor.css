@@ -1,0 +1,12 @@
+﻿.content-container {
+    padding: 1rem 2rem;
+}
+
+h6 {
+    font-size: 1.5rem;
+}
+
+::deep .card {
+    min-width: 20rem;
+    flex: 1;
+}

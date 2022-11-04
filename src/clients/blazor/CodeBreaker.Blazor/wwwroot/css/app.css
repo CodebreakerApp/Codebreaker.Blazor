@@ -1,16 +1,47 @@
-﻿* {
+﻿:root {
+    --gap-1: 0.5rem;
+    --gap-2: 0.75rem;
+    --gap-3: 1rem;
+    --gap-4: 1.25rem;
+    --gap-5: 1.5rem;
+}
+
+* {
     -webkit-tap-highlight-color: transparent;
 }
 
-.mud-container {
-    padding-top: 2em;
-    padding-bottom: 2em;
+.flex, .flex-column, .flex-row, .flex-wrap {
+    display: flex;
 }
 
-.button-slot-start {
-    margin-right: .5rem;
+.flex-column {
+    flex-direction: column;
 }
 
-.mud-alert-message {
-    width: 100%;
+.flex-row {
+    flex-direction: row;
+}
+
+.flex-wrap {
+    flex-flow: wrap;
+}
+
+.gap-1 {
+    gap: var(--gap-1) !important;
+}
+
+.gap-2 {
+    gap: var(--gap-2) !important;
+}
+
+.gap-3 {
+    gap: var(--gap-3) !important;
+}
+
+.gap-4 {
+    gap: var(--gap-4) !important;
+}
+
+.gap-5 {
+    gap: var(--gap-5) !important;
 }
