@@ -1,0 +1,17 @@
+﻿@namespace CodeBreaker.UI
+@typeparam T
+
+<MudTable Items="@Items" Hover="true">
+    <HeaderContent>
+        @foreach (var header in Headers)
+        {
+            <MudTh>@header</MudTh>
+        }
+
+    </HeaderContent>
+    <RowTemplate>
+        @foreach(var item in Columns) {
+            <MudTd DataLabel="@item.Title">@(item.FieldSelector!(context!)?.ToString())</MudTd>
+        }
+    </RowTemplate>
+</MudTable>

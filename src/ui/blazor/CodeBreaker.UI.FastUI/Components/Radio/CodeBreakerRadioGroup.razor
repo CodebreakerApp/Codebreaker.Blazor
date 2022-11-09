@@ -1,0 +1,9 @@
+﻿@namespace CodeBreaker.UI
+
+ <FluentRadioGroup Value="@Value" ValueChanged="@ValueChanged">
+    @foreach(var item in Items)
+    {
+        <FluentRadio Value="@item.Value">@item.Key</FluentRadio>
+    }
+</FluentRadioGroup>
+

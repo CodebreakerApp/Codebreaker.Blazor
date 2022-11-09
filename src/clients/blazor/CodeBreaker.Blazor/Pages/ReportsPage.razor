@@ -41,9 +41,9 @@
                 <MudTh Style="width: 40px"></MudTh>
             </HeaderContent>
             <RowTemplate>
-                <MudTd DataLabel="Gamername">@context.Username</MudTd>
-                <MudTd DataLabel="Start">@context.Start</MudTd>
-                <MudTd DataLabel="End">
+                <div DataLabel="Gamername">@context.Username</div>
+                <div DataLabel="Start">@context.Start</div>
+                <div DataLabel="End">
                     @if (context.End is null)
                     {
                         <MudTooltip Text="User did not finish the game">
@@ -54,9 +54,9 @@
                     {
                         @context.End
                     }
-                </MudTd>
-                <MudTd DataLabel="Number of moves">@context.Moves.Count()</MudTd>
-                <MudTd DataLabel="Expand for details">
+                </div>
+                <div DataLabel="Number of moves">@context.Moves.Count()</div>
+                <div DataLabel="Expand for details">
                     @if (_game?.GameId == context.GameId)
                     {
                         <MudIconButton Icon="@Icons.Outlined.KeyboardArrowDown" Size="Size.Small" @onclick="HideDetails" />
@@ -65,7 +65,7 @@
                     {
                         <MudIconButton Icon="@Icons.Outlined.KeyboardArrowRight" Size="Size.Small" @onclick="async () => await ShowDetails(context.GameId)" />
                     }
-                </MudTd>
+                </div>
             </RowTemplate>
             <ChildRowContent>
 		    @if (_game?.GameId == context.GameId)
@@ -80,6 +80,50 @@
         </MudTable>
     </div>
 }
-
-
 *@
+
+<EditForm Model="_date">
+    <div>
+        <CodeBreakerDatePicker Label="Select the date" @bind-Date="_date" />
+    </div>
+    <div xs="12" md="3">
+        <CodeBreakerButton Disabled=@_isLoadingGames @onclick="async () => await GetGames()">
+            Load games
+        </CodeBreakerButton>
+    </div>
+</EditForm>
+
+@if (_games is not null)
+{
+    <CodeBreakerDataGrid Items="_games" Columns="_columns" Headers="_headers">
+    </CodeBreakerDataGrid>
+
+    @*<div class="reports-table">
+        <div>
+            <div>
+                <div>Gamername</div>
+                <div>
+                    Start
+                </div>
+                <div>End</div>
+                <div>
+                    Number of moves
+                </div>
+            </div>
+            @foreach (var context in _games)
+            {
+                <div>
+                    <div DataLabel="Gamername">@context.Username</div>
+                    <div DataLabel="Start">@context.Start</div>
+                    <div DataLabel="End">
+                        @if (context.End is not null)
+                        {
+                            @context.End
+                        }
+                    </div>
+                    <div DataLabel="Number of moves">@context.Moves.Count()</div>
+                </div>
+            }
+        </div>
+    </div>*@
+}

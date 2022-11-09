@@ -74,8 +74,6 @@
             border: 1px solid red;
         }
 
-        .game-container .game-row.selectable div:first-child:hover,
-        .game-container .game-row.selectable div:first-child:active,
         .game-container .game-row.selectable div:last-child:hover,
         .game-container .game-row.selectable div:last-child:active {
             box-shadow: none;

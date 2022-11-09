@@ -9,7 +9,9 @@
 {
     <div class="flex start-game-container">
         <CodeBreakerTextField CssClass="flex-1" @bind-Value="Name" Label="Enter your gamername" Required="true" RequiredError="The name is required" MaxLength="100" />
-        <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(Name))" OnClick="async () => await StartGameAsync()">
+        <CodeBreakerRadioGroup @bind-Value="_selectedGameType" Items="_gameTypes"></CodeBreakerRadioGroup>
+        @*TODO: switch to Form *@
+        <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(Name) || String.IsNullOrWhiteSpace(_selectedGameType))" OnClick="async () => await StartGameAsync()">
             @if (InProgress)
             {
                 <div class="button-slot-start">
@@ -32,14 +34,14 @@ else if (GameStatus is GameMode.Started or GameMode.MoveSet)
             @for (int i = OpenMoves; i > 0; i--)
             {
                 <div class="@(i == 1 ? "game-row selectable": "game-row")">
-                    <div class="@(i == 1 ? _currentMove[0].Item2 : "")" @onclick="() => SelectField(0)"></div>
-                    <div class="@(i == 1 ? _currentMove[1].Item2 : "")" @onclick="() => SelectField(1)"></div>
-                    <div class="@(i == 1 ? _currentMove[2].Item2 : "")" @onclick="() => SelectField(2)"></div>
-                    <div class="@(i == 1 ? _currentMove[3].Item2 : "")" @onclick="() => SelectField(3)"></div>
+                    @for(int y = 0; y < Game.Value.Type.Holes; y++) {
+                        var localVariable = y;
+                        <div class="@(i == 1 ? _currentMove[localVariable].Item2 : "")" @onclick="() => SelectField(localVariable)"></div>
+                    }
                     @if (i == 1)
                     {
                         <div>
-                            <CodeBreakerIconButton Disabled="_playButtonDisabled"
+                            <CodeBreakerIconButton
                                OnClick="async () => await SetMoveAsync()"></CodeBreakerIconButton>
                         </div>
                     }

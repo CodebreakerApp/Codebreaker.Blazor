@@ -1,0 +1,14 @@
+﻿@namespace CodeBreaker.UI
+@typeparam T
+
+<FluentDataGrid id="manualGrid" RowsData="Items" GenerateHeader=GenerateHeaderOption.None ColumnDefinitions="_columnDefinitions">
+    <FluentDataGridRow RowType="DataGridRowType.Header">
+        @foreach (var header in Headers)
+        {
+            <FluentDataGridCell CellType="DataGridCellType.ColumnHeader">@header</FluentDataGridCell>
+        }
+    </FluentDataGridRow>
+</FluentDataGrid>
+
+
+

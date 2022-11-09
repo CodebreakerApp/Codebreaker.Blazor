@@ -1,4 +1,5 @@
 using CodeBreaker.Shared.Models.Api;
+using CodeBreaker.Shared.Models.Data.DataGrid;
 
 namespace CodeBreaker.Blazor.Pages
 {
@@ -6,10 +7,23 @@ namespace CodeBreaker.Blazor.Pages
     {
         private ILogger? _logger;
         private DateTime? _date = DateTime.Today;
-        private IEnumerable<GameDto>? _games;
+        private List<GameDto>? _games;
         private GameDto? _game;
         private bool _isLoadingGames = false;
         private bool _isLoadingGame = false;
+
+        private readonly List<string> _headers = new()
+        {
+            "Gamername", "Start", "End", "Number of Moves"
+        };
+
+        private List<CodeBreakerColumnDefinition<GameDto>> _columns = new()
+        {
+            new CodeBreakerColumnDefinition<GameDto>("Gamername", game => game.Username),
+            new CodeBreakerColumnDefinition<GameDto>("Start", game => game.Start),
+            new CodeBreakerColumnDefinition<GameDto>("End", game => game.End.HasValue ? game.End.Value.ToShortDateString() : string.Empty),
+            new CodeBreakerColumnDefinition<GameDto>("Number of Moves", game => game.Moves.Count())
+        };
         protected override void OnInitialized()
         {
             _logger = LoggerFactory.CreateLogger<ReportsPage>();
@@ -24,7 +38,7 @@ namespace CodeBreaker.Blazor.Pages
             {
                 GetGamesResponse? response = await Client.GetGamesAsync(_date);
                 _logger?.LogDebug("Got response", response);
-                _games = response?.Games ?? Array.Empty<GameDto>();
+                _games = response?.Games?.ToList() ?? new List<GameDto>();
             }
             catch (Exception ex)
             {

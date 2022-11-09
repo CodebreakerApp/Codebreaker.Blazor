@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Components;
 
 namespace CodeBreaker.Blazor.Pages;
 
+
+//TODO: Add State Management
 public enum GameMode
 {
     NotRunning,
@@ -26,20 +28,23 @@ public partial class GamePage
     private bool _selectable = false;
     private int _selectedField = -1;
 
-    private Tuple<int, string>[] _currentMove = new Tuple<int, string>[]
-    {
-        new Tuple<int, string>(0, string.Empty),
-        new Tuple<int, string>(1, string.Empty),
-        new Tuple<int, string>(2, string.Empty),
-        new Tuple<int, string>(3, string.Empty)
+    private string _selectedGameType = string.Empty;
+
+    //TODO: Get Data from API
+    private IEnumerable<KeyValuePair<string, string>> _gameTypes = new List<KeyValuePair<string, string>> {
+        new KeyValuePair<string, string>("8x5Game", "8x5Game"),
+        new KeyValuePair<string, string>("6x4MiniGame", "6x4MiniGame"),
+        new KeyValuePair<string, string>("6x4Game", "6x4Game"),
     };
+
+    private List<Tuple<int, string>> _currentMove = new();
 
     private bool _playButtonDisabled =>
         _currentMove.Any(m => String.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected");
 
 
     [Inject]
-    private IGameClient Client { get; init; } = null!;
+    private IGameClient Client { get; init; } = default!;
 
     private PageMessageService _pageMessageService = new();
 
@@ -76,9 +81,13 @@ public partial class GamePage
         {
             InitializeValues();
             InProgress = true;
-            CreateGameResponse response = await Client.StartGameAsync(Name, "6x4Game");
+            CreateGameResponse response = await Client.StartGameAsync(Name, String.IsNullOrWhiteSpace(_selectedGameType) ? "6x4Game" : _selectedGameType);
             Game = response.Game;
             _maxMoves = response.Game.Type.MaxMoves;
+            for (int i = 0; i < response.Game.Type.Holes; i++)
+            {
+                _currentMove.Add(new Tuple<int, string>(i, string.Empty));
+            }
             GameStatus = GameMode.Started;
         }
         catch (Exception ex)
@@ -150,17 +159,19 @@ public partial class GamePage
     private void SelectField(int index)
     {
         _selectedField = index;
-        for (int i = 0; i < _currentMove.Length; i++)
+        for (int i = 0; i < _currentMove.Count; i++)
         {
             var currentClass = _currentMove[i].Item2.Replace("selected", string.Empty).Trim();
             _currentMove[i] = new Tuple<int, string>(i, currentClass);
         }
         _currentMove[_selectedField] = new Tuple<int, string>(_selectedField, $"selected");
         _selectable = true;
+        Console.WriteLine($"{_selectedField}");
     }
 
     private void SelectColor(string color)
     {
+        Console.WriteLine($"{_selectedField} {color}");
         SelectionFields[_selectedField] = color;
         _currentMove[_selectedField] = new Tuple<int, string>(_selectedField, $"selected {color.ToLower()}");
     }
@@ -179,13 +190,14 @@ public partial class GamePage
         SelectionFields = new string[SelectionFields.Length];
         _selectedField = -1;
         _selectable = false;
-        _currentMove = new Tuple<int, string>[]
+        _currentMove = new List<Tuple<int, string>>();
+        if (Game.HasValue)
         {
-            new Tuple<int, string>(0, string.Empty),
-            new Tuple<int, string>(1, string.Empty),
-            new Tuple<int, string>(2, string.Empty),
-            new Tuple<int, string>(3, string.Empty)
-        };
+            for (int i = 0; i < Game.Value.Type.Holes; i++)
+            {
+                _currentMove.Add(new Tuple<int, string>(i, string.Empty));
+            }
+        }
     }
 
     private string GetPegSelectionLabel(int i) =>

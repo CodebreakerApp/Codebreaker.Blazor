@@ -5,6 +5,6 @@ namespace CodeBreaker.UI
     public partial class CodeBreakerTabs
     {
         [Parameter]
-        public RenderFragment ChildContent { get; set; }
+        public RenderFragment ChildContent { get; set; } = default!;
     }
 }

@@ -22,7 +22,6 @@ namespace CodeBreaker.UI
         void DrawerToggle() => _drawerOpen = !_drawerOpen;
 
         ElementReference container;
-        private IJSObjectReference? module;
         float baseLayerLuminance = 0.98f;
 
         protected override void OnInitialized()
