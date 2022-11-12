@@ -1,0 +1,66 @@
+﻿@if (!String.IsNullOrWhiteSpace(_winTerm))
+{
+    <h2 style="text-align: center;">@_winTerm</h2>
+}
+
+<div class="@(GameAlreadyFinished ? "container finished" : "container")">
+    <div class="numbers">
+        @for (int i = Game.Type.MaxMoves; i > 0; i--)
+        {
+            <div class="move-number">@i</div>
+        }
+    </div>
+    <div class="game-container">
+        @for (int i = _openMoves; i > 0; i--)
+        {
+            <div class="@(i == 1 ? "game-row selectable": "game-row")">
+                @for (int y = 0; y < Game.Type.Holes; y++)
+                {
+                    var localVariable = y;
+                    <div class="@(i == 1 ? _currentMove[localVariable].Item2 : "")" @onclick="() => SelectField(localVariable)"></div>
+                }
+                @if (i == 1 && !GameAlreadyFinished)
+                {
+                    <div>
+                        <CodeBreakerIconButton Disabled="_playButtonDisabled" OnClick="async () => await SetMoveAsync()"></CodeBreakerIconButton>
+                    </div>
+                }
+                else
+                {
+                    <div class="key-pegs"></div>
+                }
+            </div>
+        }
+        @foreach (var move in _gameMoves.Reverse())
+        {
+            <div class="game-move">
+                @foreach (var guess in move.GuessPegs)
+                {
+
+                    <div class="@(guess.ToLower())"></div>
+                }
+                <div class="@($"key-pegs {_keyPegsFormat}")">
+                    @for (int y = 0; y < move.KeyPegs.Black; y++)
+                    {
+                        <div class="black">
+                        </div>
+                    }
+                    @for (int y = 0; y < move.KeyPegs.White; y++)
+                    {
+                        <div class="white">
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <div class="colors">
+        @foreach (string colorField in Game.Type.Fields ?? Array.Empty<string>())
+        {
+            <div class="@(_selectable ? $"{colorField.ToLower()} selectable": colorField.ToLower())"
+             @onclick="() => SelectColor(colorField)">
+                @colorField[0]
+            </div>
+        }
+    </div>
+</div>

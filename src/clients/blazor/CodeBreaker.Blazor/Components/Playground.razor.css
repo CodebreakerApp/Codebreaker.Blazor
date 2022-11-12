@@ -1,0 +1,196 @@
+﻿.start-game-container {
+    align-items: flex-end;
+    gap: 1rem;
+}
+
+.container {
+    --game-field-width: 3rem;
+    --game-field-height: 3rem;
+    --key-pegs-width: 1.3rem;
+    --key-pegs-height: 1.3rem;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+}
+
+    .container.finished {
+        pointer-events: none;
+    }
+
+@media (max-width: 763px) {
+    .container {
+        --game-field-width: 2.25rem;
+        --game-field-height: 2.25rem;
+        --key-pegs-width: 0.85rem;
+        --key-pegs-height: 0.85rem;
+    }
+}
+
+.container,
+.game-container,
+.colors,
+.numbers,
+.game-container .game-row,
+.game-container .game-move {
+    display: flex;
+    gap: 1rem;
+}
+
+.game-container, .colors, .numbers {
+    flex-direction: column;
+}
+
+    .game-container .game-row,
+    .game-container .game-move {
+        pointer-events: none;
+    }
+
+        .game-container .game-row.selectable, .colors .selectable {
+            cursor: pointer;
+            pointer-events: initial;
+        }
+
+        .game-container .game-row div.move-number,
+        .game-container .game-row div.key-pegs,
+        .game-container .game-row div.color {
+            cursor: auto;
+        }
+
+        .game-container .game-row div,
+        .game-container .game-move div,
+        .colors div,
+        .numbers div {
+            width: var(--game-field-width);
+            height: var(--game-field-height);
+            border: 1px solid #1b8ce3;
+            border-radius: 0.25rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .game-container .game-row.selectable div:hover, .colors .selectable:hover {
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+
+        .game-container .game-row.selectable div.selected {
+            border: 1px solid red;
+        }
+
+        .game-container .game-row.selectable div:last-child:hover,
+        .game-container .game-row.selectable div:last-child:active {
+            box-shadow: none;
+        }
+
+        .game-container .game-row.selectable div:last-child {
+            border: none;
+        }
+
+.finished .game-container .game-row.selectable {
+    pointer-events: none;
+    cursor: auto;
+}
+
+.finished .game-container .game-row.selectable div:last-child {
+    border: 1px solid #1b8ce3 !important;
+}
+
+.game-container .game-row.selectable div:active {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
+
+::deep .mud-icon-button.mud-button {
+    width: 100%;
+    height: 100%;
+}
+
+.key-pegs.two-two {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+}
+
+.key-pegs.three-two {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    --key-pegs-width: 1rem;
+    --key-pegs-height: 1rem;
+}
+
+    .key-pegs div {
+        width: var(--key-pegs-width) !important;
+        height: var(--key-pegs-height) !important;
+        border: 1px solid deeppink !important;
+    }
+
+    .key-pegs .white {
+        background-color: #fff;
+    }
+
+    .key-pegs .black {
+        background-color: #000;
+    }
+
+.peg-selection-grid {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.peg-selection-grid-item {
+    min-width: 200px;
+}
+
+@media only screen and (max-width : 667px) {
+    .start-game-container {
+        align-items: initial;
+        flex-direction: column;
+    }
+
+    .peg-selection-grid-item {
+        width: 100%;
+    }
+}
+
+
+.white {
+    background-color: #fff;
+    color: #000;
+}
+
+.yellow {
+    background-color: yellow;
+    color: #000;
+}
+
+.red, .blue, .green, .black {
+    color: #fff;
+}
+
+.black {
+    background-color: #000;
+}
+
+.red {
+    background-color: red;
+}
+
+.blue {
+    background-color: blue;
+}
+
+.green {
+    background-color: green;
+}
+
+.violet {
+    background-color: violet;
+    color: white;
+}
+
+.lightblue {
+    background-color: lightblue;
+    color: #000;
+}

@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
+﻿using CodeBreaker.Shared.Services.Dialog;
+using CodeBreaker.UI.Services.Dialog;
 using Microsoft.Extensions.DependencyInjection;
 using MudBlazor.Services;
 
@@ -12,6 +8,7 @@ public static class ServiceCollectionExtensions
 {
     public static void AddCodeBreakerUI(this IServiceCollection services)
     {
+        services.AddScoped<ICodeBreakerDialogService, MudBlazorDialogService>();
         services.AddMudServices();
     }
 }

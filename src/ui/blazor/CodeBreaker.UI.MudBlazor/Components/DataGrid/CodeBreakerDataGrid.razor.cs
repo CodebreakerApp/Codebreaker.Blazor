@@ -1,5 +1,6 @@
 using CodeBreaker.Shared.Models.Data.DataGrid;
 using Microsoft.AspNetCore.Components;
+using MudBlazor;
 
 namespace CodeBreaker.UI
 {
@@ -16,5 +17,17 @@ namespace CodeBreaker.UI
 
         [Parameter]
         public RenderFragment<T> RowContent { get; set; } = default!;
+
+        [Parameter]
+        public EventCallback<T> RowItemClicked { get; set; } = new();
+
+        private async Task OnRowClicked(TableRowClickEventArgs<T> row)
+        {
+            Console.WriteLine("Row clicked");
+            if (row.Item != null)
+            {
+                await RowItemClicked.InvokeAsync(row.Item);
+            }
+        }
     }
 }

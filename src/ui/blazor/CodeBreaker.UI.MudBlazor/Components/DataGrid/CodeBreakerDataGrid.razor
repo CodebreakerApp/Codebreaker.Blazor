@@ -1,7 +1,7 @@
 ﻿@namespace CodeBreaker.UI
 @typeparam T
 
-<MudTable Items="@Items" Hover="true">
+<MudTable T="T" Items="@Items" Hover="true" OnRowClick="OnRowClicked">
     <HeaderContent>
         @foreach (var header in Headers)
         {

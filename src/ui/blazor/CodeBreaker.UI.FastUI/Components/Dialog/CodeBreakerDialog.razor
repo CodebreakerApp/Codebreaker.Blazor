@@ -1,0 +1,18 @@
+﻿@namespace CodeBreaker.UI
+
+<FluentDialog id="dialog" Hidden="ModalHidden" Modal="false" style="position: absolute; z-index: 100; --dialog-height: unset;">
+    <div class="flex-column" style="padding: 2rem 1rem">
+        <div style="display: flex; justify-content: space-between; width: 100%;">
+            <h3 style="padding-left: 3rem;">@_title</h3>
+            <FluentButton Appearance="Appearance.Stealth" @onclick="OnCloseModalParameterButtonClick">
+                X
+            </FluentButton>
+        </div>
+        <div>
+            @dialogContent
+        </div>
+    </div>
+</FluentDialog>
+
+
+
