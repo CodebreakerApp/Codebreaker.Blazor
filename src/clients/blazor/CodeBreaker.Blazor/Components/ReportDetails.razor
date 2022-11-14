@@ -1,6 +1,4 @@
-﻿@using CodeBreaker.Shared.Models.Api
-
-<div class="component-root">
+﻿<div class="component-root">
     <div style="width: 100%;">
         <div class="flex">
             <div>@Game?.Code</div>
@@ -10,9 +8,9 @@
         {
             <p>No moves in this game</p>
         }
-        else
+        else if (Game.Value.Moves.Count() > 0)
         {
-            @foreach (MoveDto<string> move in Game?.Moves!)
+            @foreach (var move in Game?.Moves!)
             {
                 <div>
                     <div class="flex justify-center">
@@ -27,7 +25,4 @@
     </div>
 </div>
 
-@code {
-    [Parameter]
-    public GameDto? Game { get; set; }
-}
+

@@ -115,8 +115,8 @@
     display: grid !important;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    --key-pegs-width: 1rem;
-    --key-pegs-height: 1rem;
+    --key-pegs-width: 0.8rem;
+    --key-pegs-height: 0.8rem;
 }
 
     .key-pegs div {

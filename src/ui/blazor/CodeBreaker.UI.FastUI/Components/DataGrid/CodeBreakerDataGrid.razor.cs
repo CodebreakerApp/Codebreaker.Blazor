@@ -33,14 +33,20 @@ namespace CodeBreaker.UI
 
         private async Task OnRowClicked(FluentDataGridRow<T> row)
         {
-            Console.WriteLine($"Row clicked. {JsonSerializer.Serialize(row.RowIndex)}");
-            if (row.RowIndex != null)
+            if (row.RowIndex.HasValue)
             {
-                var rowIndex = row.RowIndex ?? 1;
-                var data = Items[rowIndex - 1];
-                if (data != null)
+                try
                 {
-                    await RowItemClicked.InvokeAsync(data);
+                    var rowIndex = row.RowIndex.Value > 0 ? row.RowIndex.Value : 1;
+                    var data = Items[rowIndex - 1];
+                    if (data != null)
+                    {
+                        await RowItemClicked.InvokeAsync(data);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"Row {row.RowIndex}, ItemsCount: {Items.Count}, Error: {ex.Message}");
                 }
             }
         }

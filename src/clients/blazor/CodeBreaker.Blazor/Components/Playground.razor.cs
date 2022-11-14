@@ -8,7 +8,8 @@ using System.Text.Json;
 namespace CodeBreaker.Blazor.Components
 {
     public partial class Playground
-    {
+    {        
+        private string _winTerm = string.Empty;
         private bool _selectable = false;
         private int _selectedField = -1;
         private BindingList<SelectionAndKeyPegs> _gameMoves = new();
@@ -17,6 +18,9 @@ namespace CodeBreaker.Blazor.Components
 
         private int _moveNumber => _gameMoves.Count;
         private int _openMoves => Game.Type.MaxMoves - _moveNumber;
+        private bool _playButtonDisabled =>
+            _currentMove.Any(m => String.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected");
+        private string _keyPegsFormat => Game.Type.Holes > 4 ? "three-two" : "two-two";
 
 
         [Inject]
@@ -27,12 +31,6 @@ namespace CodeBreaker.Blazor.Components
 
         [Parameter]
         public bool GameAlreadyFinished { get; set; } = false;
-
-        private bool _playButtonDisabled =>
-            _currentMove.Any(m => String.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected");
-
-        private string _keyPegsFormat => Game.Type.Name == "8x5Game" ? "three-two" : "two-two";
-        private string _winTerm = string.Empty;
 
         protected override void OnInitialized()
         {

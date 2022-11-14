@@ -1,11 +1,5 @@
 ﻿@page "/reports"
-@using CodeBreaker.Blazor.Components
-@using CodeBreaker.Services
-@using CodeBreaker.Shared.Models.Api
-@using CodeBreaker.Shared.Models.Data
-@using CodeBreaker.Shared.Models.Extensions
-@inject IGameReportClient Client
-@inject ILoggerFactory LoggerFactory
+@using CodeBreaker.Shared.Models.Api;
 
 <h2>Reports</h2>
 
@@ -21,7 +15,7 @@
         </div>
     </EditForm>
 
-    @if (_games is not null)
+    @if (_games is not null && !_isLoadingGames)
     {
         if (_games.Count > 0)
         {

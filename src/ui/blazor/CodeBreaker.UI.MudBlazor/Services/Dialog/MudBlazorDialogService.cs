@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CodeBreaker.Shared.Services.Dialog;
+﻿using CodeBreaker.Shared.Services.Dialog;
 using MudBlazor;
 
 namespace CodeBreaker.UI.Services.Dialog;

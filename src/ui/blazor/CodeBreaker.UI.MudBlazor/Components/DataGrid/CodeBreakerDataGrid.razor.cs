@@ -23,7 +23,6 @@ namespace CodeBreaker.UI
 
         private async Task OnRowClicked(TableRowClickEventArgs<T> row)
         {
-            Console.WriteLine("Row clicked");
             if (row.Item != null)
             {
                 await RowItemClicked.InvokeAsync(row.Item);

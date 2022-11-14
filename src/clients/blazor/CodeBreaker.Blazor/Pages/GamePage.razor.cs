@@ -1,7 +1,4 @@
-﻿using System.ComponentModel;
-using CodeBreaker.Blazor.Services;
-using CodeBreaker.Blazor.ViewModels;
-using CodeBreaker.Services;
+﻿using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
 using Microsoft.AspNetCore.Components;
 
@@ -32,14 +29,17 @@ public partial class GamePage
 
     [Inject]
     private IGameClient Client { get; init; } = default!;
-
-    private PageMessageService _pageMessageService = new();
-
+    
     private GameMode _gameStatus = GameMode.NotRunning;
 
     private string _name = string.Empty;
 
     private GameDto? _game;
+
+    protected override async Task OnInitializedAsync()
+    {
+        await base.OnInitializedAsync();
+    }
 
     public async Task StartGameAsync()
     {
@@ -52,7 +52,8 @@ public partial class GamePage
         }
         catch (Exception ex)
         {
-            _pageMessageService.AddMessage(new(ex.Message));
+            //TODO: Handle Exception
+            Console.WriteLine(ex.Message);
         }
     }
 }

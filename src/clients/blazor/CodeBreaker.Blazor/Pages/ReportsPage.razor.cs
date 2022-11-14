@@ -1,10 +1,9 @@
 using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.ViewModels;
+using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
 using CodeBreaker.Shared.Models.Data.DataGrid;
-using CodeBreaker.Shared.Models.Extensions;
 using CodeBreaker.Shared.Services.Dialog;
-using CodeBreaker.UI;
 using Microsoft.AspNetCore.Components;
 
 namespace CodeBreaker.Blazor.Pages
@@ -14,7 +13,13 @@ namespace CodeBreaker.Blazor.Pages
         [Inject]
         private ICodeBreakerDialogService _codeBreakerDialogService { get; set; } = default!;
 
-        private ILogger? _logger;
+        [Inject]
+        private IGameReportClient _gameClient { get; set; } = default!;
+
+        [Inject]
+        private ILogger<ReportsPage> _logger { get; set; } = default!;
+
+
         private List<GameDto> _games = new();
         private bool _isLoadingGames = false;
         private ReportFilterContext _filter = new();
@@ -31,10 +36,6 @@ namespace CodeBreaker.Blazor.Pages
             new CodeBreakerColumnDefinition<GameDto>("End", game => game.End.HasValue ? game.End.Value : "----"),
             new CodeBreakerColumnDefinition<GameDto>("Number of Moves", game => game.Moves.Count())
         };
-        protected override void OnInitialized()
-        {
-            _logger = LoggerFactory.CreateLogger<ReportsPage>();
-        }
 
         public async Task GetGames()
         {
@@ -43,14 +44,14 @@ namespace CodeBreaker.Blazor.Pages
             _isLoadingGames = true;
             try
             {
-                GetGamesResponse? response = await Client.GetGamesAsync(_filter.Date);
+                GetGamesResponse? response = await _gameClient.GetGamesAsync(_filter.Date);
                 _logger?.LogDebug("Got response", response);
                 _games = response?.Games?.ToList() ?? new List<GameDto>();
             }
             catch (Exception ex)
             {
                 _logger?.LogError(ex, "Error calling GetGames");
-                //throw;
+                //TODO: handle Exception;
             }
             finally
             {
@@ -58,14 +59,14 @@ namespace CodeBreaker.Blazor.Pages
             }
         }
 
-        private async Task ShowReportDialog(GameDto game)
+        private void ShowReportDialog(GameDto game)
         {
             var title = game.Username;
             if (!game.End.HasValue)
             {
                 title = $"{title}: Game was canceled.";
             }
-            else
+            else if (game.Moves.Any())
             {
                 var diff = game.Moves.Last().GuessPegs.Except(game.Code);
                 if (diff.Any())
@@ -83,20 +84,6 @@ namespace CodeBreaker.Blazor.Pages
                     { nameof(Playground.Game), game },
                     { nameof(Playground.GameAlreadyFinished), true },
                 }, title));
-        }
-
-        private async Task ShowDetails(Guid id)
-        {
-            _logger?.LogInformation("Calling GetDetail for {id}", id);
-            try
-            {
-                GetGameResponse? response = await Client.GetGameAsync(id);
-            }
-            catch (Exception ex)
-            {
-                _logger?.LogError(ex, "Error calling GetGame");
-                throw;
-            }
         }
     }
 }
