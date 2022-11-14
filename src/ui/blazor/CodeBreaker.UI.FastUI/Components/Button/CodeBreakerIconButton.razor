@@ -1,0 +1,11 @@
+﻿@namespace CodeBreaker.UI
+
+@*<MudIconButton Variant="Variant.Outlined"
+               Color="Color.Primary"
+               Icon="@Icons.Filled.PlayCircle"
+               OnClick="OnClick"></MudIconButton>*@
+
+<FluentButton @onclick="OnClick" style="width: 100%;
+    height: 100%;" Disabled="Disabled">
+    <FluentIcon Name="@FluentIcons.Play" Size="@IconSize.Size24" Filled=false />
+</FluentButton>

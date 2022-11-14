@@ -1,37 +1,28 @@
-﻿@using CodeBreaker.Shared.Models.Api
-
-<div class="component-root">
-    <MudGrid Style="width: 100%;">
-        <MudItem xs="12" Class="d-flex justify-center">
-            <CodePegs Pegs="Game?.Code" Size="70px" />
-        </MudItem>
+﻿<div class="component-root">
+    <div style="width: 100%;">
+        <div class="flex">
+            <div>@Game?.Code</div>
+        </div>
 
         @if (!Game.HasValue || Game.Value.Moves.Count() == 0)
         {
-            <MudItem xs="12" Class="d-flex justify-center">
-                <MudAlert Severity="Severity.Info">No moves in this game</MudAlert>
-            </MudItem>
+            <p>No moves in this game</p>
         }
-        else
+        else if (Game.Value.Moves.Count() > 0)
         {
-            @foreach (MoveDto<string> move in Game?.Moves!)
+            @foreach (var move in Game?.Moves!)
             {
-                <MudItem xs="12" md="6">
-                    <MudGrid Class="d-flex justify-center">
-                        <MudItem xs="12" sm="6" Class="d-flex justify-center">
-                            <CodePegs Pegs="@move.GuessPegs" />
-                        </MudItem>
-                        <MudItem xs="12" sm="6" Class="d-flex justify-center">
-                            <KeyPegs Pegs="@move.KeyPegs" />
-                        </MudItem>
-                    </MudGrid>
-                </MudItem>
+                <div>
+                    <div class="flex justify-center">
+                        <div>@move.GuessPegs</div>
+                    </div>
+                    <div class="flex justify-center">
+                        <div>@move.KeyPegs</div>
+                    </div>
+                </div>
             }
         }
-    </MudGrid>
+    </div>
 </div>
 
-@code {
-    [Parameter]
-    public GameDto? Game { get; set; }
-}
+

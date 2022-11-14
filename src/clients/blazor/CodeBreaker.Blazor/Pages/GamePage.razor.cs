@@ -1,11 +1,6 @@
-﻿using System.ComponentModel;
-using System.Text.Json;
-using CodeBreaker.Blazor.Services;
-using CodeBreaker.Blazor.ViewModels;
-using CodeBreaker.Services;
+﻿using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
 using Microsoft.AspNetCore.Components;
-using MudBlazor;
 
 namespace CodeBreaker.Blazor.Pages;
 
@@ -22,133 +17,43 @@ public record SelectionAndKeyPegs(string[] GuessPegs, KeyPegsDto KeyPegs, int Mo
 
 public partial class GamePage
 {
-    private GameDto? _game;
+    private string _selectedGameType = string.Empty;
+
+    //TODO: Get Data from API
+    private IEnumerable<KeyValuePair<string, string>> _gameTypes = new List<KeyValuePair<string, string>> {
+        new KeyValuePair<string, string>("8x5Game", "8x5Game"),
+        new KeyValuePair<string, string>("6x4MiniGame", "6x4MiniGame"),
+        new KeyValuePair<string, string>("6x4Game", "6x4Game"),
+    };
+
 
     [Inject]
-    private IGameClient Client { get; init; } = null!;
+    private IGameClient Client { get; init; } = default!;
+    
+    private GameMode _gameStatus = GameMode.NotRunning;
 
-    private PageMessageService _pageMessageService = new();
+    private string _name = string.Empty;
 
-    private MudForm? Form { get; set; } = new ();
+    private GameDto? _game;
 
-    public GameMode GameStatus { get; private set; } = GameMode.NotRunning;
-
-    public string Name { get; private set; } = string.Empty;
-
-    public bool InProgress { get; private set; }
-
-    public string?[] SelectionFields { get; private set; } = Array.Empty<string?>();
-
-    public BindingList<SelectionAndKeyPegs> GameMoves { get; private set; } = new ();
-
-    public int MoveNumber => GameMoves.Count;
-
-    public bool CanSetMove =>
-        SelectionFields.All(x => x is not null);
-
-    public GameDto? Game
+    protected override async Task OnInitializedAsync()
     {
-        get => _game;
-        private set
-        {
-            _game = value;
-            ClearSelectedColor();
-            SelectionFields = new string[value?.Type.Holes ?? 0];
-        }
+        await base.OnInitializedAsync();
     }
 
     public async Task StartGameAsync()
     {
-        Form?.Validate();
-
-        if (!Form?.IsValid == true)
-            return;
-
         try
         {
-            InitializeValues();
-            InProgress = true;
-            CreateGameResponse response = await Client.StartGameAsync(Name, "6x4Game");
-            Game = response.Game;
-            GameStatus = GameMode.Started;
+            _gameStatus = GameMode.NotRunning;
+            CreateGameResponse response = await Client.StartGameAsync(_name, string.IsNullOrWhiteSpace(_selectedGameType) ? "6x4Game" : _selectedGameType);
+            _game = response.Game;
+            _gameStatus = GameMode.Started;
         }
         catch (Exception ex)
         {
-            _pageMessageService.AddMessage(new (Severity.Error, ex.Message));
-        }
-        finally
-        {
-            InProgress = false;
+            //TODO: Handle Exception
+            Console.WriteLine(ex.Message);
         }
     }
-
-    public async Task SetMoveAsync()
-    {
-        try
-        {
-            InProgress = true;
-
-            if (Game is null)
-                throw new InvalidOperationException("No game running");
-
-            if (SelectionFields.Length != Game.Value.Type.Holes || SelectionFields.Any(x => x is null || x == string.Empty))
-                throw new InvalidOperationException("all colors need to be selected before invoking this method");
-
-            CreateMoveResponse response = await Client.SetMoveAsync(Game.Value.GameId, SelectionFields!);
-
-            SelectionAndKeyPegs selectionAndKeyPegs = new(SelectionFields!, response.KeyPegs, MoveNumber);
-            GameMoves.Add(selectionAndKeyPegs);
-            GameStatus = GameMode.MoveSet;
-
-            if (response.Won)
-            {
-                GameStatus = GameMode.Won;
-                MessageContext message = new(Severity.Info, "Congratulations - you won", true);
-                message.Action = () =>
-                {
-                    GameStatus = GameMode.NotRunning;
-                    message.Close();
-                    StateHasChanged();
-                };
-                message.ActionText = "Continue";
-                _pageMessageService.AddMessage(message);
-            }
-            else if (response.Ended)
-            {
-                GameStatus = GameMode.Lost;
-                MessageContext message = new(Severity.Info, "Sorry, you didn't find the matching colors!", false);
-                message.Action = () =>
-                {
-                    GameStatus = GameMode.NotRunning;
-                    message.Close();
-                    StateHasChanged();
-                };
-                message.ActionText = "Continue";
-                _pageMessageService.AddMessage(message);
-            }
-        }
-        catch (Exception ex)
-        {
-            _pageMessageService.AddMessage(new (Severity.Error, ex.Message));
-        }
-        finally
-        {
-            ClearSelectedColor();
-            InProgress = false;
-        }
-    }
-
-    private void InitializeValues()
-    {
-        ClearSelectedColor();
-        GameMoves.Clear();
-        GameStatus = GameMode.NotRunning;
-        
-    }
-
-    private void ClearSelectedColor() =>
-        SelectionFields = new string[SelectionFields.Length];
-
-    private string GetPegSelectionLabel(int i) =>
-        $"Peg {i+1}";
 }

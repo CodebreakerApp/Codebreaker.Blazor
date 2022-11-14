@@ -1,0 +1,10 @@
+﻿@namespace CodeBreaker.UI
+@typeparam T
+
+ <MudRadioGroup SelectedOption="@Value" SelectedOptionChanged="@ValueChanged">
+    @foreach(var item in Items)
+    {
+        <MudRadio Option="@item.Value" Color="Color.Primary">@item.Key</MudRadio>
+    }
+</MudRadioGroup>
+

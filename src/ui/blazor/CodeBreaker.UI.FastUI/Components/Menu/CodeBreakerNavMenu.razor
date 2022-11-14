@@ -1,0 +1,14 @@
+﻿@namespace CodeBreaker.UI
+
+<ul>
+    @foreach (var item in MenuItems)
+    {
+        <li>
+            <FluentAnchor Href="@item.Href" Appearance=@SetAppearance(item.Href)>@item.Label</FluentAnchor>
+        </li>
+    }
+</ul>
+
+
+
+

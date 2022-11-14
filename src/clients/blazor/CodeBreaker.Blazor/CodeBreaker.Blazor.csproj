@@ -5,14 +5,42 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
+    <Configurations>Debug;Release;Mudblazor;FastUI</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="Components\CodeAndKeyPegs.razor" />
+    <Content Remove="Components\CodePegs.razor" />
+    <Content Remove="Components\KeyPegs.razor" />
+    <Content Remove="Components\PageMessages.razor" />
+    <Content Remove="Components\PegSelection.razor" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Components\CodeAndKeyPegs.razor.css" />
+    <None Remove="Components\CodePegs.razor.css" />
+    <None Remove="Components\KeyPegs.razor.css" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="BlazorApplicationInsights" Version="1.6.0" />
-    <PackageReference Include="CNInnovation.Codebreaker.Services" Version="2.0.0-beta1.2" />
+    <PackageReference Include="CNInnovation.Codebreaker.Services" Version="2.0.0-beta1.5" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="6.0.10" PrivateAssets="all" />
-    <PackageReference Include="MudBlazor" Version="6.0.17" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.MudBlazor\CodeBreaker.UI.MudBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'MudBlazor|AnyCPU' ">
+    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.MudBlazor\CodeBreaker.UI.MudBlazor.csproj" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'FastUI|AnyCPU' ">
+    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.FastUI\CodeBreaker.UI.FastUI.csproj" />
   </ItemGroup>
 
   <ItemGroup>

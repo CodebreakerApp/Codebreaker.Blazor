@@ -1,0 +1,38 @@
+﻿@namespace CodeBreaker.UI
+
+<CodeBreakerDialog></CodeBreakerDialog>
+
+<div id="container" @ref="container">
+    <header class="@(_isDark ? "dark" : "light")">
+        <input type="checkbox" id="menu-toggle" checked=@_drawerOpen @onclick=DrawerToggle />
+        <label for="menu-toggle" class="menu-icon">
+            <FluentIcon Name="@FluentIcons.Navigation" Size="IconSize.Size24" Filled=true></FluentIcon>
+        </label>
+
+        <span>CodeBreaker</span>
+
+        <FluentSwitch @onchange=SwitchTheme>
+            <span style="padding-inline-end: 14px; color: var(--neutral-foreground-rest);"> Theme</span>
+            <span style="color: var(--neutral-foreground-rest)" slot="checked-message">Dark</span>
+            <span style="color: var(--neutral-foreground-rest)" slot="unchecked-message">Light</span>
+        </FluentSwitch>
+    </header>
+
+    <main>
+        
+        <nav class="@(_drawerOpen ? "active" : "")">
+            @DrawerContent
+        </nav>
+
+        <article class="@(_drawerOpen ? "" : "active")">
+            <ErrorBoundary>
+                <ChildContent>
+                    @ChildContent
+                </ChildContent>
+                <ErrorContent Context="ex">
+                    <div class="blazor-error-boundary">@ex.Message</div>
+                </ErrorContent>
+            </ErrorBoundary>
+        </article>
+    </main>
+</div>

@@ -1,74 +1,18 @@
 ﻿@page "/game"
-@using CodeBreaker.Blazor.Components
 
-<h2>Game</h2>
+<h2>Game @_game?.Type.Name</h2>
 
-<PageMessages PageMessageService="_pageMessageService" />
-
-@if (GameStatus == GameMode.NotRunning)
+@if (_gameStatus == GameMode.NotRunning)
 {
-    <MudForm @ref="Form">
-        <MudGrid>
-            <MudItem xs="12" md="9">
-                <MudTextField @bind-Value="Name" Label="Enter your gamername" Variant="Variant.Text" Required="true" RequiredError="The name is required" MaxLength="100" />
-            </MudItem>
-            <MudItem xs="12" md="3">
-                <MudButton Variant="Variant.Filled" FullWidth="true" @onclick="async () => await StartGameAsync()">
-                    @if (InProgress)
-                    {
-                        <div class="button-slot-start">
-                            <MudProgressCircular Size="Size.Small" Indeterminate="true" />
-                        </div>
-                    }
-                    Start the game
-                </MudButton>
-            </MudItem>
-        </MudGrid>
-    </MudForm>
+    <div class="flex start-game-container">
+        <CodeBreakerTextField CssClass="flex-1" @bind-Value="_name" Label="Enter your gamername" Required="true" RequiredError="The name is required" MaxLength="100" />
+        <CodeBreakerRadioGroup @bind-Value="_selectedGameType" Items="_gameTypes"></CodeBreakerRadioGroup>
+        <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(_name) || String.IsNullOrWhiteSpace(_selectedGameType))" OnClick="async () => await StartGameAsync()">
+           Start the game
+        </CodeBreakerButton>
+    </div>
 }
-
-
-@if (GameStatus is GameMode.Started or GameMode.MoveSet)
+else if (_game.HasValue && _gameStatus is GameMode.Started or GameMode.MoveSet)
 {
-    <MudGrid>
-        <MudItem xs="12" md="9">
-            <div class="peg-selection-grid">
-            @for (int i = 0; i < SelectionFields.Length; i++)
-            {
-                int localI = i;
-                <div class="peg-selection-grid-item">
-                    <MudSelect Label="@GetPegSelectionLabel(localI)" @bind-Value="SelectionFields[localI]" Style="width: 100%">
-                    @foreach (string colorField in Game?.Type.Fields ?? Array.Empty<string>())
-                    {
-                        <MudSelectItem Value="@colorField">@colorField</MudSelectItem>
-                    }
-                    </MudSelect>
-                </div>
-            }
-            </div>
-        </MudItem>
-        <MudItem xs="12" md="3">
-            <MudButton Variant="Variant.Filled" FullWidth="true" Disabled="!CanSetMove" @onclick="async () => await SetMoveAsync()">
-                @if (InProgress)
-                {
-                    <div class="button-slot-start">
-                        <MudProgressCircular Size="Size.Small" Indeterminate="true" />
-                    </div>
-                }
-                Make move
-            </MudButton>
-        </MudItem>
-    </MudGrid>
-}
-
-@if (GameStatus != GameMode.NotRunning)
-{
-    <MudList>
-        @foreach (SelectionAndKeyPegs move in GameMoves)
-        {
-            <MudListItem>
-                <CodeAndKeyPegs GuessPegsAndKeyPegs="move" />
-            </MudListItem>
-        }
-    </MudList>
+    <Playground Game="_game.Value"></Playground>
 }

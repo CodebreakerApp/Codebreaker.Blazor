@@ -5,3 +5,7 @@
 .reports-table {
     margin-top: 2rem;
 }
+
+::deep .test {
+    margin: 1000px;
+}
