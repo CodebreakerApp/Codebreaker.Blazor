@@ -1,17 +1,17 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 namespace CodeBreaker.UI.Shared.Components.Progress;
-public abstract class CodeBreakerProgressCircularBase : ComponentBase
+public abstract class CodeBreakerProgressCircularBase<T> : ComponentBase
 {
     [Parameter]
     public bool Indeterminate { get; set; } = true;
 
     [Parameter]
-    public int? Min { get; set; }
+    public T Min { get; set; }
 
     [Parameter]
-    public int? Max { get; set; }
+    public T Max { get; set; }
 
     [Parameter]
-    public int? Value { get; set; }
+    public T Value { get; set; }
 }
