@@ -15,6 +15,7 @@ Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		FastUI|Any CPU = FastUI|Any CPU
+		FastUIRelease|Any CPU = FastUIRelease|Any CPU
 		Mudblazor|Any CPU = Mudblazor|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
@@ -23,6 +24,8 @@ Global
 		{AED349CD-FCB1-43A4-9254-796C093D2DEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AED349CD-FCB1-43A4-9254-796C093D2DEE}.FastUI|Any CPU.ActiveCfg = FastUI|Any CPU
 		{AED349CD-FCB1-43A4-9254-796C093D2DEE}.FastUI|Any CPU.Build.0 = FastUI|Any CPU
+		{AED349CD-FCB1-43A4-9254-796C093D2DEE}.FastUIRelease|Any CPU.ActiveCfg = FastUIRelease|Any CPU
+		{AED349CD-FCB1-43A4-9254-796C093D2DEE}.FastUIRelease|Any CPU.Build.0 = FastUIRelease|Any CPU
 		{AED349CD-FCB1-43A4-9254-796C093D2DEE}.Mudblazor|Any CPU.ActiveCfg = Mudblazor|Any CPU
 		{AED349CD-FCB1-43A4-9254-796C093D2DEE}.Mudblazor|Any CPU.Build.0 = Mudblazor|Any CPU
 		{AED349CD-FCB1-43A4-9254-796C093D2DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -31,6 +34,8 @@ Global
 		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.FastUI|Any CPU.ActiveCfg = FastUI|Any CPU
 		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.FastUI|Any CPU.Build.0 = FastUI|Any CPU
+		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.FastUIRelease|Any CPU.ActiveCfg = FastUIRelease|Any CPU
+		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.FastUIRelease|Any CPU.Build.0 = FastUIRelease|Any CPU
 		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Mudblazor|Any CPU.ActiveCfg = Mudblazor|Any CPU
 		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Mudblazor|Any CPU.Build.0 = Mudblazor|Any CPU
 		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +44,8 @@ Global
 		{F44C5543-8CCC-4B83-BEE7-EC2502B57737}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F44C5543-8CCC-4B83-BEE7-EC2502B57737}.FastUI|Any CPU.ActiveCfg = FastUI|Any CPU
 		{F44C5543-8CCC-4B83-BEE7-EC2502B57737}.FastUI|Any CPU.Build.0 = FastUI|Any CPU
+		{F44C5543-8CCC-4B83-BEE7-EC2502B57737}.FastUIRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{F44C5543-8CCC-4B83-BEE7-EC2502B57737}.FastUIRelease|Any CPU.Build.0 = Release|Any CPU
 		{F44C5543-8CCC-4B83-BEE7-EC2502B57737}.Mudblazor|Any CPU.ActiveCfg = Mudblazor|Any CPU
 		{F44C5543-8CCC-4B83-BEE7-EC2502B57737}.Mudblazor|Any CPU.Build.0 = Mudblazor|Any CPU
 		{F44C5543-8CCC-4B83-BEE7-EC2502B57737}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,6 +54,8 @@ Global
 		{AE2A6AAE-240A-4044-AA53-1ADE1815FAF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AE2A6AAE-240A-4044-AA53-1ADE1815FAF6}.FastUI|Any CPU.ActiveCfg = FastUI|Any CPU
 		{AE2A6AAE-240A-4044-AA53-1ADE1815FAF6}.FastUI|Any CPU.Build.0 = FastUI|Any CPU
+		{AE2A6AAE-240A-4044-AA53-1ADE1815FAF6}.FastUIRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{AE2A6AAE-240A-4044-AA53-1ADE1815FAF6}.FastUIRelease|Any CPU.Build.0 = Release|Any CPU
 		{AE2A6AAE-240A-4044-AA53-1ADE1815FAF6}.Mudblazor|Any CPU.ActiveCfg = Mudblazor|Any CPU
 		{AE2A6AAE-240A-4044-AA53-1ADE1815FAF6}.Mudblazor|Any CPU.Build.0 = Mudblazor|Any CPU
 		{AE2A6AAE-240A-4044-AA53-1ADE1815FAF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
