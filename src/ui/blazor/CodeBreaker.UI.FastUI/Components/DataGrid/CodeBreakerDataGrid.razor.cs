@@ -1,5 +1,5 @@
 using System.Text.Json;
-using CodeBreaker.Shared.Models.Data.DataGrid;
+using CodeBreaker.UI.Shared.Models.DataGrid;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI;
 

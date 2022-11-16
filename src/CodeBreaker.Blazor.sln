@@ -5,11 +5,11 @@ VisualStudioVersion = 17.2.32422.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Blazor", "clients\blazor\CodeBreaker.Blazor\CodeBreaker.Blazor.csproj", "{AED349CD-FCB1-43A4-9254-796C093D2DEE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Shared", "shared\CodeBreaker.Shared\CodeBreaker.Shared.csproj", "{E0A0AF99-906A-4919-8AAD-282793AF92F8}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.UI.MudBlazor", "ui\blazor\CodeBreaker.UI.MudBlazor\CodeBreaker.UI.MudBlazor.csproj", "{F44C5543-8CCC-4B83-BEE7-EC2502B57737}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.UI.FastUI", "ui\blazor\CodeBreaker.UI.FastUI\CodeBreaker.UI.FastUI.csproj", "{AE2A6AAE-240A-4044-AA53-1ADE1815FAF6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeBreaker.UI.Shared", "CodeBreaker.UI.Shared\CodeBreaker.UI.Shared.csproj", "{FDA7710D-FBC1-473D-A4E2-0F1B046149B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,16 +30,6 @@ Global
 		{AED349CD-FCB1-43A4-9254-796C093D2DEE}.Mudblazor|Any CPU.Build.0 = Mudblazor|Any CPU
 		{AED349CD-FCB1-43A4-9254-796C093D2DEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AED349CD-FCB1-43A4-9254-796C093D2DEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.FastUI|Any CPU.ActiveCfg = FastUI|Any CPU
-		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.FastUI|Any CPU.Build.0 = FastUI|Any CPU
-		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.FastUIRelease|Any CPU.ActiveCfg = FastUIRelease|Any CPU
-		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.FastUIRelease|Any CPU.Build.0 = FastUIRelease|Any CPU
-		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Mudblazor|Any CPU.ActiveCfg = Mudblazor|Any CPU
-		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Mudblazor|Any CPU.Build.0 = Mudblazor|Any CPU
-		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{E0A0AF99-906A-4919-8AAD-282793AF92F8}.Release|Any CPU.Build.0 = Release|Any CPU
 		{F44C5543-8CCC-4B83-BEE7-EC2502B57737}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{F44C5543-8CCC-4B83-BEE7-EC2502B57737}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F44C5543-8CCC-4B83-BEE7-EC2502B57737}.FastUI|Any CPU.ActiveCfg = FastUI|Any CPU
@@ -60,6 +50,16 @@ Global
 		{AE2A6AAE-240A-4044-AA53-1ADE1815FAF6}.Mudblazor|Any CPU.Build.0 = Mudblazor|Any CPU
 		{AE2A6AAE-240A-4044-AA53-1ADE1815FAF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AE2A6AAE-240A-4044-AA53-1ADE1815FAF6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FDA7710D-FBC1-473D-A4E2-0F1B046149B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA7710D-FBC1-473D-A4E2-0F1B046149B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FDA7710D-FBC1-473D-A4E2-0F1B046149B3}.FastUI|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA7710D-FBC1-473D-A4E2-0F1B046149B3}.FastUI|Any CPU.Build.0 = Debug|Any CPU
+		{FDA7710D-FBC1-473D-A4E2-0F1B046149B3}.FastUIRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA7710D-FBC1-473D-A4E2-0F1B046149B3}.FastUIRelease|Any CPU.Build.0 = Release|Any CPU
+		{FDA7710D-FBC1-473D-A4E2-0F1B046149B3}.Mudblazor|Any CPU.ActiveCfg = Debug|Any CPU
+		{FDA7710D-FBC1-473D-A4E2-0F1B046149B3}.Mudblazor|Any CPU.Build.0 = Debug|Any CPU
+		{FDA7710D-FBC1-473D-A4E2-0F1B046149B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FDA7710D-FBC1-473D-A4E2-0F1B046149B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
