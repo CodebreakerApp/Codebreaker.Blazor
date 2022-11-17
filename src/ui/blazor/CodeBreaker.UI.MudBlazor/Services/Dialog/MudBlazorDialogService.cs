@@ -1,4 +1,4 @@
-﻿using CodeBreaker.Shared.Services.Dialog;
+﻿using CodeBreaker.UI.Shared.Services.Dialog;
 using MudBlazor;
 
 namespace CodeBreaker.UI.Services.Dialog;

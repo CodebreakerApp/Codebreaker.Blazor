@@ -2,8 +2,8 @@ using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.ViewModels;
 using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
-using CodeBreaker.Shared.Models.Data.DataGrid;
-using CodeBreaker.Shared.Services.Dialog;
+using CodeBreaker.UI.Shared.Models.DataGrid;
+using CodeBreaker.UI.Shared.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 
 namespace CodeBreaker.Blazor.Pages
