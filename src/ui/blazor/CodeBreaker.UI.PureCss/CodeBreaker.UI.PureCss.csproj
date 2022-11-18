@@ -1,12 +1,12 @@
-﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
+<Project Sdk="Microsoft.NET.Sdk.Razor">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <AssemblyName>CodeBreaker.UI</AssemblyName>
-    <RootNamespace>$(MSBuildProjectName.Replace(" ", "_").Replace(".MudBlazor", ""))</RootNamespace>
-    <Configurations>Debug;Release;Mudblazor;FastUI;FastUIRelease;PureCss;ReleasePureCss</Configurations>
+    <RootNamespace>$(MSBuildProjectName.Replace(" ", "_").Replace(".PureCss", ""))</RootNamespace>
+    <AssemblyName>$(MSBuildProjectName.Replace(" ", "_").Replace(".PureCss", ""))</AssemblyName>
+    <Configurations>Debug;Release;PureCss</Configurations>
   </PropertyGroup>
 
 
@@ -16,10 +16,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.0" />
-    <PackageReference Include="MudBlazor" Version="6.1.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CodeBreaker.UI.Shared\CodeBreaker.UI.Shared.csproj" />
   </ItemGroup>
+
 </Project>

@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>$(MSBuildProjectName.Replace(" ", "_").Replace(".FastUI", ""))</RootNamespace>
     <AssemblyName>$(MSBuildProjectName.Replace(" ", "_").Replace(".FastUI", ""))</AssemblyName>
-    <Configurations>Debug;Release;Mudblazor;FastUI</Configurations>
+    <Configurations>Debug;Release;Mudblazor;FastUI;PureCss</Configurations>
   </PropertyGroup>
 
 
