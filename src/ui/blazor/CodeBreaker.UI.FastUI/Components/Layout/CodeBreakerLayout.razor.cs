@@ -2,7 +2,6 @@ using System.ComponentModel;
 using CodeBreaker.UI.Shared.Components.Layout;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.DesignTokens;
-using Microsoft.JSInterop;
 
 namespace CodeBreaker.UI
 {
