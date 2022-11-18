@@ -1,4 +1,5 @@
-﻿@namespace CodeBreaker.UI
+﻿@inherits CodeBreaker.UI.Shared.Components.DataGird.CodeBreakerDataGridBase<T>
+@namespace CodeBreaker.UI
 @typeparam T
 
 <MudTable T="T" Items="@Items" Hover="true" OnRowClick="OnRowClicked">

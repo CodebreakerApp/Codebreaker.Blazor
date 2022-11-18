@@ -10,6 +10,10 @@
         </div>
         <div xs="12" md="3">
             <CodeBreakerButton Disabled=@_isLoadingGames @onclick="async () => await GetGames()">
+                @if (_isLoadingGames)
+                {
+                    <CodeBreakerProgressCircular></CodeBreakerProgressCircular>
+                }
                 Load games
             </CodeBreakerButton>
         </div>

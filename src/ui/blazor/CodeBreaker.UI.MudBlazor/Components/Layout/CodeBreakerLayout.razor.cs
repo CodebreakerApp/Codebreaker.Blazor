@@ -5,11 +5,6 @@ namespace CodeBreaker.UI
 {
     public partial class CodeBreakerLayout
     {
-        [Parameter]
-        public RenderFragment ChildContent { get; set; } = default!;
-        [Parameter]
-        public RenderFragment DrawerContent { get; set; } = default!;
-
         private MudTheme _defaultTheme = new()
         {
             Palette = new Palette
@@ -41,9 +36,5 @@ namespace CodeBreaker.UI
                 TextSecondary = "#fff",
             }
         };
-
-        private bool _isDark = false;
-        private bool _drawerOpen = false;
-        void DrawerToggle() => _drawerOpen = !_drawerOpen;
     }
 }

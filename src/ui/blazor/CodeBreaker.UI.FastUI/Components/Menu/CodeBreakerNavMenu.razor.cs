@@ -1,3 +1,4 @@
+using CodeBreaker.UI.Shared.Components.Menu;
 using CodeBreaker.UI.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
@@ -9,9 +10,6 @@ namespace CodeBreaker.UI
     {
         [Inject]
         private NavigationManager NavigationManager { get; set; } = default!;
-
-        [Parameter, EditorRequired]
-        public IEnumerable<NavLinkItem> MenuItems { get; set; } = Enumerable.Empty<NavLinkItem>();
 
         private string? target;
 

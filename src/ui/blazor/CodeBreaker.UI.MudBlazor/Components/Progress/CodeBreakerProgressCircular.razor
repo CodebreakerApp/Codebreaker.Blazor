@@ -1,3 +1,11 @@
-﻿@namespace CodeBreaker.UI
+﻿@inherits CodeBreaker.UI.Shared.Components.Progress.CodeBreakerProgressCircularBase
+@namespace CodeBreaker.UI
 
-<MudProgressCircular Size="Size.Small" Indeterminate="true" />
+@if (Indeterminate)
+{
+    <MudProgressCircular Indeterminate="true" />
+}
+else
+{
+    <MudProgressCircular Min="Min" Max="Max" Value="Value" />
+}

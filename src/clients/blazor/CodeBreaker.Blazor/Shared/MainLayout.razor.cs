@@ -1,4 +1,4 @@
-using CodeBreaker.UI.ViewModels;
+using CodeBreaker.UI.Shared.Models.Menu;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace CodeBreaker.Blazor.Shared
