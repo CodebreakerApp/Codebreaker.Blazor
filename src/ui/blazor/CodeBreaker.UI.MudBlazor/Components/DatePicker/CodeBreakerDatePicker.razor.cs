@@ -1,15 +1,14 @@
 using MudBlazor;
 
-namespace CodeBreaker.UI
-{
-    public partial class CodeBreakerDatePicker
-    {
-        MudDatePicker? _picker;
+namespace CodeBreaker.UI;
 
-        private void OnDateChanged(DateTime? date)
-        {
-            Date = date;
-            DateChanged.InvokeAsync(date);
-        }
+public partial class CodeBreakerDatePicker
+{
+    MudDatePicker? _picker;
+
+    private void OnDateChanged(DateTime? date)
+    {
+        Date = date;
+        DateChanged.InvokeAsync(date);
     }
 }
