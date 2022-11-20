@@ -1,10 +1,11 @@
-﻿@namespace CodeBreaker.UI
+﻿@inherits CodeBreaker.UI.Shared.Components.Layout.CodeBreakerLayoutBase
+@namespace CodeBreaker.UI
 
 <CodeBreakerDialog></CodeBreakerDialog>
 
 <div id="container" @ref="container">
-    <header class="@(_isDark ? "dark" : "light")">
-        <input type="checkbox" id="menu-toggle" checked=@_drawerOpen @onclick=DrawerToggle />
+    <header class="@(IsDark ? "dark" : "light")">
+        <input type="checkbox" id="menu-toggle" checked=@DrawerOpen @onclick=DrawerToggle />
         <label for="menu-toggle" class="menu-icon">
             <FluentIcon Name="@FluentIcons.Navigation" Size="IconSize.Size24" Filled=true></FluentIcon>
         </label>
@@ -20,11 +21,11 @@
 
     <main>
         
-        <nav class="@(_drawerOpen ? "active" : "")">
+        <nav class="@(DrawerOpen ? "active" : "")">
             @DrawerContent
         </nav>
 
-        <article class="@(_drawerOpen ? "" : "active")">
+        <article class="@(DrawerOpen ? "" : "active")">
             <ErrorBoundary>
                 <ChildContent>
                     @ChildContent

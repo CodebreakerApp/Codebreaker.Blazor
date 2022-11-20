@@ -1,7 +1,7 @@
 using System.ComponentModel;
+using CodeBreaker.UI.Shared.Components.Layout;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI.DesignTokens;
-using Microsoft.JSInterop;
 
 namespace CodeBreaker.UI
 {
@@ -12,15 +12,7 @@ namespace CodeBreaker.UI
         [Inject]
         private BaseLayerLuminance BaseLayerLuminance { get; set; } = default!;
 
-        [Parameter]
-        public RenderFragment ChildContent { get; set; } = default!;
-        [Parameter]
-        public RenderFragment DrawerContent { get; set; } = default!;
-
-        private bool _isDark = false;
-        private bool _drawerOpen = false;
-        void DrawerToggle() => _drawerOpen = !_drawerOpen;
-
+        
         ElementReference container;
         float baseLayerLuminance = 0.98f;
 
@@ -28,7 +20,7 @@ namespace CodeBreaker.UI
         {
             _navigationManager.LocationChanged += (_, __) =>
             {
-                _drawerOpen = false;
+                DrawerOpen = false;
                 StateHasChanged();
             };
             base.OnInitialized();
@@ -42,7 +34,7 @@ namespace CodeBreaker.UI
         public void SwitchTheme()
         {
             baseLayerLuminance = baseLayerLuminance == 0.15f ? 0.98f : 0.15f;
-            _isDark = baseLayerLuminance == 0.15f;
+            IsDark = baseLayerLuminance == 0.15f;
         }
     }
 }
