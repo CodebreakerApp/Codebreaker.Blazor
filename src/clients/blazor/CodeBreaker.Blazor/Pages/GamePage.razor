@@ -8,7 +8,11 @@
         <CodeBreakerTextField CssClass="flex-1" @bind-Value="_name" Label="Enter your gamername" Required="true" RequiredError="The name is required" MaxLength="100" />
         <CodeBreakerRadioGroup @bind-Value="_selectedGameType" Items="_gameTypes"></CodeBreakerRadioGroup>
         <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(_name) || String.IsNullOrWhiteSpace(_selectedGameType))" OnClick="async () => await StartGameAsync()">
-           Start the game
+            @if(_loadingGame)
+            {
+                <CodeBreakerProgressCircular Class="progress"></CodeBreakerProgressCircular>
+            }
+            Start the game
         </CodeBreakerButton>
     </div>
 }
