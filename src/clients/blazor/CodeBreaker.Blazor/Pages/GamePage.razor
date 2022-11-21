@@ -1,18 +1,19 @@
 ﻿@page "/game"
+@inject IStringLocalizer<Resource> Loc
 
 <h2>Game @_game?.Type.Name</h2>
 
 @if (_gameStatus == GameMode.NotRunning)
 {
     <div class="flex start-game-container">
-        <CodeBreakerTextField CssClass="flex-1" @bind-Value="_name" Label="Enter your gamername" Required="true" RequiredError="The name is required" MaxLength="100" />
+        <CodeBreakerTextField CssClass="flex-1" @bind-Value="_name" Label="@Loc["GamePage_NameInput"]" Required="true" RequiredError="The name is required" MaxLength="100" />
         <CodeBreakerRadioGroup @bind-Value="_selectedGameType" Items="_gameTypes"></CodeBreakerRadioGroup>
         <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(_name) || String.IsNullOrWhiteSpace(_selectedGameType))" OnClick="async () => await StartGameAsync()">
             @if(_loadingGame)
             {
                 <CodeBreakerProgressCircular Class="progress"></CodeBreakerProgressCircular>
             }
-            Start the game
+            @Loc["GamePage_StartButtonText"]
         </CodeBreakerButton>
     </div>
 }

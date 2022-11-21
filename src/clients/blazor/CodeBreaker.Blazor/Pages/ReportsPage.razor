@@ -1,5 +1,6 @@
 ﻿@page "/reports"
 @using CodeBreaker.Shared.Models.Api;
+@inject IStringLocalizer<Resource> Loc
 
 <h2>Reports</h2>
 
@@ -14,7 +15,7 @@
                 {
                     <CodeBreakerProgressCircular Class="progress"></CodeBreakerProgressCircular>
                 }
-                Load games
+                @Loc["LoadingGames"]
             </CodeBreakerButton>
         </div>
     </EditForm>
