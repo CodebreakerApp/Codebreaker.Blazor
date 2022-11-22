@@ -61,6 +61,51 @@ namespace CodeBreaker.Blazor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Information.
+        /// </summary>
+        public static string About_Information_Tab {
+            get {
+                return ResourceManager.GetString("About_Information_Tab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to &lt;p&gt;The game is played using:&lt;/p&gt;
+        ///        &lt;ul&gt;
+        ///            &lt;li&gt;
+        ///                a decoding board, with a shield at one end covering a row of four large holes, and twelve (or ten, or eight, or six) additional rows containing four large holes next to a set of four small holes;
+        ///            &lt;/li&gt;
+        ///            &lt;li&gt;
+        ///                code pegs of six different colors (or more; see Variations below), with round heads, which will be placed in the large holes on the board; and
+        ///            &lt;/li&gt;
+        ///            &lt;li&gt;
+        ///         [rest of string was truncated]&quot;;.
+        /// </summary>
+        public static string About_Instructions {
+            get {
+                return ResourceManager.GetString("About_Instructions", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Instructions.
+        /// </summary>
+        public static string About_Instructions_Tab {
+            get {
+                return ResourceManager.GetString("About_Instructions_Tab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string About_Title {
+            get {
+                return ResourceManager.GetString("About_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to CodeBreaker.
         /// </summary>
         public static string AppDescription {
@@ -196,7 +241,88 @@ namespace CodeBreaker.Blazor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to Codebreaker.
+        ///   Looks up a localized string similar to Read More.
+        /// </summary>
+        public static string Index_Card_About_Action {
+            get {
+                return ResourceManager.GetString("Index_Card_About_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Need more information about the game? This page is the right one for you..
+        /// </summary>
+        public static string Index_Card_About_Body {
+            get {
+                return ResourceManager.GetString("Index_Card_About_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string Index_Card_About_Title {
+            get {
+                return ResourceManager.GetString("Index_Card_About_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play the game.
+        /// </summary>
+        public static string Index_Card_Game_Action {
+            get {
+                return ResourceManager.GetString("Index_Card_Game_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Play the game and try to crack the code..
+        /// </summary>
+        public static string Index_Card_Game_Body {
+            get {
+                return ResourceManager.GetString("Index_Card_Game_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game.
+        /// </summary>
+        public static string Index_Card_Game_Title {
+            get {
+                return ResourceManager.GetString("Index_Card_Game_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Show the reports.
+        /// </summary>
+        public static string Index_Card_Reports_Action {
+            get {
+                return ResourceManager.GetString("Index_Card_Reports_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Here you can view played games..
+        /// </summary>
+        public static string Index_Card_Reports_Body {
+            get {
+                return ResourceManager.GetString("Index_Card_Reports_Body", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports.
+        /// </summary>
+        public static string Index_Card_Reports_Title {
+            get {
+                return ResourceManager.GetString("Index_Card_Reports_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Welcome to.
         /// </summary>
         public static string Index_Welcome {
             get {
@@ -228,6 +354,51 @@ namespace CodeBreaker.Blazor.Resources {
         public static string PegSelection_MakeMove {
             get {
                 return ResourceManager.GetString("PegSelection_MakeMove", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No reports found.
+        /// </summary>
+        public static string Report_NoReports {
+            get {
+                return ResourceManager.GetString("Report_NoReports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the date.
+        /// </summary>
+        public static string Report_SelectDate_Label {
+            get {
+                return ResourceManager.GetString("Report_SelectDate_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Load games.
+        /// </summary>
+        public static string Reports_LoadGames_Action {
+            get {
+                return ResourceManager.GetString("Reports_LoadGames_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gamername,Start,End,Number of Moves.
+        /// </summary>
+        public static string Reports_Table_Headers {
+            get {
+                return ResourceManager.GetString("Reports_Table_Headers", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports.
+        /// </summary>
+        public static string Reports_Title {
+            get {
+                return ResourceManager.GetString("Reports_Title", resourceCulture);
             }
         }
         

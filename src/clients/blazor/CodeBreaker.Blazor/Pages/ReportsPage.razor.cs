@@ -1,10 +1,12 @@
 using CodeBreaker.Blazor.Components;
+using CodeBreaker.Blazor.Resources;
 using CodeBreaker.Blazor.ViewModels;
 using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
 using CodeBreaker.UI.Shared.Models.DataGrid;
 using CodeBreaker.UI.Shared.Services.Dialog;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Extensions.Localization;
 
 namespace CodeBreaker.Blazor.Pages;
 
@@ -18,16 +20,15 @@ public partial class ReportsPage
 
     [Inject]
     private ILogger<ReportsPage> _logger { get; set; } = default!;
+    [Inject]
+    private IStringLocalizer<Resource> Loc { get; set; } = default!;
 
 
     private List<GameDto> _games = new();
     private bool _isLoadingGames = false;
     private ReportFilterContext _filter = new();
-
-    private readonly List<string> _headers = new()
-    {
-        "Gamername", "Start", "End", "Number of Moves"
-    };
+    
+    private List<string> _headers => Loc.GetString("Reports_Table_Headers").Value.Split(",").ToList();
 
     private List<CodeBreakerColumnDefinition<GameDto>> _columns = new()
     {

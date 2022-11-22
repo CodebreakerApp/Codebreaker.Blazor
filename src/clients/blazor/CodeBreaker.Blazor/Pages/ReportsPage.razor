@@ -1,13 +1,12 @@
 ﻿@page "/reports"
 @using CodeBreaker.Shared.Models.Api;
-@inject IStringLocalizer<Resource> Loc
 
-<h2>Reports</h2>
+<h2>@Loc["Reports_Title"]</h2>
 
 <div class="flex-column gap-5">
     <EditForm Model="_filter">
         <div>
-            <CodeBreakerDatePicker Label="Select the date" @bind-Date="_filter.Date" />
+            <CodeBreakerDatePicker Label="@Loc["Report_SelectDate_Label"]" @bind-Date="_filter.Date" />
         </div>
         <div xs="12" md="3">
             <CodeBreakerButton Disabled=@_isLoadingGames @onclick="async () => await GetGames()">
@@ -15,7 +14,7 @@
                 {
                     <CodeBreakerProgressCircular Class="progress"></CodeBreakerProgressCircular>
                 }
-                @Loc["LoadingGames"]
+                @Loc["Reports_LoadGames_Action"]
             </CodeBreakerButton>
         </div>
     </EditForm>
@@ -29,7 +28,7 @@
         }
         else
         {
-            <p>Es wurden keine Reports gefunden.</p>
+            <p>@Loc["Report_NoReports"]</p>
         }
     }
 </div>
