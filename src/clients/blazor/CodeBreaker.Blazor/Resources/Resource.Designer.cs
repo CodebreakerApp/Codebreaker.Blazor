@@ -331,6 +331,33 @@ namespace CodeBreaker.Blazor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to English.
+        /// </summary>
+        public static string Language_English {
+            get {
+                return ResourceManager.GetString("Language_English", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to German.
+        /// </summary>
+        public static string Language_German {
+            get {
+                return ResourceManager.GetString("Language_German", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select language:.
+        /// </summary>
+        public static string Language_Select_Label {
+            get {
+                return ResourceManager.GetString("Language_Select_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Waiting for games... ⌛.
         /// </summary>
         public static string LivePage_WaitingForGames {

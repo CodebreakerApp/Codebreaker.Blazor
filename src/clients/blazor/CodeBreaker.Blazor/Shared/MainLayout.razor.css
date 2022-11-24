@@ -1,3 +1,20 @@
+.toolbar-content {
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    --mud-palette-text-primary: white;
+}
+
+.toolbar-content h2 {
+    flex:6;
+}
+
+@media(max-width: 599px) {
+    .toolbar-content h2 {
+        flex: 3;
+    }
+}
+
 .content-container {
     display: flex;
     flex-direction: column;
