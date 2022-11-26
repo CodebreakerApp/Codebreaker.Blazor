@@ -1,4 +1,8 @@
-﻿.start-game-container {
+﻿.header {
+    margin: 1.5rem 1rem;
+}
+
+.start-game-container {
     align-items: flex-end;
     gap: 1rem;
 }

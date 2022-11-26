@@ -29,11 +29,14 @@ public partial class GamePage
 
     [Inject]
     private IGameClient Client { get; init; } = default!;
+    [Inject]
+    private NavigationManager NavigationManager { get; init; } = default!;
 
     private GameMode _gameStatus = GameMode.NotRunning;
 
     private string _name = string.Empty;
     private bool _loadingGame = false;
+    private bool _cancelGame = false;
     private GameDto? _game;
 
     protected override async Task OnInitializedAsync()
@@ -59,6 +62,17 @@ public partial class GamePage
         finally
         {
             _loadingGame = false;
+        }
+    }
+
+    public async Task CancelGameAsync()
+    {
+        if (_game.HasValue)
+        {
+            _cancelGame = true;
+            await Client.CancelGameAsync(_game.Value.GameId);
+            NavigationManager.NavigateTo("");
+            _cancelGame = false;
         }
     }
 }
