@@ -1,41 +1,42 @@
 ﻿@page "/"
+@inject IStringLocalizer<Resource> Loc
 
 <PageTitle>Index</PageTitle>
 
-<h1>Welcome to <b>CodeBreaker!</b></h1>
+<h1>@Loc["Index_Welcome"] <b>@Loc["AppDisplayName"]</b></h1>
 
 <div class="content-container wrap-container gap-3">
     <CodeBreakerCard Class="card">
         <HeaderContent>
-            <h6>Game</h6>
+            <h6>@Loc["Index_Card_Game_Title"]</h6>
         </HeaderContent>
         <CardContent>
-            <p>Play the game and try to crack the code.</p>
+            <p>@Loc["Index_Card_Game_Body"]</p>
         </CardContent>
         <CardActions>
-            <CodeBreakerButton OnClick="@(() => NavigateTo("/game"))">Play the game</CodeBreakerButton>
+            <CodeBreakerButton OnClick="@(() => NavigateTo("/game"))">@Loc["Index_Card_Game_Action"]</CodeBreakerButton>
         </CardActions>
     </CodeBreakerCard>
     <CodeBreakerCard Class="card">
         <HeaderContent>
-            <h6>Reports</h6>
+            <h6>@Loc["Index_Card_Reports_Title"]</h6>
         </HeaderContent>
         <CardContent>
-            <p>Here you can view played games.</p>
+            <p>@Loc["Index_Card_Reports_Body"]</p>
         </CardContent>
         <CardActions>
-            <CodeBreakerButton OnClick="@(() => NavigateTo("/reports"))">Show the reports</CodeBreakerButton>
+            <CodeBreakerButton OnClick="@(() => NavigateTo("/reports"))">@Loc["Index_Card_Reports_Action"]</CodeBreakerButton>
         </CardActions>
     </CodeBreakerCard>
     <CodeBreakerCard Class="card">
         <HeaderContent>
-            <h6>About</h6>
+            <h6>@Loc["Index_Card_About_Title"]</h6>
         </HeaderContent>
         <CardContent>
-            <p>Need more information about the game? This page is the right one for you.</p>
+            <p>@Loc["Index_Card_About_Body"]</p>
         </CardContent>
         <CardActions>
-            <CodeBreakerButton OnClick="@(() => NavigateTo("/about"))">Read More</CodeBreakerButton>
+            <CodeBreakerButton OnClick="@(() => NavigateTo("/about"))">@Loc["Index_Card_About_Action"]</CodeBreakerButton>
         </CardActions>
     </CodeBreakerCard>
 </div>

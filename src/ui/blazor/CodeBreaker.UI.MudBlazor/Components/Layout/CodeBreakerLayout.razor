@@ -8,7 +8,7 @@
 <MudLayout>
     <MudAppBar Elevation="1">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="DrawerToggle" />
-        <MudText Typo="Typo.h5" Class="ml-3">Codebreaker</MudText>
+        @ToolbarContent
         <MudSpacer />
         <MudToggleIconButton @bind-Toggled="@IsDark"
                              Icon="@Icons.Filled.DarkMode" 

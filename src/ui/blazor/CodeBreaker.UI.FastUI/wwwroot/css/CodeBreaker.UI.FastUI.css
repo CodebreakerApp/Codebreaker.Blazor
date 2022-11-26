@@ -238,3 +238,20 @@ h6 {
         margin-inline-start: calc(env(viewport-segment-left 1 0) - env(viewport-segment-right 0 0));
     }
 }
+
+
+.flex {
+    display: flex;
+}
+
+.align-center {
+    align-items: center;
+}
+
+.gap-1 {
+    gap: 0.5rem;
+}
+
+.gap-2 {
+    gap: 1rem;
+}

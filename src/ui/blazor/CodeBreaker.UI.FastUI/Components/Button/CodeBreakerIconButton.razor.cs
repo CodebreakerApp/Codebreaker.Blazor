@@ -1,17 +1,25 @@
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components;
+using Microsoft.Fast.Components.FluentUI;
+using CodeBreaker.UI.Shared.Models.Icon;
 
-namespace CodeBreaker.UI
+namespace CodeBreaker.UI;
+
+public partial class CodeBreakerIconButton
 {
-    public partial class CodeBreakerIconButton
+    private string _icon = string.Empty;
+    protected override void OnInitialized()
     {
-        [Parameter]
-        public bool Disabled { get; set; } = false;
+        switch (Icon)
+        {
+            case CodeBreakerIcon.Global:
+                _icon = FluentIcons.Globe;
+                break;
+            case CodeBreakerIcon.Play:
+                _icon = FluentIcons.Play;
+                break;
+        }
 
-        [Parameter]
-        public RenderFragment ChildContent { get; set; } = default!;
-
-        [Parameter]
-        public EventCallback<MouseEventArgs> OnClick { get; set; }
+        base.OnInitialized();
     }
 }

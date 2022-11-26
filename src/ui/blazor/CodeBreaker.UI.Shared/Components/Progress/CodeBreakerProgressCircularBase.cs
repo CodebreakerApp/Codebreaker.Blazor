@@ -7,11 +7,14 @@ public abstract class CodeBreakerProgressCircularBase<T> : ComponentBase
     public bool Indeterminate { get; set; } = true;
 
     [Parameter]
-    public T Min { get; set; }
+    public T Min { get; set; } = default!;
 
     [Parameter]
-    public T Max { get; set; }
+    public T Max { get; set; } = default!;
 
     [Parameter]
-    public T Value { get; set; }
+    public T Value { get; set; } = default!;
+
+    [Parameter]
+    public string Class { get; set; } = string.Empty;
 }

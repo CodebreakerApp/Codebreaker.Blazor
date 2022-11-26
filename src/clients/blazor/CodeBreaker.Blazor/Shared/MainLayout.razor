@@ -1,10 +1,16 @@
 ﻿@inherits LayoutComponentBase
+@inject IStringLocalizer<Resource> Loc
 
 <CodeBreakerLayout>
-    <ChildContent>@Body</ChildContent>
+    <ToolbarContent>
+        <div class="flex toolbar-content">
+            <h2>@Loc["AppDisplayName"]</h2>
+        </div>
+    </ToolbarContent>
+    <ChildContent>
+        <div class="content-container">@Body</div>
+    </ChildContent>
     <DrawerContent>
         <CodeBreakerNavMenu MenuItems="_menuItems"></CodeBreakerNavMenu>
     </DrawerContent>
 </CodeBreakerLayout>
-
-

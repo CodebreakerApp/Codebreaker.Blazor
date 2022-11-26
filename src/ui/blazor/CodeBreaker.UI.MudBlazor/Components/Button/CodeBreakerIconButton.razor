@@ -1,8 +1,11 @@
 ﻿@namespace CodeBreaker.UI
+@inherits CodeBreaker.UI.Shared.Components.Buttons.CodeBreakerIconButtonBase
 
 @*TODO: Add Icon Mapping*@
 <MudIconButton Variant="Variant.Outlined"
                Color="Color.Primary"
-               Icon="@Icons.Filled.PlayCircle"
+               Icon="@_icon"
                Disabled="Disabled"
                OnClick="OnClick"></MudIconButton>
+
+

@@ -1,11 +1,5 @@
 ﻿.content-container {
-    padding: 1rem 2rem;
-}
-
-@media (max-width: 764px) {
-    .content-container {
-        padding: 1rem 0.25rem;
-    }
+    padding: 1rem 0.25rem;
 }
 
 h6 {

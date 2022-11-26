@@ -19,6 +19,8 @@ public abstract class CodeBreakerInputBase : ComponentBase
     [Parameter]
     public string Label { get; set; } = string.Empty;
     [Parameter]
+    public string Placeholder { get; set; } = string.Empty;
+    [Parameter]
     public string CssClass { get; set; } = string.Empty;
     [Parameter]
     public int MaxLength { get; set; } = int.MaxValue;

@@ -29,11 +29,11 @@ public partial class GamePage
 
     [Inject]
     private IGameClient Client { get; init; } = default!;
-    
+
     private GameMode _gameStatus = GameMode.NotRunning;
 
     private string _name = string.Empty;
-
+    private bool _loadingGame = false;
     private GameDto? _game;
 
     protected override async Task OnInitializedAsync()
@@ -45,6 +45,7 @@ public partial class GamePage
     {
         try
         {
+            _loadingGame = true;
             _gameStatus = GameMode.NotRunning;
             CreateGameResponse response = await Client.StartGameAsync(_name, string.IsNullOrWhiteSpace(_selectedGameType) ? "6x4Game" : _selectedGameType);
             _game = response.Game;
@@ -54,6 +55,10 @@ public partial class GamePage
         {
             //TODO: Handle Exception
             Console.WriteLine(ex.Message);
+        }
+        finally
+        {
+            _loadingGame = false;
         }
     }
 }

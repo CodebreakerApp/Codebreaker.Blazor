@@ -6,6 +6,8 @@
     margin-top: 2rem;
 }
 
-::deep .test {
-    margin: 1000px;
+::deep .progress {
+    margin-right: 1rem;
+    width: 1rem !important;
+    height: 1rem !important;
 }

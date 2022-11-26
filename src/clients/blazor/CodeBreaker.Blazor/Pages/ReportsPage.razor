@@ -1,20 +1,20 @@
 ﻿@page "/reports"
 @using CodeBreaker.Shared.Models.Api;
 
-<h2>Reports</h2>
+<h2>@Loc["Reports_Title"]</h2>
 
 <div class="flex-column gap-5">
     <EditForm Model="_filter">
         <div>
-            <CodeBreakerDatePicker Label="Select the date" @bind-Date="_filter.Date" />
+            <CodeBreakerDatePicker Label="@Loc["Report_SelectDate_Label"]" @bind-Date="_filter.Date" />
         </div>
         <div xs="12" md="3">
             <CodeBreakerButton Disabled=@_isLoadingGames @onclick="async () => await GetGames()">
                 @if (_isLoadingGames)
                 {
-                    <CodeBreakerProgressCircular></CodeBreakerProgressCircular>
+                    <CodeBreakerProgressCircular Class="progress"></CodeBreakerProgressCircular>
                 }
-                Load games
+                @Loc["Reports_LoadGames_Action"]
             </CodeBreakerButton>
         </div>
     </EditForm>
@@ -28,7 +28,7 @@
         }
         else
         {
-            <p>Es wurden keine Reports gefunden.</p>
+            <p>@Loc["Report_NoReports"]</p>
         }
     }
 </div>
