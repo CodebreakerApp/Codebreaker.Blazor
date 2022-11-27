@@ -8,5 +8,6 @@ namespace CodeBreaker.UI.Shared.Models.Icon;
 public enum CodeBreakerIcon
 {
     Play,
-    Global
+    Global,
+    Cancel
 }

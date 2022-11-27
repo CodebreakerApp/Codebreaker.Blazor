@@ -10,7 +10,7 @@
     --key-pegs-height: 1.3rem;
     align-items: center;
     justify-content: center;
-    padding: 1rem 2rem;
+    padding: 1rem;
 }
 
     .container.finished {
@@ -23,6 +23,15 @@
         --game-field-height: 2.25rem;
         --key-pegs-width: 0.85rem;
         --key-pegs-height: 0.85rem;
+    }
+}
+
+@media only screen and (max-width: 599px) {
+    .container {
+        --game-field-width: 2rem;
+        --game-field-height: 2rem;
+        --key-pegs-width: 0.5rem;
+        --key-pegs-height: 0.5rem;
     }
 }
 

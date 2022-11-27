@@ -1,12 +1,15 @@
 ﻿using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.JSInterop;
 
 namespace CodeBreaker.Blazor.Pages;
 
 public enum GameMode
 {
     NotRunning,
+    Canceld,
     Started,
     MoveSet,
     Lost,
@@ -31,6 +34,8 @@ public partial class GamePage
     private IGameClient Client { get; init; } = default!;
     [Inject]
     private NavigationManager NavigationManager { get; init; } = default!;
+    [Inject]
+    private IJSRuntime _jSRuntime { get; init; } = default!;
 
     private GameMode _gameStatus = GameMode.NotRunning;
 
@@ -41,6 +46,7 @@ public partial class GamePage
 
     protected override async Task OnInitializedAsync()
     {
+        this.NavigationManager.RegisterLocationChangingHandler(OnLocationChanging);
         await base.OnInitializedAsync();
     }
 
@@ -65,13 +71,32 @@ public partial class GamePage
         }
     }
 
-    public async Task CancelGameAsync()
+    public void CancelGame()
     {
+        _gameStatus = GameMode.Canceld;
+        NavigationManager.NavigateTo("");
+    }
+
+    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    {
+        if (_gameStatus is GameMode.Started or GameMode.MoveSet)
+        {
+            var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", "Do you really want to stop this game?");
+
+            if (!isConfirmed)
+            {
+                context.PreventNavigation();
+            }
+        }
+    }
+
+    private async ValueTask OnLocationChanging(LocationChangingContext context)
+    {
+        // TODO: add request if cancel button is not entered.
         if (_game.HasValue)
         {
             _cancelGame = true;
             await Client.CancelGameAsync(_game.Value.GameId);
-            NavigationManager.NavigateTo("");
             _cancelGame = false;
         }
     }

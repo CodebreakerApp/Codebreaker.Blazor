@@ -1,12 +1,16 @@
 ﻿@page "/game"
+@using UI.Shared.Models.Icon
 @inject IStringLocalizer<Resource> Loc
+
+<NavigationLock ConfirmExternalNavigation="true"
+                OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
 
 @if (_game.HasValue)
 {
     <div class="header flex">
         <h2 class="flex-1">@_game?.Type.Name</h2>
         <div>
-            <CodeBreakerButton Disabled="_cancelGame" OnClick="CancelGameAsync">Cancel Game</CodeBreakerButton>
+            <CodeBreakerIconButton Disabled="_cancelGame" OnClick="CancelGame" Icon="CodeBreakerIcon.Cancel"></CodeBreakerIconButton>
         </div>
     </div>
 }
