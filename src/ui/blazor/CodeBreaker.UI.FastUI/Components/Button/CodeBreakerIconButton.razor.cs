@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components;
 using Microsoft.Fast.Components.FluentUI;
 using CodeBreaker.UI.Shared.Models.Icon;
 
@@ -17,6 +15,9 @@ public partial class CodeBreakerIconButton
                 break;
             case CodeBreakerIcon.Play:
                 _icon = FluentIcons.Play;
+                break;
+            case CodeBreakerIcon.Cancel:
+                _icon = FluentIcons.ShareScreenStop;
                 break;
         }
 

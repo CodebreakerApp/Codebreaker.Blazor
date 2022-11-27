@@ -1,14 +1,26 @@
 ﻿@page "/game"
+@using UI.Shared.Models.Icon
 @inject IStringLocalizer<Resource> Loc
 
-<h2>Game @_game?.Type.Name</h2>
+<NavigationLock ConfirmExternalNavigation="true"
+                OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+
+@if (_game.HasValue)
+{
+    <div class="header flex">
+        <h2 class="flex-1">@_game?.Type.Name</h2>
+        <div>
+            <CodeBreakerIconButton Disabled="_cancelGame" OnClick="CancelGame" Icon="CodeBreakerIcon.Cancel"></CodeBreakerIconButton>
+        </div>
+    </div>
+}
 
 @if (_gameStatus == GameMode.NotRunning)
 {
     <div class="flex start-game-container">
         <CodeBreakerTextField CssClass="flex-1" @bind-Value="_name" Label="@Loc["GamePage_NameInput"]" Placeholder="@Loc["GamePage_NameInputPlaceholder"]" Required="true" MaxLength="100" />
         <CodeBreakerRadioGroup @bind-Value="_selectedGameType" Items="_gameTypes"></CodeBreakerRadioGroup>
-        <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(_name) || String.IsNullOrWhiteSpace(_selectedGameType))" OnClick="async () => await StartGameAsync()">
+        <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(_name) || String.IsNullOrWhiteSpace(_selectedGameType))" OnClick="StartGameAsync">
             @if(_loadingGame)
             {
                 <CodeBreakerProgressCircular Class="progress"></CodeBreakerProgressCircular>

@@ -8,6 +8,7 @@ namespace CodeBreaker.UI
         private string _icon = string.Empty;
         protected override void OnInitialized()
         {
+            // TODO: switch expression
             switch(Icon)
             {
                 case CodeBreakerIcon.Global:
@@ -15,6 +16,9 @@ namespace CodeBreaker.UI
                     break;
                 case CodeBreakerIcon.Play:
                     _icon = Icons.Filled.PlayCircleOutline;
+                    break;
+                case CodeBreakerIcon.Cancel:
+                    _icon = Icons.Filled.CancelPresentation;
                     break;
             }
 
