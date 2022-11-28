@@ -57,7 +57,7 @@
     <div class="colors">
         @foreach (string colorField in Game.Type.Fields ?? Array.Empty<string>())
         {
-            <div class="@(_selectable ? $"{colorField.ToLower()} selectable": colorField.ToLower())"
+            <div class="@(_selectable && _selectedField > -1 ? $"{colorField.ToLower()} selectable": colorField.ToLower())"
              @onclick="() => SelectColor(colorField)">
                 @colorField[0]
             </div>

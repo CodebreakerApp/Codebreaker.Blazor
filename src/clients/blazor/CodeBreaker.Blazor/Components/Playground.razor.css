@@ -50,7 +50,8 @@
 }
 
     .game-container .game-row,
-    .game-container .game-move {
+    .game-container .game-move,
+    .colors div {
         pointer-events: none;
     }
 
