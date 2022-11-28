@@ -9,7 +9,7 @@
             <h5>@context?.Title</h5>
         </HeaderCellTemplate>
         <RowItemTemplate>
-            <FluentDataGridRow>
+            <FluentDataGridRow RowData="context">
                 @for (var i = 0; i < _columnDefinitions.Count; i++)
                 {
                     var column = i + 1;
