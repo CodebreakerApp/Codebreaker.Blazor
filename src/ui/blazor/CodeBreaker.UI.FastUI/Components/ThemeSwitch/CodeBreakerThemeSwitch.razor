@@ -1,0 +1,12 @@
+﻿@namespace CodeBreaker.UI
+@inherits CodeBreaker.UI.Shared.Components.ThemeSwitch.CodeBreakerThemeSwitchBase<float>
+
+@if (_isInitialized)
+{
+    <FluentSwitch Value="IsDark" @onchange=OnSwitchTheme>
+        <span style="color: var(--neutral-foreground-rest)" slot="checked-message">Dark</span>
+        <span style="color: var(--neutral-foreground-rest)" slot="unchecked-message">Light</span>
+    </FluentSwitch>
+}
+
+

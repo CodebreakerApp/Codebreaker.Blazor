@@ -2,7 +2,35 @@
     margin-bottom: 2rem;
 }
 
-::deep .tab-container {
+::deep .grid-info {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    row-gap: var(--gap-2);
+    column-gap: var(--gap-3);
+    align-items: center;
+    margin-top: 1rem;
+}
+
+    ::deep .grid-info .title {
+        font-weight: 600;
+    }
+
+    ::deep .grid-info .content {
+        text-align: right;
+    }
+
+@media only screen and (max-width: 759px) {
+    ::deep .grid-info {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        align-items: flex-start;
+        margin-top: 1rem;
+    }
+        ::deep .grid-info .content {
+            text-align: left;
+            width: 100%;
+        }
 }
 
 ::deep .mud-tabs-panels p {

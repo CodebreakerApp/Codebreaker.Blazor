@@ -22,4 +22,10 @@
   <ItemGroup>
     <ProjectReference Include="..\CodeBreaker.UI.Shared\CodeBreaker.UI.Shared.csproj" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\js\themeService.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
 </Project>

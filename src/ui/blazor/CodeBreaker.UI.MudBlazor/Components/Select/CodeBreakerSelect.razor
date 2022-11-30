@@ -2,7 +2,7 @@
 @typeparam T
 @inherits CodeBreaker.UI.Shared.Components.Select.CodeBreakerSelectBase<T>
 
-<MudSelect Value="@Value" ValueChanged="ValueChanged" Label="@Label">
+<MudSelect Class="@(String.IsNullOrWhiteSpace(Label) ? "no-label" : "")" Value="@Value" ValueChanged="ValueChanged" Label="@Label">
     @foreach(var item in Items) {
         <MudSelectItem Value="@item.Value">
             @item.Key

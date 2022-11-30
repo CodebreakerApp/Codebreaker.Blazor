@@ -1,0 +1,18 @@
+﻿@namespace CodeBreaker.UI
+@inherits CodeBreaker.UI.Shared.Components.ThemeSwitch.CodeBreakerThemeSwitchBase<MudTheme>
+
+<MudSwitch Checked="IsDark"
+           CheckedChanged="@((bool isDark) => SwitchTheme(isDark))"
+           ThumbIcon="@(IsDark ? Icons.Filled.DarkMode : Icons.Filled.LightMode)"
+           ThumbIconColor="@(IsDark ? Color.Dark : Color.Default)">
+    @if (IsDark)
+    {
+        <p>Dark Theme</p>
+    }
+    else
+    {
+        <p>Light Theme</p>
+    }
+</MudSwitch>
+
+
