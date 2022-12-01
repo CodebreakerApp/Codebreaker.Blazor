@@ -4,8 +4,8 @@
 @if (_isInitialized)
 {
     <FluentSwitch Value="IsDark" @onchange=OnSwitchTheme>
-        <span style="color: var(--neutral-foreground-rest)" slot="checked-message">Dark</span>
-        <span style="color: var(--neutral-foreground-rest)" slot="unchecked-message">Light</span>
+        <span class="light" slot="unchecked-message">Light</span>
+        <span class="dark" slot="checked-message">Dark</span>
     </FluentSwitch>
 }
 
