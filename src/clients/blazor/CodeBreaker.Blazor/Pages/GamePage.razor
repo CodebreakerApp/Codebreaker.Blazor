@@ -2,7 +2,7 @@
 @using UI.Shared.Models.Icon
 @inject IStringLocalizer<Resource> Loc
 
-<NavigationLock ConfirmExternalNavigation="true"
+<NavigationLock ConfirmExternalNavigation="_gameStatus == GameMode.MoveSet"
                 OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
 
 @if (_game.HasValue)
@@ -29,7 +29,7 @@
         </CodeBreakerButton>
     </div>
 }
-else if (_game.HasValue && _gameStatus is GameMode.Started or GameMode.MoveSet)
+else if(_game.HasValue)
 {
-    <Playground Game="_game.Value"></Playground>
+    <Playground Game="_game.Value" GameStatusChanged="GameStatusChanged"></Playground>
 }

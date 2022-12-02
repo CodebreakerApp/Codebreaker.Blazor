@@ -15,15 +15,11 @@ public class MudBlazorDialogService : ICodeBreakerDialogService
 
     public void ShowDialog(CodeBreakerDialogContext context)
     {
-        var parameters = new DialogParameters();
-        if (context.Parameters?.Count > 0)
+        var parameters = new DialogParameters
         {
-            foreach (var parameter in context.Parameters)
-            {
-                parameters.Add(parameter.Key, parameter.Value);
-            }
-        }
-        _dialogService.Show(context.ComponentType, context.DialogTitle, parameters,
-            new DialogOptions { CloseButton = true, DisableBackdropClick = true });
+            { "Context", context }
+        };
+        _dialogService.Show(typeof(CodeBreakerDialogTemplate), string.Empty, parameters,
+            new DialogOptions { CloseButton = true, DisableBackdropClick = true, MaxWidth = MaxWidth.Small });
     }
 }

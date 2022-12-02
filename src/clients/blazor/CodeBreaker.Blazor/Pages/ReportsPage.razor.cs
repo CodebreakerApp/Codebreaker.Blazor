@@ -84,6 +84,6 @@ public partial class ReportsPage
             {
                 { nameof(Playground.Game), game },
                 { nameof(Playground.GameAlreadyFinished), true },
-            }, title));
+            }, title, new List<CodeBreakerDialogActionContext>()));
     }
 }

@@ -32,6 +32,9 @@ public partial class Playground
     [Parameter]
     public bool GameAlreadyFinished { get; set; } = false;
 
+    [Parameter]
+    public EventCallback<GameMode> GameStatusChanged { get; set; }
+
     protected override void OnInitialized()
     {
         Console.WriteLine($"{JsonSerializer.Serialize(Game)}");
@@ -64,13 +67,19 @@ public partial class Playground
             {
                 GameAlreadyFinished= true;
                 _winTerm = "You win the game";
+                await GameStatusChanged.InvokeAsync(GameMode.Won);
                 StateHasChanged();
             }
             else if (response.Ended)
             {
                 GameAlreadyFinished = true;
                 _winTerm = "You lose the game";
+                await GameStatusChanged.InvokeAsync(GameMode.Lost);
                 StateHasChanged();
+            }
+            else
+            {
+                await GameStatusChanged.InvokeAsync(GameMode.MoveSet);
             }
         }
         catch (Exception ex)

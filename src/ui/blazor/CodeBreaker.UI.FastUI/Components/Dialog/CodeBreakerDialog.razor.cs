@@ -10,7 +10,8 @@ public partial class CodeBreakerDialog : IDisposable
 
     public bool ModalHidden { get; set; } = true;
     private string _title = string.Empty;
-    private RenderFragment? dialogContent;
+    private RenderFragment? _dialogContent;
+    private List<CodeBreakerDialogActionContext> _dialogActions = new();
 
     protected override void OnInitialized()
     {
@@ -19,9 +20,8 @@ public partial class CodeBreakerDialog : IDisposable
 
     private void ShowDialog(object? sender, CodeBreakerDialogContext context)
     {
-        Console.WriteLine("Show dialog of FastUI");
         _title = context.DialogTitle;
-        dialogContent = __builder =>
+        _dialogContent = __builder =>
         {
             __builder.OpenComponent(0, context.ComponentType);
             if (context.Parameters?.Count > 0)
@@ -33,18 +33,28 @@ public partial class CodeBreakerDialog : IDisposable
             }
             __builder.CloseComponent();
         };
+        _dialogActions = context.Actions;
         ModalHidden = false;
         StateHasChanged();
     }
 
-    private void OnCloseModalParameterButtonClick()
+    private void CallAction(Action action)
     {
-        dialogContent = null;
+        action.Invoke();
+        CloseDialog();
+    }
+
+    private void CloseDialog()
+    {
+        _dialogContent = null;
         ModalHidden = true;
         StateHasChanged();
     }
     public void Dispose()
     {
-        _codeBreakerDialogService.ShowDialogHandler -= ShowDialog;
+        if (_codeBreakerDialogService?.ShowDialogHandler != null)
+        {
+            _codeBreakerDialogService.ShowDialogHandler -= ShowDialog;
+        }
     }
 }
