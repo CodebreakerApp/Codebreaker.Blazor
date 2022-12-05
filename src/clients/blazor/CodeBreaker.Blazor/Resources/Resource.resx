@@ -185,6 +185,21 @@
   <data name="GamePage_CancelConfirmTitle" xml:space="preserve">
     <value>Cancel game</value>
   </data>
+  <data name="GamePage_CancelGame_Info" xml:space="preserve">
+    <value>Do you really want to stop this game?</value>
+  </data>
+  <data name="GamePage_FinishGame_Lose" xml:space="preserve">
+    <value>You lose this game.</value>
+  </data>
+  <data name="GamePage_FinishGame_Ok" xml:space="preserve">
+    <value>Home</value>
+  </data>
+  <data name="GamePage_FinishGame_Restart" xml:space="preserve">
+    <value>Start new game</value>
+  </data>
+  <data name="GamePage_FinishGame_Win" xml:space="preserve">
+    <value>You win this game!</value>
+  </data>
   <data name="GamePage_NameAlreadyProvidedTooltip" xml:space="preserve">
     <value>The gamername was already defined during sign-up</value>
   </data>

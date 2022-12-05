@@ -1,7 +1,11 @@
-﻿using CodeBreaker.Services;
+﻿using CodeBreaker.Blazor.Components;
+using CodeBreaker.Blazor.Resources;
+using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
+using CodeBreaker.UI.Shared.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace CodeBreaker.Blazor.Pages;
@@ -31,14 +35,18 @@ public partial class GamePage
 
 
     [Inject]
-    private IGameClient Client { get; init; } = default!;
+    private IGameClient _client { get; init; } = default!;
     [Inject]
-    private NavigationManager NavigationManager { get; init; } = default!;
+    private NavigationManager _navigationManager { get; init; } = default!;
     [Inject]
     private IJSRuntime _jSRuntime { get; init; } = default!;
+    [Inject]
+    private ICodeBreakerDialogService _dialogService { get; init; } = default!;
+
+    [Inject]
+    private IStringLocalizer<Resource> Loc { get; init; } = default!;
 
     private GameMode _gameStatus = GameMode.NotRunning;
-
     private string _name = string.Empty;
     private bool _loadingGame = false;
     private bool _cancelGame = false;
@@ -46,7 +54,7 @@ public partial class GamePage
 
     protected override async Task OnInitializedAsync()
     {
-        this.NavigationManager.RegisterLocationChangingHandler(OnLocationChanging);
+        _navigationManager.RegisterLocationChangingHandler(OnLocationChanging);
         await base.OnInitializedAsync();
     }
 
@@ -56,7 +64,7 @@ public partial class GamePage
         {
             _loadingGame = true;
             _gameStatus = GameMode.NotRunning;
-            CreateGameResponse response = await Client.StartGameAsync(_name, string.IsNullOrWhiteSpace(_selectedGameType) ? "6x4Game" : _selectedGameType);
+            CreateGameResponse response = await _client.StartGameAsync(_name, string.IsNullOrWhiteSpace(_selectedGameType) ? "6x4Game" : _selectedGameType);
             _game = response.Game;
             _gameStatus = GameMode.Started;
         }
@@ -71,17 +79,41 @@ public partial class GamePage
         }
     }
 
+    public void GameStatusChanged(GameMode gameMode)
+    {
+        _gameStatus = gameMode;
+        if (_gameStatus is GameMode.Won or GameMode.Lost)
+        {
+            _dialogService.ShowDialog(new CodeBreakerDialogContext(typeof(GameResultDialog), new Dictionary<string, object>
+            {
+                { nameof(GameResultDialog.GameMode), _gameStatus },
+                { nameof(GameResultDialog.Username), _name },
+            }, string.Empty, new List<CodeBreakerDialogActionContext>
+            {
+                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo("")),
+                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
+            }));
+        }
+    }
+
     public void CancelGame()
     {
         _gameStatus = GameMode.Canceld;
-        NavigationManager.NavigateTo("");
+        _navigationManager.NavigateTo("");
+    }
+
+    private void RestartGame()
+    {
+        _game = null;
+        _gameStatus = GameMode.NotRunning;
+        StateHasChanged();
     }
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)
     {
-        if (_gameStatus is GameMode.Started or GameMode.MoveSet)
+        if (_gameStatus is GameMode.MoveSet)
         {
-            var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", "Do you really want to stop this game?");
+            var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", Loc["GamePage_CancelGame_Info"]);
 
             if (!isConfirmed)
             {
@@ -92,11 +124,10 @@ public partial class GamePage
 
     private async ValueTask OnLocationChanging(LocationChangingContext context)
     {
-        // TODO: add request if cancel button is not entered.
         if (_game.HasValue)
         {
             _cancelGame = true;
-            await Client.CancelGameAsync(_game.Value.GameId);
+            await _client.CancelGameAsync(_game.Value.GameId);
             _cancelGame = false;
         }
     }

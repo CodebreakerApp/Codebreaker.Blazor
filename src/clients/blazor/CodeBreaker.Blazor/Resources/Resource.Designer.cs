@@ -205,6 +205,51 @@ namespace CodeBreaker.Blazor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Do you really want to stop this game?.
+        /// </summary>
+        public static string GamePage_CancelGame_Info {
+            get {
+                return ResourceManager.GetString("GamePage_CancelGame_Info", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You lose this game..
+        /// </summary>
+        public static string GamePage_FinishGame_Lose {
+            get {
+                return ResourceManager.GetString("GamePage_FinishGame_Lose", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string GamePage_FinishGame_Ok {
+            get {
+                return ResourceManager.GetString("GamePage_FinishGame_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Start new game.
+        /// </summary>
+        public static string GamePage_FinishGame_Restart {
+            get {
+                return ResourceManager.GetString("GamePage_FinishGame_Restart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to You win this game!.
+        /// </summary>
+        public static string GamePage_FinishGame_Win {
+            get {
+                return ResourceManager.GetString("GamePage_FinishGame_Win", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The gamername was already defined during sign-up.
         /// </summary>
         public static string GamePage_NameAlreadyProvidedTooltip {

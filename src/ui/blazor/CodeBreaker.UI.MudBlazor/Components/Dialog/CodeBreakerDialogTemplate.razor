@@ -1,0 +1,20 @@
+﻿@namespace CodeBreaker.UI
+
+<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h3">@Context.DialogTitle</MudText>
+    </TitleContent>
+    <DialogContent>
+        @_dialogContent
+    </DialogContent>
+    <DialogActions>
+        @foreach (var context in Context.Actions)
+        {
+            <MudButton OnClick="() => CallAction(context.Action)">
+                @context.Label
+            </MudButton>
+        }
+    </DialogActions>
+</MudDialog>
+
+
