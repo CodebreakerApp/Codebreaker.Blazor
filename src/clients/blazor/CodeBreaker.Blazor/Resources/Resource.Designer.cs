@@ -61,11 +61,38 @@ namespace CodeBreaker.Blazor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Current language.
+        /// </summary>
+        public static string About_Information_Language {
+            get {
+                return ResourceManager.GetString("About_Information_Language", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Information.
         /// </summary>
         public static string About_Information_Tab {
             get {
                 return ResourceManager.GetString("About_Information_Tab", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to App Theme.
+        /// </summary>
+        public static string About_Information_Theme {
+            get {
+                return ResourceManager.GetString("About_Information_Theme", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Version.
+        /// </summary>
+        public static string About_Information_Version {
+            get {
+                return ResourceManager.GetString("About_Information_Version", resourceCulture);
             }
         }
         

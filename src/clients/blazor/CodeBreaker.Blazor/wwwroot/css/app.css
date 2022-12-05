@@ -113,6 +113,22 @@
 }
 
 /*SPINNER*/
+:root {
+    --rect-color: #000000;
+    --background-color: #ffffff;
+}
+
+body.dark {
+    --background-color: #1c2321ff;
+    --rect-color: #ffffff;
+    height: 100vh;
+}
+
+body {
+    background-color: var(--background-color) !important;
+}
+
+
 @-webkit-keyframes enter {
     0% {
         opacity: 0;
@@ -188,7 +204,7 @@
 }
 
 .square {
-    background: #000000;
+    background: var(--rect-color);
     width: 30px;
     height: 30px;
     float: left;

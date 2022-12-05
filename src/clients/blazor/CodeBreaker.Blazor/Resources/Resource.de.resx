@@ -117,8 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="About_Information_Language" xml:space="preserve">
+    <value>Aktuelle Sprache</value>
+  </data>
   <data name="About_Information_Tab" xml:space="preserve">
     <value>Information</value>
+  </data>
+  <data name="About_Information_Theme" xml:space="preserve">
+    <value>App Theme</value>
+  </data>
+  <data name="About_Information_Version" xml:space="preserve">
+    <value>Version</value>
   </data>
   <data name="About_Instructions" xml:space="preserve">
     <value>&lt;p&gt;
