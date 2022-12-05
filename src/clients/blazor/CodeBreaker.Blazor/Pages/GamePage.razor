@@ -1,6 +1,5 @@
 ﻿@page "/game"
 @using UI.Shared.Models.Icon
-@inject IStringLocalizer<Resource> Loc
 
 <NavigationLock ConfirmExternalNavigation="_gameStatus == GameMode.MoveSet"
                 OnBeforeInternalNavigation="OnBeforeInternalNavigation" />

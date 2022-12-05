@@ -1,5 +1,1 @@
-﻿@if(GameMode == Pages.GameMode.Won) {
-    <p>You have won this game!</p>
-} else {
-    <p>You have lost this game...</p>
-}
+﻿<p>@(GameMode == Pages.GameMode.Won ? Loc["GamePage_FinishGame_Win"] : Loc["GamePage_FinishGame_Lose"])</p>

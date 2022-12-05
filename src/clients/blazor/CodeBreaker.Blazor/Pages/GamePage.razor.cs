@@ -1,10 +1,11 @@
 ﻿using CodeBreaker.Blazor.Components;
+using CodeBreaker.Blazor.Resources;
 using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
-using CodeBreaker.Shared.Models.Data;
 using CodeBreaker.UI.Shared.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace CodeBreaker.Blazor.Pages;
@@ -41,6 +42,9 @@ public partial class GamePage
     private IJSRuntime _jSRuntime { get; init; } = default!;
     [Inject]
     private ICodeBreakerDialogService _dialogService { get; init; } = default!;
+
+    [Inject]
+    private IStringLocalizer<Resource> Loc { get; init; } = default!;
 
     private GameMode _gameStatus = GameMode.NotRunning;
     private string _name = string.Empty;
@@ -86,8 +90,8 @@ public partial class GamePage
                 { nameof(GameResultDialog.Username), _name },
             }, string.Empty, new List<CodeBreakerDialogActionContext>
             {
-                new CodeBreakerDialogActionContext("Ok", () => _navigationManager.NavigateTo("")),
-                new CodeBreakerDialogActionContext("Start new Game", () => RestartGame()),
+                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo("")),
+                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
             }));
         }
     }
@@ -109,7 +113,7 @@ public partial class GamePage
     {
         if (_gameStatus is GameMode.MoveSet)
         {
-            var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", "Do you really want to stop this game?");
+            var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", Loc["GamePage_CancelGame_Info"]);
 
             if (!isConfirmed)
             {
