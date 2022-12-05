@@ -192,7 +192,7 @@
     <value>You lose this game.</value>
   </data>
   <data name="GamePage_FinishGame_Ok" xml:space="preserve">
-    <value>Ok</value>
+    <value>Home</value>
   </data>
   <data name="GamePage_FinishGame_Restart" xml:space="preserve">
     <value>Start new game</value>

@@ -223,7 +223,7 @@ namespace CodeBreaker.Blazor.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ok.
+        ///   Looks up a localized string similar to Home.
         /// </summary>
         public static string GamePage_FinishGame_Ok {
             get {

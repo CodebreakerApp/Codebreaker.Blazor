@@ -180,7 +180,7 @@
     <value>Du hast das Spiel verloren.</value>
   </data>
   <data name="GamePage_FinishGame_Ok" xml:space="preserve">
-    <value>Ok</value>
+    <value>Startseite</value>
   </data>
   <data name="GamePage_FinishGame_Restart" xml:space="preserve">
     <value>Neues Spiel starten</value>
