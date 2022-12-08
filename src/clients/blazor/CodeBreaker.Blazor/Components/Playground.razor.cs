@@ -21,7 +21,7 @@ public partial class Playground
     private bool _playButtonDisabled =>
         _currentMove.Any(m => String.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected");
     private string _keyPegsFormat => Game.Type.Holes > 4 ? "three-two" : "two-two";
-
+    private string _activeColor = string.Empty;
 
     [Inject]
     private IGameClient Client { get; init; } = default!;
@@ -30,7 +30,7 @@ public partial class Playground
     public GameDto Game { get; set; } = default!;
 
     [Parameter]
-    public bool GameAlreadyFinished { get; set; } = false;
+    public bool GameFinished { get; set; } = false;
 
     [Parameter]
     public EventCallback<GameMode> GameStatusChanged { get; set; }
@@ -65,14 +65,14 @@ public partial class Playground
             Console.WriteLine(response.ToString());
             if (response.Won)
             {
-                GameAlreadyFinished= true;
+                GameFinished= true;
                 _winTerm = "You win the game";
                 await GameStatusChanged.InvokeAsync(GameMode.Won);
                 StateHasChanged();
             }
             else if (response.Ended)
             {
-                GameAlreadyFinished = true;
+                GameFinished = true;
                 _winTerm = "You lose the game";
                 await GameStatusChanged.InvokeAsync(GameMode.Lost);
                 StateHasChanged();
@@ -92,22 +92,15 @@ public partial class Playground
         }
     }
 
-    private void SelectField(int index)
+    private void UpdateColor(int index)
     {
-        _selectedField = index;
-        for (int i = 0; i < _currentMove.Count; i++)
-        {
-            var currentClass = _currentMove[i].Item2.Replace("selected", string.Empty).Trim();
-            _currentMove[i] = new Tuple<int, string>(i, currentClass);
-        }
-        _currentMove[_selectedField] = new Tuple<int, string>(_selectedField, $"selected");
-        _selectable = true;
+        _selectionFields[index] = _activeColor;
+        _currentMove[index] = new Tuple<int, string>(_selectedField, $"selected {_activeColor.ToLower()}");
     }
 
-    private void SelectColor(string color)
+    private void SetActiveColor(string color)
     {
-        _selectionFields[_selectedField] = color;
-        _currentMove[_selectedField] = new Tuple<int, string>(_selectedField, $"selected {color.ToLower()}");
+        _activeColor = color;
     }
 
     private void InitialzePlayground()

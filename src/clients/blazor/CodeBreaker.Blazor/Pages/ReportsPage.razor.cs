@@ -83,7 +83,7 @@ public partial class ReportsPage
         _codeBreakerDialogService.ShowDialog(new CodeBreakerDialogContext(typeof(Playground), new Dictionary<string, object>
             {
                 { nameof(Playground.Game), game },
-                { nameof(Playground.GameAlreadyFinished), true },
+                { nameof(Playground.GameFinished), true },
             }, title, new List<CodeBreakerDialogActionContext>()));
     }
 }
