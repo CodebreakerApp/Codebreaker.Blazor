@@ -1,5 +1,5 @@
 ﻿function init() {
-    const mudBlazorCssId = 'code-breaker-ui-mudblazor-css'
+    const mudBlazorCssId = 'mudblazor-css'
     if (!document.getElementById(mudBlazorCssId)) {
         var head = document.getElementsByTagName('head')[0];
         var link = document.createElement('link');
@@ -7,6 +7,17 @@
         link.rel = 'stylesheet';
         link.type = 'text/css';
         link.href = '_content/MudBlazor/MudBlazor.min.css';
+        head.appendChild(link);
+    }
+
+    const customCssId = 'code-breaker-mudblazor-css'
+    if (!document.getElementById(customCssId)) {
+        var head = document.getElementsByTagName('head')[0];
+        var link = document.createElement('link');
+        link.id = customCssId;
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = '_content/CodeBreaker.UI/css/CodeBreaker.UI.MudBlazor.css';
         head.appendChild(link);
     }
 

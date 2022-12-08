@@ -1,4 +1,5 @@
 using CodeBreaker.Blazor.Resources;
+using CodeBreaker.UI.Shared.Services;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
@@ -12,10 +13,10 @@ namespace CodeBreaker.Blazor.Pages
         private string instructions = string.Empty;
         private readonly Version version = typeof(Program)?.Assembly.GetName().Version;
 
-        protected override void OnInitialized()
+        protected override async Task OnInitializedAsync()
         {
             instructions = Loc["About_Instructions"];
-            base.OnInitialized();
+            await base.OnInitializedAsync();
         }
     }
 }

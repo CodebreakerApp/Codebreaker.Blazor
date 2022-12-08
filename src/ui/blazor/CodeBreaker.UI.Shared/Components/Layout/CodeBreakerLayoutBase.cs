@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 
 namespace CodeBreaker.UI.Shared.Components.Layout;
-public abstract class CodeBreakerLayoutBase : ComponentBase
+public abstract class CodeBreakerLayoutBase<T> : ComponentBase
 {
     [Parameter]
     public string Label { get; set; } = string.Empty;
@@ -16,5 +16,6 @@ public abstract class CodeBreakerLayoutBase : ComponentBase
 
     protected bool IsDark = false;
     protected bool DrawerOpen = false;
+    protected T? CurrentTheme;
     public void DrawerToggle() => DrawerOpen = !DrawerOpen;
 }

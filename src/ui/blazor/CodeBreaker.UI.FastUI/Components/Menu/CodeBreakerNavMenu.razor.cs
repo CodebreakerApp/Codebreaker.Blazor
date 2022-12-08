@@ -1,5 +1,3 @@
-using CodeBreaker.UI.Shared.Components.Menu;
-using CodeBreaker.UI.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Fast.Components.FluentUI;

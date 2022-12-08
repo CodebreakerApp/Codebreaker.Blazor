@@ -1,9 +1,9 @@
-﻿@inherits CodeBreaker.UI.Shared.Components.Layout.CodeBreakerLayoutBase
+﻿@inherits CodeBreaker.UI.Shared.Components.Layout.CodeBreakerLayoutBase<float>
 @namespace CodeBreaker.UI
 
 <CodeBreakerDialog></CodeBreakerDialog>
 
-<div id="container" @ref="container">
+<div id="container" @ref="_container">
     <header class="@(IsDark ? "dark" : "light")">
         <input type="checkbox" id="menu-toggle" checked=@DrawerOpen @onclick=DrawerToggle />
         <label for="menu-toggle" class="menu-icon">
@@ -11,12 +11,6 @@
         </label>
 
         @ToolbarContent
-
-        <FluentSwitch @onchange=SwitchTheme>
-            <span style="padding-inline-end: 14px; color: var(--neutral-foreground-rest);"> Theme</span>
-            <span style="color: var(--neutral-foreground-rest)" slot="checked-message">Dark</span>
-            <span style="color: var(--neutral-foreground-rest)" slot="unchecked-message">Light</span>
-        </FluentSwitch>
     </header>
 
     <main>
