@@ -59,12 +59,11 @@
 }
 
     .game-container .game-row,
-    .game-container .game-move,
-    .colors div {
+    .game-container .game-move {
         pointer-events: none;
     }
 
-        .game-container .game-row.selectable, .colors .selectable {
+        .game-container .game-row.selectable {
             cursor: pointer;
             pointer-events: initial;
         }
@@ -105,7 +104,8 @@
             border: none;
         }
 
-.finished .game-container .game-row.selectable {
+.finished .game-container .game-row.selectable,
+.finished .colors div {
     pointer-events: none;
     cursor: auto;
 }
