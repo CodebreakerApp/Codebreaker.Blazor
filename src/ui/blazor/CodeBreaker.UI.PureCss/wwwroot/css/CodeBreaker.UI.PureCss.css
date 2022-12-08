@@ -7,7 +7,26 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+:root {
+    --body-color: #E4E9F7;
+    --body-text-color: #010718;
+    --nav-color: #4070F4;
+    --side-nav: #010718;
+    --text-color: #FFF;
+}
 
 body {
-    overflow: hidden;
+    height: 100vh;
+    background-color: var(--body-color);
+    color: var(--body-text-color);
 }
+
+    body.dark {
+        --body-color: #18191A;
+        --nav-color: #242526;
+        --side-nav: #242526;
+        --text-color: #CCC;
+    }
+        body.dark nav {
+            border: 1px solid #393838;
+        }
