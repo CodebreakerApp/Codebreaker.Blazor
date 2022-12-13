@@ -1,9 +1,4 @@
-﻿@if (!String.IsNullOrWhiteSpace(_winTerm))
-{
-    <h2 class="text-align-center">@_winTerm</h2>
-}
-
-<div class="@(GameFinished ? "container finished" : "container")">
+﻿<div class="@(GameFinished ? "container finished" : "container")">
     <div class="numbers">
         @for (int i = Game.Type.MaxMoves; i > 0; i--)
         {
@@ -17,9 +12,11 @@
                 @for (int y = 0; y < Game.Type.Holes; y++)
                 {
                     var localVariable = y;
-                    <div class="@(i == 1 ? _currentMove[localVariable].Item2 : "")"
+                    <div class="@(i == 1 ? $"{_currentMove[localVariable].Item2}" : string.Empty)"
                          ondragover="event.preventDefault();"
-                    @ondrop="() => UpdateColor(localVariable)"></div>
+                         @ondragenter="@(() => SetDropClass(localVariable))"
+                         @ondragleave="@RemoveDropClass"
+                         @ondrop="() => UpdateColor(localVariable)"></div>
                 }
                 @if (i == 1 && !GameFinished)
                 {
@@ -59,7 +56,7 @@
     <div class="colors">
         @foreach (string colorField in Game.Type.Fields ?? Array.Empty<string>())
         {
-            <div draggable="true" @ondragstart="@(() => _activeColor = colorField)" class="@colorField.ToLower()">
+            <div draggable="true" @ondragstart="@(() => _activeColor = colorField)" class="@($"draggable {colorField.ToLower()}")">
                 @colorField[0]
             </div>
         }

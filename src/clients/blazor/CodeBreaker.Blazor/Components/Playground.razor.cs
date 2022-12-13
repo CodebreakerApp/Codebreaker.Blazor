@@ -8,21 +8,7 @@ using System.Text.Json;
 namespace CodeBreaker.Blazor.Components;
 
 public partial class Playground
-{        
-    private string _winTerm = string.Empty;
-    private bool _selectable = false;
-    private int _selectedField = -1;
-    private BindingList<SelectionAndKeyPegs> _gameMoves = new();
-    private string[] _selectionFields = Array.Empty<string>();
-    private List<Tuple<int, string>> _currentMove = new();
-
-    private int _moveNumber => _gameMoves.Count;
-    private int _openMoves => Game.Type.MaxMoves - _moveNumber;
-    private bool _playButtonDisabled =>
-        _currentMove.Any(m => String.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected");
-    private string _keyPegsFormat => Game.Type.Holes > 4 ? "three-two" : "two-two";
-    private string _activeColor = string.Empty;
-
+{
     [Inject]
     private IGameClient Client { get; init; } = default!;
 
@@ -34,6 +20,21 @@ public partial class Playground
 
     [Parameter]
     public EventCallback<GameMode> GameStatusChanged { get; set; }
+
+    private int _moveNumber => _gameMoves.Count;
+    private int _openMoves => Game.Type.MaxMoves - _moveNumber;
+    private bool _playButtonDisabled =>
+        _currentMove.Any(m => String.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected" || m.Item2 == "can-drop");
+    private string _keyPegsFormat => Game.Type.Holes > 4 ? "three-two" : "two-two";
+
+
+    private int _selectedField = -1;
+    private BindingList<SelectionAndKeyPegs> _gameMoves = new();
+    private string[] _selectionFields = Array.Empty<string>();
+    private List<Tuple<int, string>> _currentMove = new();
+    private string _activeColor = string.Empty;
+    private string _dropClass = string.Empty;
+
 
     protected override void OnInitialized()
     {
@@ -65,15 +66,13 @@ public partial class Playground
             Console.WriteLine(response.ToString());
             if (response.Won)
             {
-                GameFinished= true;
-                _winTerm = "You win the game";
+                GameFinished = true;
                 await GameStatusChanged.InvokeAsync(GameMode.Won);
                 StateHasChanged();
             }
             else if (response.Ended)
             {
                 GameFinished = true;
-                _winTerm = "You lose the game";
                 await GameStatusChanged.InvokeAsync(GameMode.Lost);
                 StateHasChanged();
             }
@@ -96,18 +95,30 @@ public partial class Playground
     {
         _selectionFields[index] = _activeColor;
         _currentMove[index] = new Tuple<int, string>(_selectedField, $"selected {_activeColor.ToLower()}");
+        _dropClass = string.Empty;
     }
 
-    private void SetActiveColor(string color)
+    private void SetDropClass(int index)
     {
-        _activeColor = color;
+        for (int i = 0; i < _currentMove.Count; i++)
+        {
+            _currentMove[i] = new Tuple<int, string>(_currentMove[i].Item1, _currentMove[i].Item2.Replace("can-drop", string.Empty));
+        }
+        _currentMove[index] = new Tuple<int, string>(_currentMove[index].Item1, $"{_currentMove[index].Item2} can-drop".Trim());
+    }
+
+    private void RemoveDropClass()
+    {
+        for (int i = 0; i < _currentMove.Count; i++)
+        {
+            _currentMove[i] = new Tuple<int, string>(_currentMove[i].Item1, _currentMove[i].Item2.Replace("can-drop", string.Empty));
+        }
     }
 
     private void InitialzePlayground()
     {
         _selectionFields = new string[Game.Type.Holes];
         _selectedField = -1;
-        _selectable = false;
         _currentMove = new List<Tuple<int, string>>();
         for (int i = 0; i < Game.Type.Holes; i++)
         {

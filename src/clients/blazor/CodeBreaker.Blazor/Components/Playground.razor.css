@@ -87,8 +87,14 @@
             justify-content: center;
         }
 
-        .game-container .game-row.selectable div:hover, .colors .selectable:hover {
+        .game-container .game-row.selectable .can-drop,
+        .game-container .game-row.selectable .can-drop,
+        .colors div:hover {
             box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+        }
+
+        .game-container .game-row.selectable .can-drop {
+            
         }
 
         .game-container .game-row.selectable div.selected {
@@ -171,6 +177,19 @@
     .peg-selection-grid-item {
         width: 100%;
     }
+}
+
+.draggable {
+    touch-action: none;
+    cursor: grab;
+}
+
+    .draggable:active, .draggable:focus {
+        cursor: grabbing;
+    }
+
+.dragging {
+    cursor: grabbing;
 }
 
 
