@@ -59,11 +59,12 @@
 }
 
     .game-container .game-row,
-    .game-container .game-move {
+    .game-container .game-move,
+    .colors:not(.draggable) div {
         pointer-events: none;
     }
 
-        .game-container .game-row.selectable {
+        .game-container .game-row.selectable, .colors .selectable {
             cursor: pointer;
             pointer-events: initial;
         }
@@ -91,10 +92,6 @@
         .game-container .game-row.selectable .can-drop,
         .colors div:hover {
             box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-        }
-
-        .game-container .game-row.selectable .can-drop {
-            
         }
 
         .game-container .game-row.selectable div.selected {
