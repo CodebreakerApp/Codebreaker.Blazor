@@ -185,6 +185,12 @@
   <data name="AuthPage_WelcomeTo" xml:space="preserve">
     <value>Welcome to</value>
   </data>
+  <data name="Confirm_Cancel" xml:space="preserve">
+    <value>Cancel</value>
+  </data>
+  <data name="Confirm_Ok" xml:space="preserve">
+    <value>Ok</value>
+  </data>
   <data name="GamePage_CancelButtonText" xml:space="preserve">
     <value>Cancel</value>
   </data>

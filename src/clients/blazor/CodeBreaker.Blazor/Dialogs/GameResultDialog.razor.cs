@@ -3,7 +3,7 @@ using CodeBreaker.Blazor.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
-namespace CodeBreaker.Blazor.Components
+namespace CodeBreaker.Blazor.Dialogs
 {
     public partial class GameResultDialog
     {

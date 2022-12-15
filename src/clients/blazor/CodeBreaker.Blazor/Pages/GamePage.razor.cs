@@ -1,4 +1,4 @@
-﻿using CodeBreaker.Blazor.Components;
+﻿using CodeBreaker.Blazor.Dialogs;
 using CodeBreaker.Blazor.Resources;
 using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
@@ -6,7 +6,6 @@ using CodeBreaker.UI.Shared.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
 
 namespace CodeBreaker.Blazor.Pages;
 
@@ -38,8 +37,6 @@ public partial class GamePage
     private IGameClient _client { get; init; } = default!;
     [Inject]
     private NavigationManager _navigationManager { get; init; } = default!;
-    [Inject]
-    private IJSRuntime _jSRuntime { get; init; } = default!;
     [Inject]
     private ICodeBreakerDialogService _dialogService { get; init; } = default!;
 
@@ -111,14 +108,20 @@ public partial class GamePage
 
     private async Task OnBeforeInternalNavigation(LocationChangingContext context)
     {
+        var cancellationSource = new CancellationTokenSource();
+        var task = new Task(context.PreventNavigation, cancellationSource.Token);
         if (_gameStatus is GameMode.MoveSet)
         {
-            var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", Loc["GamePage_CancelGame_Info"]);
-
-            if (!isConfirmed)
+            _dialogService.ShowDialog(new CodeBreakerDialogContext(typeof(ConfirmDialog), new Dictionary<string, object>
             {
-                context.PreventNavigation();
-            }
+                { nameof(ConfirmDialog.Message), "Wollen Sie das Spiel wirklich abbrechen?" },
+            }, string.Empty, new List<CodeBreakerDialogActionContext>
+            {
+                new CodeBreakerDialogActionContext(Loc["Confirm_Cancel"], task.Start),
+                new CodeBreakerDialogActionContext(Loc["Confirm_Ok"], cancellationSource.Cancel)
+            }));
+
+            await task;
         }
     }
 

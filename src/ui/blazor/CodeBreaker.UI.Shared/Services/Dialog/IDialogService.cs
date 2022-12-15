@@ -1,6 +1,6 @@
 ﻿namespace CodeBreaker.UI.Shared.Services.Dialog;
 
-public record CodeBreakerDialogActionContext(string Label, Action Action);
+public record CodeBreakerDialogActionContext(string Label, Action? Action);
 public record CodeBreakerDialogContext(Type ComponentType, Dictionary<string, object> Parameters, string DialogTitle, List<CodeBreakerDialogActionContext> Actions);
 
 public interface ICodeBreakerDialogService

@@ -33,7 +33,7 @@ namespace CodeBreaker.UI
             base.OnInitialized();
         }
 
-        private void CallAction(Action action)
+        private void CallAction(Action? action)
         {
             Close();
             action?.Invoke();

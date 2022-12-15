@@ -207,6 +207,24 @@ namespace CodeBreaker.Blazor.Resources {
         /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
+        public static string Confirm_Cancel {
+            get {
+                return ResourceManager.GetString("Confirm_Cancel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Ok.
+        /// </summary>
+        public static string Confirm_Ok {
+            get {
+                return ResourceManager.GetString("Confirm_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Cancel.
+        /// </summary>
         public static string GamePage_CancelButtonText {
             get {
                 return ResourceManager.GetString("GamePage_CancelButtonText", resourceCulture);
