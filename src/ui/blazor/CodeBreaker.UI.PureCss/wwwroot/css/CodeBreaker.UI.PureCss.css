@@ -23,6 +23,7 @@ body {
 
     body.dark {
         --body-color: #18191A;
+        --body-text-color: #CCC;
         --nav-color: #242526;
         --side-nav: #242526;
         --text-color: #CCC;
