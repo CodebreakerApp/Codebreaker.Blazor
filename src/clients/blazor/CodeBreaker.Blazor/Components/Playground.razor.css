@@ -64,7 +64,7 @@
         pointer-events: none;
     }
 
-        .game-container .game-row.selectable, .colors .selectable {
+        .game-container .game-row.selectable, .colors.draggable, .colors:not(.draggable) .selectable {
             cursor: pointer;
             pointer-events: initial;
         }

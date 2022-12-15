@@ -19,6 +19,9 @@ public partial class Playground
     public bool GameFinished { get; set; } = false;
 
     [Parameter]
+    public bool EnableDragAndDrop { get; set; } = false;
+
+    [Parameter]
     public EventCallback<GameMode> GameStatusChanged { get; set; }
 
     private int _moveNumber => _gameMoves.Count;
@@ -27,13 +30,12 @@ public partial class Playground
         _currentMove.Any(m => String.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected" || m.Item2 == "can-drop");
     private string _keyPegsFormat => Game.Type.Holes > 4 ? "three-two" : "two-two";
 
-
+    private bool _selectable = false;
     private int _selectedField = -1;
     private BindingList<SelectionAndKeyPegs> _gameMoves = new();
     private string[] _selectionFields = Array.Empty<string>();
     private List<Tuple<int, string>> _currentMove = new();
     private string _activeColor = string.Empty;
-    private string _dropClass = string.Empty;
 
 
     protected override void OnInitialized()
@@ -91,11 +93,31 @@ public partial class Playground
         }
     }
 
+    #region ClickEvents
+    private void SelectField(int index)
+    {
+        _selectedField = index;
+        for (int i = 0; i < _currentMove.Count; i++)
+        {
+            var currentClass = _currentMove[i].Item2.Replace("selected", string.Empty).Trim();
+            _currentMove[i] = new Tuple<int, string>(i, currentClass);
+        }
+        _currentMove[_selectedField] = new Tuple<int, string>(_selectedField, $"selected");
+        _selectable = true;
+    }
+
+    private void SelectColor(string color)
+    {
+        _selectionFields[_selectedField] = color;
+        _currentMove[_selectedField] = new Tuple<int, string>(_selectedField, $"selected {color.ToLower()}");
+    }
+    #endregion
+
+    #region DragAndDropEvents
     private void UpdateColor(int index)
     {
         _selectionFields[index] = _activeColor;
         _currentMove[index] = new Tuple<int, string>(_selectedField, $"selected {_activeColor.ToLower()}");
-        _dropClass = string.Empty;
     }
 
     private void SetDropClass(int index)
@@ -114,7 +136,7 @@ public partial class Playground
             _currentMove[i] = new Tuple<int, string>(_currentMove[i].Item1, _currentMove[i].Item2.Replace("can-drop", string.Empty));
         }
     }
-
+    #endregion
     private void InitialzePlayground()
     {
         _selectionFields = new string[Game.Type.Holes];
