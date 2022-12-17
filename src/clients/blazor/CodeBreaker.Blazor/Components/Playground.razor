@@ -1,9 +1,4 @@
-﻿@if (!String.IsNullOrWhiteSpace(_winTerm))
-{
-    <h2 class="text-align-center">@_winTerm</h2>
-}
-
-<div class="@(GameAlreadyFinished ? "container finished" : "container")">
+﻿<div class="@(GameFinished ? "container finished" : "container")">
     <div class="numbers">
         @for (int i = Game.Type.MaxMoves; i > 0; i--)
         {
@@ -17,9 +12,23 @@
                 @for (int y = 0; y < Game.Type.Holes; y++)
                 {
                     var localVariable = y;
-                    <div class="@(i == 1 ? _currentMove[localVariable].Item2 : "")" @onclick="() => SelectField(localVariable)"></div>
+                    @if (EnableDragAndDrop)
+                    {
+                        <div class="@(i == 1 ? $"{_currentMove[localVariable].Item2}" : string.Empty)"
+                             ondragover="event.preventDefault();"
+                             @ondragenter="@(() => SetDropClass(localVariable))"
+                             @ondragleave="@RemoveDropClass"
+                             @ondrop="() => UpdateColor(localVariable)">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="@(i == 1 ? _currentMove[localVariable].Item2 : "")"
+                        @onclick="() => SelectField(localVariable)">
+                        </div>
+                    }
                 }
-                @if (i == 1 && !GameAlreadyFinished)
+                @if (i == 1 && !GameFinished)
                 {
                     <div>
                         <CodeBreakerIconButton Disabled="_playButtonDisabled" OnClick="async () => await SetMoveAsync()"></CodeBreakerIconButton>
@@ -54,13 +63,24 @@
             </div>
         }
     </div>
-    <div class="colors">
+    <div class="@(EnableDragAndDrop ? "colors draggable" : "colors")">
         @foreach (string colorField in Game.Type.Fields ?? Array.Empty<string>())
         {
-            <div class="@(_selectable && _selectedField > -1 ? $"{colorField.ToLower()} selectable": colorField.ToLower())"
-             @onclick="() => SelectColor(colorField)">
-                @colorField[0]
-            </div>
+            @if (EnableDragAndDrop)
+            {
+                <div draggable="true"
+                     class="@($"draggable {colorField.ToLower()}")"
+                     @ondragstart="@(() => _activeColor = colorField)">
+                    .@colorField[0]
+                </div>
+            }
+            else
+            {
+                <div class="@(_selectable && _selectedField > -1 ? $"{colorField.ToLower()} selectable": colorField.ToLower())"
+                     @onclick="() => SelectColor(colorField)">
+                    @colorField[0]
+                </div>
+            }
         }
     </div>
 </div>
