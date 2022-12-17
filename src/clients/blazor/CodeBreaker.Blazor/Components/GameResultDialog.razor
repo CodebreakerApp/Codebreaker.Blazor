@@ -1,1 +1,23 @@
-﻿<p>@(GameMode == Pages.GameMode.Won ? Loc["GamePage_FinishGame_Win"] : Loc["GamePage_FinishGame_Lose"])</p>
+﻿<div class="content">
+<svg viewBox="0 0 800 200">
+    <!-- Symbol-->
+    <symbol id="s-text">
+        <text text-anchor="middle" x="50%" y="50%" dy=".35em">
+            @(GameMode == Pages.GameMode.Won
+                ? Loc["GamePage_FinishGame_Win"]
+                : Loc["GamePage_FinishGame_Lose"])
+        </text>
+    </symbol>
+    <!-- Duplicate symbols-->
+    <use class="text" xlink:href="#s-text"></use>
+    <use class="text" xlink:href="#s-text"></use>
+    <use class="text" xlink:href="#s-text"></use>
+    <use class="text" xlink:href="#s-text"></use>
+    <use class="text" xlink:href="#s-text"></use>
+</svg>
+</div>
+@*<p>
+    @(GameMode == Pages.GameMode.Won
+        ? Loc["GamePage_FinishGame_Win"]
+        : Loc["GamePage_FinishGame_Lose"])
+  </p>*@

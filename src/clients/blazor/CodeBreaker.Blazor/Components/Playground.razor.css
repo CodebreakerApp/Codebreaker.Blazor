@@ -11,11 +11,26 @@
     align-items: center;
     justify-content: center;
     padding: 1rem;
+    animation: enterPlayground;
+    animation-iteration-count: 1;
+    animation-duration: 2s;
 }
 
     .container.finished {
         pointer-events: none;
     }
+
+@keyframes enterPlayground {
+    0% {
+        transform: scale(0.5);
+        pointer-events: none;
+    }
+
+    100% {
+        transform: scale(1.0);
+        pointer-events: initial;
+    }
+}
 
 @media only screen and (max-width: 763px) {
     .container {
@@ -60,11 +75,13 @@
 
     .game-container .game-row,
     .game-container .game-move,
-    .colors div {
+    .colors:not(.draggable) div {
         pointer-events: none;
     }
 
-        .game-container .game-row.selectable, .colors .selectable {
+        .game-container .game-row.selectable,
+        .colors.draggable,
+        .colors:not(.draggable) .selectable {
             cursor: pointer;
             pointer-events: initial;
         }
@@ -86,9 +103,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
+
+            transition: background-color .5s ease-in-out;
         }
 
-        .game-container .game-row.selectable div:hover, .colors .selectable:hover {
+        .game-container .game-row.selectable .can-drop,
+        .game-container .game-row.selectable .can-drop,
+        .colors div:hover {
             box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
         }
 
@@ -105,7 +126,8 @@
             border: none;
         }
 
-.finished .game-container .game-row.selectable {
+.finished .game-container .game-row.selectable,
+.finished .colors div {
     pointer-events: none;
     cursor: auto;
 }
@@ -171,6 +193,11 @@
     .peg-selection-grid-item {
         width: 100%;
     }
+}
+
+.draggable {
+    touch-action: none;
+    cursor: grab;
 }
 
 
