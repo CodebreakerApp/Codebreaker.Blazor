@@ -10,7 +10,7 @@
         top: 20px;
         left: 12px;
         font-size: 16px;
-        color: rgba(0, 0, 0, 0.5);
+        color: var(--text-color);
         font-weight: 500;
         transform-origin: 0 0;
         transform: translate3d(0, 0, 0);
@@ -42,8 +42,8 @@
         font-size: 16px;
         font-weight: 400;
         background: rgba(0, 0, 0, 0.02);
-        box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.3);
-        color: #000;
+        box-shadow: inset 0 -1px 0 var(--primary);
+        color: var(--text-color);
         transition: all 0.15s ease;
     }
 
@@ -53,17 +53,17 @@
         }
 
         .inp input:not(:-moz-placeholder-shown) + .label {
-            color: rgba(0, 0, 0, 0.5);
+            color: var(--primary);
             transform: translate3d(0, -12px, 0) scale(0.75);
         }
 
         .inp input:not(:-ms-input-placeholder) + .label {
-            color: rgba(0, 0, 0, 0.5);
+            color: var(--primary);
             transform: translate3d(0, -12px, 0) scale(0.75);
         }
 
         .inp input:not(:placeholder-shown) + .label {
-            color: rgba(0, 0, 0, 0.5);
+            color: var(--primary);
             transform: translate3d(0, -12px, 0) scale(0.75);
         }
 
@@ -74,7 +74,7 @@
         }
 
             .inp input:focus + .label {
-                color: var(--nav-color);
+                color: var(--text-color);
                 transform: translate3d(0, -12px, 0) scale(0.75);
             }
 
