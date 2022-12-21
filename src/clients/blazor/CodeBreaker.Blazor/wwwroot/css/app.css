@@ -42,7 +42,11 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-.flex, .flex-column, .flex-row, .flex-wrap {
+.full-width {
+    width: 100%;
+}
+
+.flex, .flex-responsive, .flex-column, .flex-row, .flex-wrap {
     display: flex;
 }
 
@@ -58,8 +62,16 @@
     flex-flow: wrap;
 }
 
+.flex-end {
+    align-self: flex-end;
+}
+
 .flex-1 {
     flex: 1;
+}
+
+.justify-between {
+    justify-content: space-between;
 }
 
 .gap-1 {
@@ -83,6 +95,10 @@
 }
 
 @media (max-width: 764px) {
+    .flex-responsive {
+        flex-direction: column;
+    }
+
     .truncate {
         white-space: nowrap;
         overflow: hidden;

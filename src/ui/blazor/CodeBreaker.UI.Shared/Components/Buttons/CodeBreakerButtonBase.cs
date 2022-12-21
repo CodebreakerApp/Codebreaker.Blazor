@@ -11,5 +11,8 @@ public abstract class CodeBreakerButtonBase : ComponentBase
     public RenderFragment ChildContent { get; set; } = default!;
 
     [Parameter]
+    public string Class { get; set; } = string.Empty;
+
+    [Parameter]
     public EventCallback<MouseEventArgs> OnClick { get; set; }
 }

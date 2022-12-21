@@ -1,3 +1,7 @@
+using CodeBreaker.UI.Shared.Services.JavaScript;
+using Microsoft.AspNetCore.Components;
+using Microsoft.JSInterop;
+
 namespace CodeBreaker.UI
 {
     public partial class CodeBreakerThemeSwitch

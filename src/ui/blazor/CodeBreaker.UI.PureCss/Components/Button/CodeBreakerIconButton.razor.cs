@@ -5,12 +5,30 @@ namespace CodeBreaker.UI;
 
 public partial class CodeBreakerIconButton
 {
-    [Parameter]
-    public bool Disabled { get; set; } = false;
+    private RenderFragment? _icon;
 
-    [Parameter]
-    public RenderFragment ChildContent { get; set; } = default!;
+    protected override void OnInitialized()
+    {
+        _icon = builder =>
+        {
+            builder.OpenElement(0, "i");
+            switch (Icon)
+            {
+                case Shared.Models.Icon.CodeBreakerIcon.Cancel:
+                    builder.AddAttribute(1, "class", "bx bx-x");
+                    break;
+                case Shared.Models.Icon.CodeBreakerIcon.Play:
+                    builder.AddAttribute(1, "class", "bx bx-play-circle");
+                    break;
+                case Shared.Models.Icon.CodeBreakerIcon.Global:
+                    builder.AddAttribute(1, "class", "bx bx-globe");
+                    break;
 
-    [Parameter]
-    public EventCallback<MouseEventArgs> OnClick { get; set; }
+            }
+
+            builder.CloseElement();
+        };
+        
+        base.OnInitialized();
+    }
 }

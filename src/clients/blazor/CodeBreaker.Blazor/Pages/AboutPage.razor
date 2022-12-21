@@ -2,19 +2,19 @@
 
 <h3>@Loc["About_Title"]</h3>
 
-<CodeBreakerTabs>
-    <CodeBreakerTab Title="@Loc["About_Information_Tab"]">
+<CodeBreakerTabs TabTitles="@(new string[]{Loc["About_Information_Tab"], Loc["About_Instructions_Tab"]})">
+    <CodeBreakerTab Title="@Loc["About_Information_Tab"]" Selected="true">
         <div class="tab-container">
             <div class="grid-info">
                 <p class="title">@Loc["About_Information_Version"]</p>
                 <p class="content">@version</p>
-                <p class="title">@Loc["Language_Select_Label"]</p>
-                <div class="content">
-                    <LanguageSelector></LanguageSelector>
-                </div>
                 <p class=title>@Loc["About_Information_Theme"]</p>
                 <div class="content">
                     <CodeBreakerThemeSwitch></CodeBreakerThemeSwitch>
+                </div>
+                <p class="title">@Loc["Language_Select_Label"]</p>
+                <div class="content">
+                    <LanguageSelector></LanguageSelector>
                 </div>
             </div>
         </div>

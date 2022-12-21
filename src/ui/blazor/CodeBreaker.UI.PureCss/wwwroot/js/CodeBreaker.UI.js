@@ -31,6 +31,17 @@
         link.href = 'https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css';
         head.appendChild(link);
     }
+
+    const fontId = 'font-id';
+    if (!document.getElementById(fontId)) {
+        var head = document.getElementsByTagName('head')[0];
+        var link = document.createElement('link');
+        link.id = fontId;
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap';
+        head.appendChild(link);
+    }
 }
 
 init();

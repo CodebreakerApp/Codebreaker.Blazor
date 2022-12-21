@@ -19,7 +19,7 @@ public partial class Playground
     public bool GameFinished { get; set; } = false;
 
     [Parameter]
-    public bool EnableDragAndDrop { get; set; } = false;
+    public bool EnableDragAndDrop { get; set; } = true;
 
     [Parameter]
     public EventCallback<GameMode> GameStatusChanged { get; set; }

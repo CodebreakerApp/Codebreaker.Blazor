@@ -2,3 +2,12 @@
 @typeparam T
 @inherits CodeBreaker.UI.Shared.Components.Select.CodeBreakerSelectBase<T>
 
+<div class="select" tabindex="1">
+    <InputRadioGroup Name="select-group" Value="Value" ValueChanged="ValueChanged" ValueExpression="ValueExpression">
+        @foreach(var item in Items)
+        {
+            <InputRadio class="selectopt" Name="select-group" id="@item.Key" Value="item.Value" />
+            <label for="@item.Key" class="option">@item.Key</label>
+        }
+    </InputRadioGroup>
+</div>
