@@ -1,6 +1,6 @@
 ﻿@inherits CodeBreaker.UI.Shared.Components.Buttons.CodeBreakerButtonBase
 @namespace CodeBreaker.UI
 
-<div class="@($"btn {Class}")" @onclick=@OnClick>
+<div class="@(Disabled ? String.Join(" ", "btn is-disabled", Class) : String.Join(" ", "btn", Class))" @onclick=@OnClick>
     @ChildContent
 </div>

@@ -4,7 +4,7 @@
 }
 
 .start-game-container {
-    align-items: flex-end;
+    align-items: stretch;
     gap: 1rem;
 }
 
@@ -21,6 +21,5 @@
 
     .start-game-container {
         flex-direction: column;
-        align-items: stretch;
     }
 }

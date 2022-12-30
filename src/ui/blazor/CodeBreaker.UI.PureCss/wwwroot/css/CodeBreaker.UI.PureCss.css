@@ -15,6 +15,9 @@
     --text-color: #FFF;
     --primary: #00bbf0;
     --dialog-background: #fff;
+    --button-text-color: var(--body-text-color);
+    --select-background-color: #333;
+    --select-text-color: #fff;
     --dialog-box-shadow: 5px 5px 15px 5px rgba(160,160,160,0.7);
     --font: Montserrat, Helvetica, sans-serif;
 }
@@ -29,6 +32,7 @@ body {
     body.dark {
         --body-color: #18191A;
         --body-text-color: #CCC;
+        --button-text-color: var(--body-text-color);
         --nav-color: #242526;
         --side-nav: #242526;
         --text-color: #CCC;

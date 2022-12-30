@@ -2,6 +2,7 @@
 
 <label class="toggle" for="uniqueID">
     <input type="checkbox" class="toggle__input" id="uniqueID" checked="@Value" @onchange=@((ChangeEventArgs args) => Toggle()) />
+    @Label
     <span class="toggle-track">
         <span class="toggle-indicator">
             <!-- 	This check mark is optional	 -->
@@ -12,7 +13,6 @@
             </span>
         </span>
     </span>
-    Enabled toggle label
 </label>
 
 

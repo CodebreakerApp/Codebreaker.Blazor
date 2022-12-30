@@ -1,72 +1,63 @@
-﻿.select {
-    display: flex;
-    flex-direction: column;
-    position: relative;
-    width: 250px;
-    height: 40px;
-}
-
-::deep .option {
-    padding: 0 30px 0 10px;
-    min-height: 40px;
+﻿label {
     display: flex;
     align-items: center;
-    background: #333;
-    border-top: #222 solid 1px;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    pointer-events: none;
-    order: 2;
-    z-index: 1;
-    transition: background .4s ease-in-out;
-    box-sizing: border-box;
-    overflow: hidden;
-    white-space: nowrap;
+    border: 1px solid var(--body-text-color);
+    background-color: var(--body-color);
+    color: var(--body-text-color);
+    padding: 0.5rem 1rem;
+    font-size: 1.2em;
+    cursor: pointer;
 }
 
-    ::deep .option:hover {
-        background: #666;
-    }
+label > span {
+    flex: 1;
+}
 
-.select:focus ::deep .option {
+label > i {
+    transition: transform .3s ease-in-out;
+}
+
+label.is-checked > i {
+    transform: rotate(180deg);
+}
+
+li .select-item {
+    text-decoration: none;
+    text-align: right;
+}
+
+
+nav {
+    width: 300px;
+    background: #d9d9d9;
     position: relative;
-    pointer-events: all;
 }
 
-::deep input {
-    opacity: 0;
+.slide {
     position: absolute;
-    left: -99999px;
+    clear: both;
+    width: 100%;
+    height: 0px;
+    overflow: hidden;
+    text-align: center;
+    transition: height .4s ease;
 }
 
-    ::deep input:checked + label {
-        order: 1;
-        z-index: 2;
-        background: #666;
-        border-top: none;
-        position: relative;
+    .slide li {
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        text-align: left;
+        background: var(--primary);
+        color: #fff;
+        border-bottom: 1px solid;
     }
 
-        ::deep input:checked + label:after {
-            content: '';
-            width: 0;
-            height: 0;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-top: 5px solid white;
-            position: absolute;
-            right: 10px;
-            top: calc(50% - 2.5px);
-            pointer-events: none;
-            z-index: 3;
-        }
+#touch {
+    position: absolute;
+    opacity: 0;
+    height: 0px;
+}
 
-        ::deep input:checked + label:before {
-            position: absolute;
-            right: 0;
-            height: 40px;
-            width: 40px;
-            content: '';
-            background: #666;
-        }
+    #touch.is-checked + .slide {
+        height: 300px;
+    }

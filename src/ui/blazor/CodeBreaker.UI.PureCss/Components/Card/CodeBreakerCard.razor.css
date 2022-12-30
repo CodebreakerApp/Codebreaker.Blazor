@@ -1,4 +1,5 @@
 ﻿.card {
+    --button-text-color: #fff;
     padding: 20px;
     min-height: 200px;
     display: flex;
@@ -12,6 +13,7 @@
 }
 
 .card__title {
+    color: #ffffff;
     font-size: 1.2rem;
 }
 

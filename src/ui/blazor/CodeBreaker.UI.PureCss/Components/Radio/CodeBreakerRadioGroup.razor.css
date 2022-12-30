@@ -1,6 +1,6 @@
 ﻿/* label */
 label {
-    --other: hsl(0, 0%, 90%);
+    --other: var(--body-text-color);
     display: flex;
     justify-content: flex-start;
     align-items: center;
