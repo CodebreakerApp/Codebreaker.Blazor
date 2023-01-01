@@ -7,7 +7,7 @@
 
     .inp .label {
         position: absolute;
-        top: 20px;
+        top: -6px;
         left: 12px;
         font-size: 16px;
         color: var(--text-color);
@@ -18,19 +18,7 @@
         pointer-events: none;
     }
 
-    .inp .focus-bg {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.05);
-        z-index: -1;
-        transform: scaleX(0);
-        transform-origin: left;
-    }
-
-    .inp input {
+    .inp ::deep input {
         -webkit-appearance: none;
         -moz-appearance: none;
         appearance: none;
@@ -47,28 +35,13 @@
         transition: all 0.15s ease;
     }
 
-        .inp input:not(:-ms-input-placeholder) + .label {
+        .inp ::deep input + .label {
             color: var(--primary);
             transform: translate3d(0, -12px, 0) scale(0.75);
         }
 
-        .inp input:not(:placeholder-shown) + .label {
-            color: var(--primary);
-            transform: translate3d(0, -12px, 0) scale(0.75);
-        }
-
-        .inp input:focus {
+        .inp ::deep input:focus {
             background: rgba(0, 0, 0, 0.05);
             outline: none;
             box-shadow: inset 0 -2px 0 var(--primary);
         }
-
-            .inp input + .label {
-                color: var(--text-color);
-                transform: translate3d(0, -12px, 0) scale(0.75);
-            }
-
-                .inp input:focus + .label + .focus-bg {
-                    transform: scaleX(1);
-                    transition: all 0.1s ease;
-                }

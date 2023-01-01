@@ -7,6 +7,7 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
+
 :root {
     --body-color: #E4E9F7;
     --body-text-color: #010718;
@@ -29,16 +30,29 @@ body {
     font-family: var(--font);
 }
 
-    body.dark {
-        --body-color: #18191A;
-        --body-text-color: #CCC;
-        --button-text-color: var(--body-text-color);
-        --nav-color: #242526;
-        --side-nav: #242526;
-        --text-color: #CCC;
-        --dialog-background: #272727;
-        --dialog-box-shadow: unset;
+input[type="date"]::-webkit-calendar-picker-indicator {
+    cursor: pointer;
+    border-radius: 4px;
+    margin-right: 2px;
+    opacity: 0.8;
+    filter: invert(0.6);
+}
+
+    input[type="date"]::-webkit-calendar-picker-indicator:hover {
+        opacity: 1
     }
-        body.dark nav {
-            border: 1px solid #393838;
-        }
+
+body.dark {
+    --body-color: #18191A;
+    --body-text-color: #CCC;
+    --button-text-color: var(--body-text-color);
+    --nav-color: #242526;
+    --side-nav: #242526;
+    --text-color: #CCC;
+    --dialog-background: #272727;
+    --dialog-box-shadow: unset;
+}
+
+    body.dark nav {
+        border: 1px solid #393838;
+    }
