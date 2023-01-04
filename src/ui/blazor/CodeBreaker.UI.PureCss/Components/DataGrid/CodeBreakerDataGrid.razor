@@ -1,3 +1,14 @@
 ﻿@inherits CodeBreaker.UI.Shared.Components.DataGird.CodeBreakerDataGridBase<T>
 @namespace CodeBreaker.UI
 @typeparam T
+
+<QuickGrid TGridItem=T Items="@source">
+    @foreach (var col in Columns)
+    {
+        <PropertyColumn Title="@col.Title" Property="@col.FieldSelectorExpression" Sortable="true" />
+    }
+    <TemplateColumn Title="Actions">
+        <button @onclick="@(() => Hire(context))">Show</button>
+    </TemplateColumn>
+</QuickGrid>
+

@@ -56,3 +56,7 @@ body.dark {
     body.dark nav {
         border: 1px solid #393838;
     }
+
+    .flex-end {
+        align-self: flex-end;
+    }

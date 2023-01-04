@@ -11,7 +11,7 @@
 .dialog-content {
     background-color: var(--dialog-background);
     box-shadow: var(--dialog-box-shadow);
-    padding: 1rem 2rem;
+    padding: 1rem;
 }
 
 .actions {
@@ -21,4 +21,8 @@
     gap: 0.5rem;
     align-self: flex-end;
     width: 70%;
+}
+
+::deep .close {
+    margin-bottom: 1rem;
 }

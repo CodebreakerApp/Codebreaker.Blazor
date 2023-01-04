@@ -4,7 +4,7 @@
 {
     <div class="dialog">
         <div class="dialog-content flex-column">
-            <CodeBreakerIconButton Class="flex-end" @onclick=" CloseDialog" Icon="Shared.Models.Icon.CodeBreakerIcon.Cancel"> 
+            <CodeBreakerIconButton Class="close flex-end" @onclick="CloseDialog" Icon="Shared.Models.Icon.CodeBreakerIcon.Cancel"> 
             </CodeBreakerIconButton>
             @if (!String.IsNullOrWhiteSpace(_title))
             {
@@ -16,7 +16,7 @@
             <div class="actions">
                 @foreach (var context in _dialogActions)
                 {
-                    <CodeBreakerButton @onclick="      () => CallAction(context.Action)">
+                    <CodeBreakerButton @onclick="() => CallAction(context.Action)">
                         @context.Label
                     </CodeBreakerButton>
                 }
