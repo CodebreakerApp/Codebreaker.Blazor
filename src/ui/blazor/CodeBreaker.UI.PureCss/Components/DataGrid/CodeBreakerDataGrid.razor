@@ -8,7 +8,7 @@
         <PropertyColumn Title="@col.Title" Property="@col.FieldSelectorExpression" Sortable="true" />
     }
     <TemplateColumn Title="Actions">
-        <button @onclick="@(() => Hire(context))">Show</button>
+        <CodeBreakerButton @onclick="@(() => Hire(context))">Show</CodeBreakerButton>
     </TemplateColumn>
 </QuickGrid>
 

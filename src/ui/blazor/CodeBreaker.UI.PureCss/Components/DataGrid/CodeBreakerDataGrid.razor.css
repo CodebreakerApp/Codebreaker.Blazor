@@ -1,0 +1,10 @@
+::deep .quickgrid[theme=default] {
+    color: var(--body-text-color);
+}
+    ::deep .quickgrid[theme=default] .col-title {
+        color: var(--body-text-color);
+    }
+
+    ::deep .quickgrid[theme=default] .sort-indicator {
+        color: var(--body-text-color);
+    }
