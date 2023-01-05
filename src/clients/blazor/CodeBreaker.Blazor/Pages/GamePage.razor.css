@@ -8,6 +8,10 @@
     gap: 1rem;
 }
 
+.user-name {
+    margin-bottom: 1rem;
+}
+
 ::deep .progress {
     margin-right: 1rem;
     width: 1rem !important;
