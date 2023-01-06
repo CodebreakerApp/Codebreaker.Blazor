@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using System.Linq.Expressions;
+using Microsoft.AspNetCore.Components;
 
 namespace CodeBreaker.UI.Shared.Components.Radio;
 public abstract class CodeBreakerRadioGroupBase<T> : ComponentBase
@@ -8,6 +9,8 @@ public abstract class CodeBreakerRadioGroupBase<T> : ComponentBase
 
     [Parameter]
     public EventCallback<T> ValueChanged { get; set; }
+    [Parameter]
+    public Expression<Func<T>> ValueExpression { get; set; }
 
     [Parameter, EditorRequired]
     public IEnumerable<KeyValuePair<string, T>> Items { get; set; } = default!;

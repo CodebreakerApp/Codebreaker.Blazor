@@ -1,2 +1,6 @@
 ﻿@namespace CodeBreaker.UI
+@inherits CodeBreaker.UI.Shared.Components.Buttons.CodeBreakerIconButtonBase
 
+<CodeBreakerButton Class="@($"{Class} icon")" OnClick="@OnClick">
+    @_icon
+</CodeBreakerButton>

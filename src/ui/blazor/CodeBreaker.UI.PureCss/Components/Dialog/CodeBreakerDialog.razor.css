@@ -1,0 +1,28 @@
+﻿.dialog {
+    position: absolute;
+    z-index: 100;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dialog-content {
+    background-color: var(--dialog-background);
+    box-shadow: var(--dialog-box-shadow);
+    padding: 1rem;
+}
+
+.actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 0.5rem;
+    align-self: flex-end;
+    width: 70%;
+}
+
+::deep .close {
+    margin-bottom: 1rem;
+}

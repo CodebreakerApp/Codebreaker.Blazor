@@ -4,11 +4,11 @@
 <h2>@Loc["Reports_Title"]</h2>
 
 <div class="flex-column gap-5">
-    <EditForm Model="_filter">
+    <EditForm class="flex-column full-width gap-2" Model="_filter">
         <div>
             <CodeBreakerDatePicker Label="@Loc["Report_SelectDate_Label"]" @bind-Date="_filter.Date" />
         </div>
-        <div xs="12" md="3">
+        <div>
             <CodeBreakerButton Disabled=@_isLoadingGames @onclick="async () => await GetGames()">
                 @if (_isLoadingGames)
                 {

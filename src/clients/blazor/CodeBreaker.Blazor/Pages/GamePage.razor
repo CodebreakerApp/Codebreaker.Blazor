@@ -16,19 +16,21 @@
 
 @if (_gameStatus == GameMode.NotRunning)
 {
-    <div class="flex start-game-container">
-        <CodeBreakerTextField CssClass="flex-1" @bind-Value="_name" Label="@Loc["GamePage_NameInput"]" Placeholder="@Loc["GamePage_NameInputPlaceholder"]" Required="true" MaxLength="100" />
-        <CodeBreakerRadioGroup @bind-Value="_selectedGameType" Items="_gameTypes"></CodeBreakerRadioGroup>
-        <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(_name) || String.IsNullOrWhiteSpace(_selectedGameType))" OnClick="StartGameAsync">
-            @if(_loadingGame)
-            {
-                <CodeBreakerProgressCircular Class="progress"></CodeBreakerProgressCircular>
-            }
-            @Loc["GamePage_StartButtonText"]
-        </CodeBreakerButton>
+    <div class="flex-column start-game-container">
+        <CodeBreakerTextField CssClass="user-name flex-1" @bind-Value="_name" Label="@Loc["GamePage_NameInput"]" Placeholder="@Loc["GamePage_NameInputPlaceholder"]" Required="true" MaxLength="100" />
+        <div class="flex-responsive gap-2 full-width justify-between">
+            <CodeBreakerRadioGroup @bind-Value="_selectedGameType" Items="_gameTypes"></CodeBreakerRadioGroup>
+            <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(_name) || String.IsNullOrWhiteSpace(_selectedGameType))" OnClick="StartGameAsync">
+                @if (_loadingGame)
+                {
+                    <CodeBreakerProgressCircular Class="progress"></CodeBreakerProgressCircular>
+                }
+                @Loc["GamePage_StartButtonText"]
+            </CodeBreakerButton>
+        </div>
     </div>
 }
-else if(_game.HasValue)
+else if (_game.HasValue)
 {
     <Playground Game="_game.Value" GameStatusChanged="GameStatusChanged"></Playground>
 }

@@ -1,4 +1,8 @@
 ﻿@inherits CodeBreaker.UI.Shared.Components.DatePicker.CodeBreakerDatePickerBase
 @namespace CodeBreaker.UI
 
-
+<label for="inp" class="inp">
+    <InputDate Value="Date" ValueChanged="DateChanged" ValueExpression="() => Date"></InputDate>
+    <span class="label">Label</span>
+    <span class="focus-bg"></span>
+</label>

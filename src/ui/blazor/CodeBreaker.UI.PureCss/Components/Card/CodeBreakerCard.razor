@@ -1,5 +1,15 @@
 ﻿@inherits CodeBreaker.UI.Shared.Components.Card.CodeBreakerCardBase
 @namespace CodeBreaker.UI
 
-
-
+<div class="card">
+    <div class="card__title">
+        @HeaderContent
+    </div>
+    <div class="card__body">
+        @CardContent
+    </div>
+    <div class="card__apply">
+        @*<a class="card__link" href="#">Apply Now <i class="fas fa-arrow-right"></i></a>*@
+        @CardActions
+    </div>
+</div>

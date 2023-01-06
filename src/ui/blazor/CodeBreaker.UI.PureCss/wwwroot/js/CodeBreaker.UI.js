@@ -20,6 +20,28 @@
         link.href = '_content/CodeBreaker.UI/css/CodeBreaker.UI.PureCss.css';
         head.appendChild(link);
     }
+
+    const iconCssId = 'icon-css-id';
+    if (!document.getElementById(iconCssId)) {
+        var head = document.getElementsByTagName('head')[0];
+        var link = document.createElement('link');
+        link.id = iconCssId;
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css';
+        head.appendChild(link);
+    }
+
+    const fontId = 'font-id';
+    if (!document.getElementById(fontId)) {
+        var head = document.getElementsByTagName('head')[0];
+        var link = document.createElement('link');
+        link.id = fontId;
+        link.rel = 'stylesheet';
+        link.type = 'text/css';
+        link.href = 'https://fonts.googleapis.com/css?family=Montserrat:300,400,500,700&display=swap';
+        head.appendChild(link);
+    }
 }
 
 init();

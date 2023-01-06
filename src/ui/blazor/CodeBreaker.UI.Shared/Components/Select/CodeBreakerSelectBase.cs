@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Components;
@@ -19,4 +20,7 @@ public abstract class CodeBreakerSelectBase<T> : ComponentBase
 
     [Parameter]
     public EventCallback<T> ValueChanged { get; set; } = default!;
+
+    [Parameter]
+    public Expression<Func<T>> ValueExpression { get; set; } = default!;
 }

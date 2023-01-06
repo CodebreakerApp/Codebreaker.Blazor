@@ -24,7 +24,7 @@ public record SelectionAndKeyPegs(string[] GuessPegs, KeyPegsDto KeyPegs, int Mo
 
 public partial class GamePage
 {
-    private string _selectedGameType = string.Empty;
+    private string _selectedGameType = "6x4Game";
 
     //TODO: Get Data from API
     private IEnumerable<KeyValuePair<string, string>> _gameTypes = new List<KeyValuePair<string, string>> {
