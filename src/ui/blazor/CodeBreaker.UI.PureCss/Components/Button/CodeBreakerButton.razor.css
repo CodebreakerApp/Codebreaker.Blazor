@@ -7,6 +7,10 @@
     color: var(--button-text-color);
     transition: all 0.5s;
     position: relative;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .btn.is-disabled {
