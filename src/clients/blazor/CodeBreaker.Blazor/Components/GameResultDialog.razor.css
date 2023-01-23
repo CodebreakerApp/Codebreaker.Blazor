@@ -4,12 +4,12 @@
 
 .content {
     height: 150px;
-    font-size: 2rem;
-    text-transform: uppercase;
     white-space: pre-wrap;
     display: flex;
     align-items: center;
     justify-content: center;
+    font-size: 2rem;
+    text-transform: uppercase;
 }
 
 .text {

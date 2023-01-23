@@ -7,5 +7,6 @@ public enum GameMode
     Started,
     MoveSet,
     Lost,
-    Won
+    Won,
+    Timeout
 }

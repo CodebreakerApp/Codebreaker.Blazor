@@ -1,6 +1,4 @@
-﻿using System;
-using System.Threading;
-using System.Timers;
+﻿using System.Timers;
 using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.Models;
 using CodeBreaker.Blazor.Resources;
@@ -11,7 +9,6 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
-using static MudBlazor.Colors;
 
 namespace CodeBreaker.Blazor.Pages;
 
@@ -41,7 +38,7 @@ public partial class GamePage : IDisposable
     [Inject]
     private IStringLocalizer<Resource> Loc { get; init; } = default!;
 
-    private System.Timers.Timer _timer;
+    private System.Timers.Timer _timer = new(TimeSpan.FromHours(1));
     private GameMode _gameStatus = GameMode.NotRunning;
     private string _name = string.Empty;
     private bool _loadingGame = false;
@@ -50,7 +47,6 @@ public partial class GamePage : IDisposable
 
     protected override async Task OnInitializedAsync()
     {
-        _timer = new System.Timers.Timer(TimeSpan.FromMinutes(1));
         _timer.Elapsed += OnTimedEvent;
         _timer.AutoReset = true;
         _navigationManager.RegisterLocationChangingHandler(OnLocationChanging);
@@ -86,6 +82,18 @@ public partial class GamePage : IDisposable
         {
             //TODO: Show dialog
             Console.WriteLine($"Time out called...Cancel game. Time {e.SignalTime}");
+            _timer.Stop();
+            _gameStatus = GameMode.Canceld;
+            StateHasChanged();
+            _dialogService.ShowDialog(new CodeBreakerDialogContext(typeof(GameResultDialog), new Dictionary<string, object>
+            {
+                { nameof(GameResultDialog.GameMode), GameMode.Timeout },
+                { nameof(GameResultDialog.Username), _name },
+            }, string.Empty, new List<CodeBreakerDialogActionContext>
+            {
+                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo("")),
+                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
+            }));
         });
     }
 
