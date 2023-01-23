@@ -9,7 +9,7 @@ namespace CodeBreaker.Blazor.Components
         public bool Running { get; set; } = false;
 
         [Parameter]
-        public EventCallback<TimeSpan> TimeChanged { get; set; }
+        public EventCallback<TimeSpan> StopTimeChanged { get; set; }
 
         private string _currentTime = string.Empty;
         private TimeSpan _timespan = TimeSpan.Zero;
@@ -29,6 +29,7 @@ namespace CodeBreaker.Blazor.Components
             {
                 _timespan = TimeSpan.Zero;
                 _timer.Stop();
+                await StopTimeChanged.InvokeAsync(_timespan);
             }
             else if (Running && !_timer!.Enabled)
             {

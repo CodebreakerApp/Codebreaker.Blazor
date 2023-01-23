@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Timers;
 using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.Models;
@@ -16,7 +17,7 @@ namespace CodeBreaker.Blazor.Pages;
 
 public record SelectionAndKeyPegs(string[] GuessPegs, KeyPegsDto KeyPegs, int MoveNumber);
 
-public partial class GamePage
+public partial class GamePage : IDisposable
 {
     private string _selectedGameType = "6x4Game";
 
@@ -40,6 +41,7 @@ public partial class GamePage
     [Inject]
     private IStringLocalizer<Resource> Loc { get; init; } = default!;
 
+    private System.Timers.Timer _timer;
     private GameMode _gameStatus = GameMode.NotRunning;
     private string _name = string.Empty;
     private bool _loadingGame = false;
@@ -48,11 +50,14 @@ public partial class GamePage
 
     protected override async Task OnInitializedAsync()
     {
+        _timer = new System.Timers.Timer(TimeSpan.FromMinutes(1));
+        _timer.Elapsed += OnTimedEvent;
+        _timer.AutoReset = true;
         _navigationManager.RegisterLocationChangingHandler(OnLocationChanging);
         await base.OnInitializedAsync();
     }
 
-    public async Task StartGameAsync()
+    private async Task StartGameAsync()
     {
         try
         {
@@ -70,12 +75,23 @@ public partial class GamePage
         }
         finally
         {
+            _timer.Start();
             _loadingGame = false;
         }
     }
 
-    public void GameStatusChanged(GameMode gameMode)
+    private async void OnTimedEvent(object? sender, ElapsedEventArgs e)
     {
+        await InvokeAsync(() =>
+        {
+            //TODO: Show dialog
+            Console.WriteLine($"Time out called...Cancel game. Time {e.SignalTime}");
+        });
+    }
+
+    private void GameStatusChanged(GameMode gameMode)
+    {
+        _timer.Stop();
         _gameStatus = gameMode;
         if (_gameStatus is GameMode.Won or GameMode.Lost)
         {
@@ -89,10 +105,16 @@ public partial class GamePage
                 new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
             }));
         }
+        else
+        {
+
+            _timer.Start();
+        }
     }
 
-    public void CancelGame()
+    private void CancelGame()
     {
+        _timer.Stop();
         _gameStatus = GameMode.Canceld;
         _navigationManager.NavigateTo("");
     }
@@ -126,4 +148,6 @@ public partial class GamePage
             _cancelGame = false;
         }
     }
+
+    public void Dispose() => _timer?.Dispose();
 }
