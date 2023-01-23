@@ -1,4 +1,4 @@
-using CodeBreaker.Blazor.Pages;
+using CodeBreaker.Blazor.Models;
 using CodeBreaker.Blazor.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;

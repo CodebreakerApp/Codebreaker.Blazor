@@ -1,4 +1,6 @@
-﻿using CodeBreaker.Blazor.Components;
+﻿using System.Timers;
+using CodeBreaker.Blazor.Components;
+using CodeBreaker.Blazor.Models;
 using CodeBreaker.Blazor.Resources;
 using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
@@ -10,19 +12,9 @@ using Microsoft.JSInterop;
 
 namespace CodeBreaker.Blazor.Pages;
 
-public enum GameMode
-{
-    NotRunning,
-    Canceld,
-    Started,
-    MoveSet,
-    Lost,
-    Won
-}
-
 public record SelectionAndKeyPegs(string[] GuessPegs, KeyPegsDto KeyPegs, int MoveNumber);
 
-public partial class GamePage
+public partial class GamePage : IDisposable
 {
     private string _selectedGameType = "6x4Game";
 
@@ -46,6 +38,7 @@ public partial class GamePage
     [Inject]
     private IStringLocalizer<Resource> Loc { get; init; } = default!;
 
+    private System.Timers.Timer _timer = new(TimeSpan.FromHours(1));
     private GameMode _gameStatus = GameMode.NotRunning;
     private string _name = string.Empty;
     private bool _loadingGame = false;
@@ -54,17 +47,20 @@ public partial class GamePage
 
     protected override async Task OnInitializedAsync()
     {
+        _timer.Elapsed += OnTimedEvent;
+        _timer.AutoReset = true;
         _navigationManager.RegisterLocationChangingHandler(OnLocationChanging);
         await base.OnInitializedAsync();
     }
 
-    public async Task StartGameAsync()
+    private async Task StartGameAsync()
     {
         try
         {
             _loadingGame = true;
             _gameStatus = GameMode.NotRunning;
-            CreateGameResponse response = await _client.StartGameAsync(_name, string.IsNullOrWhiteSpace(_selectedGameType) ? "6x4Game" : _selectedGameType);
+            var response = await _client.StartGameAsync(_name,
+                string.IsNullOrWhiteSpace(_selectedGameType) ? "6x4Game" : _selectedGameType);
             _game = response.Game;
             _gameStatus = GameMode.Started;
         }
@@ -75,12 +71,35 @@ public partial class GamePage
         }
         finally
         {
+            _timer.Start();
             _loadingGame = false;
         }
     }
 
-    public void GameStatusChanged(GameMode gameMode)
+    private async void OnTimedEvent(object? sender, ElapsedEventArgs e)
     {
+        await InvokeAsync(() =>
+        {
+            //TODO: Show dialog
+            Console.WriteLine($"Time out called...Cancel game. Time {e.SignalTime}");
+            _timer.Stop();
+            _gameStatus = GameMode.Canceld;
+            StateHasChanged();
+            _dialogService.ShowDialog(new CodeBreakerDialogContext(typeof(GameResultDialog), new Dictionary<string, object>
+            {
+                { nameof(GameResultDialog.GameMode), GameMode.Timeout },
+                { nameof(GameResultDialog.Username), _name },
+            }, string.Empty, new List<CodeBreakerDialogActionContext>
+            {
+                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo("")),
+                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
+            }));
+        });
+    }
+
+    private void GameStatusChanged(GameMode gameMode)
+    {
+        _timer.Stop();
         _gameStatus = gameMode;
         if (_gameStatus is GameMode.Won or GameMode.Lost)
         {
@@ -94,10 +113,16 @@ public partial class GamePage
                 new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
             }));
         }
+        else
+        {
+
+            _timer.Start();
+        }
     }
 
-    public void CancelGame()
+    private void CancelGame()
     {
+        _timer.Stop();
         _gameStatus = GameMode.Canceld;
         _navigationManager.NavigateTo("");
     }
@@ -131,4 +156,6 @@ public partial class GamePage
             _cancelGame = false;
         }
     }
+
+    public void Dispose() => _timer?.Dispose();
 }
