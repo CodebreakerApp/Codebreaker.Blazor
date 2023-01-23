@@ -1,4 +1,7 @@
-﻿using CodeBreaker.Blazor.Components;
+﻿using System.Threading;
+using System.Timers;
+using CodeBreaker.Blazor.Components;
+using CodeBreaker.Blazor.Models;
 using CodeBreaker.Blazor.Resources;
 using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
@@ -7,18 +10,9 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
+using static MudBlazor.Colors;
 
 namespace CodeBreaker.Blazor.Pages;
-
-public enum GameMode
-{
-    NotRunning,
-    Canceld,
-    Started,
-    MoveSet,
-    Lost,
-    Won
-}
 
 public record SelectionAndKeyPegs(string[] GuessPegs, KeyPegsDto KeyPegs, int MoveNumber);
 
@@ -64,7 +58,8 @@ public partial class GamePage
         {
             _loadingGame = true;
             _gameStatus = GameMode.NotRunning;
-            CreateGameResponse response = await _client.StartGameAsync(_name, string.IsNullOrWhiteSpace(_selectedGameType) ? "6x4Game" : _selectedGameType);
+            var response = await _client.StartGameAsync(_name,
+                string.IsNullOrWhiteSpace(_selectedGameType) ? "6x4Game" : _selectedGameType);
             _game = response.Game;
             _gameStatus = GameMode.Started;
         }

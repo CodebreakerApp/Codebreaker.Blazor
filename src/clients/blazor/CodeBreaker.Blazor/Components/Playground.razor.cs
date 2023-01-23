@@ -4,6 +4,7 @@ using CodeBreaker.Blazor.Pages;
 using System.ComponentModel;
 using CodeBreaker.Services;
 using System.Text.Json;
+using CodeBreaker.Blazor.Models;
 
 namespace CodeBreaker.Blazor.Components;
 
