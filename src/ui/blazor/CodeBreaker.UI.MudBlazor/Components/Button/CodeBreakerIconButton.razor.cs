@@ -20,6 +20,12 @@ namespace CodeBreaker.UI
                 case CodeBreakerIcon.Cancel:
                     _icon = Icons.Filled.CancelPresentation;
                     break;
+                case CodeBreakerIcon.Login:
+                    _icon = Icons.Filled.Login;
+                    break;
+                case CodeBreakerIcon.Logout:
+                    _icon = Icons.Filled.Logout;
+                    break;
             }
 
             base.OnInitialized();

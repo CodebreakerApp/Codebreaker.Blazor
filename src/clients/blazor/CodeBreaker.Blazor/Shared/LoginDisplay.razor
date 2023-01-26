@@ -1,9 +1,14 @@
-﻿<AuthorizeView>
+﻿@using UI.Shared.Models.Icon
+
+<AuthorizeView>
     <Authorized>
-        Hello, @context.User.Identity?.Name!
-        <button class="nav-link btn btn-link" @onclick="BeginLogOut">Log out</button>
+        <CodeBreakerIconButton OnClick="BeginLogOut" Icon="CodeBreakerIcon.Logout"></CodeBreakerIconButton>
+        @if (!String.IsNullOrWhiteSpace(context.User.Identity?.Name))
+        {
+            <span style="color: var(--text-color); margin-left: 1rem;">@context.User.Identity?.Name</span>
+        }
     </Authorized>
     <NotAuthorized>
-        <a href="authentication/login">Log in</a>
+        <CodeBreakerIconButton OnClick="BeginLogIn" Icon="CodeBreakerIcon.Login"></CodeBreakerIconButton>
     </NotAuthorized>
 </AuthorizeView>

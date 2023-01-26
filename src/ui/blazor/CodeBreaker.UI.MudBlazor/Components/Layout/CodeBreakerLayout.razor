@@ -10,8 +10,9 @@
 <MudLayout>
     <MudAppBar Elevation="1">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="DrawerToggle" />
-        @ToolbarContent
+        <MudText Typo="Typo.h4">@Label</MudText>
         <MudSpacer />
+        @ToolbarContent
     </MudAppBar>
     <MudDrawer @bind-Open="DrawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
         @DrawerContent

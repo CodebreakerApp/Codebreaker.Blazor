@@ -11,5 +11,10 @@ namespace CodeBreaker.Blazor.Shared
         {
             _navigationManager.NavigateToLogout("authentication/logout");
         }
+
+        public void BeginLogIn()
+        {
+            _navigationManager.NavigateToLogout("authentication/login");
+        }
     }
 }

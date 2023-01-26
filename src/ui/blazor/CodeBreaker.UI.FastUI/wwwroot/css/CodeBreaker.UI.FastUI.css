@@ -36,7 +36,8 @@ header {
         --neutral-foreground-rest: #fff;
     }
 
-    header span {
+    header span,
+    header h2 {
         flex: 1;
     }
 

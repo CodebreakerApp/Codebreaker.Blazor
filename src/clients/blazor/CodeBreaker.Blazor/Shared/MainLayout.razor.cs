@@ -10,6 +10,6 @@ public partial class MainLayout
         new NavLinkItem("Home", "/", NavLinkMatch.All, ""),
         new NavLinkItem("Game", "/game", NavLinkMatch.All, ""),
         new NavLinkItem("Reports", "/reports", NavLinkMatch.All, ""),
-        new NavLinkItem("About", "/about", NavLinkMatch.All, "")
+        new NavLinkItem("About", "/about", NavLinkMatch.All, ""),
     };
 }
