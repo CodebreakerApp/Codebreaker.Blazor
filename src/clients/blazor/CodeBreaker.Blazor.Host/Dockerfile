@@ -9,7 +9,6 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
 ARG CONFIGURATION
 ENV CONFIGURATION=${CONFIGURATION}
-RUN echo "CONFIGURATION: ${CONFIGURATION}"
 WORKDIR /src
 COPY ["clients/nuget.config", "clients/"]
 COPY ["clients/blazor/CodeBreaker.Blazor.Host/CodeBreaker.Blazor.Host.csproj", "clients/blazor/CodeBreaker.Blazor.Host/"]
