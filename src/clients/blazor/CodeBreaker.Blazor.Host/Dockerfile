@@ -1,4 +1,5 @@
 #See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+ARG CONFIGURATION=Release
 
 FROM mcr.microsoft.com/dotnet/aspnet:7.0 AS base
 WORKDIR /app
@@ -6,7 +7,7 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-ARG CONFIGURATION=Release
+ARG CONFIGURATION
 WORKDIR /src
 COPY ["clients/nuget.config", "clients/"]
 COPY ["clients/blazor/CodeBreaker.Blazor.Host/CodeBreaker.Blazor.Host.csproj", "clients/blazor/CodeBreaker.Blazor.Host/"]
