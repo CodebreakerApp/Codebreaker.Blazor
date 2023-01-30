@@ -6,7 +6,7 @@ EXPOSE 80
 EXPOSE 443
 
 FROM mcr.microsoft.com/dotnet/sdk:7.0 AS build
-ARG CONFIGURATION=Release1
+ARG CONFIGURATION=Release
 WORKDIR /src
 COPY ["clients/nuget.config", "clients/"]
 COPY ["clients/blazor/CodeBreaker.Blazor.Host/CodeBreaker.Blazor.Host.csproj", "clients/blazor/CodeBreaker.Blazor.Host/"]
@@ -16,10 +16,10 @@ COPY ["ui/blazor/CodeBreaker.UI.Shared/CodeBreaker.UI.Shared.csproj", "ui/blazor
 RUN dotnet restore "clients/blazor/CodeBreaker.Blazor.Host/CodeBreaker.Blazor.Host.csproj"
 COPY . .
 WORKDIR "/src/clients/blazor/CodeBreaker.Blazor.Host"
-RUN dotnet build "CodeBreaker.Blazor.Host.csproj" -c $CONFIGURATION -o /app/build
+RUN dotnet build "CodeBreaker.Blazor.Host.csproj" -c ${CONFIGURATION} -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "CodeBreaker.Blazor.Host.csproj" -c $CONFIGURATION -o /app/publish /p:UseAppHost=false
+RUN dotnet publish "CodeBreaker.Blazor.Host.csproj" -c ${CONFIGURATION} -o /app/publish /p:UseAppHost=false
 
 FROM base AS final
 WORKDIR /app
