@@ -2,6 +2,7 @@ using System.Globalization;
 using BlazorApplicationInsights;
 
 using CodeBreaker.Blazor;
+using CodeBreaker.Blazor.Authentication;
 using CodeBreaker.Services;
 using CodeBreaker.Services.Authentication;
 using CodeBreaker.UI;
@@ -24,9 +25,13 @@ builder.Services.AddScoped(sp => new HttpClient
 });
 
 // Authentication
+builder.Services.AddScoped<CodeBreakerAuthorizationMessageHandler>();
+//builder.Services.AddHttpClient("ServerAPI", client =>
+//                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")))
+//    .AddHttpMessageHandler<CodeBreakerAuthorizationMessageHandler>();
+
 builder.Services.AddHttpClient("ServerAPI", client =>
-                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")))
-    .AddHttpMessageHandler<AuthorizationMessageHandler>();
+                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")));
 builder.Services.AddMsalAuthentication(options =>
 {
     builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);

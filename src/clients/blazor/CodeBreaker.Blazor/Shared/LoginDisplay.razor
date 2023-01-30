@@ -2,11 +2,13 @@
 
 <AuthorizeView>
     <Authorized>
-        <CodeBreakerIconButton OnClick="BeginLogOut" Icon="CodeBreakerIcon.Logout"></CodeBreakerIconButton>
-        @if (!String.IsNullOrWhiteSpace(context.User.Identity?.Name))
-        {
-            <span style="color: var(--text-color); margin-left: 1rem;">@context.User.Identity?.Name</span>
-        }
+        <div style="display:flex; gap: 1rem; align-items: center;">
+            @if (!String.IsNullOrWhiteSpace(context.User.Identity?.Name))
+            {
+                <span>@context.User.Identity.Name</span>
+            }
+            <CodeBreakerIconButton OnClick="BeginLogOut" Icon="CodeBreakerIcon.Logout"></CodeBreakerIconButton>
+        </div>
     </Authorized>
     <NotAuthorized>
         <CodeBreakerIconButton OnClick="BeginLogIn" Icon="CodeBreakerIcon.Login"></CodeBreakerIconButton>

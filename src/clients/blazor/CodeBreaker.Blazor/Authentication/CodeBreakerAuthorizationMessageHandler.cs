@@ -5,12 +5,12 @@ namespace CodeBreaker.Blazor.Authentication;
 
 public class CodeBreakerAuthorizationMessageHandler : AuthorizationMessageHandler
 {
-    public CodeBreakerAuthorizationMessageHandler(IAccessTokenProvider provider,
+    public CodeBreakerAuthorizationMessageHandler(IConfiguration config, IAccessTokenProvider provider,
         NavigationManager navigationManager)
         : base(provider, navigationManager)
     {
         ConfigureHandler(
-           authorizedUrls: new[] { "https://localhost:44370" });
+           authorizedUrls: new[] { config["ApiBase"] });
 
     }
 }
