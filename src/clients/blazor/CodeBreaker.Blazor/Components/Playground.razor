@@ -12,7 +12,7 @@
                 @for (int y = 0; y < Game.Type.Holes; y++)
                 {
                     var localVariable = y;
-                    @if (EnableDragAndDrop)
+                    @if (!_isMobile)
                     {
                         <div class="@(i == 1 ? $"{_currentMove[localVariable].Item2}" : string.Empty)"
                              ondragover="event.preventDefault();"
@@ -63,10 +63,10 @@
             </div>
         }
     </div>
-    <div class="@(EnableDragAndDrop ? "colors draggable" : "colors")">
+    <div class="@(!_isMobile ? "colors draggable" : "colors")">
         @foreach (string colorField in Game.Type.Fields ?? Array.Empty<string>())
         {
-            @if (EnableDragAndDrop)
+            @if (!_isMobile)
             {
                 <div draggable="true"
                      class="@($"draggable {colorField.ToLower()}")"

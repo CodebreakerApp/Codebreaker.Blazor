@@ -6,7 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
     <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-    <Configurations>Debug;Release;Mudblazor;FastUI;FastUIRelease;PureCss;ReleasePureCss</Configurations>
+    <Configurations>Debug;Release;Mudblazor;FastUI;ReleaseFastUI;PureCss;ReleasePureCss</Configurations>
   </PropertyGroup>
 
   <ItemGroup>

@@ -1,6 +1,5 @@
 using System.Globalization;
 using BlazorApplicationInsights;
-
 using CodeBreaker.Blazor;
 using CodeBreaker.Blazor.Authentication;
 using CodeBreaker.Services;
