@@ -3,8 +3,8 @@ using CodeBreaker.Shared.Models.Api;
 using CodeBreaker.Blazor.Pages;
 using System.ComponentModel;
 using CodeBreaker.Services;
-using System.Text.Json;
 using CodeBreaker.Blazor.Models;
+using Microsoft.JSInterop;
 
 namespace CodeBreaker.Blazor.Components;
 
@@ -12,15 +12,14 @@ public partial class Playground
 {
     [Inject]
     private IGameClient Client { get; init; } = default!;
+    [Inject]
+    private IJSRuntime JS { get; init; } = default!;
 
     [Parameter, EditorRequired]
     public GameDto Game { get; set; } = default!;
 
     [Parameter]
     public bool GameFinished { get; set; } = false;
-
-    [Parameter]
-    public bool EnableDragAndDrop { get; set; } = true;
 
     [Parameter]
     public EventCallback<GameMode> GameStatusChanged { get; set; }
@@ -31,17 +30,18 @@ public partial class Playground
         _currentMove.Any(m => String.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected" || m.Item2 == "can-drop");
     private string _keyPegsFormat => Game.Type.Holes > 4 ? "three-two" : "two-two";
 
+    private bool _isMobile = false;
     private bool _selectable = false;
     private int _selectedField = -1;
     private BindingList<SelectionAndKeyPegs> _gameMoves = new();
     private string[] _selectionFields = Array.Empty<string>();
     private List<Tuple<int, string>> _currentMove = new();
     private string _activeColor = string.Empty;
+    private IJSInProcessObjectReference? module;
 
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
-        Console.WriteLine($"{JsonSerializer.Serialize(Game)}");
         InitialzePlayground();
         if (Game.Moves.Count() > 0)
         {
@@ -53,7 +53,19 @@ public partial class Playground
                 }
             }
         }
-        base.OnInitialized();
+
+        await base.OnInitializedAsync();
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender || module is null)
+        {
+            module = await JS.InvokeAsync<IJSInProcessObjectReference>("import", "./Components/Playground.razor.js");
+            _isMobile= await module.InvokeAsync<bool>("isMobile");
+            StateHasChanged();
+        }
+        await base.OnAfterRenderAsync(firstRender);
     }
 
     public async Task SetMoveAsync()
@@ -138,6 +150,7 @@ public partial class Playground
         }
     }
     #endregion
+
     private void InitialzePlayground()
     {
         _selectionFields = new string[Game.Type.Holes];
