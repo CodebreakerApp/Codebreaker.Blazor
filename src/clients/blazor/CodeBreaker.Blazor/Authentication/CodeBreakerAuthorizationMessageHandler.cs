@@ -1,16 +1,26 @@
 ﻿using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
-using Microsoft.AspNetCore.Components;
+using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace CodeBreaker.Blazor.Authentication;
 
-public class CodeBreakerAuthorizationMessageHandler : AuthorizationMessageHandler
+public class CodeBreakerAuthorizationMessageHandler : DelegatingHandler
 {
-    public CodeBreakerAuthorizationMessageHandler(IConfiguration config, IAccessTokenProvider provider,
-        NavigationManager navigationManager)
-        : base(provider, navigationManager)
-    {
-        ConfigureHandler(
-           authorizedUrls: new[] { config["ApiBase"] });
+    private readonly IAccessTokenProvider _tokenProvider;
 
+    public CodeBreakerAuthorizationMessageHandler(IAccessTokenProvider accessor)
+    {
+        _tokenProvider = accessor ?? throw new ArgumentNullException(nameof(accessor));
+    }
+
+    protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    {
+        var accessTokenResult = await _tokenProvider.RequestAccessToken();
+        if (accessTokenResult.TryGetToken(out var accessToken) && !string.IsNullOrWhiteSpace(accessToken.Value))
+        {
+            request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken.Value);
+        }
+        Console.WriteLine(JsonSerializer.Serialize(accessTokenResult));
+        return await base.SendAsync(request, cancellationToken);
     }
 }

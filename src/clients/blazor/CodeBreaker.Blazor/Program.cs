@@ -26,12 +26,13 @@ builder.Services.AddScoped(sp => new HttpClient
 
 // Authentication
 builder.Services.AddScoped<CodeBreakerAuthorizationMessageHandler>();
-//builder.Services.AddHttpClient("ServerAPI", client =>
-//                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")))
-//    .AddHttpMessageHandler<CodeBreakerAuthorizationMessageHandler>();
-
 builder.Services.AddHttpClient("ServerAPI", client =>
-                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")));
+                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")))
+    .AddHttpMessageHandler<CodeBreakerAuthorizationMessageHandler>();
+
+//builder.Services.AddHttpClient("ServerAPI", client =>
+//                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")));
+
 builder.Services.AddMsalAuthentication(options =>
 {
     builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
