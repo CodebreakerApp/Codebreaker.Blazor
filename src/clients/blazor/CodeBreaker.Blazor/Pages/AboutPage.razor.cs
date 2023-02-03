@@ -11,7 +11,7 @@ namespace CodeBreaker.Blazor.Pages
         private IStringLocalizer<Resource> Loc { get; set; } = default!;
 
         private string instructions = string.Empty;
-        private readonly Version version = typeof(Program)?.Assembly.GetName().Version;
+        private readonly Version version = typeof(Program)?.Assembly.GetName().Version!;
 
         protected override async Task OnInitializedAsync()
         {

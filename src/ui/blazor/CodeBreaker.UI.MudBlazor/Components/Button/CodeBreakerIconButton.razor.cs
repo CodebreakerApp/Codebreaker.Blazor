@@ -8,25 +8,15 @@ namespace CodeBreaker.UI
         private string _icon = string.Empty;
         protected override void OnInitialized()
         {
-            // TODO: switch expression
-            switch(Icon)
+            _icon = Icon switch
             {
-                case CodeBreakerIcon.Global:
-                    _icon = Icons.Filled.Language;
-                    break;
-                case CodeBreakerIcon.Play:
-                    _icon = Icons.Filled.PlayCircleOutline;
-                    break;
-                case CodeBreakerIcon.Cancel:
-                    _icon = Icons.Filled.CancelPresentation;
-                    break;
-                case CodeBreakerIcon.Login:
-                    _icon = Icons.Filled.Login;
-                    break;
-                case CodeBreakerIcon.Logout:
-                    _icon = Icons.Filled.Logout;
-                    break;
-            }
+                CodeBreakerIcon.Global => Icons.Filled.Language,
+                CodeBreakerIcon.Play => Icons.Filled.PlayCircleOutline,
+                CodeBreakerIcon.Cancel => Icons.Filled.CancelPresentation,
+                CodeBreakerIcon.Login => Icons.Filled.Login,
+                CodeBreakerIcon.Logout => Icons.Filled.Logout,
+                _ => string.Empty
+            };
 
             base.OnInitialized();
         }

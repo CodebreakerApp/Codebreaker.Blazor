@@ -8,24 +8,15 @@ public partial class CodeBreakerIconButton
     private string _icon = string.Empty;
     protected override void OnInitialized()
     {
-        switch (Icon)
+        _icon = Icon switch
         {
-            case CodeBreakerIcon.Global:
-                _icon = FluentIcons.Globe;
-                break;
-            case CodeBreakerIcon.Play:
-                _icon = FluentIcons.Play;
-                break;
-            case CodeBreakerIcon.Cancel:
-                _icon = FluentIcons.ShareScreenStop;
-                break;
-            case CodeBreakerIcon.Login:
-                _icon = FluentIcons.Home;
-                break;
-            case CodeBreakerIcon.Logout:
-                _icon = FluentIcons.HomePerson;
-                break;
-        }
+            CodeBreakerIcon.Global => FluentIcons.Globe,
+            CodeBreakerIcon.Play => FluentIcons.Play,
+            CodeBreakerIcon.Cancel => FluentIcons.ShareScreenStop,
+            CodeBreakerIcon.Login => FluentIcons.Home,
+            CodeBreakerIcon.Logout => FluentIcons.HomePerson,
+            _ => string.Empty
+        };
 
         base.OnInitialized();
     }
