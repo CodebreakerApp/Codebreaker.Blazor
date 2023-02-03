@@ -1,32 +1,47 @@
 using System.Globalization;
 using BlazorApplicationInsights;
 using CodeBreaker.Blazor;
+using CodeBreaker.Blazor.Authentication;
 using CodeBreaker.Services;
 using CodeBreaker.Services.Authentication;
 using CodeBreaker.UI;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
+
 builder.Services.AddLocalization();
 builder.Services.AddBlazorApplicationInsights();
-builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddHttpClient("ServerAPI", client =>
-                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")));
+builder.Services.AddCodeBreakerUI();
 
-builder.Services.AddScoped(typeof(IGameClient), CreateGameClient);
-builder.Services.AddScoped(typeof(IGameReportClient), CreateGameClient);
-
-builder.Services.AddScoped(sp => new HttpClient {
+builder.Services.AddScoped(sp => new HttpClient
+{
     BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
 });
 
-builder.Services.AddCodeBreakerUI();
+// Authentication
+builder.Services.AddScoped<CodeBreakerAuthorizationMessageHandler>();
+builder.Services.AddHttpClient("ServerAPI", client =>
+                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")))
+    .AddHttpMessageHandler<CodeBreakerAuthorizationMessageHandler>();
 
-builder.Services.AddLocalization();
+//builder.Services.AddHttpClient("ServerAPI", client =>
+//                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")));
+
+builder.Services.AddMsalAuthentication(options =>
+{
+    builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
+    options.ProviderOptions.DefaultAccessTokenScopes.Add("openid");
+    options.ProviderOptions.DefaultAccessTokenScopes.Add("offline_access");
+});
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped(typeof(IGameClient), CreateGameClient);
+builder.Services.AddScoped(typeof(IGameReportClient), CreateGameClient);
 
 var host = builder.Build();
 

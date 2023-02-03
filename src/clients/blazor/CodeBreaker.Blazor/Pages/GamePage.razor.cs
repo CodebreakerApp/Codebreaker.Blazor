@@ -1,4 +1,5 @@
-﻿using System.Timers;
+﻿using System.Text.Json;
+using System.Timers;
 using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.Models;
 using CodeBreaker.Blazor.Resources;
@@ -6,6 +7,7 @@ using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
 using CodeBreaker.UI.Shared.Services.Dialog;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
@@ -34,9 +36,10 @@ public partial class GamePage : IDisposable
     private IJSRuntime _jSRuntime { get; init; } = default!;
     [Inject]
     private ICodeBreakerDialogService _dialogService { get; init; } = default!;
-
     [Inject]
     private IStringLocalizer<Resource> Loc { get; init; } = default!;
+    [Inject]
+    private AuthenticationStateProvider _authenticationStateProvider { get; init; } = default!;
 
     private System.Timers.Timer _timer = new(TimeSpan.FromHours(1));
     private GameMode _gameStatus = GameMode.NotRunning;
@@ -50,6 +53,10 @@ public partial class GamePage : IDisposable
         _timer.Elapsed += OnTimedEvent;
         _timer.AutoReset = true;
         _navigationManager.RegisterLocationChangingHandler(OnLocationChanging);
+        var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
+        _name = String.IsNullOrWhiteSpace(state?.User?.Identity?.Name)
+            ? string.Empty
+            : state.User.Identity.Name;
         await base.OnInitializedAsync();
     }
 

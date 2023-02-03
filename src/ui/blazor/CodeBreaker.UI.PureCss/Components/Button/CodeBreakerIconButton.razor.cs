@@ -23,6 +23,12 @@ public partial class CodeBreakerIconButton
                 case Shared.Models.Icon.CodeBreakerIcon.Global:
                     builder.AddAttribute(1, "class", "bx bx-globe");
                     break;
+                case Shared.Models.Icon.CodeBreakerIcon.Login:
+                    builder.AddAttribute(1, "class", "bx bx-log-in-circle");
+                    break;
+                case Shared.Models.Icon.CodeBreakerIcon.Logout:
+                    builder.AddAttribute(1, "class", "bx bx-log-out-circle");
+                    break;
 
             }
 

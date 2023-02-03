@@ -19,6 +19,12 @@ public partial class CodeBreakerIconButton
             case CodeBreakerIcon.Cancel:
                 _icon = FluentIcons.ShareScreenStop;
                 break;
+            case CodeBreakerIcon.Login:
+                _icon = FluentIcons.Home;
+                break;
+            case CodeBreakerIcon.Logout:
+                _icon = FluentIcons.HomePerson;
+                break;
         }
 
         base.OnInitialized();
