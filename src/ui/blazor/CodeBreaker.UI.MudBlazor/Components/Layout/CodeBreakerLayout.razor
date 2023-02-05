@@ -2,8 +2,8 @@
 @namespace CodeBreaker.UI
 
 <MudThemeProvider Theme="@CurrentTheme" @bind-IsDarkMode="IsDark" />
-<MudDialogProvider FullWidth="true"
-                   NoHeader="true"
+<MudDialogProvider CloseButton="true"
+                   DisableBackdropClick="false"
                    Position="DialogPosition.Center"/>
 <MudSnackbarProvider />
 
