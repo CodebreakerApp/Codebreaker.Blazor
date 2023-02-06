@@ -4,10 +4,8 @@ using CodeBreaker.Blazor;
 using CodeBreaker.Blazor.Authentication;
 using CodeBreaker.Services;
 using CodeBreaker.Services.Authentication;
-using CodeBreaker.Services.Options;
 using CodeBreaker.UI;
 using Microsoft.AspNetCore.Components.Web;
-using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.JSInterop;
 
@@ -25,10 +23,8 @@ builder.Services.AddScoped(sp => new HttpClient
 });
 
 // Authentication
-builder.Services.AddScoped<CodeBreakerAuthorizationMessageHandler>();
 builder.Services.AddHttpClient("ServerAPI", client =>
-                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")))
-    .AddHttpMessageHandler<CodeBreakerAuthorizationMessageHandler>();
+                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")));
 
 //builder.Services.AddHttpClient("ServerAPI", client =>
 //                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")));
@@ -38,7 +34,6 @@ builder.Services.AddMsalAuthentication(options =>
     builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
     options.ProviderOptions.DefaultAccessTokenScopes.Add("openid");
     options.ProviderOptions.DefaultAccessTokenScopes.Add("offline_access");
-    options.ProviderOptions.LoginMode = "redirect";
     options.ProviderOptions.Authentication.RedirectUri = $"{builder.HostEnvironment.BaseAddress}authentication/login-callback";
 });
 builder.Services.AddScoped<IAuthService, AuthenticationService>();
