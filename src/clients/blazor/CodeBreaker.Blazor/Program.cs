@@ -4,6 +4,7 @@ using CodeBreaker.Blazor;
 using CodeBreaker.Blazor.Authentication;
 using CodeBreaker.Services;
 using CodeBreaker.Services.Authentication;
+using CodeBreaker.Services.Options;
 using CodeBreaker.UI;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
@@ -37,9 +38,10 @@ builder.Services.AddMsalAuthentication(options =>
     builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
     options.ProviderOptions.DefaultAccessTokenScopes.Add("openid");
     options.ProviderOptions.DefaultAccessTokenScopes.Add("offline_access");
+    options.ProviderOptions.LoginMode = "redirect";
+    options.ProviderOptions.Authentication.RedirectUri = $"{builder.HostEnvironment.BaseAddress}authentication/login-callback";
 });
-
-builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IAuthService, AuthenticationService>();
 builder.Services.AddScoped(typeof(IGameClient), CreateGameClient);
 builder.Services.AddScoped(typeof(IGameReportClient), CreateGameClient);
 
