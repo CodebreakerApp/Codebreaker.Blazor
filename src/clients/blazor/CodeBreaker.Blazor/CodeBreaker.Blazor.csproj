@@ -10,6 +10,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <TrimmerRootAssembly Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Remove="Components\CodeAndKeyPegs.razor" />
     <Content Remove="Components\CodePegs.razor" />
     <Content Remove="Components\KeyPegs.razor" />
