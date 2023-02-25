@@ -32,10 +32,10 @@ public partial class ReportsPage
 
     private List<CodeBreakerColumnDefinition<GameDto>> _columns = new()
     {
-        new CodeBreakerColumnDefinition<GameDto>("Gamername", game => game.Username),
-        new CodeBreakerColumnDefinition<GameDto>("Start", game => game.Start),
-        new CodeBreakerColumnDefinition<GameDto>("End", game => game.End.HasValue ? game.End.Value : "----"),
-        new CodeBreakerColumnDefinition<GameDto>("Number of Moves", game => game.Moves.Count())
+        new CodeBreakerColumnDefinition<GameDto>("Gamername", game => game.Username, true),
+        new CodeBreakerColumnDefinition<GameDto>("Start", game => game.Start, false),
+        new CodeBreakerColumnDefinition<GameDto>("End", game => game.End.HasValue ? game.End.Value : "----", false),
+        new CodeBreakerColumnDefinition<GameDto>("Number of Moves", game => game.Moves.Count(), true)
     };
 
     public async Task GetGames()

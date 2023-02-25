@@ -6,8 +6,8 @@
 .container {
     --game-field-width: 3rem;
     --game-field-height: 3rem;
-    --key-pegs-width: 1.3rem;
-    --key-pegs-height: 1.3rem;
+    --key-pegs-width: 90%;
+    --key-pegs-height: 90%;
     align-items: center;
     justify-content: center;
     padding: 1rem;
@@ -36,8 +36,6 @@
     .container {
         --game-field-width: 2.25rem;
         --game-field-height: 2.25rem;
-        --key-pegs-width: 0.85rem;
-        --key-pegs-height: 0.85rem;
     }
 }
 
@@ -45,17 +43,18 @@
     .container {
         --game-field-width: 2.25rem;
         --game-field-height: 2.25rem;
-        --key-pegs-width: 0.85rem;
-        --key-pegs-height: 0.85rem;
     }
 }
 
 @media only screen and (max-width: 599px) {
     .container {
-        --game-field-width: 2rem;
-        --game-field-height: 2rem;
-        --key-pegs-width: 0.5rem;
-        --key-pegs-height: 0.5rem;
+        --game-field-width: 1.75rem;
+        --game-field-height: 1.75rem;
+    }
+
+    .container.finished {
+        --game-field-width: 1.5rem;
+        --game-field-height: 1.5rem;
     }
 }
 
@@ -103,8 +102,11 @@
             display: flex;
             align-items: center;
             justify-content: center;
-
             transition: background-color .5s ease-in-out;
+        }
+
+        .game-container .game-move div {
+            margin: 0 auto;
         }
 
         .game-container .game-row.selectable .can-drop,
@@ -132,9 +134,9 @@
     cursor: auto;
 }
 
-.finished .game-container .game-row.selectable div:last-child {
-    border: 1px solid #1b8ce3 !important;
-}
+    .finished .game-container .game-row.selectable div:last-child {
+        border: 1px solid #1b8ce3 !important;
+    }
 
 .game-container .game-row.selectable div:active {
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
@@ -156,23 +158,23 @@
     display: grid !important;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr 1fr;
-    --key-pegs-width: 0.8rem;
-    --key-pegs-height: 0.8rem;
+    --key-pegs-width: 75%;
+    --key-pegs-height: 70%;
 }
 
-    .key-pegs div {
-        width: var(--key-pegs-width) !important;
-        height: var(--key-pegs-height) !important;
-        border: 1px solid deeppink !important;
-    }
+.key-pegs div {
+    width: var(--key-pegs-width) !important;
+    height: var(--key-pegs-height) !important;
+    border: 1px solid deeppink !important;
+}
 
-    .key-pegs .white {
-        background-color: #fff;
-    }
+.key-pegs .white {
+    background-color: #fff;
+}
 
-    .key-pegs .black {
-        background-color: #000;
-    }
+.key-pegs .black {
+    background-color: #000;
+}
 
 .peg-selection-grid {
     display: flex;

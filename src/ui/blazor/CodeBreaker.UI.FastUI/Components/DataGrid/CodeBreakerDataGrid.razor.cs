@@ -20,7 +20,13 @@ public partial class CodeBreakerDataGrid<T>
     {
         if (row.RowData != null)
         {
-            await RowItemClicked.InvokeAsync(row.RowData);
+            await ItemClicked(row.RowData);
         }
+    }
+
+    private async Task ItemClicked(T data)
+    {
+        Console.WriteLine("Item clicked");
+        await RowItemClicked.InvokeAsync(data);
     }
 }

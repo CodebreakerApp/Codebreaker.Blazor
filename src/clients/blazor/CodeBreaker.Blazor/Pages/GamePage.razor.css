@@ -1,6 +1,6 @@
 ﻿.header {
     justify-content: space-between;
-    margin: 1rem 0 2rem 0;
+    margin: 0 1rem;
 }
 
 .start-game-container {
@@ -20,7 +20,7 @@
 
 @media only screen and (max-width: 959px) {
     .header {
-        margin: 0 1rem 2rem;
+        margin: 0 1rem;
     }
 
     .start-game-container {

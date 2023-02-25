@@ -12,6 +12,10 @@ body {
     margin: 0;
 }
 
+#app {
+    overflow: hidden;
+}
+
 #container {
     height: 100vh;
     display: grid;
@@ -83,6 +87,7 @@ article {
     overflow-x: hidden;
     transition: all 300ms ease-in-out;
     grid-area: 1 / 2;
+    height: calc(100vh - 86px);
 }
 
 #menu-toggle {
@@ -167,7 +172,7 @@ h6 {
     }
 
     article {
-        padding: 25px 10px 25px 10px;
+        padding: 0 10px 25px 10px;
         grid-area: 1 / 1 / 3 / 3;
     }
 
@@ -256,3 +261,25 @@ h6 {
 .gap-2 {
     gap: 1rem;
 }
+
+.row {
+    cursor: pointer;
+    border-top: 1px solid transparent;
+    border-left: 1px solid transparent;
+    border-right: 1px solid transparent;
+}
+
+    .row:hover {
+        border: 1px solid var(--accent-foreground-hover);
+        border-radius: 0.25rem
+    }
+
+    .row:focus {
+        border: 1px solid var(--accent-foreground-focus);
+        border-radius: 0.25rem
+    }
+
+    .row:active {
+        border: 1px solid var(--accent-foreground-active);
+        border-radius: 0.25rem
+    }
