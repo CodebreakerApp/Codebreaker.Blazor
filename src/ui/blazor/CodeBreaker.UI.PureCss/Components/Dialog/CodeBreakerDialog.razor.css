@@ -9,6 +9,10 @@
 }
 
 .dialog-content {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    grid-template-rows: auto 1fr;
+
     background-color: var(--dialog-background);
     box-shadow: var(--dialog-box-shadow);
     padding: 1rem;
@@ -24,5 +28,6 @@
 }
 
 ::deep .close {
-    margin-bottom: 1rem;
+    grid-row: 1;
+    grid-column: 2;
 }

@@ -1,3 +1,5 @@
+using System.Linq.Expressions;
+
 namespace CodeBreaker.UI;
 
 public partial class CodeBreakerDataGrid<T>
