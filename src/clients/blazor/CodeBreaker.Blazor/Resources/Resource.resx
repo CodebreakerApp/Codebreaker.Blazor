@@ -158,6 +158,9 @@
   <data name="About_Instructions_Tab" xml:space="preserve">
     <value>Instructions</value>
   </data>
+  <data name="About_NoVersion_Found" xml:space="preserve">
+    <value>No version found.</value>
+  </data>
   <data name="About_Title" xml:space="preserve">
     <value>About</value>
   </data>
