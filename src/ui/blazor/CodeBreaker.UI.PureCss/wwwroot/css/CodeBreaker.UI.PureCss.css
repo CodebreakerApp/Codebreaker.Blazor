@@ -58,21 +58,32 @@ body.dark {
         border: 1px solid #393838;
     }
 
-    .quickgrid[theme=default] {
+.quickgrid[theme=default] {
+    color: var(--body-text-color);
+}
+
+    .quickgrid[theme=default] .col-title {
         color: var(--body-text-color);
     }
-        .quickgrid[theme=default] .col-title {
-            color: var(--body-text-color);
-        }
-    
-        .quickgrid[theme=default] .sort-indicator {
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M 2 3.25 L 12 20.75 L 22 3.25 L 12 10 z" /></svg>');
-        }
 
-    body.dark .quickgrid[theme=default] .sort-indicator {
-        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M 2 3.25 L 12 20.75 L 22 3.25 L 12 10 z" /></svg>');
+    .quickgrid[theme=default] .sort-indicator {
+        background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="black" d="M 2 3.25 L 12 20.75 L 22 3.25 L 12 10 z" /></svg>');
     }
 
-    .flex-end {
-        align-self: flex-end;
+body.dark .quickgrid[theme=default] .sort-indicator {
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="white" d="M 2 3.25 L 12 20.75 L 22 3.25 L 12 10 z" /></svg>');
+}
+
+.flex-end {
+    align-self: flex-end;
+}
+
+
+a {
+    text-decoration: none;
+    color: var(--text-color);
+}
+
+    a:hover {
+        text-decoration: underline;
     }
