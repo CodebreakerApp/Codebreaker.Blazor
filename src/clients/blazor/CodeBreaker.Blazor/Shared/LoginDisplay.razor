@@ -2,10 +2,9 @@
 
 <AuthorizeView>
     <Authorized>
-        <div style="display:flex; gap: 1rem; align-items: center;">
-            @if (!String.IsNullOrWhiteSpace(context.User.Identity?.Name))
-            {
-                <span>@context.User.Identity.Name</span>
+        <div class="user">
+            @if (!String.IsNullOrWhiteSpace(context.User.Identity?.Name)) {
+                <a href="/user-information">@context.User.Identity.Name</a>
             }
             <CodeBreakerIconButton OnClick="BeginLogOut" Icon="CodeBreakerIcon.Logout"></CodeBreakerIconButton>
         </div>

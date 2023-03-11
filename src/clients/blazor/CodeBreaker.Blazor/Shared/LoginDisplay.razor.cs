@@ -9,13 +9,13 @@ namespace CodeBreaker.Blazor.Shared
         [Inject] private NavigationManager _navigationManager { get; set; } = default!; 
         [Inject] private IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> _options { get; set; } = default!;
 
-        public async Task BeginLogOut()
+        private void BeginLogOut()
         {
             _navigationManager.NavigateToLogout(_options.Get(Options.DefaultName)
                 .AuthenticationPaths.LogOutPath);
         }
 
-        public void BeginLogIn()
+        private void BeginLogIn()
         {
             _navigationManager.NavigateToLogin(_options.Get(Options.DefaultName)
                 .AuthenticationPaths.LogInPath);
