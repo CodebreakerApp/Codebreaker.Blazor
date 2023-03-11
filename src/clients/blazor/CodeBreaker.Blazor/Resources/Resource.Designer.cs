@@ -124,6 +124,15 @@ namespace CodeBreaker.Blazor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to No version found..
+        /// </summary>
+        public static string About_NoVersion_Found {
+            get {
+                return ResourceManager.GetString("About_NoVersion_Found", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to About.
         /// </summary>
         public static string About_Title {
