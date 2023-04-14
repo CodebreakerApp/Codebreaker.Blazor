@@ -1,6 +1,7 @@
 ﻿.content-container {
     overflow-y: auto;
     padding: 1rem 0.25rem 2rem;
+    grid-template-columns: 1fr 1fr;
 }
 
 h6 {
@@ -8,6 +9,7 @@ h6 {
 }
 
 ::deep .card {
-    min-width: 20rem;
-    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
 }

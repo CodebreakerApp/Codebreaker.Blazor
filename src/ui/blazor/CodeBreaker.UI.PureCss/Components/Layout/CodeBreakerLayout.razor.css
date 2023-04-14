@@ -127,10 +127,9 @@ nav .nav-bar .spacer {
         justify-content: space-between;
     }
 
-    .logo-toggle .siderbarClose {
-        color: var(--text-color);
-        font-size: 24px;
-        cursor: pointer;
+    .logo-toggle {
+        --button-text-color: #fff;
+        --icon-size: 1.5rem;
     }
 
     .nav-bar .nav-links {

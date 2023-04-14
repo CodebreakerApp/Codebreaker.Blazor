@@ -4,5 +4,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-color);
+    color: var(--text-color, #000);
+}
+
+i {
+    font-size: var(--icon-size, 1.2rem);
 }

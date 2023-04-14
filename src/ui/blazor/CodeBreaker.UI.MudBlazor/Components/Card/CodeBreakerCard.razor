@@ -1,7 +1,7 @@
 ﻿@inherits CodeBreaker.UI.Shared.Components.Card.CodeBreakerCardBase
 @namespace CodeBreaker.UI
 
-<MudCard Class="@Class">
+<MudCard Elevation="3" Class="@Class" Style="@Style">
     <MudCardHeader>
         <div>
             @HeaderContent
@@ -13,7 +13,7 @@
     <MudCardContent>
         @CardContent
     </MudCardContent>
-    <MudCardActions Style="float: right;">
+    <MudCardActions Style="align-self: flex-end;">
         @CardActions
     </MudCardActions>
 </MudCard>

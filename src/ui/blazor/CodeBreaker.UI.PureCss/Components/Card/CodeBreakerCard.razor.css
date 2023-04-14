@@ -25,12 +25,5 @@
 }
 
 .card__apply {
-    align-self: center;
-}
-
-
-@media (max-width: 764px) {
-    .card__apply {
-        align-self: flex-end;
-    }
+    align-self: flex-end;
 }

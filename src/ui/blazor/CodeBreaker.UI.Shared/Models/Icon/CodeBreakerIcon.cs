@@ -5,5 +5,7 @@ public enum CodeBreakerIcon
     Global,
     Cancel,
     Login,
-    Logout
+    Logout,
+    Stats,
+    Info
 }

@@ -43,6 +43,7 @@ public partial class CodeBreakerLayout
 
     public void SwitchTheme(ThemeContext<float> context)
     {
+        Console.WriteLine($"Current thtme changed to: {context.CurrentTheme}");
         CurrentTheme = context.CurrentTheme;
         IsDark = context.IsDark;
         StateHasChanged();

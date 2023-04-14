@@ -2,3 +2,7 @@
 .mud-select > .no-label, .mud-select > .no-label > .mud-input-control-input-container > div.mud-input.mud-input-text {
     margin-top: 0 !important;
 }
+
+.mud-card-content {
+    flex: 1;
+}

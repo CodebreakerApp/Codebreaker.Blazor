@@ -6,9 +6,12 @@
 <h1>@Loc["Index_Welcome"] <b>@Loc["AppDisplayName"]</b></h1>
 
 <div class="content-container wrap-container gap-3">
-    <CodeBreakerCard Class="card">
+    <CodeBreakerCard Class="card" Style="grid-row: 1; grid-column: 1 / span 2;">
         <HeaderContent>
-            <h6>@Loc["Index_Card_Game_Title"]</h6>
+            <div style="display: flex; align-items: center; gap: 1rem; font-size: 2rem;">
+                <CodebreakerIcon Icon="@UI.Shared.Models.Icon.CodeBreakerIcon.Play"></CodebreakerIcon>
+                <h6>@Loc["Index_Card_Game_Title"]</h6>
+            </div>
         </HeaderContent>
         <CardContent>
             <p>@Loc["Index_Card_Game_Body"]</p>
@@ -17,26 +20,32 @@
             <CodeBreakerButton OnClick="@(() => NavigateTo("/game"))">@Loc["Index_Card_Game_Action"]</CodeBreakerButton>
         </CardActions>
     </CodeBreakerCard>
-    <CodeBreakerCard Class="card">
+    <CodeBreakerCard Class="card" Style="grid-row: 2; grid-column: 1;">
         <HeaderContent>
-            <h6>@Loc["Index_Card_Reports_Title"]</h6>
-        </HeaderContent>
-        <CardContent>
-            <p>@Loc["Index_Card_Reports_Body"]</p>
-        </CardContent>
-        <CardActions>
-            <CodeBreakerButton OnClick="@(() => NavigateTo("/reports"))">@Loc["Index_Card_Reports_Action"]</CodeBreakerButton>
-        </CardActions>
-    </CodeBreakerCard>
-    <CodeBreakerCard Class="card">
-        <HeaderContent>
-            <h6>@Loc["Index_Card_About_Title"]</h6>
+            <div style="display: flex; align-items: center; gap: 1rem; font-size: 2rem;">
+                <CodebreakerIcon Icon="@UI.Shared.Models.Icon.CodeBreakerIcon.Info"></CodebreakerIcon>
+                <h6>@Loc["Index_Card_About_Title"]</h6>
+            </div>
         </HeaderContent>
         <CardContent>
             <p class="truncate">@Loc["Index_Card_About_Body"]</p>
         </CardContent>
         <CardActions>
             <CodeBreakerButton OnClick="@(() => NavigateTo("/about"))">@Loc["Index_Card_About_Action"]</CodeBreakerButton>
+        </CardActions>
+    </CodeBreakerCard>
+    <CodeBreakerCard Class="card" Style="grid-row: 2; grid-column: 2;">
+        <HeaderContent>
+            <div style="display: flex; align-items: center; gap: 1rem; font-size: 2rem;">
+                <CodebreakerIcon Icon="@UI.Shared.Models.Icon.CodeBreakerIcon.Stats"></CodebreakerIcon>
+                <h6>@Loc["Index_Card_Reports_Title"]</h6>
+            </div>
+        </HeaderContent>
+        <CardContent>
+            <p>@Loc["Index_Card_Reports_Body"]</p>
+        </CardContent>
+        <CardActions>
+            <CodeBreakerButton OnClick="@(() => NavigateTo("/reports"))">@Loc["Index_Card_Reports_Action"]</CodeBreakerButton>
         </CardActions>
     </CodeBreakerCard>
 </div>

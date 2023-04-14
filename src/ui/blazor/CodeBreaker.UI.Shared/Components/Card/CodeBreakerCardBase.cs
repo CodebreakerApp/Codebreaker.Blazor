@@ -22,4 +22,7 @@ public abstract class CodeBreakerCardBase : ComponentBase
 
     [Parameter]
     public string Class { get; set; } = string.Empty;
+
+    [Parameter]
+    public string Style { get; set; } = string.Empty;
 }

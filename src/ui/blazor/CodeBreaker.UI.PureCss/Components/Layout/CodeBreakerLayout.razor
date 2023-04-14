@@ -1,5 +1,6 @@
 @inherits CodeBreaker.UI.Shared.Components.Layout.CodeBreakerLayoutBase<string>
 @namespace CodeBreaker.UI
+@using UI.Shared.Models.Icon
 
 <CodeBreakerDialog></CodeBreakerDialog>
 
@@ -13,7 +14,7 @@
         <div class="menu">
             <div class="logo-toggle">
                 <span class="logo"><a href="#">@Label</a></span>
-                <i class='bx bx-x siderbarClose' @onclick=DrawerToggle></i>
+                <CodeBreakerIconButton OnClick="DrawerToggle" Icon="CodeBreakerIcon.Cancel"></CodeBreakerIconButton>
             </div>
 
             @DrawerContent
