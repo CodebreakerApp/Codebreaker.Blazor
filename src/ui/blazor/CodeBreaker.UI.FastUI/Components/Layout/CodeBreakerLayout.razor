@@ -5,7 +5,7 @@
 <div id="container" @ref="container">
     <header>
         <div class="logo" role="presentation" aria-hidden="true" itemprop="logo" itemscope="itemscope">
-            <svg xmlns="http://www.w3.org/2000/svg" width="108" height="23" viewBox="72 72 337 74" preserveAspectRatio="xMidYMin slice">
+            @*<svg xmlns="http://www.w3.org/2000/svg" width="108" height="23" viewBox="72 72 337 74" preserveAspectRatio="xMidYMin slice">
                 <g data-name="MS-symbol">
                     <clipPath>
                         <path transform="matrix(1 0 0 -1 0 216)" d="M0 216h482V0H0z"></path>
@@ -18,8 +18,8 @@
                         <path d="M143.993 143.993h-34.218v-34.218h34.218z" fill="#ffb900"></path>
                     </g>
                 </g>
-            </svg>
-
+            </svg>*@
+            @Label
         </div>
         <div class="colorgroup">
             <label for="color">Color</label>
@@ -49,7 +49,7 @@
         <nav>
             @DrawerContent
         </nav>
-        <div class="content">
+        <div class="child-content">
             <article id="article">
                 <ErrorBoundary @ref="errorBoundary">
                     <ChildContent>
