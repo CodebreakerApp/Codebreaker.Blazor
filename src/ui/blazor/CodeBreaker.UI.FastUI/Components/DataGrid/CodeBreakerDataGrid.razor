@@ -2,7 +2,7 @@
 @namespace CodeBreaker.UI
 @typeparam T
 
-@if (_columnDefinitions.Count > 0 && Items.Count > 0) {
+@*@if (_columnDefinitions.Count > 0 && Items.Count > 0) {
     <div class="grid">
         <FluentDataGrid TItem="T" id="manualGrid" RowsData="Items" OnRowFocus="OnRowClicked" GridTemplateColumns="@_columnTemplate" ColumnDefinitions="_columnDefinitions">
             <HeaderCellTemplate>
@@ -33,7 +33,7 @@
         </Virtualize>
 
     </div>
-}
+}*@
 
 
 

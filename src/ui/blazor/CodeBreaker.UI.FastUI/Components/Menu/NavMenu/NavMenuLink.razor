@@ -1,0 +1,15 @@
+﻿@* Remember to replace the namespace below with your own project's namespace. *@
+@namespace CodeBreaker.UI
+@inherits FluentComponentBase
+<FluentTreeItem Id="@Id"
+                Class="@ClassValue"
+                Style="@StyleValue"
+                Disabled="@Disabled"
+                Selected="@Selected"
+                Text="@(NavMenuExpanded ? Text : string.Empty)">
+    @if (NavMenuExpanded)
+    {
+        @ChildContent
+    }
+    
+</FluentTreeItem>

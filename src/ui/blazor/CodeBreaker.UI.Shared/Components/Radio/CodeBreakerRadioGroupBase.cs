@@ -14,4 +14,9 @@ public abstract class CodeBreakerRadioGroupBase<T> : ComponentBase
 
     [Parameter, EditorRequired]
     public IEnumerable<KeyValuePair<string, T>> Items { get; set; } = default!;
+
+    protected async Task OnValueChanged()
+    {
+        await ValueChanged.InvokeAsync(Value);
+    }
 }

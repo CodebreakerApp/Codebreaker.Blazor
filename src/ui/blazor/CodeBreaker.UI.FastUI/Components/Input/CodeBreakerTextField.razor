@@ -7,6 +7,6 @@
     Required="@Required"
     Maxlength="@MaxLength"
     DisplayName="@Label"
-    Value="@Value"
-    @oninput="@OnValueChangedAsync">
+    @bind-Value="@Value"
+    @bind-Value:after="@OnValueChangedAsync">
 </FluentTextField>

@@ -1,8 +1,8 @@
 ﻿@inherits CodeBreaker.UI.Shared.Components.Radio.CodeBreakerRadioGroupBase<string>
 @namespace CodeBreaker.UI
 
- <FluentRadioGroup Value="@Value" ValueChanged="@ValueChanged">
-    @foreach(var item in Items)
+<FluentRadioGroup @bind-Value="Value" @bind-Value:after="OnValueChanged">
+    @foreach (var item in Items)
     {
         <FluentRadio Value="@item.Value">@item.Key</FluentRadio>
     }

@@ -1,14 +1,17 @@
 ﻿@inherits CodeBreaker.UI.Shared.Components.Menu.CodeBreakerNavMenuBase
 @namespace CodeBreaker.UI
 
-<ul>
-    @foreach (var item in MenuItems)
-    {
-        <li>
-            <FluentAnchor Href="@item.Href" Appearance=@SetAppearance(item.Href)>@item.Label</FluentAnchor>
-        </li>
-    }
-</ul>
+<div>
+    <NavMenu Collapsible="false">
+        <NavMenuGroup Expanded=true>
+            <h2>Welcome to CodeBreaker</h2>
+            @foreach (var item in MenuItems)
+            {
+                <NavMenuLink Class="level1" Text="@item.Label" Icon="@item.Icon" Href="@item.Href" />
+            }
+        </NavMenuGroup>
+    </NavMenu>
+</div>
 
 
 

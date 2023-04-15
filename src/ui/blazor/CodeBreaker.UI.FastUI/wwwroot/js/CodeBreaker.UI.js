@@ -27,7 +27,7 @@
         var script = document.createElement('script');
         script.id = jsfastUiId;
         script.type = 'module';
-        script.src = 'https://cdn.jsdelivr.net/npm/@fluentui/web-components@2.0.2/dist/web-components.min.js';
+        script.src = 'https://cdn.jsdelivr.net/npm/@fluentui/web-components/dist/web-components.min.js';
         head.appendChild(script);
     }
 }

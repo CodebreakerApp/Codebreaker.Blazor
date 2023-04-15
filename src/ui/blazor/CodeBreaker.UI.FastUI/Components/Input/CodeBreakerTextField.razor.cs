@@ -4,10 +4,9 @@ namespace CodeBreaker.UI
 {
     public partial class CodeBreakerTextField
     {
-        private async Task OnValueChangedAsync(ChangeEventArgs args)
+        private async Task OnValueChangedAsync()
         {
-            Console.WriteLine($"Value changed: {args.Value}");
-            await ValueChanged.InvokeAsync((string)args.Value);
+            await ValueChanged.InvokeAsync(Value);
         }
     }
 }
