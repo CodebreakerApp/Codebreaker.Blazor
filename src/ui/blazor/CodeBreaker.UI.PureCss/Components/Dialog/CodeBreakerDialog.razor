@@ -1,29 +1,29 @@
 ﻿@namespace CodeBreaker.UI
 
-@if (!ModalHidden)
-{
-    <div class="dialog">
-        <div class="dialog-content flex-column">
-            <CodeBreakerIconButton Class="close" @onclick="CloseDialog" Icon="Shared.Models.Icon.CodeBreakerIcon.Cancel"> 
-            </CodeBreakerIconButton>
+<div class="@(ModalHidden ? "pop-up" : "pop-up visible")">
+    <div class="pop-up__title">
+        <h3>
             @if (!String.IsNullOrWhiteSpace(_title))
             {
-                <h3>@_title</h3>
+                @_title
             }
-            <div>
-                @_dialogContent
-            </div>
-            <div class="actions">
-                @foreach (var context in _dialogActions)
-                {
-                    <CodeBreakerButton @onclick="() => CallAction(context.Action)">
-                        @context.Label
-                    </CodeBreakerButton>
-                }
-            </div>
-        </div>
+        </h3>
+        <CodeBreakerIconButton Class="close" @onclick="CloseDialog" Icon="Shared.Models.Icon.CodeBreakerIcon.Cancel">
+        </CodeBreakerIconButton>
     </div>
-}
+    <div class="pop-up__subtitle">
+        @_dialogContent
+    </div>
+    <div class="checkbox-wrapper">
+        @foreach (var context in _dialogActions)
+        {
+            <CodeBreakerButton @onclick="() => CallAction(context.Action)">
+                @context.Label
+            </CodeBreakerButton>
+        }
+    </div>
+</div>
+
 
 
 

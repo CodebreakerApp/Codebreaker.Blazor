@@ -17,14 +17,14 @@
     }
 
         .list .card:hover {
-            border-color: var(--primary);
-            color: var(--primary);
+            border-color: #3a6df0;
+            color: #3a6df0;
         }
 
         .list .card:active,
         .list .card:focus {
-            background-color: rgba(var(--primary-rgb), 0.2);
-            color: var(--text-color);
+            background-color: #3a6df0;
+            color: #fff;
         }
 
 @media (max-width: 759px) {
@@ -39,14 +39,60 @@
     }
 }
 
-:: deep .quickgrid[theme=default] {
-    color: var(--body-text-color);
+::deep .quickgrid[theme=default] {
+    color: var(--theme-color);
+    background-color: var(--content-bg);
+    border: 1px solid var(--theme-bg-color);
+    border-spacing: 0;
+    width: 100%;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
 }
 
     ::deep .quickgrid[theme=default] .col-title {
-        color: var(--body-text-color);
+        color: var(--theme-color);
+        padding: 0.5rem;
     }
 
     ::deep .quickgrid[theme=default] .sort-indicator {
-        color: var(--body-text-color);
+        color: var(--theme-color);
     }
+
+    ::deep .quickgrid[theme=default] tbody tr {
+        padding: 10px 18px;
+        white-space: nowrap;
+    }
+        ::deep .quickgrid[theme=default] tbody tr:hover {
+            background-color: var(--theme-bg-color);
+        }
+
+/* Style the custom page links*/
+.page-buttons {
+    margin: 1rem 0;
+    align-items: center;
+}
+
+    .page-buttons button {
+        background: #d6d7d8;
+        color: black;
+        padding: 0.25rem 0.75rem;
+        border-radius: 0.4rem;
+        transition: transform 0.3s ease-out;
+        margin: 0.25rem;
+    }
+
+        .page-buttons button:active {
+            background: #a7c1ff !important;
+            color: white;
+            transform: scale(0.95) translateY(-0.15rem);
+            transition-duration: 0.05s;
+        }
+
+        .page-buttons button:hover:not(.current) {
+            background: #c0c9dc;
+        }
+
+        .page-buttons button.current {
+            background: #3771f4;
+            color: white;
+        }

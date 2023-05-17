@@ -8,7 +8,7 @@
         <div>
             <CodeBreakerDatePicker Label="@Loc["Report_SelectDate_Label"]" @bind-Date="_filter.Date" />
         </div>
-        <div>
+        <div style="align-self: flex-end;">
             <CodeBreakerButton Disabled=@_isLoadingGames @onclick="async () => await GetGames()">
                 @if (_isLoadingGames)
                 {

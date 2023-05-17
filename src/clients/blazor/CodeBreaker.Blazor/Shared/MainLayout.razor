@@ -1,7 +1,7 @@
 ﻿@inherits LayoutComponentBase
 @inject IStringLocalizer<Resource> Loc
 
-<CodeBreakerLayout Label="@Loc["AppDisplayName"]">
+<CodeBreakerLayout Label="@($"{Loc["Index_Welcome"]} {Loc["AppDisplayName"]}")">
     <ToolbarContent>
         <div class="flex toolbar-content">
             <LoginDisplay></LoginDisplay>

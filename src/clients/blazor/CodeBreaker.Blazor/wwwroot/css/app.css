@@ -34,7 +34,6 @@
     --primary: #8eb8e5ff;
     --on-primary: #ffffff;
     --on-nav-color: #ffffff;
-
     --gap-1: 0.5rem;
     --gap-2: 0.75rem;
     --gap-3: 1rem;
@@ -113,15 +112,13 @@
 .wrap-container {
     display: grid;
     overflow: hidden;
-    grid-template-columns: repeat(3, 1fr);
     grid-auto-rows: 1fr;
     grid-template-columns: repeat(auto-fill, 335px);
 }
 
 @media (max-width: 764px) {
     .wrap-container {
-        display: flex;
-        flex-direction: column;
+        grid-template-columns: repeat(auto-fill, minmax(335px, 1fr));
     }
 }
 
