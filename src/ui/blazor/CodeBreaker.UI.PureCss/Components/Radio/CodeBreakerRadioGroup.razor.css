@@ -46,7 +46,7 @@ label {
     }
 
     .design::after {
-        background: #3a6df0;
+        background: var(--accent-color);
         opacity: .4;
         transition: .6s;
     }
@@ -70,17 +70,17 @@ input:checked + .design::before {
 input:checked + .design,
 input:hover + .design,
 input:focus + .design {
-    border: 1px solid #3a6df0;
+    border: 1px solid var(--accent-color);
 }
 
     input:checked + .design:before,
     input:hover + .design:before,
     input:focus + .design:before {
-        background: #3a6df0;
+        background: var(--accent-color);
     }
 
 input:hover ~ .text {
-    color: #3a6df0;
+    color: var(--accent-color);
 }
 
 input:focus + .design::after,

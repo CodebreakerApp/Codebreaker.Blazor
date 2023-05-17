@@ -17,13 +17,13 @@
     }
 
         .list .card:hover {
-            border-color: #3a6df0;
-            color: #3a6df0;
+            border-color: var(--accent-color);
+            color: var(--accent-color);
         }
 
         .list .card:active,
         .list .card:focus {
-            background-color: #3a6df0;
+            background-color: var(--accent-color);
             color: #fff;
         }
 
@@ -85,7 +85,7 @@
     }
 
         .page-buttons button:active {
-            background: #3a6df0 !important;
+            background: var(--accent-color) !important;
             color: white;
             transform: scale(0.95) translateY(-0.15rem);
             transition-duration: 0.05s;
@@ -97,6 +97,6 @@
         }
 
         .page-buttons button.current {
-            background: #3a6df0;
+            background: var(--accent-color);
             color: white;
         }

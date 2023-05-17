@@ -23,6 +23,11 @@
     --search-bg: #14162b;
     --overlay-bg: rgba(36, 39, 59, 0.3);
     --scrollbar-bg: rgb(1 2 3 / 40%);
+    /*--accent-color: #3a6df0;*/
+    --accent-color: #22577a;
+    --accent-color-hover: #38a3a5;
+    --accent-color-active: #57cc99;
+    /*--accent-color-hover: #1e59f1;*/
 }
 
 .light {
@@ -335,7 +340,7 @@ body.light .video-bg:before {
 }
 
 .content-button {
-    background-color: #3a6df0;
+    background-color: var(--accent-color);
     border: none;
     padding: 8px 26px;
     color: #fff;
@@ -504,8 +509,8 @@ body.light .video-bg:before {
         }
 
     .checkbox:checked + label:before {
-        background-color: #3a6df0;
-        border-color: #3a6df0;
+        background-color: var(--accent-color);
+        border-color: var(--accent-color);
         background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3' stroke-linecap='round' stroke-linejoin='round' class='feather feather-check'%3e%3cpath d='M20 6L9 17l-5-5'/%3e%3c/svg%3e");
         background-position: 50%;
         background-size: 12px;

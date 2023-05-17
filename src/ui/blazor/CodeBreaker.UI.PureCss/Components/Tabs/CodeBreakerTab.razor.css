@@ -26,8 +26,8 @@
 }
 
 [type=radio]:checked ~ label {
-    border-bottom: 2px solid var(--primary);
-    color: var(--primary);
+    border-bottom: 2px solid var(--accent-color);
+    color: var(--accent-color);
     z-index: 2;
 }
 
