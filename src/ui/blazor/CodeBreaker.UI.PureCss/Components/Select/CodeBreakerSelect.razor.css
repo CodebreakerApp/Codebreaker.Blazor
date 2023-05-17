@@ -1,9 +1,10 @@
 ﻿label {
     display: flex;
     align-items: center;
-    border: 1px solid var(--body-text-color);
-    background-color: var(--body-color);
-    color: var(--body-text-color);
+    border: 1px solid var(--theme-color);
+    border-radius: 0.25rem;
+    background-color: transparent;
+    color: var(--theme-color);
     padding: 0.5rem 1rem;
     font-size: 1.2em;
     cursor: pointer;
@@ -21,15 +22,16 @@ label.is-checked > i {
     transform: rotate(180deg);
 }
 
-li .select-item {
+li.select-item {
     text-decoration: none;
     text-align: right;
+    color: var(--theme-color);
+    background-color: #3a6df0;
 }
 
 
 nav {
     width: 300px;
-    background: #d9d9d9;
     position: relative;
 }
 
@@ -47,10 +49,17 @@ nav {
         padding: 0.5rem 1rem;
         cursor: pointer;
         text-align: left;
-        background: var(--primary);
-        color: #fff;
-        border-bottom: 1px solid;
+        color: var(--theme-color);
+        border: 1px solid var(--theme-color);
     }
+
+        .slide li:not(.select-item):hover {
+            padding: 0.5rem 1rem;
+            cursor: pointer;
+            text-align: left;
+            color: #3a6df0;
+            border: 1px solid #3a6df0;
+        }
 
 #touch {
     position: absolute;

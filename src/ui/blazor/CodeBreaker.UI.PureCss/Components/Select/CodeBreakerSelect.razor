@@ -12,7 +12,7 @@
     <ul class="slide">
         @foreach (var item in Items)
         {
-            <li @onclick="@(() => OnSelectionChanged(item.Key, item.Value))"><span class="select-item">@item.Key</span></li>
+            <li class="@(_selectedKey == item.Key ? "select-item" : string.Empty)" @onclick="@(() => OnSelectionChanged(item.Key, item.Value))">@item.Key</li>
         }
     </ul>
 </nav>

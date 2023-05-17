@@ -35,15 +35,17 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: var(--theme-color);
 }
 
-.pop-up__subtitle {
+.pop-up__content {
+    color: var(--theme-color);
     white-space: normal;
     font-size: 14px;
     font-weight: 400;
     line-height: 1.8em;
 }
 
-    .pop-up__subtitle a {
+    .pop-up__content a {
         color: var(--theme-color);
     }

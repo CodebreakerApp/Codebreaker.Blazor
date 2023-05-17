@@ -73,26 +73,30 @@
 }
 
     .page-buttons button {
-        background: #d6d7d8;
-        color: black;
-        padding: 0.25rem 0.75rem;
-        border-radius: 0.4rem;
+        color: var(--button-inactive);
+        border: 1px solid var(--button-inactive);
+        background-color: transparent;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 100vh;
         transition: transform 0.3s ease-out;
         margin: 0.25rem;
+        cursor: pointer;
     }
 
         .page-buttons button:active {
-            background: #a7c1ff !important;
+            background: #3a6df0 !important;
             color: white;
             transform: scale(0.95) translateY(-0.15rem);
             transition-duration: 0.05s;
         }
 
         .page-buttons button:hover:not(.current) {
-            background: #c0c9dc;
+            color: var(--theme-color);
+            border: 1px solid var(--theme-color);
         }
 
         .page-buttons button.current {
-            background: #3771f4;
+            background: #3a6df0;
             color: white;
         }
