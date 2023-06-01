@@ -4,22 +4,41 @@
 <MudThemeProvider Theme="@CurrentTheme" @bind-IsDarkMode="IsDark" />
 <MudDialogProvider CloseButton="true"
                    DisableBackdropClick="false"
-                   Position="DialogPosition.Center"/>
+                   Position="DialogPosition.Center" />
 <MudSnackbarProvider />
 
 <MudLayout>
     <MudAppBar Elevation="1">
-        <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="DrawerToggle" />
-        <MudText Typo="Typo.h4">@Label</MudText>
+        <MudHidden Breakpoint="Breakpoint.SmAndDown">
+            <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="DrawerToggle" />
+            <MudText Typo="Typo.h4">@Label</MudText>
+        </MudHidden>
+        <MudHidden Breakpoint="Breakpoint.SmAndDown" Invert="true">
+            <MudText Typo="Typo.h6">@Label</MudText>
+        </MudHidden>
         <MudSpacer />
         @ToolbarContent
     </MudAppBar>
-    <MudDrawer @bind-Open="DrawerOpen" ClipMode="DrawerClipMode.Always" Elevation="2">
-        @DrawerContent
-    </MudDrawer>
+    <MudHidden Breakpoint="Breakpoint.Xs">
+        <MudHidden Breakpoint="Breakpoint.LgAndUp">
+            <MudDrawer @bind-Open="DrawerOpen" Variant="DrawerVariant.Mini" Elevation="2">
+                @DrawerContent
+            </MudDrawer>
+        </MudHidden>
+        <MudHidden Breakpoint="Breakpoint.LgAndUp" Invert="true">
+            <MudDrawer @bind-Open="DrawerOpen" Variant="DrawerVariant.Persistent" Elevation="2">
+                @DrawerContent
+            </MudDrawer>
+        </MudHidden>
+    </MudHidden>
     <MudMainContent>
         <MudContainer MaxWidth="MaxWidth.Large">
             @ChildContent
         </MudContainer>
     </MudMainContent>
+    <MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+        <MudAppBar Bottom="true" Fixed="true" Elevation="1">
+            @DrawerContent
+        </MudAppBar>
+    </MudHidden>
 </MudLayout>
