@@ -28,6 +28,9 @@ public partial class CodeBreakerIconButton
                 case Shared.Models.Icon.CodeBreakerIcon.Logout:
                     builder.AddAttribute(1, "class", "fa-solid fa-arrow-right-from-bracket");
                     break;
+                case Shared.Models.Icon.CodeBreakerIcon.Back:
+                    builder.AddAttribute(1, "class", "fa-solid fa-chevron-left");
+                    break;
 
             }
 

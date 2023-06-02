@@ -9,5 +9,6 @@ public enum CodeBreakerIcon
     Dashboard,
     Reports,
     Game,
-    About
+    About,
+    Back
 }

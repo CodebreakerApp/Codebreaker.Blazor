@@ -39,6 +39,16 @@
     --gap-3: 1rem;
     --gap-4: 1.25rem;
     --gap-5: 1.5rem;
+    --red: #DB3A6C;
+    --blue: #46C6EF;
+    --green: #3EB98B;
+    --yellow: #E4B445;
+    --violet: #8F3C99;
+    --orange: #E35B45;
+    --black: #000000;
+    --white: #ffffff;
+    --move-border-color: rgb(0 0 0 / 35%);
+    --selected-border: 2px solid var(--white);
 }
 
 * {
