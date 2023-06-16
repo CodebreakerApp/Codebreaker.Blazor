@@ -3,7 +3,6 @@
 }
 
 .content {
-    height: 150px;
     white-space: pre-wrap;
     display: flex;
     align-items: center;

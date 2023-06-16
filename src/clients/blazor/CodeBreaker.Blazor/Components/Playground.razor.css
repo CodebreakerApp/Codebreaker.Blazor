@@ -74,61 +74,71 @@
     flex-direction: column;
 }
 
-    .game-container .game-row,
-    .game-container .game-move,
-    .colors:not(.draggable) div {
-        pointer-events: none;
+.numbers {
+    align-self: flex-start;
+}
+
+.game-container .game-row,
+.game-container .game-move,
+.colors:not(.draggable) div {
+    pointer-events: none;
+}
+
+    .game-container .game-row.selectable,
+    .colors.draggable,
+    .colors:not(.draggable) .selectable {
+        cursor: pointer;
+        pointer-events: initial;
     }
 
-        .game-container .game-row.selectable,
-        .colors.draggable,
-        .colors:not(.draggable) .selectable {
-            cursor: pointer;
-            pointer-events: initial;
+    .game-container .game-row div.move-number,
+    .game-container .game-row div.key-pegs,
+    .game-container .game-row div.color {
+        cursor: auto;
+    }
+
+    .game-container .game-row div,
+    .game-container .game-move div,
+    .colors div,
+    .numbers div {
+        width: var(--game-field-width);
+        height: var(--game-field-height);
+        border: 1px solid var(--move-border-color);
+        border-radius: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background-color .5s ease-in-out;
+    }
+
+        .game-container .game-row div.key-pegs {
+            width: calc(var(--game-field-width) - 4px);
+            height: calc(var(--game-field-height) - 4px);
         }
 
-        .game-container .game-row div.move-number,
-        .game-container .game-row div.key-pegs,
-        .game-container .game-row div.color {
-            cursor: auto;
-        }
+    .game-container .game-move div {
+        margin: 0 auto;
+    }
 
-        .game-container .game-row div,
-        .game-container .game-move div,
-        .colors div,
-        .numbers div {
-            width: var(--game-field-width);
-            height: var(--game-field-height);
-            border: 1px solid var(--move-border-color);
-            border-radius: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: background-color .5s ease-in-out;
-        }
+    .game-container .game-row.selectable .can-drop,
+    .game-container .game-row.selectable .can-drop,
+    .colors div:hover {
+        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    }
 
-        .game-container .game-move div {
-            margin: 0 auto;
-        }
+    .game-container .game-row.selectable div.selected {
+        border: var(--selected-border);
+        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    }
 
-        .game-container .game-row.selectable .can-drop,
-        .game-container .game-row.selectable .can-drop,
-        .colors div:hover {
-            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-        }
+    .game-container .game-row.selectable div:last-child:hover,
+    .game-container .game-row.selectable div:last-child:active {
+        box-shadow: none;
+    }
 
-        .game-container .game-row.selectable div.selected {
-            border: var(--selected-border);
-        }
-
-        .game-container .game-row.selectable div:last-child:hover,
-        .game-container .game-row.selectable div:last-child:active {
-            box-shadow: none;
-        }
-
-        .game-container .game-row.selectable div:last-child {
-            border: none;
-        }
+    .game-container .game-row.selectable div:last-child {
+        border: none;
+    }
 
 .finished .game-container .game-row.selectable,
 .finished .colors div {
@@ -220,6 +230,8 @@
 
 .key-pegs {
     padding: 0.125rem;
+    width: calc(var(--game-field-width) - 4px) !important;
+    height: calc(var(--game-field-height) - 4px) !important;
 }
 
     .key-pegs.two-two {
@@ -231,7 +243,6 @@
         .key-pegs.two-two div {
             width: var(--key-pegs-width) !important;
             height: var(--key-pegs-height) !important;
-            border: 0 !important;
         }
 
             .key-pegs.two-two div:first-child {
@@ -257,6 +268,7 @@
         border: dashed 1px;
         border-radius: 50%;
     }
+
         .key-pegs.three-two div {
             border-radius: 0;
             overflow: hidden;
@@ -269,25 +281,25 @@
         }
 
 
-        .key-pegs.three-two div:first-child {
-            transform: rotate(0deg) skewY(-16deg);
-        }
+            .key-pegs.three-two div:first-child {
+                transform: rotate(0deg) skewY(-16deg);
+            }
 
-        .key-pegs.three-two div:nth-child(2) {
-            transform: rotate(75deg) skewY(-16deg);
-        }
+            .key-pegs.three-two div:nth-child(2) {
+                transform: rotate(75deg) skewY(-16deg);
+            }
 
-        .key-pegs.three-two div:nth-child(3) {
-            transform: rotate(146deg) skewY(-16deg);
-        }
+            .key-pegs.three-two div:nth-child(3) {
+                transform: rotate(146deg) skewY(-16deg);
+            }
 
-        .key-pegs.three-two div:nth-child(4) {
-            transform: rotate(218deg) skewY(-16deg);
-        }
+            .key-pegs.three-two div:nth-child(4) {
+                transform: rotate(218deg) skewY(-16deg);
+            }
 
-        .key-pegs.three-two div:nth-child(5) {
-            transform: rotate(288deg) skewY(-16deg);
-        }
+            .key-pegs.three-two div:nth-child(5) {
+                transform: rotate(288deg) skewY(-16deg);
+            }
 
 
 

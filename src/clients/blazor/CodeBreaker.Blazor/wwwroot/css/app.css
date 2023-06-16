@@ -48,7 +48,7 @@
     --black: #000000;
     --white: #ffffff;
     --move-border-color: rgb(0 0 0 / 35%);
-    --selected-border: 2px solid var(--white);
+    --selected-border: 1px solid var(--white);
 }
 
 * {
