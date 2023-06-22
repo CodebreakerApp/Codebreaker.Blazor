@@ -3,27 +3,26 @@
 
 <CodeBreakerDialog></CodeBreakerDialog>
 
-<nav class="@(DrawerOpen ? "active" : "")">
-    <div class="nav-bar">
-        <i class='bx bx-menu sidebarOpen' @onclick=DrawerToggle></i>
-        <span class="logo navLogo"><a href="#">@Label</a></span>
-
-        <div class="spacer"></div>
-
-        <div class="menu">
-            <div class="logo-toggle">
-                <span class="logo"><a href="#">@Label</a></span>
-                <i class='bx bx-x siderbarClose' @onclick=DrawerToggle></i>
-            </div>
-
-            @DrawerContent
+<div class="app">
+    <div class="top-nav-bar">
+        @DrawerContent
+        <div class="mobile-header">
+            <CodeBreakerIconButton
+                Class="@(_isRoot ? "hidden" : string.Empty)"
+                Icon="Shared.Models.Icon.CodeBreakerIcon.Back"
+                OnClick="GoBack">
+            </CodeBreakerIconButton>
+            @Label
         </div>
-
-        @ToolbarContent
-
+        <div class="top-nav-bar-profile">
+            @ToolbarContent
+        </div>
     </div>
-</nav>
-
-<div class="content">
-    @ChildContent
+    <div class="wrapper">
+        <div class="main-container">
+            <div class="content-wrapper">
+                @ChildContent
+            </div>
+        </div>
+    </div>
 </div>

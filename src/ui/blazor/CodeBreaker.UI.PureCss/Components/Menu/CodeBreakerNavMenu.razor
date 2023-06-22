@@ -1,9 +1,18 @@
 ﻿@inherits CodeBreaker.UI.Shared.Components.Menu.CodeBreakerNavMenuBase
 @namespace CodeBreaker.UI
 
-<ul class="nav-links">
-    @foreach(var item in MenuItems)
+<div class="top-nav-bar-menu">
+    @foreach (var item in MenuItems)
     {
-        <li><a href="@item.Href">@item.Label</a></li>
+        <NavLink class="menu-link" href="@item.Href" ActiveClass="is-active" Match="NavLinkMatch.All">@item.Label</NavLink>
     }
-</ul>
+</div>
+
+<div class="mobile-nav-bar-menu">
+    @foreach (var item in MenuItems)
+    {
+        <NavLink class="menu-link" href="@item.Href" ActiveClass="is-active" Match="NavLinkMatch.All">
+            @GetIcon(item.Icon)
+        </NavLink>
+    }
+</div>

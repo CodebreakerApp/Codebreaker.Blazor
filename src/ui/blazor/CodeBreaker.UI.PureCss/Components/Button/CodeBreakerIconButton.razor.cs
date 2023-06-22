@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components;
 
 namespace CodeBreaker.UI;
@@ -15,19 +14,22 @@ public partial class CodeBreakerIconButton
             switch (Icon)
             {
                 case Shared.Models.Icon.CodeBreakerIcon.Cancel:
-                    builder.AddAttribute(1, "class", "bx bx-x");
+                    builder.AddAttribute(1, "class", "fa-solid fa-xmark");
                     break;
                 case Shared.Models.Icon.CodeBreakerIcon.Play:
-                    builder.AddAttribute(1, "class", "bx bx-play-circle");
+                    builder.AddAttribute(1, "class", "fa-solid fa-play");
                     break;
                 case Shared.Models.Icon.CodeBreakerIcon.Global:
-                    builder.AddAttribute(1, "class", "bx bx-globe");
+                    builder.AddAttribute(1, "class", "fa-solid fa-language");
                     break;
                 case Shared.Models.Icon.CodeBreakerIcon.Login:
-                    builder.AddAttribute(1, "class", "bx bx-log-in-circle");
+                    builder.AddAttribute(1, "class", "fa-solid fa-arrow-right-to-bracket");
                     break;
                 case Shared.Models.Icon.CodeBreakerIcon.Logout:
-                    builder.AddAttribute(1, "class", "bx bx-log-out-circle");
+                    builder.AddAttribute(1, "class", "fa-solid fa-arrow-right-from-bracket");
+                    break;
+                case Shared.Models.Icon.CodeBreakerIcon.Back:
+                    builder.AddAttribute(1, "class", "fa-solid fa-chevron-left");
                     break;
 
             }

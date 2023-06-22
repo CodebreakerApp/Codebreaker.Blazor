@@ -1,4 +1,31 @@
-﻿/*OVERRIDES*/
+﻿
+/*OVERRIDES*/
 .mud-select > .no-label, .mud-select > .no-label > .mud-input-control-input-container > div.mud-input.mud-input-text {
     margin-top: 0 !important;
+}
+
+
+.card {
+    display: flex;
+    flex-direction: column;
+}
+
+    .card .card-content {
+        flex: 1;
+    }
+
+    .card .card-actions {
+        display: flex;
+        justify-content: flex-end;
+        width: 100%;
+    }
+
+@media (max-width: 764px) {
+    .card {
+        width: 100%;
+    }
+
+        .card .card-actions {
+            justify-content: stretch;
+        }
 }

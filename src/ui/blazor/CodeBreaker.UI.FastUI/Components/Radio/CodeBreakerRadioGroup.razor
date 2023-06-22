@@ -1,5 +1,6 @@
 ﻿@inherits CodeBreaker.UI.Shared.Components.Radio.CodeBreakerRadioGroupBase<string>
 @namespace CodeBreaker.UI
+@typeparam T
 
  <FluentRadioGroup Value="@Value" ValueChanged="@ValueChanged">
     @foreach(var item in Items)

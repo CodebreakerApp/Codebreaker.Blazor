@@ -1,8 +1,22 @@
 ﻿@inherits CodeBreaker.UI.Shared.Components.Menu.CodeBreakerNavMenuBase
 @namespace CodeBreaker.UI
+@using CodeBreaker.UI.Shared.Models.Icon;
 
-<MudNavMenu>
-    @foreach(var item in MenuItems) {
-        <MudNavLink Href="@item.Href" Match="item.Match" Icon="@item.Icon">@item.Label</MudNavLink>
-    }
-</MudNavMenu>
+<MudHidden Breakpoint="Breakpoint.Xs">
+    <MudNavMenu>
+        @foreach (var item in MenuItems)
+        {
+            <MudNavLink Href="@item.Href" Match="item.Match" Icon="@GetIcon(item.Icon)">@item.Label</MudNavLink>
+        }
+    </MudNavMenu>
+</MudHidden>
+<MudHidden Breakpoint="Breakpoint.Xs" Invert="true">
+    <div class="mobile-nav-menu">
+        @foreach (var item in MenuItems)
+        {
+            <MudNavLink Href="@item.Href" Match="item.Match" Icon="@GetIcon(item.Icon)"></MudNavLink>
+        }
+    </div>
+</MudHidden>
+
+

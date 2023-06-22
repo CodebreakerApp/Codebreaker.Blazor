@@ -1,21 +1,20 @@
 ﻿.btn {
-    line-height: 50px;
-    height: 50px;
-    text-align: center;
-    width: 250px;
+    background-color: var(--accent-color);
+    border: none;
+    padding: 8px 26px;
+    color: #fff;
+    border-radius: 20px;
     cursor: pointer;
-    color: var(--button-text-color);
-    transition: all 0.5s;
-    position: relative;
-
+    transition: 0.3s;
+    white-space: nowrap;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.btn.is-disabled {
-    pointer-events: none;
-}
+    .btn:not(.is-disabled):hover {
+        background: var(--accent-color-hover);
+    }
 
     .btn.icon {
         width: 2rem;
@@ -23,41 +22,47 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: transparent;
+        color: var(--accent-color);
+        border: 1px solid var(--accent-color);
+        margin-top: 0;
+        padding: 0;
+        border-radius: 100vh;
+        cursor: pointer;
+        transition: 0.3s;
+        white-space: nowrap;
     }
 
+        .btn.icon:not(.is-disabled):hover {
+            background-color: var(--accent-color);
+            color: #fff;
+        }
 
-    .btn:not(.is-disabled)::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        background-color: rgba(0, 187, 240, 0.1);
-        transition: all 0.3s;
+        .btn.icon:not(.is-disabled):active {
+            background-color: var(--accent-color-hover);
+            color: #fff;
+        }
+
+    .btn.is-disabled {
+        pointer-events: none;
+        cursor: auto;
+        background: none;
+        color: var(--button-inactive);
+        border: 1px solid var(--button-inactive);
     }
 
-    .btn:hover::before {
-        opacity: 0;
-        transform: scale(0.5,0.5);
+    .btn.small {
+        padding: 0.25rem 1.5rem;
+        border-radius: 1rem;
     }
 
-    .btn::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 1;
-        opacity: 0;
-        transition: all 0.3s;
-        border: 1px solid var(--button-text-color);
-        transform: scale(1.2,1.2);
+@media only screen and (max-width: 599px) {
+    .btn.icon {
+        width: 1.75rem;
+        height: 1.75rem;
     }
 
-    .btn:hover::after {
-        opacity: 1;
-        transform: scale(1,1);
-    }
+        .btn.icon ::deep i {
+            font-size: 0.75rem;
+        }
+}

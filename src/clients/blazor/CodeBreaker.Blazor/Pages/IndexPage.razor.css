@@ -11,3 +11,9 @@ h6 {
     min-width: 20rem;
     flex: 1;
 }
+
+@media (max-width: 599px) {
+    .page-title {
+        display: none;
+    }
+}

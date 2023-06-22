@@ -44,45 +44,6 @@ nav .nav-bar .spacer {
     display: none;
 }
 
-.nav-bar .darkLight-searchBox {
-    display: flex;
-    align-items: center;
-}
-
-.darkLight-searchBox .dark-light,
-.darkLight-searchBox .searchToggle {
-    height: 40px;
-    width: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 0 5px;
-}
-
-.dark-light i,
-.searchToggle i {
-    position: absolute;
-    color: var(--text-color);
-    font-size: 22px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-    .dark-light i.sun {
-        opacity: 0;
-        pointer-events: none;
-    }
-
-.dark-light.active i.sun {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.dark-light.active i.moon {
-    opacity: 0;
-    pointer-events: none;
-}
-
 .content {
     height: 100vh;
     max-width: 1280px;
@@ -91,6 +52,10 @@ nav .nav-bar .spacer {
     margin: 0 auto;
     padding-left: 30px;
     padding-right: 30px;
+}
+
+.mobile-header ::deep .hidden {
+    display: none;
 }
 
 @media (max-width: 790px) {

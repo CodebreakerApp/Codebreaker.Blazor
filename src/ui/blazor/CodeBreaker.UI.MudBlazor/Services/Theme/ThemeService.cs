@@ -16,8 +16,8 @@ public class ThemeService : ThemeServiceBase<MudTheme>
     {
         Palette = new Palette
         {
-            AppbarBackground = "#8eb8e5",
-            AppbarText = "#fff",
+            AppbarBackground = "#fff",
+            AppbarText = "#8eb8e5",
             Primary = "#6b7f82",
             PrimaryContrastText = "#fff",
             Secondary = "#5b5750",

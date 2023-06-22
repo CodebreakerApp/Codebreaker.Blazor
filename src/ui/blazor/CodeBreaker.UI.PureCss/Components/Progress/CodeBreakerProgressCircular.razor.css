@@ -9,8 +9,8 @@
         height: 16px;
         margin: 8px;
         border-radius: 50%;
-        border: 6px solid var(--body-text-color);
-        border-color: var(--body-text-color) transparent var(--body-text-color) transparent;
+        border: 6px solid var(--theme-color);
+        border-color: var(--theme-color) transparent var(--theme-color) transparent;
         animation: lds-dual-ring 1.2s linear infinite;
     }
 

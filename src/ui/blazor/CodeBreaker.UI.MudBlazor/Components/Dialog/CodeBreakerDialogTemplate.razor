@@ -2,14 +2,7 @@
 
 <MudDialog>
     <TitleContent>
-        <MudBreakpointProvider>
-            <MudHidden Breakpoint="Breakpoint.MdAndDown">
-                <MudText Typo="Typo.h3">@Context.DialogTitle</MudText>
-            </MudHidden>
-            <MudHidden Breakpoint="Breakpoint.MdAndDown" Invert="true">
-                <MudText Typo="Typo.h6">@Context.DialogTitle</MudText>
-            </MudHidden>
-        </MudBreakpointProvider>
+        <MudText Typo="Typo.h5">@Context.DialogTitle</MudText>
     </TitleContent>
     <DialogContent>
         @_dialogContent
