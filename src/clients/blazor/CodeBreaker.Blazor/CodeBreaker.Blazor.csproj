@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="BlazorApplicationInsights" Version="2.1.0" />
+    <PackageReference Include="BlazorApplicationInsights" Version="2.2.0" />
     <PackageReference Include="CNInnovation.Codebreaker.Services" Version="2.0.1-beta.1.8" />
     <PackageReference Include="CNInnovation.Codebreaker.Shared" Version="2.0.1-beta.1.9" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.2" />
