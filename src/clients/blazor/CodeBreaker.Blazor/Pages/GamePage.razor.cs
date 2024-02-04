@@ -1,11 +1,10 @@
-﻿using System.Text.Json;
 using System.Timers;
 using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.Models;
 using CodeBreaker.Blazor.Resources;
 using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
-using CodeBreaker.UI.Shared.Services.Dialog;
+using CodeBreaker.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
@@ -35,7 +34,7 @@ public partial class GamePage : IDisposable
     [Inject]
     private IJSRuntime _jSRuntime { get; init; } = default!;
     [Inject]
-    private ICodeBreakerDialogService _dialogService { get; init; } = default!;
+    private IDialogService _dialogService { get; init; } = default!;
     [Inject]
     private IStringLocalizer<Resource> Loc { get; init; } = default!;
     [Inject]
@@ -92,14 +91,14 @@ public partial class GamePage : IDisposable
             _timer.Stop();
             _gameStatus = GameMode.Canceld;
             StateHasChanged();
-            _dialogService.ShowDialog(new CodeBreakerDialogContext(typeof(GameResultDialog), new Dictionary<string, object>
+            _dialogService.ShowDialog(new DialogContext(typeof(GameResultDialog), new Dictionary<string, object>
             {
                 { nameof(GameResultDialog.GameMode), GameMode.Timeout },
                 { nameof(GameResultDialog.Username), _name },
-            }, string.Empty, new List<CodeBreakerDialogActionContext>
+            }, string.Empty, new List<DialogActionContext>
             {
-                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo("")),
-                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
+                new DialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo("")),
+                new DialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
             }));
         });
     }
@@ -110,14 +109,14 @@ public partial class GamePage : IDisposable
         _gameStatus = gameMode;
         if (_gameStatus is GameMode.Won or GameMode.Lost)
         {
-            _dialogService.ShowDialog(new CodeBreakerDialogContext(typeof(GameResultDialog), new Dictionary<string, object>
+            _dialogService.ShowDialog(new DialogContext(typeof(GameResultDialog), new Dictionary<string, object>
             {
                 { nameof(GameResultDialog.GameMode), _gameStatus },
                 { nameof(GameResultDialog.Username), _name },
-            }, string.Empty, new List<CodeBreakerDialogActionContext>
+            }, string.Empty, new List<DialogActionContext>
             {
-                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo("")),
-                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
+                new DialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo(string.Empty)),
+                new DialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
             }));
         }
         else

@@ -1,40 +1,46 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace CodeBreaker.UI
+namespace CodeBreaker.UI;
+
+public partial class CodeBreakerThemeSwitch : ComponentBase
 {
-    public partial class CodeBreakerThemeSwitch
+    private bool _isInitialized = false;
+    private IJSObjectReference? _module;
+    private bool IsDark = false;
+
+    //[Inject]
+    //protected IThemeService<T> ThemeService { get; set; } = default!;
+
+    [Inject] private IJSRuntime JsRuntime { get; set; } = default!;
+
+    protected async Task SwitchTheme(bool isDark)
     {
-        [Inject] private IJSRuntime _jsRuntime { get; set; } = default!;
+        //IsDark = isDark;
+        //await _themeService.SwitchThemeAsync(IsDark);
+    }
 
-        private bool _isInitialized = false;
-        private IJSObjectReference? _module;
+    protected override async Task OnInitializedAsync()
+    {
+        //var context = await ThemeService.GetCurrentThemeAsync();
+        IsDark = false;// context.IsDark;
+        await base.OnInitializedAsync();
+        _isInitialized = true;
+    }
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender && _module == null)
+            _module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/CodeBreaker.UI/Components/ThemeSwitch/CodeBreakerThemeSwitch.razor.js");
 
-        protected override async Task OnInitializedAsync()
-        {
-            await base.OnInitializedAsync();
-            _isInitialized = true;
-        }
-        protected override async Task OnAfterRenderAsync(bool firstRender)
-        {
-            if (firstRender)
-            {
-                if (_module == null)
-                {
-                    _module = await _jsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/CodeBreaker.UI/Components/ThemeSwitch/CodeBreakerThemeSwitch.razor.js");
-                }
-            }
+        await base.OnAfterRenderAsync(firstRender);
+    }
 
-            await base.OnAfterRenderAsync(firstRender);
-        }
+    private async Task OnSwitchTheme()
+    {
+        IsDark = !IsDark;
+        //await ThemeService.SwitchThemeAsync(IsDark);
 
-        private async Task OnSwitchTheme()
-        {
-            await SwitchTheme(!IsDark);
-            if (_module != null)
-            {
-                await _module.InvokeVoidAsync("switchTheme", IsDark);
-            }
-        }
+        if (_module != null)
+            await _module.InvokeVoidAsync("switchTheme", IsDark);
     }
 }

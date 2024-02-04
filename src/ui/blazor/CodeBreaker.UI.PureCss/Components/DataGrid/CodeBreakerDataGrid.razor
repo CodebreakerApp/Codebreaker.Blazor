@@ -1,9 +1,10 @@
-﻿@inherits CodeBreaker.UI.Shared.Components.DataGird.CodeBreakerDataGridBase<T>
+﻿@using Microsoft.AspNetCore.Components.QuickGrid
+@using Microsoft.AspNetCore.Components.Web.Virtualization
 @namespace CodeBreaker.UI
 @typeparam T
 
 <div class="grid">
-    <QuickGrid TGridItem=T Items="@source" Pagination="@pagination">
+    <QuickGrid TGridItem=T Items="@_source" Pagination="@pagination">
         @foreach (var col in Columns)
         {
             <PropertyColumn Title="@col.Title" Property="@col.FieldSelectorExpression" Sortable="true" />
@@ -14,7 +15,7 @@
             </div>
         </TemplateColumn>
     </QuickGrid>
-    @if (source.Count() > 7)
+    @if (_source?.Count() > 7)
     {
         <div class="page-buttons">
             Page:
@@ -37,7 +38,7 @@
 
 
 <div class="list">
-    <Virtualize Items="source.ToArray()" Context="item">
+    <Virtualize Items="_source?.ToArray()" Context="item">
         <ItemContent>
             <div class="card" @onclick="@(() => Hire(item))">
                 @foreach (var col in Columns.Where(col => col.ShowMobile))
@@ -47,6 +48,5 @@
             </div>
         </ItemContent>
     </Virtualize>
-
 </div>
 

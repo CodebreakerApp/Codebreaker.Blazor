@@ -1,24 +1,24 @@
-using CodeBreaker.UI.Shared.Services.Dialog;
+using CodeBreaker.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 
 namespace CodeBreaker.UI;
 
 public partial class CodeBreakerDialog : IDisposable
 {
-    [Inject]
-    private ICodeBreakerDialogService _codeBreakerDialogService { get; set; } = default!;
-
     public bool ModalHidden { get; set; } = true;
     private string _title = string.Empty;
     private RenderFragment? _dialogContent;
-    private List<CodeBreakerDialogActionContext> _dialogActions = new();
+    private List<DialogActionContext> _dialogActions = new();
+
+    [Inject]
+    private IDialogService _codeBreakerDialogService { get; set; } = default!;
 
     protected override void OnInitialized()
     {
         _codeBreakerDialogService.ShowDialogHandler += ShowDialog;
     }
 
-    private void ShowDialog(object? sender, CodeBreakerDialogContext context)
+    private void ShowDialog(object? sender, DialogContext context)
     {
         _title = context.DialogTitle;
         _dialogContent = __builder =>
@@ -53,8 +53,6 @@ public partial class CodeBreakerDialog : IDisposable
     public void Dispose()
     {
         if (_codeBreakerDialogService?.ShowDialogHandler != null)
-        {
             _codeBreakerDialogService.ShowDialogHandler -= ShowDialog;
-        }
     }
 }

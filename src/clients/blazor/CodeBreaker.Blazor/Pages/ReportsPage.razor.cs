@@ -3,8 +3,8 @@ using CodeBreaker.Blazor.Resources;
 using CodeBreaker.Blazor.ViewModels;
 using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
-using CodeBreaker.UI.Shared.Models.DataGrid;
-using CodeBreaker.UI.Shared.Services.Dialog;
+using CodeBreaker.UI.Models.DataGrid;
+using CodeBreaker.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
@@ -13,7 +13,7 @@ namespace CodeBreaker.Blazor.Pages;
 public partial class ReportsPage
 {
     [Inject]
-    private ICodeBreakerDialogService _codeBreakerDialogService { get; set; } = default!;
+    private IDialogService _dialogService { get; set; } = default!;
 
     [Inject]
     private IGameReportClient _gameClient { get; set; } = default!;
@@ -80,10 +80,10 @@ public partial class ReportsPage
             }
         }
 
-        _codeBreakerDialogService.ShowDialog(new CodeBreakerDialogContext(typeof(Playground), new Dictionary<string, object>
+        _dialogService.ShowDialog(new DialogContext(typeof(Playground), new Dictionary<string, object>
             {
                 { nameof(Playground.Game), game },
                 { nameof(Playground.GameFinished), true },
-            }, title, new List<CodeBreakerDialogActionContext>()));
+            }, title, new List<DialogActionContext>()));
     }
 }

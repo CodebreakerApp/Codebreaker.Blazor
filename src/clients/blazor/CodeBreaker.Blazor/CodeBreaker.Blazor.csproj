@@ -5,8 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
-    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-    <Configurations>Debug;Release;Mudblazor;FastUI;ReleaseFastUI;PureCss;ReleasePureCss</Configurations>
+    <Configurations>Debug;Release;</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -39,40 +38,8 @@
     <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.9" />
   </ItemGroup>
 
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.MudBlazor\CodeBreaker.UI.MudBlazor.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='PureCss|AnyCPU'">
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.PureCss\CodeBreaker.UI.PureCss.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'FastUI|AnyCPU' ">
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.FastUI\CodeBreaker.UI.FastUI.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.MudBlazor\CodeBreaker.UI.MudBlazor.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePureCss|AnyCPU'">
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.PureCss\CodeBreaker.UI.PureCss.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFastUI|AnyCPU'">
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.FastUI\CodeBreaker.UI.FastUI.csproj" />
-  </ItemGroup>
-
-  
-
-  
-
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.Shared\CodeBreaker.UI.Shared.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.PureCss\CodeBreaker.UI.csproj" />
   </ItemGroup>
 
   <ItemGroup>

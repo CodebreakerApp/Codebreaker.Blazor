@@ -1,16 +1,29 @@
-using System.Linq.Expressions;
+using CodeBreaker.UI.Models.DataGrid;
+using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.QuickGrid;
 
 namespace CodeBreaker.UI;
 
-public partial class CodeBreakerDataGrid<T>
+public partial class CodeBreakerDataGrid<T> : ComponentBase
 {
-    private IQueryable<T> source;
+    private IQueryable<T>? _source;
     private PaginationState pagination = new() { ItemsPerPage = 7 };
+
+    [Parameter]
+    public List<string> Headers { get; set; } = new List<string>();
+
+    [Parameter]
+    public List<T> Items { get; set; } = new();
+
+    [Parameter]
+    public List<CodeBreakerColumnDefinition<T>> Columns { get; set; } = new List<CodeBreakerColumnDefinition<T>>();
+
+    [Parameter]
+    public EventCallback<T> RowItemClicked { get; set; } = new();
 
     protected override void OnInitialized()
     {
-        source = Items.AsQueryable();
+        _source = Items.AsQueryable();
         pagination.TotalItemCountChanged += (sender, eventArgs) => StateHasChanged();
         base.OnInitialized();
     }

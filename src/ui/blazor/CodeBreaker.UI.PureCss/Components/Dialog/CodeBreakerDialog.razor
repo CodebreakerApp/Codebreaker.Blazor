@@ -1,4 +1,6 @@
-﻿@namespace CodeBreaker.UI
+﻿@using CodeBreaker.UI.Models.Icon;
+
+@namespace CodeBreaker.UI
 
 <div class="@(ModalHidden ? "pop-up" : "pop-up visible")">
     <div class="pop-up__title">
@@ -8,8 +10,7 @@
                 @_title
             }
         </h3>
-        <CodeBreakerIconButton Class="close" @onclick="CloseDialog" Icon="Shared.Models.Icon.CodeBreakerIcon.Cancel">
-        </CodeBreakerIconButton>
+        <CodeBreakerIconButton Class="close" @onclick="CloseDialog" Icon="CodeBreakerIcon.Cancel" />
     </div>
     <div class="pop-up__content">
         @_dialogContent

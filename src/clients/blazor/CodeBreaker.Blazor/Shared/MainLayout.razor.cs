@@ -1,5 +1,5 @@
-using CodeBreaker.UI.Shared.Models.Menu;
-using CodeBreaker.UI.Shared.Models.Icon;
+using CodeBreaker.UI.Models.Menu;
+using CodeBreaker.UI.Models.Icon;
 using Microsoft.AspNetCore.Components.Routing;
 
 namespace CodeBreaker.Blazor.Shared;

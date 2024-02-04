@@ -1,46 +1,32 @@
-using CodeBreaker.UI.Shared.Models.Icon;
+using CodeBreaker.UI.Models.Icon;
+using CodeBreaker.UI.Models.Menu;
 using Microsoft.AspNetCore.Components;
 
 namespace CodeBreaker.UI;
 public partial class CodeBreakerNavMenu
 {
-    private RenderFragment GetIcon(CodeBreakerIcon icon)
+    [Parameter, EditorRequired]
+    public IEnumerable<NavLinkItem> MenuItems { get; set; } = Enumerable.Empty<NavLinkItem>();
+
+    private static RenderFragment GetIcon(CodeBreakerIcon icon)
     {
+        static string? GetClassName(CodeBreakerIcon icon) => icon switch
+        {
+            CodeBreakerIcon.Cancel => "fa-solid fa-xmark",
+            CodeBreakerIcon.Play => "fa-solid fa-play",
+            CodeBreakerIcon.Global => "fa-solid fa-language",
+            CodeBreakerIcon.Login => "fa-solid fa-arrow-right-to-bracket",
+            CodeBreakerIcon.Logout => "fa-solid fa-arrow-right-from-bracket",
+            CodeBreakerIcon.Dashboard => "fa-solid fa-house",
+            CodeBreakerIcon.Game => "fa-solid fa-chess-board",
+            CodeBreakerIcon.Reports => "fa-solid fa-tachograph-digital",
+            CodeBreakerIcon.About => "fa-solid fa-address-card",
+            _ => null
+        };
         return builder =>
         {
             builder.OpenElement(0, "i");
-            switch (icon)
-            {
-                case CodeBreakerIcon.Cancel:
-                    builder.AddAttribute(1, "class", "fa-solid fa-xmark");
-                    break;
-                case CodeBreakerIcon.Play:
-                    builder.AddAttribute(1, "class", "fa-solid fa-play");
-                    break;
-                case CodeBreakerIcon.Global:
-                    builder.AddAttribute(1, "class", "fa-solid fa-language");
-                    break;
-                case CodeBreakerIcon.Login:
-                    builder.AddAttribute(1, "class", "fa-solid fa-arrow-right-to-bracket");
-                    break;
-                case CodeBreakerIcon.Logout:
-                    builder.AddAttribute(1, "class", "fa-solid fa-arrow-right-from-bracket");
-                    break;
-                case CodeBreakerIcon.Dashboard:
-                    builder.AddAttribute(1, "class", "fa-solid fa-house");
-                    break;
-                case CodeBreakerIcon.Game:
-                    builder.AddAttribute(1, "class", "fa-solid fa-chess-board");
-                    break;
-                case CodeBreakerIcon.Reports:
-                    builder.AddAttribute(1, "class", "fa-solid fa-tachograph-digital");
-                    break;
-                case CodeBreakerIcon.About:
-                    builder.AddAttribute(1, "class", "fa-solid fa-address-card");
-                    break;
-
-            }
-
+            builder.AddAttribute(1, "class", GetClassName(icon));
             builder.CloseElement();
         };
     }

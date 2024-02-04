@@ -2,11 +2,29 @@ using Microsoft.AspNetCore.Components;
 
 namespace CodeBreaker.UI
 {
-    public partial class CodeBreakerLayout : IDisposable
+    public partial class CodeBreakerLayout : ComponentBase, IDisposable
     {
-        [Inject] private NavigationManager _navigationManager { get; set; } = default!;
-
         private bool _isRoot;
+        private bool _isDark = false;
+        private bool _drawerOpen = false;
+        private string? _currentTheme;
+
+        [Inject]
+        private NavigationManager _navigationManager { get; set; } = default!;
+
+        [Parameter]
+        public string Label { get; set; } = string.Empty;
+
+        [Parameter]
+        public RenderFragment ToolbarContent { get; set; } = default!;
+
+        [Parameter]
+        public RenderFragment ChildContent { get; set; } = default!;
+
+        [Parameter]
+        public RenderFragment DrawerContent { get; set; } = default!;
+
+        public void DrawerToggle() => _drawerOpen = !_drawerOpen;
 
         protected override void OnInitialized()
         {

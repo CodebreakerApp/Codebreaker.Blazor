@@ -1,6 +1,6 @@
 ﻿@page "/game"
 @using CodeBreaker.Blazor.Models;
-@using UI.Shared.Models.Icon
+@using UI.Models.Icon
 
 <NavigationLock ConfirmExternalNavigation="_gameStatus == GameMode.MoveSet"
                 OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
@@ -23,7 +23,7 @@
     <div class="flex-column start-game-container">
         <CodeBreakerTextField CssClass="user-name flex-1" @bind-Value="_name" Label="@Loc["GamePage_NameInput"]" Placeholder="@Loc["GamePage_NameInputPlaceholder"]" Required="true" MaxLength="100" />
         <div class="flex-responsive gap-2 full-width justify-between">
-            <CodeBreakerRadioGroup T="string" @bind-Value="_selectedGameType" Items="_gameTypes"></CodeBreakerRadioGroup>
+            <CodeBreakerRadioGroup T="string" @bind-Value="_selectedGameType" Items="_gameTypes" />
             <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(_name) || String.IsNullOrWhiteSpace(_selectedGameType) || _loadingGame)" OnClick="StartGameAsync">
                 @if (_loadingGame)
                 {

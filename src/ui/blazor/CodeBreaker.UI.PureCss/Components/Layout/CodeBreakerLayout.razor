@@ -1,4 +1,3 @@
-@inherits CodeBreaker.UI.Shared.Components.Layout.CodeBreakerLayoutBase<string>
 @namespace CodeBreaker.UI
 
 <CodeBreakerDialog></CodeBreakerDialog>
@@ -9,7 +8,7 @@
         <div class="mobile-header">
             <CodeBreakerIconButton
                 Class="@(_isRoot ? "hidden" : string.Empty)"
-                Icon="Shared.Models.Icon.CodeBreakerIcon.Back"
+                Icon="Models.Icon.CodeBreakerIcon.Back"
                 OnClick="GoBack">
             </CodeBreakerIconButton>
             @Label
