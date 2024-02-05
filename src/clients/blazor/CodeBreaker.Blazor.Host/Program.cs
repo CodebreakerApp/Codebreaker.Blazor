@@ -39,6 +39,9 @@ else
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();
+app.UseRequestLocalization(new RequestLocalizationOptions()
+    .AddSupportedCultures(["de", "en"])
+    .AddSupportedUICultures(["de", "en"]));
 
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
