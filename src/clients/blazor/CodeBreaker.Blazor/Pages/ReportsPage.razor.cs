@@ -24,7 +24,7 @@ public partial class ReportsPage
     private IStringLocalizer<Resource> Loc { get; set; } = default!;
 
 
-    private GameDto[] _games = [];
+    private List<GameDto> _games = [];
     private bool _isLoadingGames = false;
     private readonly ReportFilterContext _filter = new();
     

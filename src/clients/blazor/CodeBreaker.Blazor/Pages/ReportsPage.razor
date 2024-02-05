@@ -21,10 +21,9 @@
 
     @if (_games is not null && !_isLoadingGames)
     {
-        if (_games.Length != 0)
+        if (_games.Count != 0)
         {
-            <CodeBreakerDataGrid Items="_games" Columns="_columns" Headers="_headers" RowItemClicked="(GameDto game) => ShowReportDialog(game)">
-            </CodeBreakerDataGrid>
+            <CodeBreakerDataGrid Items="_games" Columns="_columns" Headers="_headers" RowItemClicked="(GameDto game) => ShowReportDialog(game)" />
         }
         else
         {
