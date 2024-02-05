@@ -6,8 +6,6 @@ using CodeBreaker.Services.Authentication;
 using CodeBreaker.UI;
 using CodeBreaker.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
-using Microsoft.JSInterop;
-using System.Globalization;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -15,14 +13,8 @@ builder.Services.AddLocalization();
 builder.Services.AddBlazorApplicationInsights();
 builder.Services.AddCodeBreakerUI();
 
-builder.Services.AddScoped(sp => new HttpClient
-{
-    BaseAddress = new Uri(builder.HostEnvironment.BaseAddress)
-});
-
-// Authentication
-builder.Services.AddHttpClient("ServerAPI", client =>
-                client.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")));
+builder.Services.AddHttpClient("GameApi",  (HttpClient client) =>
+    client.BaseAddress = new Uri(builder.Configuration.GetRequired("ApiBase")));
 
 builder.Services.AddMsalAuthentication(options =>
 {
@@ -32,8 +24,8 @@ builder.Services.AddMsalAuthentication(options =>
     options.ProviderOptions.Authentication.RedirectUri = $"{builder.HostEnvironment.BaseAddress}authentication/login-callback";
 });
 builder.Services.AddScoped<IAuthService, AuthenticationService>();
-builder.Services.AddScoped<IGameClient, GameClient>();
-builder.Services.AddScoped<IGameReportClient, GameClient>();
+builder.Services.AddHttpClient<IGameClient, GameClient>("GameApi");
+builder.Services.AddHttpClient<IGameReportClient, GameClient>("GameApi");
 builder.Services.AddScoped<IDialogService, DialogService>();
 
 var host = builder.Build();

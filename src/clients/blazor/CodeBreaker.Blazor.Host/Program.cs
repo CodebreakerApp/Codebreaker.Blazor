@@ -15,12 +15,12 @@ builder.Services.AddRazorComponents()
 builder.Services.AddLocalization();
 builder.Services.AddCodeBreakerUI();
 
-builder.Services.AddHttpClient("ServerAPI", configure =>
-    configure.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")));
+builder.Services.AddHttpClient("GameApi", configure =>
+    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("ApiBase")));
 
 builder.Services.AddScoped<IAuthService, DummyAuthService>();
-builder.Services.AddScoped<IGameClient, GameClient>();
-builder.Services.AddScoped<IGameReportClient, GameClient>();
+builder.Services.AddHttpClient<IGameClient, GameClient>("GameApi");
+builder.Services.AddHttpClient<IGameReportClient, GameClient>("GameApi");
 builder.Services.AddScoped<IDialogService, DialogService>();
 
 var app = builder.Build();
