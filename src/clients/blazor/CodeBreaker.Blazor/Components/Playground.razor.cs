@@ -33,7 +33,7 @@ public partial class Playground
     private bool _isMobile = false;
     private bool _selectable = false;
     private int _selectedField = -1;
-    private BindingList<SelectionAndKeyPegs> _gameMoves = [];
+    private readonly BindingList<SelectionAndKeyPegs> _gameMoves = [];
     private string[] _selectionFields = [];
     private List<Tuple<int, string>> _currentMove = [];
     private string _activeColor = string.Empty;

@@ -7,7 +7,7 @@ namespace CodeBreaker.UI;
 public partial class CodeBreakerDataGrid<T> : ComponentBase
 {
     private IQueryable<T>? _source;
-    private PaginationState pagination = new() { ItemsPerPage = 7 };
+    private readonly PaginationState pagination = new() { ItemsPerPage = 7 };
 
     [Parameter]
     public List<string> Headers { get; set; } = [];

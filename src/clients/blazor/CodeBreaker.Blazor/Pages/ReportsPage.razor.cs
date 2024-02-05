@@ -26,12 +26,11 @@ public partial class ReportsPage
 
     private GameDto[] _games = [];
     private bool _isLoadingGames = false;
-    private ReportFilterContext _filter = new();
+    private readonly ReportFilterContext _filter = new();
     
     private List<string> _headers => [.. Loc.GetString("Reports_Table_Headers").Value.Split(",")];
 
-    private List<CodeBreakerColumnDefinition<GameDto>> _columns =
-    [
+    private readonly List<CodeBreakerColumnDefinition<GameDto>> _columns = [
         new CodeBreakerColumnDefinition<GameDto>("Gamername", game => game.Username, true),
         new CodeBreakerColumnDefinition<GameDto>("Start", game => game.Start, false),
         new CodeBreakerColumnDefinition<GameDto>("End", game => game.End.HasValue ? game.End.Value : "----", false),

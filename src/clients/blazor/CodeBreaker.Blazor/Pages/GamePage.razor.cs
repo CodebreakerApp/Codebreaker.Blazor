@@ -40,7 +40,7 @@ public partial class GamePage : IDisposable
     //[Inject]
     //private AuthenticationStateProvider _authenticationStateProvider { get; init; } = default!;
 
-    private System.Timers.Timer _timer = new(TimeSpan.FromHours(1));
+    private readonly System.Timers.Timer _timer = new(TimeSpan.FromHours(1));
     private GameMode _gameStatus = GameMode.NotRunning;
     private string _name = string.Empty;
     private bool _loadingGame = false;

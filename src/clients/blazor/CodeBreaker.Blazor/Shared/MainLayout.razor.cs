@@ -6,7 +6,7 @@ namespace CodeBreaker.Blazor.Shared;
 
 public partial class MainLayout
 {
-    private IEnumerable<NavLinkItem> _menuItems = [
+    private readonly IEnumerable<NavLinkItem> _menuItems = [
         new NavLinkItem("Home", "/", NavLinkMatch.All, CodeBreakerIcon.Dashboard),
         new NavLinkItem("Game", "/game", NavLinkMatch.All, CodeBreakerIcon.Game),
         new NavLinkItem("Reports", "/reports", NavLinkMatch.All, CodeBreakerIcon.Reports),

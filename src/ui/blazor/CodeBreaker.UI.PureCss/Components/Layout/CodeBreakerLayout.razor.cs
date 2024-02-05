@@ -5,9 +5,9 @@ namespace CodeBreaker.UI
     public partial class CodeBreakerLayout : ComponentBase, IDisposable
     {
         private bool _isRoot;
-        private bool _isDark = false;
+        private readonly bool _isDark;
         private bool _drawerOpen = false;
-        private string? _currentTheme;
+        private readonly string? _currentTheme;
 
         [Inject]
         private NavigationManager _navigationManager { get; set; } = default!;
