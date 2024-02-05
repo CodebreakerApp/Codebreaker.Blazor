@@ -5,6 +5,8 @@ using CodeBreaker.Services.Authentication;
 using CodeBreaker.UI;
 using CodeBreaker.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.JSInterop;
+using System.Globalization;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 
@@ -28,28 +30,28 @@ builder.Services.AddMsalAuthentication(options =>
     options.ProviderOptions.DefaultAccessTokenScopes.Add("offline_access");
     options.ProviderOptions.Authentication.RedirectUri = $"{builder.HostEnvironment.BaseAddress}authentication/login-callback";
 });
-builder.Services.AddScoped<IAuthService, AuthenticationService>(); // Replace using dummy registration
+builder.Services.AddScoped<IAuthService, AuthenticationService>();
 builder.Services.AddScoped<IGameClient, GameClient>();
 builder.Services.AddScoped<IGameReportClient, GameClient>();
 builder.Services.AddScoped<IDialogService, DialogService>();
 
 var host = builder.Build();
 
-//CultureInfo culture;
-//var js = host.Services.GetRequiredService<IJSRuntime>();
-//var result = await js.InvokeAsync<string>("blazorCulture.get");
+CultureInfo culture;
+var js = host.Services.GetRequiredService<IJSRuntime>();
+var result = await js.InvokeAsync<string>("blazorCulture.get");
 
-//if (result != null)
-//{
-//    culture = new CultureInfo(result);
-//}
-//else
-//{
-//    culture = new CultureInfo("en");
-//    await js.InvokeVoidAsync("blazorCulture.set", "en");
-//}
+if (result != null)
+{
+    culture = new (result);
+}
+else
+{
+    culture = new ("en");
+    await js.InvokeVoidAsync("blazorCulture.set", "en");
+}
 
-//CultureInfo.DefaultThreadCurrentCulture = culture;
-//CultureInfo.DefaultThreadCurrentUICulture = culture;
+CultureInfo.DefaultThreadCurrentCulture = culture;
+CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 await host.RunAsync();
