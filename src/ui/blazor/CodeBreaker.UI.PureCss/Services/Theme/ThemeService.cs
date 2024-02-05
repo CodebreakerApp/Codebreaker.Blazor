@@ -2,9 +2,6 @@
 
 namespace CodeBreaker.UI.Services.Theme;
 
-public class ThemeService
+public class ThemeService(IJSRuntime jsRuntime)
 {
-    public ThemeService(IJSRuntime jsRuntime)
-    {
-    }
 }
