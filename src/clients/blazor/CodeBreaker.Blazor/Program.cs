@@ -42,22 +42,22 @@ builder.Services.AddScoped(typeof(IGameReportClient), CreateGameClient);
 
 var host = builder.Build();
 
-CultureInfo culture;
-var js = host.Services.GetRequiredService<IJSRuntime>();
-var result = await js.InvokeAsync<string>("blazorCulture.get");
+//CultureInfo culture;
+//var js = host.Services.GetRequiredService<IJSRuntime>();
+//var result = await js.InvokeAsync<string>("blazorCulture.get");
 
-if (result != null)
-{
-    culture = new CultureInfo(result);
-}
-else
-{
-    culture = new CultureInfo("en");
-    await js.InvokeVoidAsync("blazorCulture.set", "en");
-}
+//if (result != null)
+//{
+//    culture = new CultureInfo(result);
+//}
+//else
+//{
+//    culture = new CultureInfo("en");
+//    await js.InvokeVoidAsync("blazorCulture.set", "en");
+//}
 
-CultureInfo.DefaultThreadCurrentCulture = culture;
-CultureInfo.DefaultThreadCurrentUICulture = culture;
+//CultureInfo.DefaultThreadCurrentCulture = culture;
+//CultureInfo.DefaultThreadCurrentUICulture = culture;
 
 await host.RunAsync();
 

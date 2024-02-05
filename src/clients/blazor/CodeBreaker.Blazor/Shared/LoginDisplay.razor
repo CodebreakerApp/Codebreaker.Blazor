@@ -1,9 +1,9 @@
 ﻿@using UI.Models.Icon
 
-<AuthorizeView>
+@* <AuthorizeView>
     <Authorized>
         <div class="user">
-            @if (!String.IsNullOrWhiteSpace(context.User.Identity?.Name)) {
+            @if (!string.IsNullOrWhiteSpace(context.User.Identity?.Name)) {
                 <a href="/user-information">@context.User.Identity.Name</a>
             }
             <CodeBreakerIconButton OnClick="BeginLogOut" Icon="CodeBreakerIcon.Logout"></CodeBreakerIconButton>
@@ -13,3 +13,4 @@
         <CodeBreakerIconButton OnClick="BeginLogIn" Icon="CodeBreakerIcon.Login"></CodeBreakerIconButton>
     </NotAuthorized>
 </AuthorizeView>
+ *@
