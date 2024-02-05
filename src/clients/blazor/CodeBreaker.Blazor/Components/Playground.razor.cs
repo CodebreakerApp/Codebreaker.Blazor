@@ -27,7 +27,7 @@ public partial class Playground
     private int MoveNumber => _gameMoves.Count;
     private int OpenMoves => Game.Type.MaxMoves - MoveNumber;
     private bool PlayButtonDisabled =>
-        _currentMove.Any(m => String.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected" || m.Item2 == "can-drop");
+        _currentMove.Any(m => string.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected" || m.Item2 == "can-drop");
     private string KeyPegsFormat => Game.Type.Holes > 4 ? "three-two" : "two-two";
 
     private bool _isMobile = false;

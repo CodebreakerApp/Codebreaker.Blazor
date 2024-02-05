@@ -3,7 +3,7 @@
 
 <nav>
     <label class="@(_isOpen ? "is-checked" : "")" for="touch" @onclick=@(() => _isOpen = !_isOpen)>
-        <span>@(String.IsNullOrWhiteSpace(_selectedKey) ? "Select..." : _selectedKey)</span>
+        <span>@(string.IsNullOrWhiteSpace(_selectedKey) ? "Select..." : _selectedKey)</span>
         <i class='bx bx-chevron-down'></i>
     </label>
     <input type="checkbox" id="touch" class="@(_isOpen ? "is-checked" : "")">

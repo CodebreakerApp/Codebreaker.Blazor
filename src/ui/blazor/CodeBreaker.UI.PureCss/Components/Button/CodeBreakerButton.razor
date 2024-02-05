@@ -1,5 +1,5 @@
 ﻿@namespace CodeBreaker.UI
 
-<div class="@(Disabled ? String.Join(" ", "btn is-disabled", Class) : String.Join(" ", "btn", Class))" @onclick=@OnClick>
+<div class="@(Disabled ? string.Join(" ", "btn is-disabled", Class) : string.Join(" ", "btn", Class))" @onclick=@OnClick>
     @ChildContent
 </div>
