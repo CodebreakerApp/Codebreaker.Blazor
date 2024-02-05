@@ -1,5 +1,6 @@
 using BlazorApplicationInsights;
 using CodeBreaker.Blazor.Authentication;
+using CodeBreaker.Blazor.Extensions;
 using CodeBreaker.Services;
 using CodeBreaker.Services.Authentication;
 using CodeBreaker.UI;
@@ -37,21 +38,6 @@ builder.Services.AddScoped<IDialogService, DialogService>();
 
 var host = builder.Build();
 
-CultureInfo culture;
-var js = host.Services.GetRequiredService<IJSRuntime>();
-var result = await js.InvokeAsync<string>("blazorCulture.get");
-
-if (result != null)
-{
-    culture = new (result);
-}
-else
-{
-    culture = new ("en");
-    await js.InvokeVoidAsync("blazorCulture.set", "en");
-}
-
-CultureInfo.DefaultThreadCurrentCulture = culture;
-CultureInfo.DefaultThreadCurrentUICulture = culture;
+await host.ConfigureLocalizationAsync();
 
 await host.RunAsync();
