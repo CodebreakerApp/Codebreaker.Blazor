@@ -1,15 +1,30 @@
-using Microsoft.AspNetCore.ResponseCompression;
+using CodeBreaker.Blazor.Host.Components;
+using CodeBreaker.Blazor.Pages;
+using CodeBreaker.Services.Authentication;
+using CodeBreaker.Services;
+using CodeBreaker.UI;
+using CodeBreaker.UI.Services.Dialog;
+using CodeBreaker.Blazor.Host.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents()
+    .AddInteractiveWebAssemblyComponents();
 
-builder.Services.AddControllersWithViews();
-builder.Services.AddRazorPages();
+builder.Services.AddLocalization();
+builder.Services.AddCodeBreakerUI();
+
+builder.Services.AddHttpClient("ServerAPI", configure =>
+    configure.BaseAddress = new Uri(builder.Configuration["ApiBase"] ?? throw new InvalidOperationException("Missing ApiBase configuration")));
+
+builder.Services.AddScoped<IAuthService, DummyAuthService>();
+builder.Services.AddScoped<IGameClient, GameClient>();
+builder.Services.AddScoped<IGameReportClient, GameClient>();
+builder.Services.AddScoped<IDialogService, DialogService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
@@ -22,15 +37,12 @@ else
 }
 
 app.UseHttpsRedirection();
-
-app.UseBlazorFrameworkFiles();
 app.UseStaticFiles();
+app.UseAntiforgery();
 
-app.UseRouting();
-
-
-app.MapRazorPages();
-app.MapControllers();
-app.MapFallbackToFile("index.html");
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode()
+    .AddInteractiveWebAssemblyRenderMode()
+    .AddAdditionalAssemblies(typeof(GamePage).Assembly);
 
 app.Run();
