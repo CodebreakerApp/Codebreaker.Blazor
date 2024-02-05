@@ -43,7 +43,7 @@ public partial class Playground
     protected override async Task OnInitializedAsync()
     {
         InitialzePlayground();
-        if (Game.Moves.Count() > 0)
+        if (Game.Moves.Any())
         {
             foreach (var move in Game.Moves)
             {
