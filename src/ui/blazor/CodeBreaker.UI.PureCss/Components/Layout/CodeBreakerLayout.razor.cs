@@ -10,7 +10,7 @@ namespace CodeBreaker.UI
         private readonly string? _currentTheme;
 
         [Inject]
-        private NavigationManager _navigationManager { get; set; } = default!;
+        private NavigationManager NavigationManager { get; set; } = default!;
 
         [Parameter]
         public string Label { get; set; } = string.Empty;
@@ -30,16 +30,16 @@ namespace CodeBreaker.UI
         {
 
             _isRoot = IsRootUrl();
-            _navigationManager.LocationChanged += _navigationManager_LocationChanged;
+            NavigationManager.LocationChanged += NavigationManager_LocationChanged;
             base.OnInitialized();
         }
 
         private void GoBack()
         {
-            _navigationManager.NavigateTo("/");
+            NavigationManager.NavigateTo("/");
         }
 
-        private void _navigationManager_LocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
+        private void NavigationManager_LocationChanged(object? sender, Microsoft.AspNetCore.Components.Routing.LocationChangedEventArgs e)
         {
             _isRoot = IsRootUrl();
             StateHasChanged();
@@ -47,12 +47,12 @@ namespace CodeBreaker.UI
 
         private bool IsRootUrl()
         {
-            return _navigationManager.Uri == _navigationManager.BaseUri;
+            return NavigationManager.Uri == NavigationManager.BaseUri;
         }
 
         public void Dispose()
         {
-            _navigationManager.LocationChanged -= _navigationManager_LocationChanged;
+            NavigationManager.LocationChanged -= NavigationManager_LocationChanged;
         }
     }
 }

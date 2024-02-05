@@ -9,10 +9,10 @@ namespace CodeBreaker.Blazor.Components
     public partial class LanguageSelector
     {
         [Inject]
-        private NavigationManager _navigationManager { get; set; } = default!;
+        private NavigationManager NavigationManager { get; set; } = default!;
 
         [Inject]
-        private IJSRuntime _jsRuntime { get; set; } = default!;
+        private IJSRuntime JsRuntime { get; set; } = default!;
 
         [Inject]
         private IStringLocalizer<Resource> Loc { get; set; } = default!;
@@ -26,9 +26,9 @@ namespace CodeBreaker.Blazor.Components
             {
                 if (CultureInfo.CurrentCulture != value)
                 {
-                    var js = (IJSInProcessRuntime)_jsRuntime;
+                    var js = (IJSInProcessRuntime)JsRuntime;
                     js.InvokeVoid("blazorCulture.set", value.Name);
-                    _navigationManager.NavigateTo(_navigationManager.Uri, forceLoad: true);
+                    NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
                 }
             }
         }

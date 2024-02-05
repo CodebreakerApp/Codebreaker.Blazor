@@ -6,7 +6,7 @@
         }
     </div>
     <div class="game-container">
-        @for (int i = _openMoves; i > 0; i--)
+        @for (int i = OpenMoves; i > 0; i--)
         {
             <div class="@(i == 1 ? "game-row selectable": "game-row")">
                 @for (int y = 0; y < Game.Type.Holes; y++)
@@ -31,7 +31,7 @@
                 @if (i == 1 && !GameFinished)
                 {
                     <div>
-                        <CodeBreakerIconButton Disabled="_playButtonDisabled" OnClick="async () => await SetMoveAsync()"></CodeBreakerIconButton>
+                        <CodeBreakerIconButton Disabled="PlayButtonDisabled" OnClick="async () => await SetMoveAsync()"></CodeBreakerIconButton>
                     </div>
                 }
                 else
@@ -48,7 +48,7 @@
 
                     <div class="@(guess.ToLower())"></div>
                 }
-                <div class="@($"key-pegs {_keyPegsFormat}")">
+                <div class="@($"key-pegs {KeyPegsFormat}")">
                     @for (int y = 0; y < move.KeyPegs.Black; y++)
                     {
                         <div class="black">

@@ -13,13 +13,13 @@ namespace CodeBreaker.Blazor.Pages;
 public partial class ReportsPage
 {
     [Inject]
-    private IDialogService _dialogService { get; set; } = default!;
+    private IDialogService DialogService { get; set; } = default!;
 
     [Inject]
-    private IGameReportClient _gameClient { get; set; } = default!;
+    private IGameReportClient GameClient { get; set; } = default!;
 
     [Inject]
-    private ILogger<ReportsPage> _logger { get; set; } = default!;
+    private ILogger<ReportsPage> Logger { get; set; } = default!;
     [Inject]
     private IStringLocalizer<Resource> Loc { get; set; } = default!;
 
@@ -28,7 +28,7 @@ public partial class ReportsPage
     private bool _isLoadingGames = false;
     private readonly ReportFilterContext _filter = new();
     
-    private List<string> _headers => [.. Loc.GetString("Reports_Table_Headers").Value.Split(",")];
+    private List<string> Headers => [.. Loc.GetString("Reports_Table_Headers").Value.Split(",")];
 
     private readonly List<CodeBreakerColumnDefinition<GameDto>> _columns = [
         new CodeBreakerColumnDefinition<GameDto>("Gamername", game => game.Username, true),
@@ -39,18 +39,18 @@ public partial class ReportsPage
 
     public async Task GetGames()
     {
-        _logger?.LogInformation("Calling GetReport for {date}", _filter.Date);
+        Logger?.LogInformation("Calling GetReport for {date}", _filter.Date);
         _games = [];
         _isLoadingGames = true;
         try
         {
-            GetGamesResponse? response = await _gameClient.GetGamesAsync(_filter.Date);
-            _logger?.LogDebug("Got response", response);
+            GetGamesResponse? response = await GameClient.GetGamesAsync(_filter.Date);
+            Logger?.LogDebug("Got response", response);
             _games = [..response?.Games ?? []];
         }
         catch (Exception ex)
         {
-            _logger?.LogError(ex, "Error calling GetGames");
+            Logger?.LogError(ex, "Error calling GetGames");
             //TODO: handle Exception;
         }
         finally
@@ -79,7 +79,7 @@ public partial class ReportsPage
             }
         }
 
-        _dialogService.ShowDialog(new DialogContext(typeof(Playground), new Dictionary<string, object>
+        DialogService.ShowDialog(new DialogContext(typeof(Playground), new Dictionary<string, object>
             {
                 { nameof(Playground.Game), game },
                 { nameof(Playground.GameFinished), true },

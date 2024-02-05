@@ -6,18 +6,18 @@ namespace CodeBreaker.Blazor.Shared
 {
     public partial class LoginDisplay
     {
-        [Inject] private NavigationManager _navigationManager { get; set; } = default!; 
-        [Inject] private IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> _options { get; set; } = default!;
+        [Inject] private NavigationManager NavigationManager { get; set; } = default!;
+        [Inject] private IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options { get; set; } = default!;
 
         private void BeginLogOut()
         {
-            _navigationManager.NavigateToLogout(_options.Get(Options.DefaultName)
+            NavigationManager.NavigateToLogout(Options.Get(Microsoft.Extensions.Options.Options.DefaultName)
                 .AuthenticationPaths.LogOutPath);
         }
 
         private void BeginLogIn()
         {
-            _navigationManager.NavigateToLogin(_options.Get(Options.DefaultName)
+            NavigationManager.NavigateToLogin(Options.Get(Microsoft.Extensions.Options.Options.DefaultName)
                 .AuthenticationPaths.LogInPath);
         }
     }

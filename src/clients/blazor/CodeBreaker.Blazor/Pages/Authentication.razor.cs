@@ -6,14 +6,14 @@ namespace CodeBreaker.Blazor.Pages
     public partial class Authentication
     {
         [Inject]
-        private NavigationManager _navigationManager { get; init; } = default!;
+        private NavigationManager NavigationManager { get; init; } = default!;
 
         [Parameter]
         public string Action { get; set; } = string.Empty;
 
         private void OnLogout()
         {
-            _navigationManager.NavigateTo("/", true, true);
+            NavigationManager.NavigateTo("/", true, true);
         }
     }
 }

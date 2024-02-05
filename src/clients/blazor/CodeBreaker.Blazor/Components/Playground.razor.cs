@@ -24,11 +24,11 @@ public partial class Playground
     [Parameter]
     public EventCallback<GameMode> GameStatusChanged { get; set; }
 
-    private int _moveNumber => _gameMoves.Count;
-    private int _openMoves => Game.Type.MaxMoves - _moveNumber;
-    private bool _playButtonDisabled =>
+    private int MoveNumber => _gameMoves.Count;
+    private int OpenMoves => Game.Type.MaxMoves - MoveNumber;
+    private bool PlayButtonDisabled =>
         _currentMove.Any(m => String.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected" || m.Item2 == "can-drop");
-    private string _keyPegsFormat => Game.Type.Holes > 4 ? "three-two" : "two-two";
+    private string KeyPegsFormat => Game.Type.Holes > 4 ? "three-two" : "two-two";
 
     private bool _isMobile = false;
     private bool _selectable = false;
@@ -76,7 +76,7 @@ public partial class Playground
                 throw new InvalidOperationException("all colors need to be selected before invoking this method");
 
             var response = await Client.SetMoveAsync(Game.GameId, _selectionFields!);
-            _gameMoves.Add(new(_selectionFields!, response.KeyPegs, _moveNumber));
+            _gameMoves.Add(new(_selectionFields!, response.KeyPegs, MoveNumber));
 
             Console.WriteLine(response.ToString());
             if (response.Won)

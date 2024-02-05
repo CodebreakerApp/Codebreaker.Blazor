@@ -11,11 +11,11 @@ public partial class CodeBreakerDialog : IDisposable
     private List<DialogActionContext> _dialogActions = [];
 
     [Inject]
-    private IDialogService _codeBreakerDialogService { get; set; } = default!;
+    private IDialogService CodeBreakerDialogService { get; set; } = default!;
 
     protected override void OnInitialized()
     {
-        _codeBreakerDialogService.ShowDialogHandler += ShowDialog;
+        CodeBreakerDialogService.ShowDialogHandler += ShowDialog;
     }
 
     private void ShowDialog(object? sender, DialogContext context)
@@ -52,7 +52,7 @@ public partial class CodeBreakerDialog : IDisposable
     }
     public void Dispose()
     {
-        if (_codeBreakerDialogService?.ShowDialogHandler != null)
-            _codeBreakerDialogService.ShowDialogHandler -= ShowDialog;
+        if (CodeBreakerDialogService?.ShowDialogHandler != null)
+            CodeBreakerDialogService.ShowDialogHandler -= ShowDialog;
     }
 }

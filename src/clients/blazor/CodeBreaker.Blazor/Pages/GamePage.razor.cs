@@ -28,13 +28,13 @@ public partial class GamePage : IDisposable
 
 
     [Inject]
-    private IGameClient _client { get; init; } = default!;
+    private IGameClient Client { get; init; } = default!;
     [Inject]
-    private NavigationManager _navigationManager { get; init; } = default!;
+    private NavigationManager NavigationManager { get; init; } = default!;
     [Inject]
-    private IJSRuntime _jSRuntime { get; init; } = default!;
+    private IJSRuntime JSRuntime { get; init; } = default!;
     [Inject]
-    private IDialogService _dialogService { get; init; } = default!;
+    private IDialogService DialogService { get; init; } = default!;
     [Inject]
     private IStringLocalizer<Resource> Loc { get; init; } = default!;
     //[Inject]
@@ -51,7 +51,7 @@ public partial class GamePage : IDisposable
     {
         _timer.Elapsed += OnTimedEvent;
         _timer.AutoReset = true;
-        _navigationManager.RegisterLocationChangingHandler(OnLocationChanging);
+        NavigationManager.RegisterLocationChangingHandler(OnLocationChanging);
         //var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
         //_name = string.IsNullOrWhiteSpace(state?.User?.Identity?.Name)
         //    ? string.Empty
@@ -65,7 +65,7 @@ public partial class GamePage : IDisposable
         {
             _loadingGame = true;
             _gameStatus = GameMode.NotRunning;
-            var response = await _client.StartGameAsync(_name,
+            var response = await Client.StartGameAsync(_name,
                 string.IsNullOrWhiteSpace(_selectedGameType) ? "6x4Game" : _selectedGameType);
             _game = response.Game;
             _gameStatus = GameMode.Started;
@@ -91,12 +91,12 @@ public partial class GamePage : IDisposable
             _timer.Stop();
             _gameStatus = GameMode.Canceld;
             StateHasChanged();
-            _dialogService.ShowDialog(new DialogContext(typeof(GameResultDialog), new Dictionary<string, object>
+            DialogService.ShowDialog(new DialogContext(typeof(GameResultDialog), new Dictionary<string, object>
             {
                 { nameof(GameResultDialog.GameMode), GameMode.Timeout },
                 { nameof(GameResultDialog.Username), _name },
             }, string.Empty, [
-                new DialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo("")),
+                new DialogActionContext(Loc["GamePage_FinishGame_Ok"], () => NavigationManager.NavigateTo("")),
                 new DialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
             ]));
         });
@@ -108,12 +108,12 @@ public partial class GamePage : IDisposable
         _gameStatus = gameMode;
         if (_gameStatus is GameMode.Won or GameMode.Lost)
         {
-            _dialogService.ShowDialog(new DialogContext(typeof(GameResultDialog), new Dictionary<string, object>
+            DialogService.ShowDialog(new DialogContext(typeof(GameResultDialog), new Dictionary<string, object>
             {
                 { nameof(GameResultDialog.GameMode), _gameStatus },
                 { nameof(GameResultDialog.Username), _name },
             }, string.Empty, [
-                new DialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo(string.Empty)),
+                new DialogActionContext(Loc["GamePage_FinishGame_Ok"], () => NavigationManager.NavigateTo(string.Empty)),
                 new DialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
             ]));
         }
@@ -128,7 +128,7 @@ public partial class GamePage : IDisposable
     {
         _timer.Stop();
         _gameStatus = GameMode.Canceld;
-        _navigationManager.NavigateTo("");
+        NavigationManager.NavigateTo("");
     }
 
     private void RestartGame()
@@ -142,7 +142,7 @@ public partial class GamePage : IDisposable
     {
         if (_gameStatus is GameMode.MoveSet)
         {
-            var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", Loc["GamePage_CancelGame_Info"]);
+            var isConfirmed = await JSRuntime.InvokeAsync<bool>("confirm", Loc["GamePage_CancelGame_Info"]);
 
             if (!isConfirmed)
             {
@@ -156,7 +156,7 @@ public partial class GamePage : IDisposable
         if (_game.HasValue)
         {
             _cancelGame = true;
-            await _client.CancelGameAsync(_game.Value.GameId);
+            await Client.CancelGameAsync(_game.Value.GameId);
             _cancelGame = false;
         }
     }
