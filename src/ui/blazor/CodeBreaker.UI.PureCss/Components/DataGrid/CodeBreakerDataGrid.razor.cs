@@ -10,13 +10,13 @@ public partial class CodeBreakerDataGrid<T> : ComponentBase
     private PaginationState pagination = new() { ItemsPerPage = 7 };
 
     [Parameter]
-    public List<string> Headers { get; set; } = new List<string>();
+    public List<string> Headers { get; set; } = [];
 
     [Parameter]
-    public List<T> Items { get; set; } = new();
+    public List<T> Items { get; set; } = [];
 
     [Parameter]
-    public List<CodeBreakerColumnDefinition<T>> Columns { get; set; } = new List<CodeBreakerColumnDefinition<T>>();
+    public List<CodeBreakerColumnDefinition<T>> Columns { get; set; } = [];
 
     [Parameter]
     public EventCallback<T> RowItemClicked { get; set; } = new();

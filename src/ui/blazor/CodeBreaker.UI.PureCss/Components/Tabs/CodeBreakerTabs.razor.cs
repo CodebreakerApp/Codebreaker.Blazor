@@ -11,7 +11,7 @@ public partial class CodeBreakerTabs : ComponentBase
     public EventCallback<string> ActiveTabChanged { get; set; }
 
     [Parameter]
-    public string[] TabTitles { get; set; } = Array.Empty<string>();
+    public string[] TabTitles { get; set; } = [];
 
     [Parameter]
     public RenderFragment ChildContent { get; set; } = default!;

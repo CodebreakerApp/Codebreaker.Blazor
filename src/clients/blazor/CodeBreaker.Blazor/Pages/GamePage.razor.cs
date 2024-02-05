@@ -20,11 +20,11 @@ public partial class GamePage : IDisposable
     private string _selectedGameType = "6x4Game";
 
     //TODO: Get Data from API
-    private IEnumerable<KeyValuePair<string, string>> _gameTypes = new List<KeyValuePair<string, string>> {
+    private readonly IEnumerable<KeyValuePair<string, string>> _gameTypes = [
         new KeyValuePair<string, string>("8x5Game", "8x5Game"),
         new KeyValuePair<string, string>("6x4MiniGame", "6x4MiniGame"),
         new KeyValuePair<string, string>("6x4Game", "6x4Game"),
-    };
+    ];
 
 
     [Inject]
@@ -95,11 +95,10 @@ public partial class GamePage : IDisposable
             {
                 { nameof(GameResultDialog.GameMode), GameMode.Timeout },
                 { nameof(GameResultDialog.Username), _name },
-            }, string.Empty, new List<DialogActionContext>
-            {
+            }, string.Empty, [
                 new DialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo("")),
                 new DialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
-            }));
+            ]));
         });
     }
 
@@ -113,11 +112,10 @@ public partial class GamePage : IDisposable
             {
                 { nameof(GameResultDialog.GameMode), _gameStatus },
                 { nameof(GameResultDialog.Username), _name },
-            }, string.Empty, new List<DialogActionContext>
-            {
+            }, string.Empty, [
                 new DialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo(string.Empty)),
                 new DialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
-            }));
+            ]));
         }
         else
         {

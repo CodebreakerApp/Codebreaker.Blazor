@@ -24,30 +24,30 @@ public partial class ReportsPage
     private IStringLocalizer<Resource> Loc { get; set; } = default!;
 
 
-    private List<GameDto> _games = new();
+    private GameDto[] _games = [];
     private bool _isLoadingGames = false;
     private ReportFilterContext _filter = new();
     
-    private List<string> _headers => Loc.GetString("Reports_Table_Headers").Value.Split(",").ToList();
+    private List<string> _headers => [.. Loc.GetString("Reports_Table_Headers").Value.Split(",")];
 
-    private List<CodeBreakerColumnDefinition<GameDto>> _columns = new()
-    {
+    private List<CodeBreakerColumnDefinition<GameDto>> _columns =
+    [
         new CodeBreakerColumnDefinition<GameDto>("Gamername", game => game.Username, true),
         new CodeBreakerColumnDefinition<GameDto>("Start", game => game.Start, false),
         new CodeBreakerColumnDefinition<GameDto>("End", game => game.End.HasValue ? game.End.Value : "----", false),
         new CodeBreakerColumnDefinition<GameDto>("Number of Moves", game => game.Moves.Count(), true)
-    };
+    ];
 
     public async Task GetGames()
     {
         _logger?.LogInformation("Calling GetReport for {date}", _filter.Date);
-        _games = new List<GameDto>();
+        _games = [];
         _isLoadingGames = true;
         try
         {
             GetGamesResponse? response = await _gameClient.GetGamesAsync(_filter.Date);
             _logger?.LogDebug("Got response", response);
-            _games = response?.Games?.ToList() ?? new List<GameDto>();
+            _games = [..response?.Games ?? []];
         }
         catch (Exception ex)
         {
@@ -84,6 +84,6 @@ public partial class ReportsPage
             {
                 { nameof(Playground.Game), game },
                 { nameof(Playground.GameFinished), true },
-            }, title, new List<DialogActionContext>()));
+            }, title, []));
     }
 }

@@ -33,9 +33,9 @@ public partial class Playground
     private bool _isMobile = false;
     private bool _selectable = false;
     private int _selectedField = -1;
-    private BindingList<SelectionAndKeyPegs> _gameMoves = new();
-    private string[] _selectionFields = Array.Empty<string>();
-    private List<Tuple<int, string>> _currentMove = new();
+    private BindingList<SelectionAndKeyPegs> _gameMoves = [];
+    private string[] _selectionFields = [];
+    private List<Tuple<int, string>> _currentMove = [];
     private string _activeColor = string.Empty;
     private IJSInProcessObjectReference? module;
 
@@ -49,7 +49,7 @@ public partial class Playground
             {
                 if (move.KeyPegs.HasValue)
                 {
-                    _gameMoves.Add(new SelectionAndKeyPegs(move.GuessPegs.ToArray(), move.KeyPegs.Value, move.MoveNumber));
+                    _gameMoves.Add(new SelectionAndKeyPegs([.. move.GuessPegs], move.KeyPegs.Value, move.MoveNumber));
                 }
             }
         }
@@ -155,7 +155,7 @@ public partial class Playground
     {
         _selectionFields = new string[Game.Type.Holes];
         _selectedField = -1;
-        _currentMove = new List<Tuple<int, string>>();
+        _currentMove = [];
         for (int i = 0; i < Game.Type.Holes; i++)
         {
             _currentMove.Add(new Tuple<int, string>(i, string.Empty));

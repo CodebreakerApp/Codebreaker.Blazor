@@ -17,7 +17,7 @@ namespace CodeBreaker.Blazor.Components
         [Inject]
         private IStringLocalizer<Resource> Loc { get; set; } = default!;
 
-        private Dictionary<string, CultureInfo> _items = new();
+        private readonly Dictionary<string, CultureInfo> _items = [];
 
         private CultureInfo Culture
         {

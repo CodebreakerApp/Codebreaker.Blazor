@@ -8,7 +8,7 @@ public partial class CodeBreakerDialog : IDisposable
     public bool ModalHidden { get; set; } = true;
     private string _title = string.Empty;
     private RenderFragment? _dialogContent;
-    private List<DialogActionContext> _dialogActions = new();
+    private List<DialogActionContext> _dialogActions = [];
 
     [Inject]
     private IDialogService _codeBreakerDialogService { get; set; } = default!;
