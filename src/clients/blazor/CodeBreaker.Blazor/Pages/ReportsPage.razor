@@ -12,7 +12,7 @@
             <CodeBreakerButton Disabled=@_isLoadingGames @onclick="async () => await GetGames()">
                 @if (_isLoadingGames)
                 {
-                    <CodeBreakerProgressCircular Class="progress"></CodeBreakerProgressCircular>
+                    <CodeBreakerProgressCircular Class="progress" />
                 }
                 @Loc["Reports_LoadGames_Action"]
             </CodeBreakerButton>

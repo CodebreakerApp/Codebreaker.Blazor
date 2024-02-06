@@ -31,12 +31,12 @@
                 @if (i == 1 && !GameFinished)
                 {
                     <div>
-                        <CodeBreakerIconButton Disabled="PlayButtonDisabled" OnClick="async () => await SetMoveAsync()"></CodeBreakerIconButton>
+                        <CodeBreakerIconButton Disabled="PlayButtonDisabled" OnClick="async () => await SetMoveAsync()" />
                     </div>
                 }
                 else
                 {
-                    <div class="key-pegs"></div>
+                    <div class="key-pegs" />
                 }
             </div>
         }
@@ -46,7 +46,7 @@
                 @foreach (var guess in move.GuessPegs)
                 {
 
-                    <div class="@(guess.ToLower())"></div>
+                    <div class="@(guess.ToLower())" />
                 }
                 <div class="@($"key-pegs {KeyPegsFormat}")">
                     @for (int y = 0; y < move.KeyPegs.Black; y++)

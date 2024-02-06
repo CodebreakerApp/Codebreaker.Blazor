@@ -4,13 +4,13 @@
 <CodeBreakerLayout Label="@($"{Loc["Index_Welcome"]} {Loc["AppDisplayName"]}")">
     <ToolbarContent>
         <div class="flex toolbar-content">
-            <LoginDisplay></LoginDisplay>
+            <LoginDisplay />
         </div>
     </ToolbarContent>
     <ChildContent>
         <div class="content-container">@Body</div>
     </ChildContent>
     <DrawerContent>
-        <CodeBreakerNavMenu MenuItems="_menuItems"></CodeBreakerNavMenu>
+        <CodeBreakerNavMenu MenuItems="_menuItems" />
     </DrawerContent>
 </CodeBreakerLayout>
