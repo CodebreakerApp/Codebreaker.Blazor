@@ -3,7 +3,7 @@
 public enum GameMode
 {
     NotRunning,
-    Canceld,
+    Cancelled,
     Started,
     MoveSet,
     Lost,
