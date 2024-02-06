@@ -24,10 +24,10 @@ public class AuthenticationService : IAuthService
     {
         _authenticationStateProvider = authenticationStateProvider ?? throw new ArgumentNullException(nameof(authenticationStateProvider));
         _tokenProvider = tokenProvider ?? throw new ArgumentNullException(nameof(tokenProvider));
-        _authenticationStateProvider.AuthenticationStateChanged += _authenticationStateProvider_AuthenticationStateChanged;
+        _authenticationStateProvider.AuthenticationStateChanged += AuthenticationStateProvider_AuthenticationStateChanged;
     }
 
-    private async void _authenticationStateProvider_AuthenticationStateChanged(Task<AuthenticationState> task)
+    private async void AuthenticationStateProvider_AuthenticationStateChanged(Task<AuthenticationState> task)
     {
         var state = await task;
         if (state?.User?.Identity is null)

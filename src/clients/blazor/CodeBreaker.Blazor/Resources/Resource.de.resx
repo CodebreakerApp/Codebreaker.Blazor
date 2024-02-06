@@ -159,31 +159,31 @@
     <value>CodeBreaker</value>
   </data>
   <data name="AuthPage_ContinueAsGuest" xml:space="preserve">
-    <value>Continue as Guest</value>
+    <value>Als Gast fortfahren</value>
   </data>
   <data name="AuthPage_GuestTooltip" xml:space="preserve">
-    <value>You can play games, but you won't get listed in the scoreboard.</value>
+    <value>Sie können spielen, werden aber nicht im Scoreboard gelistet.</value>
   </data>
   <data name="AuthPage_Or" xml:space="preserve">
-    <value>or</value>
+    <value>oder</value>
   </data>
   <data name="AuthPage_SignIn" xml:space="preserve">
-    <value>Sign in</value>
+    <value>Einloggen</value>
   </data>
   <data name="AuthPage_SignUp" xml:space="preserve">
-    <value>sign up</value>
+    <value>Registrieren</value>
   </data>
   <data name="AuthPage_WelcomeTo" xml:space="preserve">
-    <value>Welcome to</value>
+    <value>Willkommen zu</value>
   </data>
   <data name="GamePage_CancelButtonText" xml:space="preserve">
-    <value>Cancel</value>
+    <value>Abbrechen</value>
   </data>
   <data name="GamePage_CancelConfirmContent" xml:space="preserve">
-    <value>Do you really want to cancel the game?</value>
+    <value>Wollen Sie das Spiel wirklich abbrechen?</value>
   </data>
   <data name="GamePage_CancelConfirmTitle" xml:space="preserve">
-    <value>Cancel game</value>
+    <value>Spiel abbrechen</value>
   </data>
   <data name="GamePage_CancelGame_Info" xml:space="preserve">
     <value>Willst du das Spiel wirklich beenden?</value>
@@ -204,13 +204,13 @@
     <value>The gamername was already defined during sign-up</value>
   </data>
   <data name="GamePage_NameInput" xml:space="preserve">
-    <value>Gamername</value>
+    <value>Spielername</value>
   </data>
   <data name="GamePage_NameInputPlaceholder" xml:space="preserve">
-    <value>Enter your gamername</value>
+    <value>Geben Sie Ihren Spielernamen ein</value>
   </data>
   <data name="GamePage_StartButtonText" xml:space="preserve">
-    <value>Start game</value>
+    <value>Spiel starten</value>
   </data>
   <data name="Index_Card_About_Action" xml:space="preserve">
     <value>Mehr lesen</value>
@@ -254,8 +254,20 @@
   <data name="LivePage_WaitingForGames" xml:space="preserve">
     <value>Waiting for games... ⌛</value>
   </data>
+  <data name="NavMenu_About_Title" xml:space="preserve">
+    <value>Über Codebreaker</value>
+  </data>
+  <data name="NavMenu_Game_Title" xml:space="preserve">
+    <value>Spiel</value>
+  </data>
+  <data name="NavMenu_Home_Title" xml:space="preserve">
+    <value>Startseite</value>
+  </data>
+  <data name="NavMenu_Reports_Title" xml:space="preserve">
+    <value>Statistiken</value>
+  </data>
   <data name="No" xml:space="preserve">
-    <value>No</value>
+    <value>Nein</value>
   </data>
   <data name="PegSelection_MakeMove" xml:space="preserve">
     <value>Move</value>
@@ -276,57 +288,57 @@
     <value>Wähle ein Datum</value>
   </data>
   <data name="SettingsPage_LanguageChangeInfoMessage" xml:space="preserve">
-    <value>The language will change after the next start of the application.</value>
+    <value>Die Sprache wird beim Neustart der Applikation geändert</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLink" xml:space="preserve">
-    <value>Privacy Statement</value>
+    <value>Datenschutzerklärung</value>
   </data>
   <data name="SettingsPage_PrivacyTermsLinkNavigateUri" xml:space="preserve">
     <value>https://YourPrivacyUrlGoesHere/</value>
   </data>
   <data name="Settings_About" xml:space="preserve">
-    <value>About this application</value>
+    <value>Über die Applikation</value>
   </data>
   <data name="Settings_AboutDescription" xml:space="preserve">
     <value>TODO: Replace with your app description.</value>
   </data>
   <data name="Settings_Language" xml:space="preserve">
-    <value>Language</value>
+    <value>Sprache</value>
   </data>
   <data name="Settings_Language_Default" xml:space="preserve">
-    <value>Default</value>
+    <value>Standard</value>
   </data>
   <data name="Settings_Language_English" xml:space="preserve">
-    <value>English</value>
+    <value>Englisch</value>
   </data>
   <data name="Settings_Language_German" xml:space="preserve">
-    <value>German</value>
+    <value>Deutsch</value>
   </data>
   <data name="Settings_Personalization" xml:space="preserve">
-    <value>Personalization</value>
+    <value>Personalisierung</value>
   </data>
   <data name="Settings_Theme" xml:space="preserve">
     <value>Theme</value>
   </data>
   <data name="Settings_Theme_Dark" xml:space="preserve">
-    <value>Dark</value>
+    <value>Dunkel</value>
   </data>
   <data name="Settings_Theme_Default" xml:space="preserve">
-    <value>Default</value>
+    <value>Standard</value>
   </data>
   <data name="Settings_Theme_Light" xml:space="preserve">
-    <value>Light</value>
+    <value>Hell</value>
   </data>
   <data name="ShellPage_Blank" xml:space="preserve">
-    <value>Blank</value>
+    <value>Leer</value>
   </data>
   <data name="ShellPage_GameTab" xml:space="preserve">
-    <value>Game</value>
+    <value>Spiel</value>
   </data>
   <data name="ShellPage_LiveTab" xml:space="preserve">
     <value>Live</value>
   </data>
   <data name="Yes" xml:space="preserve">
-    <value>Yes</value>
+    <value>Ja</value>
   </data>
 </root>

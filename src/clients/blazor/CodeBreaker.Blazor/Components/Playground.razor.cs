@@ -24,18 +24,18 @@ public partial class Playground
     [Parameter]
     public EventCallback<GameMode> GameStatusChanged { get; set; }
 
-    private int _moveNumber => _gameMoves.Count;
-    private int _openMoves => Game.Type.MaxMoves - _moveNumber;
-    private bool _playButtonDisabled =>
-        _currentMove.Any(m => String.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected" || m.Item2 == "can-drop");
-    private string _keyPegsFormat => Game.Type.Holes > 4 ? "three-two" : "two-two";
+    private int MoveNumber => _gameMoves.Count;
+    private int OpenMoves => Game.Type.MaxMoves - MoveNumber;
+    private bool PlayButtonDisabled =>
+        _currentMove.Any(m => string.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected" || m.Item2 == "can-drop");
+    private string KeyPegsFormat => Game.Type.Holes > 4 ? "three-two" : "two-two";
 
     private bool _isMobile = false;
     private bool _selectable = false;
     private int _selectedField = -1;
-    private BindingList<SelectionAndKeyPegs> _gameMoves = new();
-    private string[] _selectionFields = Array.Empty<string>();
-    private List<Tuple<int, string>> _currentMove = new();
+    private readonly BindingList<SelectionAndKeyPegs> _gameMoves = [];
+    private string[] _selectionFields = [];
+    private List<Tuple<int, string>> _currentMove = [];
     private string _activeColor = string.Empty;
     private IJSInProcessObjectReference? module;
 
@@ -43,13 +43,13 @@ public partial class Playground
     protected override async Task OnInitializedAsync()
     {
         InitialzePlayground();
-        if (Game.Moves.Count() > 0)
+        if (Game.Moves.Any())
         {
             foreach (var move in Game.Moves)
             {
                 if (move.KeyPegs.HasValue)
                 {
-                    _gameMoves.Add(new SelectionAndKeyPegs(move.GuessPegs.ToArray(), move.KeyPegs.Value, move.MoveNumber));
+                    _gameMoves.Add(new SelectionAndKeyPegs([.. move.GuessPegs], move.KeyPegs.Value, move.MoveNumber));
                 }
             }
         }
@@ -76,7 +76,7 @@ public partial class Playground
                 throw new InvalidOperationException("all colors need to be selected before invoking this method");
 
             var response = await Client.SetMoveAsync(Game.GameId, _selectionFields!);
-            _gameMoves.Add(new(_selectionFields!, response.KeyPegs, _moveNumber));
+            _gameMoves.Add(new(_selectionFields!, response.KeyPegs, MoveNumber));
 
             Console.WriteLine(response.ToString());
             if (response.Won)
@@ -155,7 +155,7 @@ public partial class Playground
     {
         _selectionFields = new string[Game.Type.Holes];
         _selectedField = -1;
-        _currentMove = new List<Tuple<int, string>>();
+        _currentMove = [];
         for (int i = 0; i < Game.Type.Holes; i++)
         {
             _currentMove.Add(new Tuple<int, string>(i, string.Empty));

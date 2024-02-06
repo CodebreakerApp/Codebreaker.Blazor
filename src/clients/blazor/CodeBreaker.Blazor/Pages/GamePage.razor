@@ -1,19 +1,18 @@
 ﻿@page "/game"
 @using CodeBreaker.Blazor.Models;
-@using UI.Shared.Models.Icon
+@using UI.Models.Icon
 
-<NavigationLock ConfirmExternalNavigation="_gameStatus == GameMode.MoveSet"
-                OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+<NavigationLock ConfirmExternalNavigation="_gameStatus == GameMode.MoveSet" OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
 
 @if (_game.HasValue)
 {
     <div class="header flex">
         <div>
             <h2 class="flex-1">@_game?.Type.Name</h2>
-            <StopWatch Running="@(_gameStatus == GameMode.MoveSet || _gameStatus == GameMode.Started)"></StopWatch>
+            <StopWatch Running="@(_gameStatus == GameMode.MoveSet || _gameStatus == GameMode.Started)" />
         </div>
         <div>
-            <CodeBreakerIconButton Disabled="_cancelGame" OnClick="CancelGame" Icon="CodeBreakerIcon.Cancel"></CodeBreakerIconButton>
+            <CodeBreakerIconButton Disabled="_cancelGame" OnClick="CancelGame" Icon="CodeBreakerIcon.Cancel" />
         </div>
     </div>
 }
@@ -23,11 +22,11 @@
     <div class="flex-column start-game-container">
         <CodeBreakerTextField CssClass="user-name flex-1" @bind-Value="_name" Label="@Loc["GamePage_NameInput"]" Placeholder="@Loc["GamePage_NameInputPlaceholder"]" Required="true" MaxLength="100" />
         <div class="flex-responsive gap-2 full-width justify-between">
-            <CodeBreakerRadioGroup T="string" @bind-Value="_selectedGameType" Items="_gameTypes"></CodeBreakerRadioGroup>
-            <CodeBreakerButton Disabled="@(String.IsNullOrWhiteSpace(_name) || String.IsNullOrWhiteSpace(_selectedGameType) || _loadingGame)" OnClick="StartGameAsync">
+            <CodeBreakerRadioGroup T="string" @bind-Value="_selectedGameType" Items="_gameTypes" />
+            <CodeBreakerButton Disabled="@(string.IsNullOrWhiteSpace(_name) || string.IsNullOrWhiteSpace(_selectedGameType) || _loadingGame)" OnClick="StartGameAsync">
                 @if (_loadingGame)
                 {
-                    <CodeBreakerProgressCircular Class="progress"></CodeBreakerProgressCircular>
+                    <CodeBreakerProgressCircular Class="progress" />
                 }
                 @Loc["GamePage_StartButtonText"]
             </CodeBreakerButton>
@@ -36,5 +35,5 @@
 }
 else if (_game.HasValue)
 {
-    <Playground Game="_game.Value" GameStatusChanged="GameStatusChanged"></Playground>
+    <Playground Game="_game.Value" GameStatusChanged="GameStatusChanged" />
 }

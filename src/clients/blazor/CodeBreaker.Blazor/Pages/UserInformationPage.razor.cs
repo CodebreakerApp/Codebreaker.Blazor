@@ -6,7 +6,7 @@ namespace CodeBreaker.Blazor.Pages
     public record UserInformation(string FirstName, string LastName, string UserName, string GamerName);
     public partial class UserInformationPage
     {
-        [Inject] private AuthenticationStateProvider _authenticationStateProvider { get; set; } = default!;
+        [Inject] private AuthenticationStateProvider AuthenticationStateProvider { get; set; } = default!;
 
         private UserInformation? _user;
 
@@ -18,7 +18,7 @@ namespace CodeBreaker.Blazor.Pages
 
         private async Task<UserInformation> GetClaimsPrincipalData()
         {
-            var authState = await _authenticationStateProvider
+            var authState = await AuthenticationStateProvider
                 .GetAuthenticationStateAsync();
             var user = authState.User;
             return new UserInformation(

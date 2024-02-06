@@ -1,16 +1,27 @@
-using CodeBreaker.UI.Shared.Models.Menu;
-using CodeBreaker.UI.Shared.Models.Icon;
+using CodeBreaker.UI.Models.Menu;
+using CodeBreaker.UI.Models.Icon;
 using Microsoft.AspNetCore.Components.Routing;
+using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Components;
+using CodeBreaker.Blazor.Resources;
 
 namespace CodeBreaker.Blazor.Shared;
 
-public partial class MainLayout
+public partial class MainLayout : LayoutComponentBase
 {
-    private IEnumerable<NavLinkItem> _menuItems = new List<NavLinkItem>
+    private IEnumerable<NavLinkItem> _menuItems = [];
+
+    [Inject]
+    private IStringLocalizer<Resource> Loc { get; init; } = default!;
+
+    protected override void OnInitialized()
     {
-        new NavLinkItem("Home", "/", NavLinkMatch.All, CodeBreakerIcon.Dashboard),
-        new NavLinkItem("Game", "/game", NavLinkMatch.All, CodeBreakerIcon.Game),
-        new NavLinkItem("Reports", "/reports", NavLinkMatch.All, CodeBreakerIcon.Reports),
-        new NavLinkItem("About", "/about", NavLinkMatch.All, CodeBreakerIcon.About),
-    };
+        _menuItems = [
+            new NavLinkItem(Loc["NavMenu_Home_Title"], "/", NavLinkMatch.All, CodeBreakerIcon.Dashboard),
+            new NavLinkItem(@Loc["NavMenu_Game_Title"], "/game", NavLinkMatch.All, CodeBreakerIcon.Game),
+            new NavLinkItem(@Loc["NavMenu_Reports_Title"], "/reports", NavLinkMatch.All, CodeBreakerIcon.Reports),
+            new NavLinkItem(@Loc["NavMenu_About_Title"], "/about", NavLinkMatch.All, CodeBreakerIcon.About),
+        ];
+        base.OnInitialized();
+    }
 }

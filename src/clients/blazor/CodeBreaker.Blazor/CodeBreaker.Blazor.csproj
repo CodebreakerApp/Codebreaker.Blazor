@@ -1,12 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
+﻿<Project Sdk="Microsoft.NET.Sdk.BlazorWebAssembly">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
-    <ServiceWorkerAssetsManifest>service-worker-assets.js</ServiceWorkerAssetsManifest>
-    <Configurations>Debug;Release;Mudblazor;FastUI;ReleaseFastUI;PureCss;ReleasePureCss</Configurations>
+    <Configurations>Debug;Release;</Configurations>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,65 +13,19 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Remove="Components\CodeAndKeyPegs.razor" />
-    <Content Remove="Components\CodePegs.razor" />
-    <Content Remove="Components\KeyPegs.razor" />
-    <Content Remove="Components\PageMessages.razor" />
-    <Content Remove="Components\PegSelection.razor" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Remove="Components\CodeAndKeyPegs.razor.css" />
-    <None Remove="Components\CodePegs.razor.css" />
-    <None Remove="Components\KeyPegs.razor.css" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="BlazorApplicationInsights" Version="2.1.0" />
+    <PackageReference Include="BlazorApplicationInsights" Version="3.0.4" />
     <PackageReference Include="CNInnovation.Codebreaker.Services" Version="2.0.1-beta.1.8" />
     <PackageReference Include="CNInnovation.Codebreaker.Shared" Version="2.0.1-beta.1.9" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="7.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="7.0.2" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="7.0.9" PrivateAssets="all" />
-    <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="7.0.9" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="7.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Localization" Version="7.0.9" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.MudBlazor\CodeBreaker.UI.MudBlazor.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='PureCss|AnyCPU'">
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.PureCss\CodeBreaker.UI.PureCss.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'FastUI|AnyCPU' ">
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.FastUI\CodeBreaker.UI.FastUI.csproj" />
-  </ItemGroup>
-  
-  <ItemGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.MudBlazor\CodeBreaker.UI.MudBlazor.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='ReleasePureCss|AnyCPU'">
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.PureCss\CodeBreaker.UI.PureCss.csproj" />
-  </ItemGroup>
-
-  <ItemGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseFastUI|AnyCPU'">
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.FastUI\CodeBreaker.UI.FastUI.csproj" />
-  </ItemGroup>
-
-  
-
-  
-
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.Shared\CodeBreaker.UI.Shared.csproj" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.1" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.Authentication.WebAssembly.Msal" Version="8.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Localization" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <ServiceWorker Include="wwwroot\service-worker.js" PublishedContent="wwwroot\service-worker.published.js" />
+    <ProjectReference Include="..\..\..\ui\CodeBreaker.UI\CodeBreaker.UI.csproj" />
   </ItemGroup>
 
   <ItemGroup>

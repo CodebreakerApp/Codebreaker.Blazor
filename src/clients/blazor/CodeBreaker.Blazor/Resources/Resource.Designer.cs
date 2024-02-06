@@ -448,6 +448,42 @@ namespace CodeBreaker.Blazor.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string NavMenu_About_Title {
+            get {
+                return ResourceManager.GetString("NavMenu_About_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game.
+        /// </summary>
+        public static string NavMenu_Game_Title {
+            get {
+                return ResourceManager.GetString("NavMenu_Game_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string NavMenu_Home_Title {
+            get {
+                return ResourceManager.GetString("NavMenu_Home_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports.
+        /// </summary>
+        public static string NavMenu_Reports_Title {
+            get {
+                return ResourceManager.GetString("NavMenu_Reports_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string No {

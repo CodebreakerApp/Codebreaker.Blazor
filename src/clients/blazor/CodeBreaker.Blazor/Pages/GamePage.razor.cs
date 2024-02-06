@@ -1,11 +1,10 @@
-﻿using System.Text.Json;
-using System.Timers;
+﻿using System.Timers;
 using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.Models;
 using CodeBreaker.Blazor.Resources;
 using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
-using CodeBreaker.UI.Shared.Services.Dialog;
+using CodeBreaker.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
@@ -21,27 +20,26 @@ public partial class GamePage : IDisposable
     private string _selectedGameType = "6x4Game";
 
     //TODO: Get Data from API
-    private IEnumerable<KeyValuePair<string, string>> _gameTypes = new List<KeyValuePair<string, string>> {
+    private readonly IEnumerable<KeyValuePair<string, string>> _gameTypes = [
         new KeyValuePair<string, string>("8x5Game", "8x5Game"),
         new KeyValuePair<string, string>("6x4MiniGame", "6x4MiniGame"),
         new KeyValuePair<string, string>("6x4Game", "6x4Game"),
-    };
+    ];
 
-
     [Inject]
-    private IGameClient _client { get; init; } = default!;
+    private IGameClient Client { get; init; } = default!;
     [Inject]
-    private NavigationManager _navigationManager { get; init; } = default!;
+    private NavigationManager NavigationManager { get; init; } = default!;
     [Inject]
-    private IJSRuntime _jSRuntime { get; init; } = default!;
+    private IJSRuntime JSRuntime { get; init; } = default!;
     [Inject]
-    private ICodeBreakerDialogService _dialogService { get; init; } = default!;
+    private IDialogService DialogService { get; init; } = default!;
     [Inject]
     private IStringLocalizer<Resource> Loc { get; init; } = default!;
     [Inject]
     private AuthenticationStateProvider _authenticationStateProvider { get; init; } = default!;
 
-    private System.Timers.Timer _timer = new(TimeSpan.FromHours(1));
+    private readonly System.Timers.Timer _timer = new(TimeSpan.FromHours(1));
     private GameMode _gameStatus = GameMode.NotRunning;
     private string _name = string.Empty;
     private bool _loadingGame = false;
@@ -52,9 +50,9 @@ public partial class GamePage : IDisposable
     {
         _timer.Elapsed += OnTimedEvent;
         _timer.AutoReset = true;
-        _navigationManager.RegisterLocationChangingHandler(OnLocationChanging);
+        NavigationManager.RegisterLocationChangingHandler(OnLocationChanging);
         var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-        _name = String.IsNullOrWhiteSpace(state?.User?.Identity?.Name)
+        _name = string.IsNullOrWhiteSpace(state?.User?.Identity?.Name)
             ? string.Empty
             : state.User.Identity.Name;
         await base.OnInitializedAsync();
@@ -66,7 +64,7 @@ public partial class GamePage : IDisposable
         {
             _loadingGame = true;
             _gameStatus = GameMode.NotRunning;
-            var response = await _client.StartGameAsync(_name,
+            var response = await Client.StartGameAsync(_name,
                 string.IsNullOrWhiteSpace(_selectedGameType) ? "6x4Game" : _selectedGameType);
             _game = response.Game;
             _gameStatus = GameMode.Started;
@@ -92,15 +90,14 @@ public partial class GamePage : IDisposable
             _timer.Stop();
             _gameStatus = GameMode.Canceld;
             StateHasChanged();
-            _dialogService.ShowDialog(new CodeBreakerDialogContext(typeof(GameResultDialog), new Dictionary<string, object>
+            DialogService.ShowDialog(new DialogContext(typeof(GameResultDialog), new Dictionary<string, object>
             {
                 { nameof(GameResultDialog.GameMode), GameMode.Timeout },
                 { nameof(GameResultDialog.Username), _name },
-            }, string.Empty, new List<CodeBreakerDialogActionContext>
-            {
-                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo("")),
-                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
-            }));
+            }, string.Empty, [
+                new DialogActionContext(Loc["GamePage_FinishGame_Ok"], () => NavigationManager.NavigateTo("")),
+                new DialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
+            ]));
         });
     }
 
@@ -110,15 +107,14 @@ public partial class GamePage : IDisposable
         _gameStatus = gameMode;
         if (_gameStatus is GameMode.Won or GameMode.Lost)
         {
-            _dialogService.ShowDialog(new CodeBreakerDialogContext(typeof(GameResultDialog), new Dictionary<string, object>
+            DialogService.ShowDialog(new DialogContext(typeof(GameResultDialog), new Dictionary<string, object>
             {
                 { nameof(GameResultDialog.GameMode), _gameStatus },
                 { nameof(GameResultDialog.Username), _name },
-            }, string.Empty, new List<CodeBreakerDialogActionContext>
-            {
-                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Ok"], () => _navigationManager.NavigateTo("")),
-                new CodeBreakerDialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
-            }));
+            }, string.Empty, [
+                new DialogActionContext(Loc["GamePage_FinishGame_Ok"], () => NavigationManager.NavigateTo(string.Empty)),
+                new DialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
+            ]));
         }
         else
         {
@@ -131,7 +127,7 @@ public partial class GamePage : IDisposable
     {
         _timer.Stop();
         _gameStatus = GameMode.Canceld;
-        _navigationManager.NavigateTo("");
+        NavigationManager.NavigateTo("");
     }
 
     private void RestartGame()
@@ -145,7 +141,7 @@ public partial class GamePage : IDisposable
     {
         if (_gameStatus is GameMode.MoveSet)
         {
-            var isConfirmed = await _jSRuntime.InvokeAsync<bool>("confirm", Loc["GamePage_CancelGame_Info"]);
+            var isConfirmed = await JSRuntime.InvokeAsync<bool>("confirm", Loc["GamePage_CancelGame_Info"]);
 
             if (!isConfirmed)
             {
@@ -159,7 +155,7 @@ public partial class GamePage : IDisposable
         if (_game.HasValue)
         {
             _cancelGame = true;
-            await _client.CancelGameAsync(_game.Value.GameId);
+            await Client.CancelGameAsync(_game.Value.GameId);
             _cancelGame = false;
         }
     }

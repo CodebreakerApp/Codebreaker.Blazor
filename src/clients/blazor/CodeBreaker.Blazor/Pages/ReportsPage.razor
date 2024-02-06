@@ -12,7 +12,7 @@
             <CodeBreakerButton Disabled=@_isLoadingGames @onclick="async () => await GetGames()">
                 @if (_isLoadingGames)
                 {
-                    <CodeBreakerProgressCircular Class="progress"></CodeBreakerProgressCircular>
+                    <CodeBreakerProgressCircular Class="progress" />
                 }
                 @Loc["Reports_LoadGames_Action"]
             </CodeBreakerButton>
@@ -21,10 +21,9 @@
 
     @if (_games is not null && !_isLoadingGames)
     {
-        if (_games.Count > 0)
+        if (_games.Count != 0)
         {
-            <CodeBreakerDataGrid Items="_games" Columns="_columns" Headers="_headers" RowItemClicked="(GameDto game) => ShowReportDialog(game)">
-            </CodeBreakerDataGrid>
+            <CodeBreakerDataGrid Items="_games" Columns="_columns" Headers="Headers" RowItemClicked="(GameDto game) => ShowReportDialog(game)" />
         }
         else
         {

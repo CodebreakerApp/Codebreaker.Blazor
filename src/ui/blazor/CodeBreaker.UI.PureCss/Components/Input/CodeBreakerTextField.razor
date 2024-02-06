@@ -1,8 +1,0 @@
-﻿@inherits CodeBreaker.UI.Shared.Components.Input.CodeBreakerInputBase
-@namespace CodeBreaker.UI
-
-<label for="inp" class="inp">
-    <input type="text" id="inp" autocomplete="off" value="@Value" @onchange=@((args) => ValueChanged.InvokeAsync(args?.Value?.ToString() ?? string.Empty))>
-    <span class="label">Label</span>
-    <span class="focus-bg"></span>
-</label>
