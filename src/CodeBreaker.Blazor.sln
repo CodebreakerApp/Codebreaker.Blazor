@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Blazor", "clien
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Blazor.Host", "clients\blazor\CodeBreaker.Blazor.Host\CodeBreaker.Blazor.Host.csproj", "{37E87F8C-EDC1-4610-86B4-BD72B6D7A809}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.UI", "ui\blazor\CodeBreaker.UI.PureCss\CodeBreaker.UI.csproj", "{46B45049-9B7F-4DD5-B4D6-5EA8E398DAED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.UI", "ui\CodeBreaker.UI\CodeBreaker.UI.csproj", "{46B45049-9B7F-4DD5-B4D6-5EA8E398DAED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

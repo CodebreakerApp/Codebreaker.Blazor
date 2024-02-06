@@ -25,7 +25,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\..\ui\blazor\CodeBreaker.UI.PureCss\CodeBreaker.UI.csproj" />
+    <ProjectReference Include="..\..\..\ui\CodeBreaker.UI\CodeBreaker.UI.csproj" />
   </ItemGroup>
 
   <ItemGroup>
