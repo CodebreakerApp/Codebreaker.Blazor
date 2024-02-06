@@ -4,40 +4,39 @@ using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using System.Globalization;
 
-namespace CodeBreaker.Blazor.Components
+namespace CodeBreaker.Blazor.Components;
+
+public partial class LanguageSelector
 {
-    public partial class LanguageSelector
+    [Inject]
+    private NavigationManager NavigationManager { get; set; } = default!;
+
+    [Inject]
+    private IJSRuntime JsRuntime { get; set; } = default!;
+
+    [Inject]
+    private IStringLocalizer<Resource> Loc { get; set; } = default!;
+
+    private readonly Dictionary<string, CultureInfo> _items = [];
+
+    private CultureInfo Culture
     {
-        [Inject]
-        private NavigationManager NavigationManager { get; set; } = default!;
-
-        [Inject]
-        private IJSRuntime JsRuntime { get; set; } = default!;
-
-        [Inject]
-        private IStringLocalizer<Resource> Loc { get; set; } = default!;
-
-        private readonly Dictionary<string, CultureInfo> _items = [];
-
-        private CultureInfo Culture
+        get => CultureInfo.CurrentCulture;
+        set
         {
-            get => CultureInfo.CurrentCulture;
-            set
+            if (CultureInfo.CurrentCulture != value)
             {
-                if (CultureInfo.CurrentCulture != value)
-                {
-                    var js = (IJSInProcessRuntime)JsRuntime;
-                    js.InvokeVoid("blazorCulture.set", value.Name);
-                    NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
-                }
+                var js = (IJSInProcessRuntime)JsRuntime;
+                js.InvokeVoid("blazorCulture.set", value.Name);
+                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
             }
         }
+    }
 
-        protected override void OnInitialized()
-        {
-            _items.Add(Loc["Language_English"], new CultureInfo("en"));
-            _items.Add(Loc["Language_German"], new CultureInfo("de"));
-            base.OnInitialized();
-        }
+    protected override void OnInitialized()
+    {
+        _items.Add(Loc["Language_English"], new CultureInfo("en"));
+        _items.Add(Loc["Language_German"], new CultureInfo("de"));
+        base.OnInitialized();
     }
 }
