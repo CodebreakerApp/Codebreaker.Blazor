@@ -26,7 +26,6 @@ public partial class GamePage : IDisposable
         new KeyValuePair<string, string>("6x4Game", "6x4Game"),
     ];
 
-
     [Inject]
     private IGameClient Client { get; init; } = default!;
     [Inject]
@@ -37,8 +36,8 @@ public partial class GamePage : IDisposable
     private IDialogService DialogService { get; init; } = default!;
     [Inject]
     private IStringLocalizer<Resource> Loc { get; init; } = default!;
-    //[Inject]
-    //private AuthenticationStateProvider _authenticationStateProvider { get; init; } = default!;
+    [Inject]
+    private AuthenticationStateProvider _authenticationStateProvider { get; init; } = default!;
 
     private readonly System.Timers.Timer _timer = new(TimeSpan.FromHours(1));
     private GameMode _gameStatus = GameMode.NotRunning;
@@ -52,10 +51,10 @@ public partial class GamePage : IDisposable
         _timer.Elapsed += OnTimedEvent;
         _timer.AutoReset = true;
         NavigationManager.RegisterLocationChangingHandler(OnLocationChanging);
-        //var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-        //_name = string.IsNullOrWhiteSpace(state?.User?.Identity?.Name)
-        //    ? string.Empty
-        //    : state.User.Identity.Name;
+        var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
+        _name = string.IsNullOrWhiteSpace(state?.User?.Identity?.Name)
+            ? string.Empty
+            : state.User.Identity.Name;
         await base.OnInitializedAsync();
     }
 
