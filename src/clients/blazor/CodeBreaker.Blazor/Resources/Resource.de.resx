@@ -254,6 +254,18 @@
   <data name="LivePage_WaitingForGames" xml:space="preserve">
     <value>Waiting for games... ⌛</value>
   </data>
+  <data name="NavMenu_About_Title" xml:space="preserve">
+    <value>Über Codebreaker</value>
+  </data>
+  <data name="NavMenu_Game_Title" xml:space="preserve">
+    <value>Spiel</value>
+  </data>
+  <data name="NavMenu_Home_Title" xml:space="preserve">
+    <value>Startseite</value>
+  </data>
+  <data name="NavMenu_Reports_Title" xml:space="preserve">
+    <value>Statistiken</value>
+  </data>
   <data name="No" xml:space="preserve">
     <value>Nein</value>
   </data>

@@ -105,7 +105,8 @@ namespace CodeBreaker.Blazor.Resources {
         ///            &lt;li&gt;
         ///                code pegs of six different colors (or more; see Variations below), with round heads, which will be placed in the large holes on the board; and
         ///            &lt;/li&gt;
-        ///            &lt;li&gt;        /// [rest of string was truncated]&quot;;.
+        ///            &lt;li&gt;
+        ///         [rest of string was truncated]&quot;;.
         /// </summary>
         public static string About_Instructions {
             get {
@@ -443,6 +444,42 @@ namespace CodeBreaker.Blazor.Resources {
         public static string LivePage_WaitingForGames {
             get {
                 return ResourceManager.GetString("LivePage_WaitingForGames", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to About.
+        /// </summary>
+        public static string NavMenu_About_Title {
+            get {
+                return ResourceManager.GetString("NavMenu_About_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game.
+        /// </summary>
+        public static string NavMenu_Game_Title {
+            get {
+                return ResourceManager.GetString("NavMenu_Game_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Home.
+        /// </summary>
+        public static string NavMenu_Home_Title {
+            get {
+                return ResourceManager.GetString("NavMenu_Home_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Reports.
+        /// </summary>
+        public static string NavMenu_Reports_Title {
+            get {
+                return ResourceManager.GetString("NavMenu_Reports_Title", resourceCulture);
             }
         }
         
