@@ -15,7 +15,7 @@ public partial class CodeBreakerDialog : IDisposable
 
     protected override void OnInitialized()
     {
-        CodeBreakerDialogService.ShowDialogHandler += ShowDialog;
+        CodeBreakerDialogService.OnShowDialog += ShowDialog;
     }
 
     private void ShowDialog(object? sender, DialogContext context)
@@ -52,7 +52,6 @@ public partial class CodeBreakerDialog : IDisposable
     }
     public void Dispose()
     {
-        if (CodeBreakerDialogService?.ShowDialogHandler != null)
-            CodeBreakerDialogService.ShowDialogHandler -= ShowDialog;
+        CodeBreakerDialogService.OnShowDialog -= ShowDialog;
     }
 }

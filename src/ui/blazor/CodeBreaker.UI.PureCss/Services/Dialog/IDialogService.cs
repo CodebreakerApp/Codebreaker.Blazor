@@ -5,6 +5,6 @@ public record DialogContext(Type ComponentType, Dictionary<string, object> Param
 
 public interface IDialogService
 {
-    EventHandler<DialogContext> ShowDialogHandler { get; set; }
+    event EventHandler<DialogContext>? OnShowDialog;
     void ShowDialog(DialogContext context);
 }

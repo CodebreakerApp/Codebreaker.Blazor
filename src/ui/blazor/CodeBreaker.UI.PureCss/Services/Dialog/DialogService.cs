@@ -2,10 +2,10 @@
 
 public class DialogService : IDialogService
 {
-    public EventHandler<DialogContext> ShowDialogHandler { get; set; } = default!;
+    public event EventHandler<DialogContext>? OnShowDialog;
 
     public void ShowDialog(DialogContext context)
     {
-        ShowDialogHandler.Invoke(this, context);
+        OnShowDialog?.Invoke(this, context);
     }
 }
