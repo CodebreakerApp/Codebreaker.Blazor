@@ -88,7 +88,7 @@ public partial class GamePage : IDisposable
             //TODO: Show dialog
             Console.WriteLine($"Time out called...Cancel game. Time {e.SignalTime}");
             _timer.Stop();
-            _gameStatus = GameMode.Canceld;
+            _gameStatus = GameMode.Cancelled;
             StateHasChanged();
             DialogService.ShowDialog(new DialogContext(typeof(GameResultDialog), new Dictionary<string, object>
             {
@@ -126,7 +126,7 @@ public partial class GamePage : IDisposable
     private void CancelGame()
     {
         _timer.Stop();
-        _gameStatus = GameMode.Canceld;
+        _gameStatus = GameMode.Cancelled;
         NavigationManager.NavigateTo("");
     }
 
