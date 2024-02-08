@@ -1,10 +1,10 @@
 using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.Resources;
+using CodeBreaker.Blazor.UI.Models.DataGrid;
+using CodeBreaker.Blazor.UI.Services.Dialog;
 using CodeBreaker.Blazor.ViewModels;
 using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
-using CodeBreaker.UI.Models.DataGrid;
-using CodeBreaker.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 

@@ -1,7 +1,7 @@
 ﻿using System.Linq.Expressions;
 using Microsoft.AspNetCore.Components;
 
-namespace CodeBreaker.UI;
+namespace CodeBreaker.Blazor.UI.Components;
 public partial class CodeBreakerRadioGroup<T> : ComponentBase
 {
     [Parameter, EditorRequired]

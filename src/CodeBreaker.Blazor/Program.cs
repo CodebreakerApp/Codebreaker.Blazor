@@ -1,10 +1,10 @@
 using BlazorApplicationInsights;
 using CodeBreaker.Blazor.Authentication;
 using CodeBreaker.Blazor.Extensions;
+using CodeBreaker.Blazor.UI;
+using CodeBreaker.Blazor.UI.Services.Dialog;
 using CodeBreaker.Services;
 using CodeBreaker.Services.Authentication;
-using CodeBreaker.UI;
-using CodeBreaker.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);

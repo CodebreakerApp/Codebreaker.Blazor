@@ -1,8 +1,8 @@
-using CodeBreaker.UI.Models.Icon;
-using CodeBreaker.UI.Models.Menu;
+using CodeBreaker.Blazor.UI.Models.Icon;
+using CodeBreaker.Blazor.UI.Models.Menu;
 using Microsoft.AspNetCore.Components;
 
-namespace CodeBreaker.UI;
+namespace CodeBreaker.Blazor.UI.Components;
 public partial class CodeBreakerNavMenu
 {
     [Parameter, EditorRequired]

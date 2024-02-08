@@ -1,4 +1,6 @@
-@namespace CodeBreaker.UI
+@using CodeBreaker.Blazor.UI.Models.Icon
+
+@namespace CodeBreaker.Blazor.UI.Components
 
 <CodeBreakerDialog />
 
@@ -8,7 +10,7 @@
         <div class="mobile-header">
             <CodeBreakerIconButton
                 Class="@(_isRoot ? "hidden" : string.Empty)"
-                Icon="Models.Icon.CodeBreakerIcon.Back"
+                Icon="CodeBreakerIcon.Back"
                 OnClick="GoBack">
             </CodeBreakerIconButton>
             @Label

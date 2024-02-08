@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Components;
 using System.Linq.Expressions;
 
-namespace CodeBreaker.UI;
+namespace CodeBreaker.Blazor.UI.Components;
 public partial class CodeBreakerSelect<T> : ComponentBase
 {
     private string _selectedKey = string.Empty;

@@ -1,7 +1,7 @@
-using CodeBreaker.UI.Services.Dialog;
+using CodeBreaker.Blazor.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 
-namespace CodeBreaker.UI;
+namespace CodeBreaker.Blazor.UI.Components;
 
 public partial class CodeBreakerDialog : IDisposable
 {

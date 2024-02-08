@@ -1,7 +1,6 @@
-﻿using CodeBreaker.UI.Services.Theme;
-using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.Extensions.DependencyInjection;
 
-namespace CodeBreaker.UI;
+namespace CodeBreaker.Blazor.UI;
 public static class ServiceCollectionExtensions
 {
     public static void AddCodeBreakerUI(this IServiceCollection services)

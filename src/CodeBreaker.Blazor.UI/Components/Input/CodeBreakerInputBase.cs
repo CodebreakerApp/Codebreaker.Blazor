@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Components;
 
-namespace CodeBreaker.UI;
+namespace CodeBreaker.Blazor.UI.Components;
 public abstract class CodeBreakerInputBase : ComponentBase
 {
     [Parameter]

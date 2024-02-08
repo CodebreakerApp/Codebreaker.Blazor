@@ -2,9 +2,9 @@ using CodeBreaker.Blazor.Host.Components;
 using CodeBreaker.Blazor.Pages;
 using CodeBreaker.Services.Authentication;
 using CodeBreaker.Services;
-using CodeBreaker.UI;
-using CodeBreaker.UI.Services.Dialog;
 using CodeBreaker.Blazor.Host.Services;
+using CodeBreaker.Blazor.UI;
+using CodeBreaker.Blazor.UI.Services.Dialog;
 
 var builder = WebApplication.CreateBuilder(args);
 

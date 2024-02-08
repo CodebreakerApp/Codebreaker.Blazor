@@ -1,6 +1,6 @@
 ﻿using System.Linq.Expressions;
 
-namespace CodeBreaker.UI.Models.DataGrid;
+namespace CodeBreaker.Blazor.UI.Models.DataGrid;
 public class CodeBreakerColumnDefinition<T>(
     string fieldName,
     Expression<Func<T, object>> fieldSelectorExpression,

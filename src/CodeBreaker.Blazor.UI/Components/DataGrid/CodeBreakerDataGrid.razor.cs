@@ -1,8 +1,8 @@
-using CodeBreaker.UI.Models.DataGrid;
+using CodeBreaker.Blazor.UI.Models.DataGrid;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.QuickGrid;
 
-namespace CodeBreaker.UI;
+namespace CodeBreaker.Blazor.UI.Components;
 
 public partial class CodeBreakerDataGrid<T> : ComponentBase
 {

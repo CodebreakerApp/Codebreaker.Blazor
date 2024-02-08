@@ -2,9 +2,9 @@
 using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.Models;
 using CodeBreaker.Blazor.Resources;
+using CodeBreaker.Blazor.UI.Services.Dialog;
 using CodeBreaker.Services;
 using CodeBreaker.Shared.Models.Api;
-using CodeBreaker.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;

@@ -1,9 +1,9 @@
-using CodeBreaker.UI.Models.Menu;
-using CodeBreaker.UI.Models.Icon;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Components;
 using CodeBreaker.Blazor.Resources;
+using CodeBreaker.Blazor.UI.Models.Icon;
+using CodeBreaker.Blazor.UI.Models.Menu;
 
 namespace CodeBreaker.Blazor.Shared;
 

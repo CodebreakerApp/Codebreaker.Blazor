@@ -1,4 +1,4 @@
-﻿namespace CodeBreaker.UI.Models.Icon;
+﻿namespace CodeBreaker.Blazor.UI.Models.Icon;
 public enum CodeBreakerIcon
 {
     Play,

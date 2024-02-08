@@ -1,7 +1,7 @@
-using CodeBreaker.UI.Models.Icon;
+using CodeBreaker.Blazor.UI.Models.Icon;
 using Microsoft.AspNetCore.Components;
 
-namespace CodeBreaker.UI;
+namespace CodeBreaker.Blazor.UI.Components;
 
 public partial class CodeBreakerIconButton : CodeBreakerButton
 {

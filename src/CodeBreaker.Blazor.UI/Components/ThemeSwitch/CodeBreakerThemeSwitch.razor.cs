@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace CodeBreaker.UI;
+namespace CodeBreaker.Blazor.UI.Components;
 
 public partial class CodeBreakerThemeSwitch : ComponentBase
 {

@@ -1,4 +1,4 @@
-﻿namespace CodeBreaker.UI.Services.Dialog;
+﻿namespace CodeBreaker.Blazor.UI.Services.Dialog;
 
 public class DialogService : IDialogService
 {
