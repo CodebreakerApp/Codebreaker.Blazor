@@ -1,0 +1,86 @@
+﻿<div class="@(GameFinished ? "container finished" : "container")">
+    <div class="numbers">
+        @for (int i = Game.Type.MaxMoves; i > 0; i--)
+        {
+            <div class="move-number">@i</div>
+        }
+    </div>
+    <div class="game-container">
+        @for (int i = OpenMoves; i > 0; i--)
+        {
+            <div class="@(i == 1 ? "game-row selectable": "game-row")">
+                @for (int y = 0; y < Game.Type.Holes; y++)
+                {
+                    var localVariable = y;
+                    @if (!_isMobile)
+                    {
+                        <div class="@(i == 1 ? $"{_currentMove[localVariable].Item2}" : string.Empty)"
+                             ondragover="event.preventDefault();"
+                             @ondragenter="@(() => SetDropClass(localVariable))"
+                             @ondragleave="@RemoveDropClass"
+                             @ondrop="() => UpdateColor(localVariable)">
+                        </div>
+                    }
+                    else
+                    {
+                        <div class="@(i == 1 ? _currentMove[localVariable].Item2 : "")"
+                        @onclick="() => SelectField(localVariable)">
+                        </div>
+                    }
+                }
+                @if (i == 1 && !GameFinished)
+                {
+                    <div>
+                        <CodeBreakerIconButton Disabled="PlayButtonDisabled" OnClick="async () => await SetMoveAsync()" />
+                    </div>
+                }
+                else
+                {
+                    <div class="key-pegs" />
+                }
+            </div>
+        }
+        @foreach (var move in _gameMoves.Reverse())
+        {
+            <div class="game-move">
+                @foreach (var guess in move.GuessPegs)
+                {
+
+                    <div class="@(guess.ToLower())" />
+                }
+                <div class="@($"key-pegs {KeyPegsFormat}")">
+                    @for (int y = 0; y < move.KeyPegs.Black; y++)
+                    {
+                        <div class="black">
+                        </div>
+                    }
+                    @for (int y = 0; y < move.KeyPegs.White; y++)
+                    {
+                        <div class="white">
+                        </div>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <div class="@(!_isMobile ? "colors draggable" : "colors")">
+        @foreach (string colorField in Game.Type.Fields ?? Array.Empty<string>())
+        {
+            @if (!_isMobile)
+            {
+                <div draggable="true"
+                     class="@($"draggable {colorField.ToLower()}")"
+                     @ondragstart="@(() => _activeColor = colorField)">
+                     @colorField[0]
+                </div>
+            }
+            else
+            {
+                <div class="@(_selectable && _selectedField > -1 ? $"{colorField.ToLower()} selectable": colorField.ToLower())"
+                     @onclick="() => SelectColor(colorField)">
+                    @colorField[0]
+                </div>
+            }
+        }
+    </div>
+</div>
