@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32422.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Blazor", "clients\blazor\CodeBreaker.Blazor\CodeBreaker.Blazor.csproj", "{AED349CD-FCB1-43A4-9254-796C093D2DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Blazor", "CodeBreaker.Blazor\CodeBreaker.Blazor.csproj", "{AED349CD-FCB1-43A4-9254-796C093D2DEE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Blazor.Host", "clients\blazor\CodeBreaker.Blazor.Host\CodeBreaker.Blazor.Host.csproj", "{37E87F8C-EDC1-4610-86B4-BD72B6D7A809}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Blazor.Host", "CodeBreaker.Blazor.Host\CodeBreaker.Blazor.Host.csproj", "{37E87F8C-EDC1-4610-86B4-BD72B6D7A809}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.UI", "ui\CodeBreaker.UI\CodeBreaker.UI.csproj", "{46B45049-9B7F-4DD5-B4D6-5EA8E398DAED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CodeBreaker.Blazor.UI", "CodeBreaker.Blazor.UI\CodeBreaker.Blazor.UI.csproj", "{46B45049-9B7F-4DD5-B4D6-5EA8E398DAED}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
