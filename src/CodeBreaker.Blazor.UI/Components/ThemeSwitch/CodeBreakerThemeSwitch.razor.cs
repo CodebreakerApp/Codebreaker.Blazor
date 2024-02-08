@@ -30,7 +30,7 @@ public partial class CodeBreakerThemeSwitch : ComponentBase
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
         if (firstRender && _module == null)
-            _module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/CodeBreaker.UI/Components/ThemeSwitch/CodeBreakerThemeSwitch.razor.js");
+            _module = await JsRuntime.InvokeAsync<IJSObjectReference>("import", "./_content/CodeBreaker.Blazor.UI/Components/ThemeSwitch/CodeBreakerThemeSwitch.razor.js");
 
         await base.OnAfterRenderAsync(firstRender);
     }
