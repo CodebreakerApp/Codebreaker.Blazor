@@ -2,5 +2,5 @@
 
 public class ReportFilterContext
 {
-    public DateTime? Date { get; set; }
+    public DateOnly? Date { get; set; }
 }

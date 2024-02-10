@@ -1,10 +1,8 @@
-using CodeBreaker.Blazor.Host.Components;
 using CodeBreaker.Blazor.Pages;
-using CodeBreaker.Services.Authentication;
-using CodeBreaker.Services;
-using CodeBreaker.Blazor.Host.Services;
 using CodeBreaker.Blazor.UI;
 using CodeBreaker.Blazor.UI.Services.Dialog;
+using Codebreaker.GameAPIs.Client;
+using CodeBreaker.Blazor.Host.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,10 +16,10 @@ builder.Services.AddCodeBreakerUI();
 builder.Services.AddHttpClient("GameApi", configure =>
     configure.BaseAddress = new Uri(builder.Configuration.GetRequired("ApiBase")));
 
-builder.Services.AddScoped<IAuthService, DummyAuthService>();
-builder.Services.AddHttpClient<IGameClient, GameClient>("GameApi");
-builder.Services.AddHttpClient<IGameReportClient, GameClient>("GameApi");
+builder.Services.AddHttpClient<IGamesClient, GamesClient>("GameApi");
 builder.Services.AddScoped<IDialogService, DialogService>();
+
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -36,6 +34,7 @@ else
     app.UseHsts();
 }
 
+app.UseCors(cors => cors.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseHttpsRedirection();
 app.UseStaticFiles();
 app.UseAntiforgery();

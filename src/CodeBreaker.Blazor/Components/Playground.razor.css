@@ -188,6 +188,9 @@
     cursor: grab;
 }
 
+.red, .blue, .green, .black, .orange, .purple {
+    color: var(--white);
+}
 
 .white {
     background-color: var(--white);
@@ -197,10 +200,6 @@
 .yellow {
     background-color: var(--yellow);
     color: var(--black);
-}
-
-.red, .blue, .green, .black, .lightblue, .violet {
-    color: var(--white);
 }
 
 .black {
@@ -219,11 +218,11 @@
     background-color: var(--green);
 }
 
-.violet {
-    background-color: var(--violet);
+.purple {
+    background-color: var(--purple);
 }
 
-.lightblue {
+.orange {
     background-color: var(--orange);
 }
 

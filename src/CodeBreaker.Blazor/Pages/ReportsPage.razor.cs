@@ -1,10 +1,10 @@
+using Codebreaker.GameAPIs.Client;
+using Codebreaker.GameAPIs.Client.Models;
 using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.Resources;
 using CodeBreaker.Blazor.UI.Models.DataGrid;
 using CodeBreaker.Blazor.UI.Services.Dialog;
 using CodeBreaker.Blazor.ViewModels;
-using CodeBreaker.Services;
-using CodeBreaker.Shared.Models.Api;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
@@ -16,7 +16,7 @@ public partial class ReportsPage
     private IDialogService DialogService { get; set; } = default!;
 
     [Inject]
-    private IGameReportClient GameClient { get; set; } = default!;
+    private IGamesClient GameClient { get; set; } = default!;
 
     [Inject]
     private ILogger<ReportsPage> Logger { get; set; } = default!;
@@ -24,29 +24,30 @@ public partial class ReportsPage
     private IStringLocalizer<Resource> Loc { get; set; } = default!;
 
 
-    private List<GameDto> _games = [];
+    private List<GameInfo> _games = [];
     private bool _isLoadingGames = false;
-    private readonly ReportFilterContext _filter = new();
-    
+    private DateOnly? _test;
+
     private List<string> Headers => [.. Loc.GetString("Reports_Table_Headers").Value.Split(",")];
 
-    private readonly List<CodeBreakerColumnDefinition<GameDto>> _columns = [
-        new CodeBreakerColumnDefinition<GameDto>("Gamername", game => game.Username, true),
-        new CodeBreakerColumnDefinition<GameDto>("Start", game => game.Start, false),
-        new CodeBreakerColumnDefinition<GameDto>("End", game => game.End.HasValue ? game.End.Value : "----", false),
-        new CodeBreakerColumnDefinition<GameDto>("Number of Moves", game => game.Moves.Count(), true)
+    private readonly List<CodeBreakerColumnDefinition<GameInfo>> _columns = [
+        new CodeBreakerColumnDefinition<GameInfo>("Gamername", game => game.PlayerName, true),
+        new CodeBreakerColumnDefinition<GameInfo>("Start", game => game.StartTime, false),
+        new CodeBreakerColumnDefinition<GameInfo>("End", game => game.EndTime.HasValue ? game.EndTime.Value : "----", false),
+        new CodeBreakerColumnDefinition<GameInfo>("Number of Moves", game => game.Moves.Count(), true)
     ];
 
-    public async Task GetGames()
+    public async Task GetGamesAsync()
     {
-        Logger?.LogInformation("Calling GetReport for {date}", _filter.Date);
+        Logger?.LogInformation("Calling GetReport for {date}", _test);
         _games = [];
         _isLoadingGames = true;
         try
         {
-            GetGamesResponse? response = await GameClient.GetGamesAsync(_filter.Date);
-            Logger?.LogDebug("Got response", response);
-            _games = [..response?.Games ?? []];
+            var query = new GamesQuery(Date: _test, Ended: true);
+            var response = await GameClient.GetGamesAsync(query);
+            Logger?.LogDebug("Got response: {response}", response);
+            _games = [..response ?? []];
         }
         catch (Exception ex)
         {
@@ -59,24 +60,19 @@ public partial class ReportsPage
         }
     }
 
-    private void ShowReportDialog(GameDto game)
+    private void ShowReportDialog(GameInfo game)
     {
-        var title = game.Username;
-        if (!game.End.HasValue)
+        var title = game.PlayerName;
+        if (!game.EndTime.HasValue)
         {
             title = $"{title}: Game was canceled.";
         }
         else if (game.Moves.Any())
         {
-            var diff = game.Moves.Last().GuessPegs.Except(game.Code);
-            if (diff.Any())
-            {
-                title = $"{title}: Game was lost.";
-            }
-            else
-            {
-                title = $"{title}: Game was won.";
-            }
+            var diff = game.Moves.Last().GuessPegs.Except(game.Codes);
+            title = diff.Any()
+                ? $"{title}: Game was lost."
+                : $"{title}: Game was won.";
         }
 
         DialogService.ShowDialog(new DialogContext(typeof(Playground), new Dictionary<string, object>

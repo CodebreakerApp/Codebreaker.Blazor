@@ -1,22 +1,22 @@
 using Microsoft.AspNetCore.Components;
-using CodeBreaker.Shared.Models.Api;
 using CodeBreaker.Blazor.Pages;
 using System.ComponentModel;
-using CodeBreaker.Services;
 using CodeBreaker.Blazor.Models;
 using Microsoft.JSInterop;
+using Codebreaker.GameAPIs.Client;
+using Codebreaker.GameAPIs.Client.Models;
 
 namespace CodeBreaker.Blazor.Components;
 
 public partial class Playground
 {
     [Inject]
-    private IGameClient Client { get; init; } = default!;
+    private IGamesClient Client { get; init; } = default!;
     [Inject]
     private IJSRuntime JS { get; init; } = default!;
 
     [Parameter, EditorRequired]
-    public GameDto Game { get; set; } = default!;
+    public GameInfo Game { get; set; } = default!;
 
     [Parameter]
     public bool GameFinished { get; set; } = false;
@@ -25,10 +25,10 @@ public partial class Playground
     public EventCallback<GameMode> GameStatusChanged { get; set; }
 
     private int MoveNumber => _gameMoves.Count;
-    private int OpenMoves => Game.Type.MaxMoves - MoveNumber;
+    private int OpenMoves => Game.MaxMoves - MoveNumber;
     private bool PlayButtonDisabled =>
         _currentMove.Any(m => string.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected" || m.Item2 == "can-drop");
-    private string KeyPegsFormat => Game.Type.Holes > 4 ? "three-two" : "two-two";
+    private string KeyPegsFormat => Game.NumberCodes > 4 ? "three-two" : "two-two";
 
     private bool _isMobile = false;
     private bool _selectable = false;
@@ -47,9 +47,9 @@ public partial class Playground
         {
             foreach (var move in Game.Moves)
             {
-                if (move.KeyPegs.HasValue)
+                if (move.KeyPegs.Length != 0)
                 {
-                    _gameMoves.Add(new SelectionAndKeyPegs([.. move.GuessPegs], move.KeyPegs.Value, move.MoveNumber));
+                    _gameMoves.Add(new SelectionAndKeyPegs([.. move.GuessPegs], move.KeyPegs, move.MoveNumber));
                 }
             }
         }
@@ -72,14 +72,14 @@ public partial class Playground
     {
         try
         {
-            if (_selectionFields.Length != Game.Type.Holes || _selectionFields.Any(x => x is null || x == string.Empty))
+            if (_selectionFields.Length != Game.NumberCodes || _selectionFields.Any(x => x is null || x == string.Empty))
                 throw new InvalidOperationException("all colors need to be selected before invoking this method");
 
-            var response = await Client.SetMoveAsync(Game.GameId, _selectionFields!);
-            _gameMoves.Add(new(_selectionFields!, response.KeyPegs, MoveNumber));
+            var response = await Client.SetMoveAsync(Game.GameId, Game.PlayerName, Enum.Parse<GameType>(Game.GameType), MoveNumber+1, _selectionFields!);
+            _gameMoves.Add(new(_selectionFields!, response.Results, MoveNumber));
 
             Console.WriteLine(response.ToString());
-            if (response.Won)
+            if (response.IsVictory)
             {
                 GameFinished = true;
                 await GameStatusChanged.InvokeAsync(GameMode.Won);
@@ -153,10 +153,10 @@ public partial class Playground
 
     private void InitialzePlayground()
     {
-        _selectionFields = new string[Game.Type.Holes];
+        _selectionFields = new string[Game.NumberCodes];
         _selectedField = -1;
         _currentMove = [];
-        for (int i = 0; i < Game.Type.Holes; i++)
+        for (int i = 0; i < Game.NumberCodes; i++)
         {
             _currentMove.Add(new Tuple<int, string>(i, string.Empty));
         }
