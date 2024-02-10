@@ -105,8 +105,7 @@ namespace CodeBreaker.Blazor.Resources {
         ///            &lt;li&gt;
         ///                code pegs of six different colors (or more; see Variations below), with round heads, which will be placed in the large holes on the board; and
         ///            &lt;/li&gt;
-        ///            &lt;li&gt;
-        ///         [rest of string was truncated]&quot;;.
+        ///            &lt;li&gt;        /// [rest of string was truncated]&quot;;.
         /// </summary>
         public static string About_Instructions {
             get {

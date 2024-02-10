@@ -14,8 +14,7 @@
 
   <ItemGroup>
     <PackageReference Include="BlazorApplicationInsights" Version="3.0.4" />
-    <PackageReference Include="CNInnovation.Codebreaker.Services" Version="2.0.1-beta.1.8" />
-    <PackageReference Include="CNInnovation.Codebreaker.Shared" Version="2.0.1-beta.1.9" />
+    <PackageReference Include="CNinnovation.Codebreaker.GamesClient" Version="3.6.0-beta.21" />
     <PackageReference Include="Microsoft.AspNetCore.Components.Web" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.1" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="8.0.1" PrivateAssets="all" />

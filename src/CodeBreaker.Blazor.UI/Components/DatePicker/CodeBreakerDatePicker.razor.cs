@@ -7,8 +7,8 @@ public partial class CodeBreakerDatePicker : ComponentBase
     public string Label { get; set; } = string.Empty;
 
     [Parameter]
-    public DateTime? Date { get; set; }
+    public DateOnly? Date { get; set; }
 
     [Parameter]
-    public EventCallback<DateTime?> DateChanged { get; set; }
+    public EventCallback<DateOnly?> DateChanged { get; set; }
 }

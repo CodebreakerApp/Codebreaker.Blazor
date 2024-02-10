@@ -1,33 +1,32 @@
 ﻿using System.Timers;
+using Codebreaker.GameAPIs.Client;
+using Codebreaker.GameAPIs.Client.Models;
 using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.Models;
 using CodeBreaker.Blazor.Resources;
 using CodeBreaker.Blazor.UI.Services.Dialog;
-using CodeBreaker.Services;
-using CodeBreaker.Shared.Models.Api;
 using Microsoft.AspNetCore.Components;
-using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
 namespace CodeBreaker.Blazor.Pages;
 
-public record SelectionAndKeyPegs(string[] GuessPegs, KeyPegsDto KeyPegs, int MoveNumber);
+public record SelectionAndKeyPegs(string[] GuessPegs, string[] KeyPegs, int MoveNumber);
 
 public partial class GamePage : IDisposable
 {
-    private string _selectedGameType = "6x4Game";
+    private GameType _selectedGameType = GameType.Game6x4;
 
     //TODO: Get Data from API
-    private readonly IEnumerable<KeyValuePair<string, string>> _gameTypes = [
-        new KeyValuePair<string, string>("8x5Game", "8x5Game"),
-        new KeyValuePair<string, string>("6x4MiniGame", "6x4MiniGame"),
-        new KeyValuePair<string, string>("6x4Game", "6x4Game"),
+    private readonly IEnumerable<KeyValuePair<string, GameType>> _gameTypes = [
+        new KeyValuePair<string, GameType>("8x5Game", GameType.Game8x5),
+        new KeyValuePair<string, GameType>("6x4MiniGame", GameType.Game6x4Mini),
+        new KeyValuePair<string, GameType>("6x4Game", GameType.Game6x4),
     ];
 
     [Inject]
-    private IGameClient Client { get; init; } = default!;
+    private IGamesClient Client { get; init; } = default!;
     [Inject]
     private NavigationManager NavigationManager { get; init; } = default!;
     [Inject]
@@ -36,25 +35,20 @@ public partial class GamePage : IDisposable
     private IDialogService DialogService { get; init; } = default!;
     [Inject]
     private IStringLocalizer<Resource> Loc { get; init; } = default!;
-    [Inject]
-    private AuthenticationStateProvider _authenticationStateProvider { get; init; } = default!;
 
     private readonly System.Timers.Timer _timer = new(TimeSpan.FromHours(1));
     private GameMode _gameStatus = GameMode.NotRunning;
     private string _name = string.Empty;
     private bool _loadingGame = false;
     private bool _cancelGame = false;
-    private GameDto? _game;
+    private GameInfo? _game;
 
     protected override async Task OnInitializedAsync()
     {
         _timer.Elapsed += OnTimedEvent;
         _timer.AutoReset = true;
-        NavigationManager.RegisterLocationChangingHandler(OnLocationChanging);
-        var state = await _authenticationStateProvider.GetAuthenticationStateAsync();
-        _name = string.IsNullOrWhiteSpace(state?.User?.Identity?.Name)
-            ? string.Empty
-            : state.User.Identity.Name;
+        //NavigationManager.RegisterLocationChangingHandler(OnLocationChanging);
+        _name = string.Empty;
         await base.OnInitializedAsync();
     }
 
@@ -64,9 +58,12 @@ public partial class GamePage : IDisposable
         {
             _loadingGame = true;
             _gameStatus = GameMode.NotRunning;
-            var response = await Client.StartGameAsync(_name,
-                string.IsNullOrWhiteSpace(_selectedGameType) ? "6x4Game" : _selectedGameType);
-            _game = response.Game;
+            (Guid gameId, int numberCodes, int maxMoves, IDictionary<string, string[]> fieldValues) = await Client.StartGameAsync(_selectedGameType, _name);
+            _game = new(gameId, _selectedGameType.ToString(), _name, DateTime.Now, numberCodes, maxMoves)
+            {
+                FieldValues = fieldValues.ToDictionary(x => x.Key, x => x.Value.AsEnumerable()),
+                Codes = []
+            };
             _gameStatus = GameMode.Started;
         }
         catch (Exception ex)
@@ -127,7 +124,7 @@ public partial class GamePage : IDisposable
     {
         _timer.Stop();
         _gameStatus = GameMode.Cancelled;
-        NavigationManager.NavigateTo("");
+        NavigationManager.NavigateTo(string.Empty);
     }
 
     private void RestartGame()
@@ -150,15 +147,16 @@ public partial class GamePage : IDisposable
         }
     }
 
-    private async ValueTask OnLocationChanging(LocationChangingContext context)
-    {
-        if (_game.HasValue)
-        {
-            _cancelGame = true;
-            await Client.CancelGameAsync(_game.Value.GameId);
-            _cancelGame = false;
-        }
-    }
+    // Cancelling game is not yet implemented by the API
+    //private async ValueTask OnLocationChanging(LocationChangingContext context)
+    //{
+    //    if (_game is not null)
+    //    {
+    //        _cancelGame = true;
+    //        await Client.CancelGameAsync(_game.Value.GameId);
+    //        _cancelGame = false;
+    //    }
+    //}
 
     public void Dispose() => _timer?.Dispose();
 }
