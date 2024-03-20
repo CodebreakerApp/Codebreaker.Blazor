@@ -11,7 +11,7 @@
         <CodeBreakerTextField CssClass="user-name flex-1" @bind-Value="_name" Label="@Loc["GamePage_NameInput"]" Placeholder="@Loc["GamePage_NameInputPlaceholder"]" Required="true" MaxLength="100" />
         <div class="flex-responsive gap-2 full-width justify-between">
             <CodeBreakerRadioGroup T="GameType" @bind-Value="_selectedGameType" Items="_gameTypes" />
-            <CodeBreakerButton Disabled="@(string.IsNullOrWhiteSpace(_name) || _loadingGame)" OnClick="StartGameAsync">
+            <CodeBreakerButton Disabled="@(string.IsNullOrWhiteSpace(_name) || _name.Length < 4 || _loadingGame)" OnClick="StartGameAsync">
                 @if (_loadingGame)
                 {
                     <CodeBreakerProgressCircular Class="progress" />
