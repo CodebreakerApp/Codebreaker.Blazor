@@ -1,4 +1,4 @@
-﻿@if (GameMode == Models.GameMode.Timeout)
+﻿@if (GameMode == Client.Models.GameMode.Timeout)
 {
     <p>Das Spiel wurde automatisch beendet, da seit einer Stunde kein Zug mehr gemacht wurde.</p>
 }
@@ -9,7 +9,7 @@ else
             <!-- Symbol-->
             <symbol id="s-text">
                 <text text-anchor="middle" x="50%" y="50%" dy=".35em">
-                    @(GameMode == Models.GameMode.Won
+                    @(GameMode == Client.Models.GameMode.Won
                         ? Loc["GamePage_FinishGame_Win"]
                         : Loc["GamePage_FinishGame_Lose"])
                 </text>

@@ -1,11 +1,11 @@
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Components;
-using CodeBreaker.Blazor.Resources;
+using CodeBreaker.Blazor.Client.Resources;
 using CodeBreaker.Blazor.UI.Models.Icon;
 using CodeBreaker.Blazor.UI.Models.Menu;
 
-namespace CodeBreaker.Blazor.Shared;
+namespace CodeBreaker.Blazor.Client.Shared;
 
 public partial class MainLayout : LayoutComponentBase
 {

@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Components;
-using CodeBreaker.Blazor.Pages;
 using System.ComponentModel;
-using CodeBreaker.Blazor.Models;
 using Microsoft.JSInterop;
 using Codebreaker.GameAPIs.Client;
 using Codebreaker.GameAPIs.Client.Models;
+using CodeBreaker.Blazor.Client.Models;
+using CodeBreaker.Blazor.Client.Pages;
 
-namespace CodeBreaker.Blazor.Components;
+namespace CodeBreaker.Blazor.Client.Components;
 
 public partial class Playground
 {

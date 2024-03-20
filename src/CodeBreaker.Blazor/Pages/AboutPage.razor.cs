@@ -1,9 +1,9 @@
 using System.Reflection;
-using CodeBreaker.Blazor.Resources;
+using CodeBreaker.Blazor.Client.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
-namespace CodeBreaker.Blazor.Pages;
+namespace CodeBreaker.Blazor.Client.Pages;
 
 public partial class AboutPage
 {

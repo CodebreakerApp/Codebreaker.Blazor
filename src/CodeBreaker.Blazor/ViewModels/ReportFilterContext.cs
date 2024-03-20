@@ -1,4 +1,4 @@
-﻿namespace CodeBreaker.Blazor.ViewModels;
+﻿namespace CodeBreaker.Blazor.Client.ViewModels;
 
 public class ReportFilterContext
 {

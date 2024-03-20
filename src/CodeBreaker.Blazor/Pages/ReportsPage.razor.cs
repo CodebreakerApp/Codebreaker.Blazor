@@ -1,14 +1,13 @@
 using Codebreaker.GameAPIs.Client;
 using Codebreaker.GameAPIs.Client.Models;
-using CodeBreaker.Blazor.Components;
-using CodeBreaker.Blazor.Resources;
+using CodeBreaker.Blazor.Client.Components;
+using CodeBreaker.Blazor.Client.Resources;
 using CodeBreaker.Blazor.UI.Models.DataGrid;
 using CodeBreaker.Blazor.UI.Services.Dialog;
-using CodeBreaker.Blazor.ViewModels;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 
-namespace CodeBreaker.Blazor.Pages;
+namespace CodeBreaker.Blazor.Client.Pages;
 
 public partial class ReportsPage
 {

@@ -1,6 +1,6 @@
 using BlazorApplicationInsights;
 using Codebreaker.GameAPIs.Client;
-using CodeBreaker.Blazor.Extensions;
+using CodeBreaker.Blazor.Client.Extensions;
 using CodeBreaker.Blazor.UI;
 using CodeBreaker.Blazor.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;

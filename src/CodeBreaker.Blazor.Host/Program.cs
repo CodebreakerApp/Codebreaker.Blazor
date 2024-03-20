@@ -1,8 +1,9 @@
-using CodeBreaker.Blazor.Pages;
+using CodeBreaker.Blazor.Client.Pages;
 using CodeBreaker.Blazor.UI;
 using CodeBreaker.Blazor.UI.Services.Dialog;
 using Codebreaker.GameAPIs.Client;
-using CodeBreaker.Blazor.Host.Components;
+using CodeBreaker.Blazor.Components;
+using CodeBreaker.Blazor.Client.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -1,10 +1,10 @@
-using CodeBreaker.Blazor.Resources;
+using CodeBreaker.Blazor.Client.Resources;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 using System.Globalization;
 
-namespace CodeBreaker.Blazor.Components;
+namespace CodeBreaker.Blazor.Client.Components;
 
 public partial class LanguageSelector
 {

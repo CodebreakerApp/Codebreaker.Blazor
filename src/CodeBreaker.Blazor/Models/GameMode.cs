@@ -1,4 +1,4 @@
-﻿namespace CodeBreaker.Blazor.Models;
+﻿namespace CodeBreaker.Blazor.Client.Models;
 
 public enum GameMode
 {

@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.Extensions.Options;
 
-namespace CodeBreaker.Blazor.Shared;
+namespace CodeBreaker.Blazor.Client.Shared;
 
 public partial class LoginDisplay
 {

@@ -1,16 +1,16 @@
 ﻿using System.Timers;
 using Codebreaker.GameAPIs.Client;
 using Codebreaker.GameAPIs.Client.Models;
-using CodeBreaker.Blazor.Components;
-using CodeBreaker.Blazor.Models;
-using CodeBreaker.Blazor.Resources;
+using CodeBreaker.Blazor.Client.Models;
+using CodeBreaker.Blazor.Client.Resources;
+using CodeBreaker.Blazor.Client.Components;
 using CodeBreaker.Blazor.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using Microsoft.JSInterop;
 
-namespace CodeBreaker.Blazor.Pages;
+namespace CodeBreaker.Blazor.Client.Pages;
 
 public record SelectionAndKeyPegs(string[] GuessPegs, string[] KeyPegs, int MoveNumber);
 

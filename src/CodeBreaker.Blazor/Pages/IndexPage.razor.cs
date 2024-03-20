@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Components;
 
-namespace CodeBreaker.Blazor.Pages;
+namespace CodeBreaker.Blazor.Client.Pages;
 
 public partial class IndexPage
 {

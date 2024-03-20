@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Components;
 using System.Timers;
 
-namespace CodeBreaker.Blazor.Components;
+namespace CodeBreaker.Blazor.Client.Components;
 
 public partial class StopWatch : IDisposable
 {

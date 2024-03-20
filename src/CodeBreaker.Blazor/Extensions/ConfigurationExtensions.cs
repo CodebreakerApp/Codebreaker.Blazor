@@ -1,4 +1,4 @@
-﻿namespace Microsoft.Extensions.Configuration;
+﻿namespace CodeBreaker.Blazor.Client.Extensions;
 
 public static class ConfigurationExtensions
 {

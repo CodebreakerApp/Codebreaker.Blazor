@@ -2,7 +2,7 @@
 using Microsoft.JSInterop;
 using System.Globalization;
 
-namespace CodeBreaker.Blazor.Extensions;
+namespace CodeBreaker.Blazor.Client.Extensions;
 
 internal static class LocalizationExtensions
 {
