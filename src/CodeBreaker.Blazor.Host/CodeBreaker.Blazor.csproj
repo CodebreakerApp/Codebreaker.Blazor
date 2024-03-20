@@ -10,7 +10,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CodeBreaker.Blazor\CodeBreaker.Blazor.csproj" />
+    <ProjectReference Include="..\CodeBreaker.Blazor\CodeBreaker.Blazor.Client.csproj" />
   </ItemGroup>
 
   <ItemGroup>
