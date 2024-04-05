@@ -203,5 +203,5 @@ internal static class FieldExtensions
     }
 
     public static string Serialize(this Field field) =>
-        string.Join(';', [field.Shape, field.Color]);
+        string.Join(';', new string?[] { field.Shape, field.Color }.Where(x => x is not null));
 }
