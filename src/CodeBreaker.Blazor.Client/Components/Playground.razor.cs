@@ -5,6 +5,7 @@ using Codebreaker.GameAPIs.Client;
 using Codebreaker.GameAPIs.Client.Models;
 using CodeBreaker.Blazor.Client.Models;
 using CodeBreaker.Blazor.Client.Pages;
+using System.Text;
 
 namespace CodeBreaker.Blazor.Client.Components;
 
@@ -157,9 +158,28 @@ public partial class Playground
         _selectedField = -1;
         _currentMove = [];
         for (int i = 0; i < Game.NumberCodes; i++)
+
+internal static class FieldExtensions
+{
+    public static string GetCssClasses(this Field field)
         {
-            _currentMove.Add(new Tuple<int, string>(i, string.Empty));
+        var stringBuilder = new StringBuilder();
+
+        if (field.Color is not null)
+            stringBuilder.Append($" {field.Color.ToLower()}");
+
+        if (field.Shape is not null)
+            stringBuilder.Append($" {field.Shape.ToLower()}");
+
+        if (field.Selected)
+            stringBuilder.Append(" selected");
+
+        if (field.CanDrop)
+            stringBuilder.Append(" can-drop");
+
+        return stringBuilder.ToString();
         }
 
-    }
+    public static string Serialize(this Field field) =>
+        string.Join(';', [field.Shape, field.Color]);
 }
