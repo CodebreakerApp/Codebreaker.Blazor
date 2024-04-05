@@ -12,8 +12,6 @@ using Microsoft.JSInterop;
 
 namespace CodeBreaker.Blazor.Client.Pages;
 
-public record SelectionAndKeyPegs(string[] GuessPegs, string[] KeyPegs, int MoveNumber);
-
 public partial class GamePage : IDisposable
 {
     private GameType _selectedGameType = GameType.Game6x4;

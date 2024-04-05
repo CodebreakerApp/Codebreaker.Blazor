@@ -9,6 +9,8 @@ using System.Text;
 
 namespace CodeBreaker.Blazor.Client.Components;
 
+internal record SelectionAndKeyPegs(Field[] GuessPegs, string[] KeyPegs, int MoveNumber);
+
 public partial class Playground
 {
     [Inject]
