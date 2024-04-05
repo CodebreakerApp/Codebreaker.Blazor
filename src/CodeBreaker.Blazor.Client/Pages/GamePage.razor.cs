@@ -20,9 +20,10 @@ public partial class GamePage : IDisposable
 
     //TODO: Get Data from API
     private readonly IEnumerable<KeyValuePair<string, GameType>> _gameTypes = [
-        new KeyValuePair<string, GameType>("8x5Game", GameType.Game8x5),
-        new KeyValuePair<string, GameType>("6x4MiniGame", GameType.Game6x4Mini),
-        new KeyValuePair<string, GameType>("6x4Game", GameType.Game6x4),
+        new ("8x5Game", GameType.Game8x5),
+        new ("6x4MiniGame", GameType.Game6x4Mini),
+        new ("6x4Game", GameType.Game6x4),
+        new ("5x5x4Game", GameType.Game5x5x4),
     ];
 
     [Inject]
