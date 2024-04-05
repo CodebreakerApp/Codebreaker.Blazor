@@ -43,7 +43,6 @@ public partial class Playground
     private bool _selectable = false;
     private int _selectedField = -1;
     private readonly ICollection<SelectionAndKeyPegs> _gameMoves = [];
-    private string[] _selectionFields = [];
     private Field[] _currentMove = [];
     private string? _activeColor;
     private string? _activeShape;
@@ -125,7 +124,6 @@ public partial class Playground
 
     private void SelectColor(string color)
     {
-        _selectionFields[_selectedField] = color;
         _currentMove[_selectedField].Selected = true;
         _currentMove[_selectedField].Color = color;
     }
@@ -140,7 +138,6 @@ public partial class Playground
     #region DragAndDropEvents
     private void UpdateField(int index)
     {
-        _selectionFields[index] = _activeColor;
         _currentMove[index].Selected = true;
 
         if (_activeColor is not null)
@@ -167,7 +164,6 @@ public partial class Playground
 
     private void InitialzePlayground()
     {
-        _selectionFields = new string[Game.NumberCodes];
         _selectedField = -1;
         _currentMove = new Field[Game.NumberCodes];
         
@@ -179,7 +175,7 @@ public partial class Playground
 internal static class FieldExtensions
 {
     public static string GetCssClasses(this Field field)
-        {
+    {
         var stringBuilder = new StringBuilder();
 
         if (field.Color is not null)
@@ -195,7 +191,7 @@ internal static class FieldExtensions
             stringBuilder.Append(" can-drop");
 
         return stringBuilder.ToString();
-        }
+    }
 
     public static string Serialize(this Field field) =>
         string.Join(';', [field.Shape, field.Color]);
