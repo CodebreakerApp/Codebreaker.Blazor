@@ -141,10 +141,16 @@ public partial class Playground
         _currentMove[index].Selected = true;
 
         if (_activeColor is not null)
+        {
             _currentMove[index].Color = _activeColor;
+            _activeColor = null;
+        }
         
         if (_activeShape is not null)
+        {
             _currentMove[index].Shape = _activeShape;
+            _activeShape = null;
+        }
     }
 
     private void SetDropClass(int index)
