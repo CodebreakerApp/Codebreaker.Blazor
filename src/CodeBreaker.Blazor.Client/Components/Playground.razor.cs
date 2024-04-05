@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Components;
-using System.ComponentModel;
 using Microsoft.JSInterop;
 using Codebreaker.GameAPIs.Client;
 using Codebreaker.GameAPIs.Client.Models;
 using CodeBreaker.Blazor.Client.Models;
-using CodeBreaker.Blazor.Client.Pages;
+using CodeBreaker.Blazor.Client.Extensions;
 using System.Text;
 
 namespace CodeBreaker.Blazor.Client.Components;
@@ -15,6 +14,7 @@ public partial class Playground
 {
     [Inject]
     private IGamesClient Client { get; init; } = default!;
+
     [Inject]
     private IJSRuntime JS { get; init; } = default!;
 
@@ -28,34 +28,35 @@ public partial class Playground
     public EventCallback<GameMode> GameStatusChanged { get; set; }
 
     private int MoveNumber => _gameMoves.Count;
+
     private int OpenMoves => Game.MaxMoves - MoveNumber;
-    private bool PlayButtonDisabled =>
-        _currentMove.Any(m => string.IsNullOrWhiteSpace(m.Item2) || m.Item2 == "selected" || m.Item2 == "can-drop");
+
+    private bool PlayButtonDisabled => _currentMove.Any(field => string.IsNullOrWhiteSpace(field.Color));
+
     private string KeyPegsFormat => Game.NumberCodes > 4 ? "three-two" : "two-two";
+
+    private IEnumerable<string> AvailableColors => Game?.FieldValues.GetOrDefault("colors") ?? [];
+
+    private IEnumerable<string> AvailableShapes => Game?.FieldValues.GetOrDefault("shapes") ?? [];
 
     private bool _isMobile = false;
     private bool _selectable = false;
     private int _selectedField = -1;
-    private readonly BindingList<SelectionAndKeyPegs> _gameMoves = [];
+    private readonly ICollection<SelectionAndKeyPegs> _gameMoves = [];
     private string[] _selectionFields = [];
-    private List<Tuple<int, string>> _currentMove = [];
-    private string _activeColor = string.Empty;
+    private Field[] _currentMove = [];
+    private string? _activeColor;
+    private string? _activeShape;
     private IJSInProcessObjectReference? module;
-
 
     protected override async Task OnInitializedAsync()
     {
         InitialzePlayground();
-        if (Game.Moves.Any())
-        {
+        
+        if (Game.Moves.Count != 0)
             foreach (var move in Game.Moves)
-            {
                 if (move.KeyPegs.Length != 0)
-                {
-                    _gameMoves.Add(new SelectionAndKeyPegs([.. move.GuessPegs], move.KeyPegs, move.MoveNumber));
-                }
-            }
-        }
+                    _gameMoves.Add(new SelectionAndKeyPegs([.. Field.Parse(move.GuessPegs)], move.KeyPegs, move.MoveNumber));
 
         await base.OnInitializedAsync();
     }
@@ -75,11 +76,12 @@ public partial class Playground
     {
         try
         {
-            if (_selectionFields.Length != Game.NumberCodes || _selectionFields.Any(x => x is null || x == string.Empty))
-                throw new InvalidOperationException("all colors need to be selected before invoking this method");
+            if (_currentMove.Length != Game.NumberCodes || _currentMove.Any(x => x is null || x.Color == string.Empty))
+                throw new InvalidOperationException("All fields need to be selected before invoking this method");
 
-            var response = await Client.SetMoveAsync(Game.Id, Game.PlayerName, Enum.Parse<GameType>(Game.GameType), MoveNumber+1, _selectionFields!);
-            _gameMoves.Add(new(_selectionFields!, response.Results, MoveNumber));
+            var serializedFields = _currentMove.Select(field => field.Serialize()).ToArray();
+            var response = await Client.SetMoveAsync(Game.Id, Game.PlayerName, Enum.Parse<GameType>(Game.GameType), MoveNumber+1, serializedFields);
+            _gameMoves.Add(new(_currentMove, response.Results, MoveNumber));
 
             Console.WriteLine(response.ToString());
             if (response.IsVictory)
@@ -113,44 +115,53 @@ public partial class Playground
     private void SelectField(int index)
     {
         _selectedField = index;
-        for (int i = 0; i < _currentMove.Count; i++)
-        {
-            var currentClass = _currentMove[i].Item2.Replace("selected", string.Empty).Trim();
-            _currentMove[i] = new Tuple<int, string>(i, currentClass);
-        }
-        _currentMove[_selectedField] = new Tuple<int, string>(_selectedField, $"selected");
+        
+        for (int i = 0; i < _currentMove.Length; i++)
+            _currentMove[i].Selected = false;
+        
+        _currentMove[_selectedField].Selected = true;
         _selectable = true;
     }
 
     private void SelectColor(string color)
     {
         _selectionFields[_selectedField] = color;
-        _currentMove[_selectedField] = new Tuple<int, string>(_selectedField, $"selected {color.ToLower()}");
+        _currentMove[_selectedField].Selected = true;
+        _currentMove[_selectedField].Color = color;
+    }
+
+    private void SelectShape(string shape)
+    {
+        _currentMove[_selectedField].Selected = true;
+        _currentMove[_selectedField].Shape = shape;
     }
     #endregion
 
     #region DragAndDropEvents
-    private void UpdateColor(int index)
+    private void UpdateField(int index)
     {
         _selectionFields[index] = _activeColor;
-        _currentMove[index] = new Tuple<int, string>(_selectedField, $"selected {_activeColor.ToLower()}");
+        _currentMove[index].Selected = true;
+
+        if (_activeColor is not null)
+            _currentMove[index].Color = _activeColor;
+        
+        if (_activeShape is not null)
+            _currentMove[index].Shape = _activeShape;
     }
 
     private void SetDropClass(int index)
     {
-        for (int i = 0; i < _currentMove.Count; i++)
-        {
-            _currentMove[i] = new Tuple<int, string>(_currentMove[i].Item1, _currentMove[i].Item2.Replace("can-drop", string.Empty));
-        }
-        _currentMove[index] = new Tuple<int, string>(_currentMove[index].Item1, $"{_currentMove[index].Item2} can-drop".Trim());
+        for (int i = 0; i < _currentMove.Length; i++)
+            _currentMove[i].CanDrop = false;
+
+        _currentMove[index].CanDrop = true;
     }
 
     private void RemoveDropClass()
     {
-        for (int i = 0; i < _currentMove.Count; i++)
-        {
-            _currentMove[i] = new Tuple<int, string>(_currentMove[i].Item1, _currentMove[i].Item2.Replace("can-drop", string.Empty));
-        }
+        for (int i = 0; i < _currentMove.Length; i++)
+            _currentMove[i].CanDrop = false;
     }
     #endregion
 
@@ -158,8 +169,12 @@ public partial class Playground
     {
         _selectionFields = new string[Game.NumberCodes];
         _selectedField = -1;
-        _currentMove = [];
+        _currentMove = new Field[Game.NumberCodes];
+        
         for (int i = 0; i < Game.NumberCodes; i++)
+            _currentMove[i] = new ();
+    }
+}
 
 internal static class FieldExtensions
 {
