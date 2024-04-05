@@ -81,17 +81,13 @@
             @if (!_isMobile)
             {
                 <div draggable="true"
-                     class="@($"draggable {shapeField.ToLower()}")"
-                     @ondragstart="@(() => _activeShape = shapeField)">
-                     @shapeField[0]
-                </div>
+                     class="@($"draggable shape {shapeField.ToLower()}")"
+                     @ondragstart="@(() => _activeShape = shapeField)" />
             }
             else
             {
-                <div class="@(_selectable && _selectedField > -1 ? $"{shapeField.ToLower()} selectable" : shapeField.ToLower())"
-                     @onclick="() => SelectShape(shapeField)">
-                     @shapeField[0]
-                </div>
+                <div class="@(_selectable && _selectedField > -1 ? $"{shapeField.ToLower()} shape selectable" : $"shape {shapeField.ToLower()}")"
+                     @onclick="() => SelectShape(shapeField)" />
             }
         }
     </div>
