@@ -55,7 +55,7 @@
     </div>
     @* Available colors *@
     <div class="@(!_isMobile ? "colors draggable" : "colors")">
-        @foreach (string colorField in AvailableColors)
+        @foreach (string colorField in AvailableColors ?? [])
         {
             @if (!_isMobile)
             {
@@ -76,7 +76,7 @@
     </div>
     @* Available shapes *@
     <div class="@(!_isMobile ? "colors draggable" : "colors")">
-        @foreach (string shapeField in AvailableShapes)
+        @foreach (string shapeField in AvailableShapes ?? [])
         {
             @if (!_isMobile)
             {

@@ -32,15 +32,15 @@ public partial class Playground
     private int OpenMoves => Game.MaxMoves - MoveNumber;
 
     private bool PlayButtonDisabled => _currentMove.Any(field =>
-           AvailableColors.Any() && field.Color is null
-        || AvailableShapes.Any() && field.Shape is null
+           AvailableColors is not null && field.Color is null
+        || AvailableShapes is not null && field.Shape is null
     );
 
     private string KeyPegsFormat => Game.NumberCodes > 4 ? "three-two" : "two-two";
 
-    private IEnumerable<string> AvailableColors => Game?.FieldValues.GetOrDefault("colors") ?? [];
+    private IEnumerable<string>? AvailableColors => Game?.FieldValues.GetOrDefault("colors");
 
-    private IEnumerable<string> AvailableShapes => Game?.FieldValues.GetOrDefault("shapes") ?? [];
+    private IEnumerable<string>? AvailableShapes => Game?.FieldValues.GetOrDefault("shapes");
 
     private bool _isMobile = false;
     private bool _selectable = false;
