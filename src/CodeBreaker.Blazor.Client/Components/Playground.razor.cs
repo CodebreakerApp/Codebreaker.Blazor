@@ -31,7 +31,10 @@ public partial class Playground
 
     private int OpenMoves => Game.MaxMoves - MoveNumber;
 
-    private bool PlayButtonDisabled => _currentMove.Any(field => string.IsNullOrWhiteSpace(field.Color));
+    private bool PlayButtonDisabled => _currentMove.Any(field =>
+           AvailableColors.Any() && field.Color is null
+        || AvailableShapes.Any() && field.Shape is null
+    );
 
     private string KeyPegsFormat => Game.NumberCodes > 4 ? "three-two" : "two-two";
 
