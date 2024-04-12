@@ -188,50 +188,65 @@
     cursor: grab;
 }
 
+/* Colors */
 .red, .blue, .green, .black, .orange, .purple {
     color: var(--white);
 }
-
 .white {
     background-color: var(--white);
     color: var(--black);
 }
-
 .yellow {
     background-color: var(--yellow);
     color: var(--black);
 }
-
 .black {
     background-color: var(--black);
 }
-
 .red {
     background-color: var(--red);
 }
-
 .blue {
     background-color: var(--blue);
 }
-
 .green {
     background-color: var(--green);
 }
-
 .purple {
     background-color: var(--purple);
 }
-
 .orange {
     background-color: var(--orange);
 }
-
 .pink {
     background-color: var(--pink);
 }
-
 .brown {
     background-color: var(--brown);
+}
+
+/* Shapes */
+.rectangle, .circle, .square, .triangle, .star {
+    display: inline-block;
+    font-family: "bootstrap-icons";
+    font-style: normal;
+    font-size: 25px;
+}
+.rectangle::before {
+    content: '\F3C0';
+    transform: rotate(90deg);
+}
+.circle::before {
+    content: '\F28A';
+}
+.square::before {
+    content: '\F584';
+}
+.triangle::before {
+    content: '\F5E5';
+}
+.star::before {
+    content: '\F588';
 }
 
 
