@@ -1,6 +1,8 @@
 using BlazorApplicationInsights;
 using Codebreaker.GameAPIs.Client;
+using CodeBreaker.Blazor.Client.Contracts.Services;
 using CodeBreaker.Blazor.Client.Extensions;
+using CodeBreaker.Blazor.Client.Services;
 using CodeBreaker.Blazor.UI;
 using CodeBreaker.Blazor.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -16,6 +18,7 @@ builder.Services.AddHttpClient("GameApi",  (HttpClient client) =>
 
 builder.Services.AddHttpClient<IGamesClient, GamesClient>("GameApi");
 builder.Services.AddScoped<IDialogService, DialogService>();
+builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
 
 var host = builder.Build();
 
