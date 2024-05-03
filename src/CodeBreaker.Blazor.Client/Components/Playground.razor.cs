@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Components;
-using Microsoft.JSInterop;
 using Codebreaker.GameAPIs.Client;
 using Codebreaker.GameAPIs.Client.Models;
 using CodeBreaker.Blazor.Client.Models;
 using CodeBreaker.Blazor.Client.Extensions;
 using System.Text;
+using CodeBreaker.Blazor.Client.Contracts.Services;
 
 namespace CodeBreaker.Blazor.Client.Components;
 
@@ -16,7 +16,7 @@ public partial class Playground
     private IGamesClient Client { get; init; } = default!;
 
     [Inject]
-    private IJSRuntime JS { get; init; } = default!;
+    private IMobileDetectorService MobileDetectorService { get; set; } = default!;
 
     [Parameter, EditorRequired]
     public GameInfo Game { get; set; } = default!;
@@ -49,7 +49,6 @@ public partial class Playground
     private Field[] _currentMove = [];
     private string? _activeColor;
     private string? _activeShape;
-    private IJSInProcessObjectReference? module;
 
     protected override async Task OnInitializedAsync()
     {
@@ -65,12 +64,9 @@ public partial class Playground
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender || module is null)
-        {
-            module = await JS.InvokeAsync<IJSInProcessObjectReference>("import", "./Components/Playground.razor.js");
-            _isMobile= await module.InvokeAsync<bool>("isMobile");
-            StateHasChanged();
-        }
+        if (firstRender)
+            _isMobile = await MobileDetectorService.IsMobileAsync();
+
         await base.OnAfterRenderAsync(firstRender);
     }
 

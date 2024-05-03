@@ -4,6 +4,8 @@ using CodeBreaker.Blazor.UI.Services.Dialog;
 using Codebreaker.GameAPIs.Client;
 using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.Client.Extensions;
+using CodeBreaker.Blazor.Client.Services;
+using CodeBreaker.Blazor.Client.Contracts.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -19,6 +21,7 @@ builder.Services.AddHttpClient("GameApi", configure =>
 
 builder.Services.AddHttpClient<IGamesClient, GamesClient>("GameApi");
 builder.Services.AddScoped<IDialogService, DialogService>();
+builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
 
 builder.Services.AddCors();
 

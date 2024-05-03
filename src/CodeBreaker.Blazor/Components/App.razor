@@ -51,13 +51,15 @@
     <script src="_content/Microsoft.Authentication.WebAssembly.Msal/AuthenticationService.js"></script>
     <script src="_framework/blazor.web.js" autostart="false"></script>
     <script>
+        window.isMobile = function () {
+            return /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini|mobile/i.test(navigator.userAgent);
+        }
+
         window.blazorCulture = {
             get: () => window.localStorage['BlazorCulture'],
             set: (value) => window.localStorage['BlazorCulture'] = value
         };
-    </script>
 
-    <script>
         let language = window.localStorage['BlazorCulture'];
         if (!language) {
             language = navigator.language ?? 'en';
