@@ -14,15 +14,15 @@ public partial class CodeBreakerIconButton : CodeBreakerButton
     {
         static string? GetClassName(CodeBreakerIcon icon) => icon switch
         {
-            CodeBreakerIcon.Cancel => "fa-solid fa-xmark",
-            CodeBreakerIcon.Play => "fa-solid fa-play",
-            CodeBreakerIcon.Global => "fa-solid fa-language",
-            CodeBreakerIcon.Login => "fa-solid fa-arrow-right-to-bracket",
-            CodeBreakerIcon.Logout => "fa-solid fa-arrow-right-from-bracket",
-            CodeBreakerIcon.Dashboard => "fa-solid fa-house",
-            CodeBreakerIcon.Game => "fa-solid fa-chess-board",
-            CodeBreakerIcon.Reports => "fa-solid fa-tachograph-digital",
-            CodeBreakerIcon.About => "fa-solid fa-address-card",
+            CodeBreakerIcon.Cancel => "bi bi-x",
+            CodeBreakerIcon.Play => "bi bi-play-fill",
+            CodeBreakerIcon.Global => "bi bi-globe",
+            CodeBreakerIcon.Login => "bi bi-box-arrow-in-right",
+            CodeBreakerIcon.Logout => "bi bi-box-arrow-right",
+            CodeBreakerIcon.Dashboard => "bi bi-house",
+            CodeBreakerIcon.Game => "bi bi-dice-5",
+            CodeBreakerIcon.Reports => "bi bi-table",
+            CodeBreakerIcon.About => "bi bi-card-text",
             _ => null
         };
         _icon = builder =>
