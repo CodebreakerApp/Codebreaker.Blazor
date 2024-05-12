@@ -176,6 +176,9 @@
   <data name="AuthPage_WelcomeTo" xml:space="preserve">
     <value>Willkommen zu</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Schließen</value>
+  </data>
   <data name="GamePage_CancelButtonText" xml:space="preserve">
     <value>Abbrechen</value>
   </data>
@@ -199,6 +202,15 @@
   </data>
   <data name="GamePage_FinishGame_Win" xml:space="preserve">
     <value>Du hast das Spiel gewonnen!</value>
+  </data>
+  <data name="GamePage_GameTimedOut_Message" xml:space="preserve">
+    <value>Das Spiel wurde automatisch beendet, da seit einer Stunde kein Zug mehr gemacht wurde.</value>
+  </data>
+  <data name="GamePage_GameTimedOut_Title" xml:space="preserve">
+    <value>Spiel-Timeout</value>
+  </data>
+  <data name="GamePage_GameTypeInput" xml:space="preserve">
+    <value>Spieltyp</value>
   </data>
   <data name="GamePage_NameAlreadyProvidedTooltip" xml:space="preserve">
     <value>The gamername was already defined during sign-up</value>
@@ -276,7 +288,7 @@
     <value>Spiele laden</value>
   </data>
   <data name="Reports_Table_Headers" xml:space="preserve">
-    <value>Spielername,Start,Ende,Anzahl an zügen</value>
+    <value>Spielername,Start,Ende,Anzahl an Zügen</value>
   </data>
   <data name="Reports_Title" xml:space="preserve">
     <value>Statistiken</value>

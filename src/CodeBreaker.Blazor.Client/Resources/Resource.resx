@@ -188,6 +188,9 @@
   <data name="AuthPage_WelcomeTo" xml:space="preserve">
     <value>Welcome to</value>
   </data>
+  <data name="Close" xml:space="preserve">
+    <value>Close</value>
+  </data>
   <data name="GamePage_CancelButtonText" xml:space="preserve">
     <value>Cancel</value>
   </data>
@@ -211,6 +214,15 @@
   </data>
   <data name="GamePage_FinishGame_Win" xml:space="preserve">
     <value>You win this game!</value>
+  </data>
+  <data name="GamePage_GameTimedOut_Message" xml:space="preserve">
+    <value>The game has ended automatically because no move has been made for an hour.</value>
+  </data>
+  <data name="GamePage_GameTimedOut_Title" xml:space="preserve">
+    <value>Game-Timeout</value>
+  </data>
+  <data name="GamePage_GameTypeInput" xml:space="preserve">
+    <value>Gametype</value>
   </data>
   <data name="GamePage_NameAlreadyProvidedTooltip" xml:space="preserve">
     <value>The gamername was already defined during sign-up</value>

@@ -213,6 +213,15 @@ namespace CodeBreaker.Blazor.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string GamePage_CancelButtonText {
@@ -281,6 +290,33 @@ namespace CodeBreaker.Blazor.Client.Resources {
         public static string GamePage_FinishGame_Win {
             get {
                 return ResourceManager.GetString("GamePage_FinishGame_Win", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The game has ended automatically because no move has been made for an hour..
+        /// </summary>
+        public static string GamePage_GameTimedOut_Message {
+            get {
+                return ResourceManager.GetString("GamePage_GameTimedOut_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game-Timeout.
+        /// </summary>
+        public static string GamePage_GameTimedOut_Title {
+            get {
+                return ResourceManager.GetString("GamePage_GameTimedOut_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gametype.
+        /// </summary>
+        public static string GamePage_GameTypeInput {
+            get {
+                return ResourceManager.GetString("GamePage_GameTypeInput", resourceCulture);
             }
         }
         
