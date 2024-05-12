@@ -6,8 +6,11 @@ using CodeBreaker.Blazor.Client.Services;
 using CodeBreaker.Blazor.UI;
 using CodeBreaker.Blazor.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+builder.Services.AddFluentUIComponents();
 
 builder.Services.AddLocalization();
 builder.Services.AddBlazorApplicationInsights();
