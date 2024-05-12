@@ -1,0 +1,44 @@
+﻿@using CodeBreaker.Blazor.Client.Extensions
+@inject IStringLocalizer<Resource> Loc
+
+<FluentDialogHeader ShowDismiss="@Dialog.Instance.Parameters.ShowDismiss">
+    @if (Dialog.Instance.Parameters.ShowTitle)
+    {
+        <FluentLabel Typo="Typography.PaneHeader">
+            @Dialog.Instance.Parameters.Title
+        </FluentLabel>
+    }
+</FluentDialogHeader>
+<FluentDialogBody>
+@if (Game is not null)
+{
+    <div class="container">
+        <div class="numbers">
+            @for (int i = Game.MaxMoves; i > 0; i--)
+            {
+                <div class="move-number">@i</div>
+            }
+        </div>
+        <div class="game-container">
+            @foreach (var move in _gameMoves?.Reverse() ?? [])
+            {
+                <div class="game-move">
+                    @foreach (var guess in move.GuessPegs)
+                    {
+                        <div class="@(guess.GetCssClasses())" />
+                    }
+                    <div class="@($"key-pegs {KeyPegsFormat}")">
+                        @foreach (var keypeg in move.KeyPegs)
+                        {
+                            <div class="@keypeg.ToLowerInvariant()" />
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+}
+</FluentDialogBody>
+<FluentDialogFooter>
+    <FluentButton OnClick="CloseDialog">@Loc["Close"]</FluentButton>
+</FluentDialogFooter>

@@ -6,13 +6,15 @@ using CodeBreaker.Blazor.UI.Models.DataGrid;
 using CodeBreaker.Blazor.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace CodeBreaker.Blazor.Client.Pages;
 
 public partial class ReportsPage
 {
     [Inject]
-    private IDialogService DialogService { get; set; } = default!;
+    private Microsoft.FluentUI.AspNetCore.Components.IDialogService DialogService { get; set; } = default!;
 
     [Inject]
     private IGamesClient GameClient { get; set; } = default!;
@@ -22,10 +24,10 @@ public partial class ReportsPage
     [Inject]
     private IStringLocalizer<Resource> Loc { get; set; } = default!;
 
-
     private List<GameInfo> _games = [];
     private bool _isLoadingGames = false;
-    private DateOnly? _test;
+    private DateTime? _selectedDate;
+    private GameInfo? _selectedGame;
 
     private List<string> Headers => [.. Loc.GetString("Reports_Table_Headers").Value.Split(",")];
 
@@ -38,12 +40,13 @@ public partial class ReportsPage
 
     public async Task GetGamesAsync()
     {
-        Logger?.LogInformation("Calling GetReport for {date}", _test);
+        var date = _selectedDate.ToDateOnly(); ;
+        Logger?.LogInformation("Calling GetReport for {date}", date);
         _games = [];
         _isLoadingGames = true;
         try
         {
-            var query = new GamesQuery(Date: _test, Ended: true);
+            var query = new GamesQuery(Date: date, Ended: true);
             var response = await GameClient.GetGamesAsync(query);
             Logger?.LogDebug("Got response: {response}", response);
             _games = [..response ?? []];
@@ -61,6 +64,7 @@ public partial class ReportsPage
 
     private void ShowReportDialog(GameInfo game)
     {
+        //_selectedGame = game;
         var title = game.PlayerName;
         if (!game.EndTime.HasValue)
         {
@@ -74,10 +78,26 @@ public partial class ReportsPage
                 : $"{title}: Game was won.";
         }
 
-        DialogService.ShowDialog(new DialogContext(typeof(Playground), new Dictionary<string, object>
-            {
-                { nameof(Playground.Game), game },
-                { nameof(Playground.GameFinished), true },
-            }, title, []));
+        _ = DialogService.ShowDialogAsync<FinishedGameDialog>(game, new DialogParameters()
+        {
+            Title = title,
+            ShowTitle = true,
+            ShowDismiss = true,
+            PreventDismissOnOverlayClick = false,
+        });
+        //DialogService.ShowDialogAsync(typeof(Playground), new Dictionary<string, object>
+        //    {
+        //        { nameof(Playground.Game), game },
+        //        { nameof(Playground.GameFinished), true },
+        //    },
+        //    new DialogParameters());
+        //DialogService.ShowDialog(new DialogContext(typeof(Playground), new Dictionary<string, object>
+        //    {
+        //        { nameof(Playground.Game), game },
+        //        { nameof(Playground.GameFinished), true },
+        //    }, title, []));
     }
+
+    private void OnRowClicked(FluentDataGridRow<GameInfo> clickedRow) =>
+        ShowReportDialog(clickedRow.Item!);
 }
