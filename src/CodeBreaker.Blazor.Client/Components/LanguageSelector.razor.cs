@@ -17,26 +17,31 @@ public partial class LanguageSelector
     [Inject]
     private IStringLocalizer<Resource> Loc { get; set; } = default!;
 
-    private readonly Dictionary<string, CultureInfo> _items = [];
+    private Dictionary<string, CultureInfo> _items = [];
 
-    private CultureInfo Culture
+    private string? _selectedCultureKey;
+
+    private string? SelectedCultureKey
     {
-        get => CultureInfo.CurrentCulture;
+        get => _selectedCultureKey;
         set
         {
-            if (CultureInfo.CurrentCulture != value)
-            {
-                var js = (IJSInProcessRuntime)JsRuntime;
-                js.InvokeVoid("blazorCulture.set", value.Name);
-                NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
-            }
+            if (value is null || _selectedCultureKey == value)
+                return;
+
+            _selectedCultureKey = value;
+            var js = (IJSInProcessRuntime)JsRuntime;
+            js.InvokeVoid("blazorCulture.set", _items[value].Name);
+            NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
         }
     }
 
     protected override void OnInitialized()
     {
-        _items.Add(Loc["Language_English"], new CultureInfo("en"));
-        _items.Add(Loc["Language_German"], new CultureInfo("de"));
+        _items = new() {
+            { Loc["Language_English"], new CultureInfo("en") },
+            { Loc["Language_German"], new CultureInfo("de") }
+        };
         base.OnInitialized();
     }
 }

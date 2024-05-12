@@ -1,0 +1,8 @@
+﻿<FluentDesignTheme @bind-Mode="@_mode" StorageName="theme" />
+<FluentSelect Width="250px"
+              Items="@(Enum.GetValues<DesignThemeModes>())"
+              @bind-SelectedOption="@_mode" />
+
+@code {
+    private DesignThemeModes _mode;
+}
