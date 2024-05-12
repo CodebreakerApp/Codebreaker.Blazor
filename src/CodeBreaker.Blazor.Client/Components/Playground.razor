@@ -1,4 +1,6 @@
-﻿<div class="@(GameFinished ? "container finished" : "container")">
+﻿@using CodeBreaker.Blazor.Client.Extensions
+
+<div class="@(GameFinished ? "container finished" : "container")">
     <div class="numbers">
         @for (int i = Game.MaxMoves; i > 0; i--)
         {
@@ -12,23 +14,30 @@
                 @for (int y = 0; y < Game.NumberCodes; y++)
                 {
                     var localVariable = y;
-                    @if (!_isMobile)
+
+                    if (!_isMobile && i == 1)
                     {
-                        <div class="@(i == 1 ? _currentMove[localVariable].GetCssClasses() : string.Empty)"
+                        <div class="@_currentMove[localVariable].GetCssClasses()"
                              ondragover="event.preventDefault();"
                              @ondragenter="@(() => SetDropClass(localVariable))"
                              @ondragleave="@RemoveDropClass"
                              @ondrop="() => UpdateField(localVariable)" />
                     }
+                    else if (_isMobile && i == 1)
+                    {
+                        <div class="@_currentMove[localVariable].GetCssClasses()" @onclick="() => SelectField(localVariable)" />
+                    }
                     else
                     {
-                        <div class="@(i == 1 ? _currentMove[localVariable].GetCssClasses() : string.Empty)" @onclick="() => SelectField(localVariable)" />
+                        <div />
                     }
                 }
                 @if (i == 1 && !GameFinished)
                 {
                     <div>
-                        <CodeBreakerIconButton Disabled="PlayButtonDisabled" OnClick="async () => await SetMoveAsync()" />
+                        <FluentButton Appearance="Appearance.Stealth" Disabled="PlayButtonDisabled" OnClick="SetMoveAsync">
+                            <FluentIcon Value="new Icons.Filled.Size48.PlayCircle()" />
+                        </FluentButton>
                     </div>
                 }
                 else
@@ -88,6 +97,7 @@
             {
                 <div class="@(_selectable && _selectedField > -1 ? $"{shapeField.ToLower()} shape selectable" : $"shape {shapeField.ToLower()}")"
                      @onclick="() => SelectShape(shapeField)" />
+
             }
         }
     </div>

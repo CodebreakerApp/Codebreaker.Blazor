@@ -3,66 +3,79 @@ using Codebreaker.GameAPIs.Client;
 using Codebreaker.GameAPIs.Client.Models;
 using CodeBreaker.Blazor.Client.Models;
 using CodeBreaker.Blazor.Client.Resources;
-using CodeBreaker.Blazor.Client.Components;
-using CodeBreaker.Blazor.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
-using Microsoft.JSInterop;
+using System.Collections.Frozen;
+using Microsoft.FluentUI.AspNetCore.Components;
 
 namespace CodeBreaker.Blazor.Client.Pages;
 
 public partial class GamePage : IDisposable
 {
-    private GameType _selectedGameType = GameType.Game6x4;
-
     //TODO: Get Data from API
-    private readonly IEnumerable<KeyValuePair<string, GameType>> _gameTypes = [
-        new ("8x5Game", GameType.Game8x5),
-        new ("6x4MiniGame", GameType.Game6x4Mini),
-        new ("6x4Game", GameType.Game6x4),
-        new ("5x5x4Game", GameType.Game5x5x4),
-    ];
+    private readonly FrozenDictionary<string, GameType> _gameTypes = new Dictionary<string, GameType>() {
+        { "8x5", GameType.Game8x5 },
+        //{ "6x4 Mini", GameType.Game6x4Mini },
+        { "6x4", GameType.Game6x4 },
+        { "5x5x4", GameType.Game5x5x4 },
+    }.ToFrozenDictionary();
 
-    [Inject]
-    private IGamesClient Client { get; init; } = default!;
-    [Inject]
-    private NavigationManager NavigationManager { get; init; } = default!;
-    [Inject]
-    private IJSRuntime JSRuntime { get; init; } = default!;
-    [Inject]
-    private IDialogService DialogService { get; init; } = default!;
-    [Inject]
-    private IStringLocalizer<Resource> Loc { get; init; } = default!;
-
+    private IDisposable? _beforeNavigationInterceptor;
     private readonly System.Timers.Timer _timer = new(TimeSpan.FromHours(1));
     private GameMode _gameStatus = GameMode.NotRunning;
     private string _name = string.Empty;
     private bool _loadingGame = false;
-    private bool _cancelGame = false;
+    private bool _isGameCancelling = false;
     private GameInfo? _game;
+    private GameType _gameType; // A workaround, because the GameType in GameInfo is a string.
+
+    [Inject] private IGamesClient Client { get; init; } = default!;
+    
+    [Inject] private NavigationManager NavigationManager { get; init; } = default!;
+    
+    [Inject] private Microsoft.FluentUI.AspNetCore.Components.IDialogService DialogService { get; init; } = default!;
+
+    [Inject] private IStringLocalizer<Resource> Loc { get; init; } = default!;
+
+    private string? SelectedGameTypeKey { get; set; }
+
+    private GameType? SelectedGameType => SelectedGameTypeKey is null ? null : _gameTypes[SelectedGameTypeKey];
+
+    private bool CanStartGame => !string.IsNullOrWhiteSpace(_name) && _name.Length > 3 && !_loadingGame;
 
     protected override async Task OnInitializedAsync()
     {
         _timer.Elapsed += OnTimedEvent;
         _timer.AutoReset = true;
-        //NavigationManager.RegisterLocationChangingHandler(OnLocationChanging);
         _name = string.Empty;
         await base.OnInitializedAsync();
     }
 
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+            _beforeNavigationInterceptor = NavigationManager.RegisterLocationChangingHandler(OnLocationChanging);
+
+        base.OnAfterRender(firstRender);
+    }
+
     private async Task StartGameAsync()
     {
+        if (SelectedGameType is null)
+            return;
+
         try
         {
             _loadingGame = true;
             _gameStatus = GameMode.NotRunning;
-            (Guid gameId, int numberCodes, int maxMoves, IDictionary<string, string[]> fieldValues) = await Client.StartGameAsync(_selectedGameType, _name);
-            _game = new(gameId, _selectedGameType.ToString(), _name, DateTime.Now, numberCodes, maxMoves)
+            (Guid gameId, int numberCodes, int maxMoves, IDictionary<string, string[]> fieldValues) = await Client.StartGameAsync(SelectedGameType.Value, _name);
+            _game = new(gameId, SelectedGameType.Value.ToString(), _name, DateTime.Now, numberCodes, maxMoves)
             {
                 FieldValues = fieldValues.ToDictionary(x => x.Key, x => x.Value.AsEnumerable()),
                 Codes = []
             };
+            _gameType = SelectedGameType.Value;
             _gameStatus = GameMode.Started;
         }
         catch (Exception ex)
@@ -79,42 +92,58 @@ public partial class GamePage : IDisposable
 
     private async void OnTimedEvent(object? sender, ElapsedEventArgs e)
     {
-        await InvokeAsync(() =>
+        await InvokeAsync(async () =>
         {
-            //TODO: Show dialog
-            Console.WriteLine($"Time out called...Cancel game. Time {e.SignalTime}");
             _timer.Stop();
-            _gameStatus = GameMode.Cancelled;
+            _gameStatus = GameMode.Timeout;
             StateHasChanged();
-            DialogService.ShowDialog(new DialogContext(typeof(GameResultDialog), new Dictionary<string, object>
-            {
-                { nameof(GameResultDialog.GameMode), GameMode.Timeout },
-                { nameof(GameResultDialog.Username), _name },
-            }, string.Empty, [
-                new DialogActionContext(Loc["GamePage_FinishGame_Ok"], () => NavigationManager.NavigateTo("")),
-                new DialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
-            ]));
+            var dialog = await DialogService.ShowInfoAsync(Loc["GamePage_GameTimedOut_Message"], Loc["GamePage_GameTimedOut_Title"]);
+            _ = await dialog.Result;
+            _game = null;
+            NavigationManager.NavigateTo(string.Empty);
         });
     }
 
-    private void GameStatusChanged(GameMode gameMode)
+    private async Task GameStatusChanged(GameMode gameMode)
     {
         _timer.Stop();
         _gameStatus = gameMode;
+        
         if (_gameStatus is GameMode.Won or GameMode.Lost)
         {
-            DialogService.ShowDialog(new DialogContext(typeof(GameResultDialog), new Dictionary<string, object>
+            var dialog = await DialogService.ShowMessageBoxAsync(new DialogParameters<MessageBoxContent>()
             {
-                { nameof(GameResultDialog.GameMode), _gameStatus },
-                { nameof(GameResultDialog.Username), _name },
-            }, string.Empty, [
-                new DialogActionContext(Loc["GamePage_FinishGame_Ok"], () => NavigationManager.NavigateTo(string.Empty)),
-                new DialogActionContext(Loc["GamePage_FinishGame_Restart"], () => RestartGame()),
-            ]));
+                Content = new ()
+                {
+                    Message = gameMode switch
+                    {
+                        GameMode.Won => Loc["GamePage_FinishGame_Win"],
+                        GameMode.Lost => Loc["GamePage_FinishGame_Lose"],
+                        _ => string.Empty
+                    },
+                },
+                PrimaryAction = Loc["GamePage_FinishGame_Ok"],
+                SecondaryAction = Loc["GamePage_FinishGame_Restart"],
+                PreventDismissOnOverlayClick = true,
+            });
+            var result = await dialog.Result;
+
+            if (result.Cancelled)
+            {
+                // Secondary button was clicked
+                _game = null;
+                _gameStatus = GameMode.NotRunning;
+                StateHasChanged();
+            }
+            else
+            {
+                // Primary button was clicked
+                _game = null;
+                NavigationManager.NavigateTo(string.Empty);
+            }
         }
         else
         {
-
             _timer.Start();
         }
     }
@@ -126,36 +155,29 @@ public partial class GamePage : IDisposable
         NavigationManager.NavigateTo(string.Empty);
     }
 
-    private void RestartGame()
+    private async ValueTask OnLocationChanging(LocationChangingContext context)
     {
-        _game = null;
-        _gameStatus = GameMode.NotRunning;
+        if (_game is null)
+            return;
+
+        _isGameCancelling = true;
+        var dialog = await DialogService.ShowConfirmationAsync(Loc["GamePage_CancelGame_Info"], Loc["Yes"], Loc["No"], Loc["GamePage_CancelConfirmTitle"]);
+        var result = await dialog.Result;
+
+        // Cancel dialog - continue game
+        if (result.Cancelled)
+            context.PreventNavigation();
+        // Confirm dialog - cancel game
+        else
+            await Client.CancelGameAsync(_game.Id, _game.PlayerName, _gameType);
+        
+        _isGameCancelling = false;
         StateHasChanged();
     }
 
-    private async Task OnBeforeInternalNavigation(LocationChangingContext context)
+    public void Dispose()
     {
-        if (_gameStatus is GameMode.MoveSet)
-        {
-            var isConfirmed = await JSRuntime.InvokeAsync<bool>("confirm", Loc["GamePage_CancelGame_Info"]);
-
-            if (!isConfirmed)
-            {
-                context.PreventNavigation();
-            }
-        }
+        _timer?.Dispose();
+        _beforeNavigationInterceptor?.Dispose();
     }
-
-    // Cancelling game is not yet implemented by the API
-    //private async ValueTask OnLocationChanging(LocationChangingContext context)
-    //{
-    //    if (_game is not null)
-    //    {
-    //        _cancelGame = true;
-    //        await Client.CancelGameAsync(_game.Value.GameId);
-    //        _cancelGame = false;
-    //    }
-    //}
-
-    public void Dispose() => _timer?.Dispose();
 }

@@ -254,6 +254,7 @@
     padding: 0.125rem;
     width: calc(var(--game-field-width) - 4px) !important;
     height: calc(var(--game-field-height) - 4px) !important;
+    background-color: lightgray;
 }
 
     .key-pegs.two-two {
@@ -332,3 +333,36 @@
     .key-pegs .black {
         background-color: var(--black);
     }
+
+
+
+fluent-button::part(button) {
+    background-color: red;
+}
+fluent-button::part(.control) {
+    background-color: red;
+}
+fluent-button::part(control) {
+    background-color: red;
+}
+
+fluent-button /deep/ button {
+    background-color: blue;
+}
+FluentButton::part(button) {
+    background-color: red;
+}
+FluentButton::part(button) {
+    background-color: red;
+}
+
+FluentButton::part(.control) {
+    background-color: red;
+}
+
+FluentButton::part(control) {
+    background-color: red;
+}
+FluentButton /deep/ button {
+    background-color: blue;
+}

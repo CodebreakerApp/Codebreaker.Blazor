@@ -3,12 +3,11 @@ using Codebreaker.GameAPIs.Client;
 using Codebreaker.GameAPIs.Client.Models;
 using CodeBreaker.Blazor.Client.Models;
 using CodeBreaker.Blazor.Client.Extensions;
-using System.Text;
 using CodeBreaker.Blazor.Client.Contracts.Services;
 
 namespace CodeBreaker.Blazor.Client.Components;
 
-internal record SelectionAndKeyPegs(Field[] GuessPegs, string[] KeyPegs, int MoveNumber);
+public record SelectionAndKeyPegs(Field[] GuessPegs, string[] KeyPegs, int MoveNumber);
 
 public partial class Playground
 {
@@ -54,10 +53,10 @@ public partial class Playground
     {
         InitialzePlayground();
         
-        if (Game.Moves.Count != 0)
-            foreach (var move in Game.Moves)
-                if (move.KeyPegs.Length != 0)
-                    _gameMoves.Add(new SelectionAndKeyPegs([.. Field.Parse(move.GuessPegs)], move.KeyPegs, move.MoveNumber));
+        // TODO: May be removed, because Playground is not used for finished games anymore.
+        foreach (var move in Game.Moves)
+            if (move.KeyPegs.Length != 0)
+                _gameMoves.Add(new SelectionAndKeyPegs([.. Field.Parse(move.GuessPegs)], move.KeyPegs, move.MoveNumber));
 
         await base.OnInitializedAsync();
     }
@@ -175,29 +174,4 @@ public partial class Playground
         for (int i = 0; i < Game.NumberCodes; i++)
             _currentMove[i] = new ();
     }
-}
-
-internal static class FieldExtensions
-{
-    public static string GetCssClasses(this Field field)
-    {
-        var stringBuilder = new StringBuilder();
-
-        if (field.Color is not null)
-            stringBuilder.Append($" {field.Color.ToLower()}");
-
-        if (field.Shape is not null)
-            stringBuilder.Append($" {field.Shape.ToLower()}");
-
-        if (field.Selected)
-            stringBuilder.Append(" selected");
-
-        if (field.CanDrop)
-            stringBuilder.Append(" can-drop");
-
-        return stringBuilder.ToString();
-    }
-
-    public static string Serialize(this Field field) =>
-        string.Join(';', new string?[] { field.Shape, field.Color }.Where(x => x is not null));
 }
