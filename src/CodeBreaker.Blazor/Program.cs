@@ -1,5 +1,4 @@
 using CodeBreaker.Blazor.Client.Pages;
-using CodeBreaker.Blazor.UI;
 using Codebreaker.GameAPIs.Client;
 using CodeBreaker.Blazor.Components;
 using CodeBreaker.Blazor.Client.Extensions;
@@ -16,7 +15,6 @@ builder.Services.AddRazorComponents()
 builder.Services.AddFluentUIComponents();
 
 builder.Services.AddLocalization();
-builder.Services.AddCodeBreakerUI();
 
 builder.Services.AddHttpClient("GameApi", configure =>
     configure.BaseAddress = new Uri(builder.Configuration.GetRequired("ApiBase")));

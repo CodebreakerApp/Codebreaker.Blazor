@@ -2,8 +2,6 @@ using Codebreaker.GameAPIs.Client;
 using Codebreaker.GameAPIs.Client.Models;
 using CodeBreaker.Blazor.Client.Components;
 using CodeBreaker.Blazor.Client.Resources;
-using CodeBreaker.Blazor.UI.Models.DataGrid;
-using CodeBreaker.Blazor.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
@@ -14,7 +12,7 @@ namespace CodeBreaker.Blazor.Client.Pages;
 public partial class ReportsPage
 {
     [Inject]
-    private Microsoft.FluentUI.AspNetCore.Components.IDialogService DialogService { get; set; } = default!;
+    private IDialogService DialogService { get; set; } = default!;
 
     [Inject]
     private IGamesClient GameClient { get; set; } = default!;
@@ -30,13 +28,6 @@ public partial class ReportsPage
     private GameInfo? _selectedGame;
 
     private List<string> Headers => [.. Loc.GetString("Reports_Table_Headers").Value.Split(",")];
-
-    private readonly List<CodeBreakerColumnDefinition<GameInfo>> _columns = [
-        new CodeBreakerColumnDefinition<GameInfo>("Gamername", game => game.PlayerName, true),
-        new CodeBreakerColumnDefinition<GameInfo>("Start", game => game.StartTime, false),
-        new CodeBreakerColumnDefinition<GameInfo>("End", game => game.EndTime.HasValue ? game.EndTime.Value : "----", false),
-        new CodeBreakerColumnDefinition<GameInfo>("Number of Moves", game => game.Moves.Count(), true)
-    ];
 
     public async Task GetGamesAsync()
     {
@@ -85,17 +76,6 @@ public partial class ReportsPage
             ShowDismiss = true,
             PreventDismissOnOverlayClick = false,
         });
-        //DialogService.ShowDialogAsync(typeof(Playground), new Dictionary<string, object>
-        //    {
-        //        { nameof(Playground.Game), game },
-        //        { nameof(Playground.GameFinished), true },
-        //    },
-        //    new DialogParameters());
-        //DialogService.ShowDialog(new DialogContext(typeof(Playground), new Dictionary<string, object>
-        //    {
-        //        { nameof(Playground.Game), game },
-        //        { nameof(Playground.GameFinished), true },
-        //    }, title, []));
     }
 
     private void OnRowClicked(FluentDataGridRow<GameInfo> clickedRow) =>
