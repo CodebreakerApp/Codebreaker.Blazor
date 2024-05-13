@@ -13,6 +13,7 @@
 @if (_games is not null && !_isLoadingGames)
 {
             <FluentGridItem xl="12">
+                @if (_games.Length != 0)
     {
                 <FluentDataGrid Items="_games.AsQueryable()" TGridItem="GameInfo">
             <PropertyColumn Property="@(x => x.PlayerName)" Title="@Headers[0]" Sortable="false" />

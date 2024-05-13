@@ -11,29 +11,25 @@ namespace CodeBreaker.Blazor.Client.Pages;
 
 public partial class ReportsPage
 {
-    [Inject]
-    private IDialogService DialogService { get; set; } = default!;
-
-    [Inject]
-    private IGamesClient GameClient { get; set; } = default!;
-
-    [Inject]
-    private ILogger<ReportsPage> Logger { get; set; } = default!;
-    [Inject]
-    private IStringLocalizer<Resource> Loc { get; set; } = default!;
-
-    private List<GameInfo> _games = [];
+    private GameInfo[]? _games;
     private bool _isLoadingGames = false;
     private DateTime? _selectedDate;
-    private GameInfo? _selectedGame;
 
-    private List<string> Headers => [.. Loc.GetString("Reports_Table_Headers").Value.Split(",")];
+    [Inject] private IDialogService DialogService { get; set; } = default!;
+
+    [Inject] private IGamesClient GameClient { get; set; } = default!;
+
+    [Inject] private ILogger<ReportsPage> Logger { get; set; } = default!;
+
+    [Inject] private IStringLocalizer<Resource> Loc { get; set; } = default!;
+
+    private string[] Headers => [.. Loc.GetString("ReportsPage_Table_Headers").Value.Split(",")];
 
     public async Task GetGamesAsync()
     {
         var date = _selectedDate.ToDateOnly(); ;
         Logger?.LogInformation("Calling GetReport for {date}", date);
-        _games = [];
+        _games = null;
         _isLoadingGames = true;
         try
         {
@@ -55,7 +51,6 @@ public partial class ReportsPage
 
     private void ShowReportDialog(GameInfo game)
     {
-        //_selectedGame = game;
         var title = game.PlayerName;
         if (!game.EndTime.HasValue)
         {
@@ -77,7 +72,4 @@ public partial class ReportsPage
             PreventDismissOnOverlayClick = false,
         });
     }
-
-    private void OnRowClicked(FluentDataGridRow<GameInfo> clickedRow) =>
-        ShowReportDialog(clickedRow.Item!);
 }
