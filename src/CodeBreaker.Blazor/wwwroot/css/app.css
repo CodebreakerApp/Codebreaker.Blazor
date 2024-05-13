@@ -101,6 +101,10 @@ html, body, #app {
     flex: 1;
 }
 
+.align-items-end .fluent-grid {
+    align-items: flex-end;
+}
+
 .justify-between {
     justify-content: space-between;
 }
