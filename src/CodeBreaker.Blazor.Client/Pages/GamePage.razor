@@ -3,6 +3,8 @@
 @using Codebreaker.GameAPIs.Client.Models
 
 <FluentCard>
+    <h2>@Loc["GamePage_Title"]</h2>
+
     @if (_gameStatus == GameMode.NotRunning)
     {
         <FluentGrid Class="align-items-end">
