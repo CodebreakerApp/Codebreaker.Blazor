@@ -224,6 +224,9 @@
   <data name="GamePage_StartButtonText" xml:space="preserve">
     <value>Spiel starten</value>
   </data>
+  <data name="GamePage_Title" xml:space="preserve">
+    <value>Spiel</value>
+  </data>
   <data name="Index_Card_About_Action" xml:space="preserve">
     <value>Mehr lesen</value>
   </data>
@@ -284,20 +287,23 @@
   <data name="PegSelection_MakeMove" xml:space="preserve">
     <value>Move</value>
   </data>
-  <data name="Reports_LoadGames_Action" xml:space="preserve">
+  <data name="ReportsPage_Details" xml:space="preserve">
+    <value>Details</value>
+  </data>
+  <data name="ReportsPage_LoadGames_Action" xml:space="preserve">
     <value>Spiele laden</value>
   </data>
-  <data name="Reports_Table_Headers" xml:space="preserve">
-    <value>Spielername,Start,Ende,Anzahl an Zügen</value>
-  </data>
-  <data name="Reports_Title" xml:space="preserve">
-    <value>Statistiken</value>
-  </data>
-  <data name="Report_NoReports" xml:space="preserve">
+  <data name="ReportsPage_NoReports" xml:space="preserve">
     <value>Es wurden keine Spiele gefunden.</value>
   </data>
-  <data name="Report_SelectDate_Label" xml:space="preserve">
+  <data name="ReportsPage_SelectDate_Label" xml:space="preserve">
     <value>Wähle ein Datum</value>
+  </data>
+  <data name="ReportsPage_Table_Headers" xml:space="preserve">
+    <value>Spielername,Start,Ende,Anzahl an Zügen</value>
+  </data>
+  <data name="ReportsPage_Title" xml:space="preserve">
+    <value>Statistiken</value>
   </data>
   <data name="SettingsPage_LanguageChangeInfoMessage" xml:space="preserve">
     <value>Die Sprache wird beim Neustart der Applikation geändert</value>
