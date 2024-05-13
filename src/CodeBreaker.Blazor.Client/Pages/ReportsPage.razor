@@ -14,11 +14,16 @@
 {
             <FluentGridItem xl="12">
     {
-        <FluentDataGrid Items="_games.AsQueryable()" TGridItem="GameInfo" OnRowClick="OnRowClicked">
+                <FluentDataGrid Items="_games.AsQueryable()" TGridItem="GameInfo">
             <PropertyColumn Property="@(x => x.PlayerName)" Title="@Headers[0]" Sortable="false" />
             <PropertyColumn Property="@(x => x.StartTime)" Title="@Headers[1]" Sortable="false" />
             <PropertyColumn Property="@(x => x.EndTime)" Title="@Headers[2]" Sortable="false" />
             <PropertyColumn Property="@(x => x.Moves.Count)" Title="@Headers[3]" Sortable="false" />
+                    <TemplateColumn Align="Align.End">
+                        <FluentButton IconStart="new Icons.Regular.Size20.AppsListDetail()" OnClick="() => ShowReportDialog(context)">
+                            @Loc["ReportsPage_Details"]
+                        </FluentButton>
+                    </TemplateColumn>
         </FluentDataGrid>
     }
     else
