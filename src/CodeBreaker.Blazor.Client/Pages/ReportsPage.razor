@@ -2,38 +2,39 @@
 @using Codebreaker.GameAPIs.Client.Models
 
 <FluentCard>
+    <h2>@Loc["ReportsPage_Title"]</h2>
 
     <FluentGrid Class="align-items-end">
-    <FluentGridItem xs="12" md="8">
-        <FluentDatePicker Class="full-width" Label="@Loc["Report_SelectDate_Label"]" @bind-Value="@_selectedDate" />
-    </FluentGridItem>
-    <FluentGridItem xs="12" md="4">
-        <FluentButton Class="full-width" Disabled="_isLoadingGames" OnClick="GetGamesAsync" Loading="_isLoadingGames">@Loc["Reports_LoadGames_Action"]</FluentButton>
-    </FluentGridItem>
-@if (_games is not null && !_isLoadingGames)
-{
+        <FluentGridItem xs="12" md="8">
+            <FluentDatePicker Class="full-width" Label="@Loc["ReportsPage_SelectDate_Label"]" @bind-Value="@_selectedDate" />
+        </FluentGridItem>
+        <FluentGridItem xs="12" md="4">
+            <FluentButton Class="full-width" Disabled="_isLoadingGames" OnClick="GetGamesAsync" Loading="_isLoadingGames">@Loc["ReportsPage_LoadGames_Action"]</FluentButton>
+        </FluentGridItem>
+        @if (_games is not null && !_isLoadingGames)
+        {
             <FluentGridItem xl="12">
                 @if (_games.Length != 0)
-    {
+                {
                 <FluentDataGrid Items="_games.AsQueryable()" TGridItem="GameInfo">
-            <PropertyColumn Property="@(x => x.PlayerName)" Title="@Headers[0]" Sortable="false" />
-            <PropertyColumn Property="@(x => x.StartTime)" Title="@Headers[1]" Sortable="false" />
-            <PropertyColumn Property="@(x => x.EndTime)" Title="@Headers[2]" Sortable="false" />
-            <PropertyColumn Property="@(x => x.Moves.Count)" Title="@Headers[3]" Sortable="false" />
+                    <PropertyColumn Property="@(x => x.PlayerName)" Title="@Headers[0]" Sortable="false" />
+                    <PropertyColumn Property="@(x => x.StartTime)" Title="@Headers[1]" Sortable="false" />
+                    <PropertyColumn Property="@(x => x.EndTime)" Title="@Headers[2]" Sortable="false" />
+                    <PropertyColumn Property="@(x => x.Moves.Count)" Title="@Headers[3]" Sortable="false" />
                     <TemplateColumn Align="Align.End">
                         <FluentButton IconStart="new Icons.Regular.Size20.AppsListDetail()" OnClick="() => ShowReportDialog(context)">
                             @Loc["ReportsPage_Details"]
                         </FluentButton>
                     </TemplateColumn>
-        </FluentDataGrid>
-    }
-    else
-    {
-        <FluentMessageBar AllowDismiss="false">
-            @Loc["Report_NoReports"]
-        </FluentMessageBar>
-    }
+                </FluentDataGrid>
+                }
+                else
+                {
+                <FluentMessageBar AllowDismiss="false">
+                        @Loc["ReportsPage_NoReports"]
+                </FluentMessageBar>
+                }
             </FluentGridItem>
-}
+        }
     </FluentGrid>
 </FluentCard>
