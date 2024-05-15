@@ -11,4 +11,11 @@
         <CodeBreakerIconButton OnClick="BeginLogIn" Icon="CodeBreakerIcon.Login" />
     </NotAuthorized>
 </AuthorizeView>
- *@
+
+@code {
+    private void Logout() =>
+        NavigationManager.NavigateToLogout(Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogOutPath);
+
+    private void Login() =>
+        NavigationManager.NavigateToLogin(Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogInPath);
+}
