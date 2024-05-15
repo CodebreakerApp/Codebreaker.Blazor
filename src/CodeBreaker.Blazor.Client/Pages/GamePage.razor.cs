@@ -8,6 +8,8 @@ using Microsoft.AspNetCore.Components.Routing;
 using Microsoft.Extensions.Localization;
 using System.Collections.Frozen;
 using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
+using CodeBreaker.Blazor.Client.Contracts.Services;
 
 namespace CodeBreaker.Blazor.Client.Pages;
 
@@ -24,31 +26,56 @@ public partial class GamePage : IDisposable
     private IDisposable? _beforeNavigationInterceptor;
     private readonly System.Timers.Timer _timer = new(TimeSpan.FromHours(1));
     private GameMode _gameStatus = GameMode.NotRunning;
-    private string _name = string.Empty;
+    private string? _gamerName;
+    private string[]? _gamerNameSuggestions;
     private bool _loadingGame = false;
+    private bool _loadingGamerNameSuggestions = false;
     private bool _isGameCancelling = false;
     private GameInfo? _game;
     private GameType _gameType; // A workaround, because the GameType in GameInfo is a string.
+    private bool _isNamePrefilled;
+    private PersistingComponentStateSubscription _persistingSubscription;
+
+    [Inject] private ILogger<GamePage> Logger { get; init; } = default!;
 
     [Inject] private IGamesClient Client { get; init; } = default!;
+
+    [Inject] private IGamerNameSuggestionClient GamerNameSuggestionClient { get; init; } = default!;
     
     [Inject] private NavigationManager NavigationManager { get; init; } = default!;
     
-    [Inject] private Microsoft.FluentUI.AspNetCore.Components.IDialogService DialogService { get; init; } = default!;
+    [Inject] private IDialogService DialogService { get; init; } = default!;
 
     [Inject] private IStringLocalizer<Resource> Loc { get; init; } = default!;
+
+    [CascadingParameter] private Task<AuthenticationState> AuthenticationStateTask { get; set; } = default!;
+
+    [Inject] private PersistentComponentState ApplicationState { get; init; } = default!;
 
     private string? SelectedGameTypeKey { get; set; }
 
     private GameType? SelectedGameType => SelectedGameTypeKey is null ? null : _gameTypes[SelectedGameTypeKey];
 
-    private bool CanStartGame => !string.IsNullOrWhiteSpace(_name) && _name.Length > 3 && !_loadingGame;
+    private bool CanStartGame => !string.IsNullOrWhiteSpace(_gamerName) && !_loadingGame;
 
     protected override async Task OnInitializedAsync()
     {
         _timer.Elapsed += OnTimedEvent;
         _timer.AutoReset = true;
-        _name = string.Empty;
+        _persistingSubscription = ApplicationState.RegisterOnPersisting(PersistGamerNameAsync);
+
+        // Get gamer name from user claims (if available)
+        _gamerName = (await AuthenticationStateTask).User.FindFirst("extension_gamerName")?.Value;
+        _isNamePrefilled = !string.IsNullOrEmpty(_gamerName);
+
+        // Get gamer name suggestions, if not prefilled and therefore the user is not authenticated
+        if (!_isNamePrefilled && !ApplicationState.TryTakeFromJson(nameof(_gamerNameSuggestions), out _gamerNameSuggestions))
+            _gamerNameSuggestions = (await GamerNameSuggestionClient.GetGamerNameSuggestionsAsync()).Suggestions;
+
+        // Set the first suggestion as default, if there are any and therefore the user is not authenticated
+        if (_gamerNameSuggestions is not null)
+            _gamerName = _gamerNameSuggestions.FirstOrDefault();
+
         await base.OnInitializedAsync();
     }
 
@@ -60,6 +87,13 @@ public partial class GamePage : IDisposable
         base.OnAfterRender(firstRender);
     }
 
+    private Task PersistGamerNameAsync()
+    {
+        ApplicationState.PersistAsJson(nameof(_gamerName), _gamerName);
+        ApplicationState.PersistAsJson(nameof(_gamerNameSuggestions), _gamerNameSuggestions);
+        return Task.CompletedTask;
+    }
+
     private async Task StartGameAsync()
     {
         if (SelectedGameType is null)
@@ -69,8 +103,8 @@ public partial class GamePage : IDisposable
         {
             _loadingGame = true;
             _gameStatus = GameMode.NotRunning;
-            (Guid gameId, int numberCodes, int maxMoves, IDictionary<string, string[]> fieldValues) = await Client.StartGameAsync(SelectedGameType.Value, _name);
-            _game = new(gameId, SelectedGameType.Value.ToString(), _name, DateTime.Now, numberCodes, maxMoves)
+            (Guid gameId, int numberCodes, int maxMoves, IDictionary<string, string[]> fieldValues) = await Client.StartGameAsync(SelectedGameType.Value, _gamerName);
+            _game = new(gameId, SelectedGameType.Value.ToString(), _gamerName, DateTime.Now, numberCodes, maxMoves)
             {
                 FieldValues = fieldValues.ToDictionary(x => x.Key, x => x.Value.AsEnumerable()),
                 Codes = []
@@ -78,10 +112,15 @@ public partial class GamePage : IDisposable
             _gameType = SelectedGameType.Value;
             _gameStatus = GameMode.Started;
         }
+        catch (HttpRequestException ex)
+        {
+            Logger.LogError(ex, ex.Message);
+            DialogService.ShowError(ex.Message);
+        }
         catch (Exception ex)
         {
-            //TODO: Handle Exception
-            Console.WriteLine(ex.Message);
+            Logger.LogError(ex, ex.Message);
+            throw;
         }
         finally
         {
@@ -179,5 +218,6 @@ public partial class GamePage : IDisposable
     {
         _timer?.Dispose();
         _beforeNavigationInterceptor?.Dispose();
+        _persistingSubscription.Dispose();
     }
 }

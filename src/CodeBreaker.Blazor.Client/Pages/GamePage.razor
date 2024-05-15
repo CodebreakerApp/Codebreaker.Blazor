@@ -9,14 +9,26 @@
     {
         <FluentGrid Class="align-items-end">
             <FluentGridItem xs="12" md="6">
-                <FluentTextField
-                    Class="full-width"
-                    Label="@Loc["GamePage_NameInput"]"
-                    Placeholder="@Loc["GamePage_NameInputPlaceholder"]"
-                    @bind-Value="_name"
-                    Immediate
-                    Required
-                    Maxlength="100" />
+                @if (_isNamePrefilled)
+                {
+                    <FluentTextField
+                        Class="full-width"
+                        Label="@Loc["GamePage_NameInput"]"
+                        Required
+                        Value="@_gamerName"
+                        ReadOnly />
+                }
+                else
+                {
+                    <FluentSelect
+                        Class="full-width"
+                        Label="@Loc["GamePage_NameInput"]"
+                        Items="_gamerNameSuggestions"
+                        @bind-Value="_gamerName"
+                        Required>
+                        <FluentProgressRing />
+                    </FluentSelect>
+                }
             </FluentGridItem>
             <FluentGridItem xs="12" md="3">
                 <FluentSelect
