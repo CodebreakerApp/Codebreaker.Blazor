@@ -37,7 +37,7 @@
 <body>
     <div id="app">
         @* Authentication currently only works with WebAssembly. *@
-        <Routes @rendermode="InteractiveWebAssembly" />
+        <Routes @rendermode="new InteractiveWebAssemblyRenderMode(false)" />
     </div>
 
     <div id="blazor-error-ui">
@@ -68,6 +68,7 @@
     </script>
     <script>navigator.serviceWorker.register('service-worker.js');</script>
     <script src="_content/BlazorApplicationInsights/JsInterop.js"></script>
+    <FluentTooltipProvider />
 </body>
 
 </html>
