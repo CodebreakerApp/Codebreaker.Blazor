@@ -1,15 +1,45 @@
 ﻿@page "/authentication/{action}"
 @using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject IStringLocalizer<Resource> Loc
 
-@*
-<RemoteAuthenticatorView Action="@Action" OnLogOutSucceeded="OnLogout">
-    <LoggingIn />
-    <CompletingLoggingIn />
-    <CompletingLogOut />
-    <LoggingIn />
-    <LogInFailed />
-    <LogOut />
-    <LogOutFailed />
-    <LogOutSucceeded />
+<RemoteAuthenticatorView Action="@Action">
+    <LoggingIn>
+        <FluentMessageBar Intent="@MessageIntent.Info">
+            @Loc["AuthPage_LoggingIn"]
+        </FluentMessageBar>
+    </LoggingIn>
+    <CompletingLoggingIn>
+        <FluentMessageBar Intent="@MessageIntent.Info">
+            @Loc["AuthPage_CompletingLoggingIn"]
+        </FluentMessageBar>
+    </CompletingLoggingIn>
+    <CompletingLogOut>
+        <FluentMessageBar Intent="@MessageIntent.Info">
+            @Loc["AuthPage_CompletingLogOut"]
+        </FluentMessageBar>
+    </CompletingLogOut>
+    <LogInFailed>
+        <FluentMessageBar Intent="@MessageIntent.Error">
+            @Loc["AuthPage_LogInFailed"]
+        </FluentMessageBar>
+    </LogInFailed>
+    <LogOut>
+        <FluentMessageBar Intent="@MessageIntent.Info">
+            @Loc["AuthPage_LogOut"]
+        </FluentMessageBar>
+    </LogOut>
+    <LogOutFailed>
+        <FluentMessageBar Intent="@MessageIntent.Error">
+            @Loc["AuthPage_LogOutFailed"]
+        </FluentMessageBar>
+    </LogOutFailed>
+    <LogOutSucceeded>
+        <FluentMessageBar Intent="@MessageIntent.Success">
+            @Loc["AuthPage_LogOutSucceeded"]
+        </FluentMessageBar>
+    </LogOutSucceeded>
 </RemoteAuthenticatorView>
- *@
+
+@code {
+    [Parameter] public string? Action { get; set; }
+}

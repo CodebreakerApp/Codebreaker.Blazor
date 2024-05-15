@@ -159,56 +159,101 @@ namespace CodeBreaker.Blazor.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Continue as Guest.
+        ///   Looks up a localized string similar to Login.
         /// </summary>
-        public static string AuthPage_ContinueAsGuest {
+        public static string Auth_Signin {
             get {
-                return ResourceManager.GetString("AuthPage_ContinueAsGuest", resourceCulture);
+                return ResourceManager.GetString("Auth_Signin", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to You can play games, but you won&apos;t get listed in the scoreboard..
+        ///   Looks up a localized string similar to Logout.
         /// </summary>
-        public static string AuthPage_GuestTooltip {
+        public static string Auth_Signout {
             get {
-                return ResourceManager.GetString("AuthPage_GuestTooltip", resourceCulture);
+                return ResourceManager.GetString("Auth_Signout", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to or.
+        ///   Looks up a localized string similar to Register.
         /// </summary>
-        public static string AuthPage_Or {
+        public static string Auth_Signup {
             get {
-                return ResourceManager.GetString("AuthPage_Or", resourceCulture);
+                return ResourceManager.GetString("Auth_Signup", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Sign in.
+        ///   Looks up a localized string similar to Hello,.
         /// </summary>
-        public static string AuthPage_SignIn {
+        public static string Auth_TextBeforeUsername {
             get {
-                return ResourceManager.GetString("AuthPage_SignIn", resourceCulture);
+                return ResourceManager.GetString("Auth_TextBeforeUsername", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to sign up.
+        ///   Looks up a localized string similar to Completing login....
         /// </summary>
-        public static string AuthPage_SignUp {
+        public static string AuthPage_CompletingLoggingIn {
             get {
-                return ResourceManager.GetString("AuthPage_SignUp", resourceCulture);
+                return ResourceManager.GetString("AuthPage_CompletingLoggingIn", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Welcome to.
+        ///   Looks up a localized string similar to Completing logout....
         /// </summary>
-        public static string AuthPage_WelcomeTo {
+        public static string AuthPage_CompletingLogOut {
             get {
-                return ResourceManager.GetString("AuthPage_WelcomeTo", resourceCulture);
+                return ResourceManager.GetString("AuthPage_CompletingLogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logging in....
+        /// </summary>
+        public static string AuthPage_LoggingIn {
+            get {
+                return ResourceManager.GetString("AuthPage_LoggingIn", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Login failed..
+        /// </summary>
+        public static string AuthPage_LogInFailed {
+            get {
+                return ResourceManager.GetString("AuthPage_LogInFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout.
+        /// </summary>
+        public static string AuthPage_LogOut {
+            get {
+                return ResourceManager.GetString("AuthPage_LogOut", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout failed..
+        /// </summary>
+        public static string AuthPage_LogOutFailed {
+            get {
+                return ResourceManager.GetString("AuthPage_LogOutFailed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Logout succeeded..
+        /// </summary>
+        public static string AuthPage_LogOutSucceeded {
+            get {
+                return ResourceManager.GetString("AuthPage_LogOutSucceeded", resourceCulture);
             }
         }
         

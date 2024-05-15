@@ -158,23 +158,38 @@
   <data name="AppDisplayName" xml:space="preserve">
     <value>CodeBreaker</value>
   </data>
-  <data name="AuthPage_ContinueAsGuest" xml:space="preserve">
-    <value>Als Gast fortfahren</value>
+  <data name="AuthPage_CompletingLoggingIn" xml:space="preserve">
+    <value>Anmeldung wird abgeschlossen...</value>
   </data>
-  <data name="AuthPage_GuestTooltip" xml:space="preserve">
-    <value>Sie können spielen, werden aber nicht im Scoreboard gelistet.</value>
+  <data name="AuthPage_CompletingLogOut" xml:space="preserve">
+    <value>Abmeldung wird abgeschlossen...</value>
   </data>
-  <data name="AuthPage_Or" xml:space="preserve">
-    <value>oder</value>
+  <data name="AuthPage_LoggingIn" xml:space="preserve">
+    <value>Sie werden angemeldet...</value>
   </data>
-  <data name="AuthPage_SignIn" xml:space="preserve">
-    <value>Einloggen</value>
+  <data name="AuthPage_LogInFailed" xml:space="preserve">
+    <value>Anmeldung fehlgeschlagen.</value>
   </data>
-  <data name="AuthPage_SignUp" xml:space="preserve">
+  <data name="AuthPage_LogOut" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
+  <data name="AuthPage_LogOutFailed" xml:space="preserve">
+    <value>Abmeldung fehlgeschlagen.</value>
+  </data>
+  <data name="AuthPage_LogOutSucceeded" xml:space="preserve">
+    <value>Abmeldung erfolgreich.</value>
+  </data>
+  <data name="Auth_Signin" xml:space="preserve">
+    <value>Anmelden</value>
+  </data>
+  <data name="Auth_Signout" xml:space="preserve">
+    <value>Abmelden</value>
+  </data>
+  <data name="Auth_Signup" xml:space="preserve">
     <value>Registrieren</value>
   </data>
-  <data name="AuthPage_WelcomeTo" xml:space="preserve">
-    <value>Willkommen zu</value>
+  <data name="Auth_TextBeforeUsername" xml:space="preserve">
+    <value>Hallo,</value>
   </data>
   <data name="Close" xml:space="preserve">
     <value>Schließen</value>

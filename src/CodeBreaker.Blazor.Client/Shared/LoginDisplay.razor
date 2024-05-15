@@ -1,14 +1,29 @@
-﻿@* <AuthorizeView>
+﻿@using Microsoft.AspNetCore.Components.Authorization
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@using Microsoft.Extensions.Options
+@inject NavigationManager NavigationManager
+@inject IOptionsSnapshot<RemoteAuthenticationOptions<ApiAuthorizationProviderOptions>> Options
+@inject IStringLocalizer<Resource> Loc
+
+<AuthorizeView>
     <Authorized>
-        <div class="user">
-            @if (!string.IsNullOrWhiteSpace(context.User.Identity?.Name)) {
-                <a href="/user-information">@context.User.Identity.Name</a>
-            }
-            <CodeBreakerIconButton OnClick="BeginLogOut" Icon="CodeBreakerIcon.Logout" />
-        </div>
+        @Loc["Auth_TextBeforeUsername"] @context.User.Identity?.Name
+        <FluentSpacer Width="20" />
+        <FluentButton Appearance="Appearance.Stealth" OnClick="Logout" IconStart="new Icons.Regular.Size20.SignOut()">
+            @Loc["Auth_Signout"]
+        </FluentButton>
     </Authorized>
     <NotAuthorized>
-        <CodeBreakerIconButton OnClick="BeginLogIn" Icon="CodeBreakerIcon.Login" />
+        <FluentButton Appearance="Appearance.Stealth" OnClick="Login" IconStart="new Icons.Regular.Size20.PersonAccounts()">
+            @Loc["Auth_Signin"]
+        </FluentButton>
     </NotAuthorized>
 </AuthorizeView>
- *@
+
+@code {
+    private void Logout() =>
+        NavigationManager.NavigateToLogout(Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogOutPath);
+
+    private void Login() =>
+        NavigationManager.NavigateToLogin(Options.Get(Microsoft.Extensions.Options.Options.DefaultName).AuthenticationPaths.LogInPath);
+}
