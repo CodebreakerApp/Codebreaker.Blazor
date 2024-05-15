@@ -13,8 +13,16 @@ builder.Services.AddFluentUIComponents();
 builder.Services.AddLocalization();
 builder.Services.AddBlazorApplicationInsights();
 
-builder.Services.AddHttpClient("GameApi",  (HttpClient client) =>
+builder.Services.AddMsalAuthentication(options =>
+{
+    builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
+    //options.ProviderOptions.DefaultAccessTokenScopes.Add("");  // TODO
+    options.UserOptions.NameClaim = "extension_GamerName";
+});
+
+builder.Services.AddHttpClient("GameApi", (HttpClient client) =>
     client.BaseAddress = new Uri(builder.Configuration.GetRequired("ApiBase")));
+    //.AddHttpMessageHandler<>(); // TODO
 
 builder.Services.AddHttpClient<IGamesClient, GamesClient>("GameApi");
 builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
