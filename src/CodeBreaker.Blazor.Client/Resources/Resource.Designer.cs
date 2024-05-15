@@ -213,6 +213,15 @@ namespace CodeBreaker.Blazor.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Close.
+        /// </summary>
+        public static string Close {
+            get {
+                return ResourceManager.GetString("Close", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Cancel.
         /// </summary>
         public static string GamePage_CancelButtonText {
@@ -285,6 +294,33 @@ namespace CodeBreaker.Blazor.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to The game has ended automatically because no move has been made for an hour..
+        /// </summary>
+        public static string GamePage_GameTimedOut_Message {
+            get {
+                return ResourceManager.GetString("GamePage_GameTimedOut_Message", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game-Timeout.
+        /// </summary>
+        public static string GamePage_GameTimedOut_Title {
+            get {
+                return ResourceManager.GetString("GamePage_GameTimedOut_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Gametype.
+        /// </summary>
+        public static string GamePage_GameTypeInput {
+            get {
+                return ResourceManager.GetString("GamePage_GameTypeInput", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The gamername was already defined during sign-up.
         /// </summary>
         public static string GamePage_NameAlreadyProvidedTooltip {
@@ -317,6 +353,15 @@ namespace CodeBreaker.Blazor.Client.Resources {
         public static string GamePage_StartButtonText {
             get {
                 return ResourceManager.GetString("GamePage_StartButtonText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Game.
+        /// </summary>
+        public static string GamePage_Title {
+            get {
+                return ResourceManager.GetString("GamePage_Title", resourceCulture);
             }
         }
         
@@ -501,47 +546,56 @@ namespace CodeBreaker.Blazor.Client.Resources {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to No reports found.
+        ///   Looks up a localized string similar to Details.
         /// </summary>
-        public static string Report_NoReports {
+        public static string ReportsPage_Details {
             get {
-                return ResourceManager.GetString("Report_NoReports", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Select the date.
-        /// </summary>
-        public static string Report_SelectDate_Label {
-            get {
-                return ResourceManager.GetString("Report_SelectDate_Label", resourceCulture);
+                return ResourceManager.GetString("ReportsPage_Details", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Load games.
         /// </summary>
-        public static string Reports_LoadGames_Action {
+        public static string ReportsPage_LoadGames_Action {
             get {
-                return ResourceManager.GetString("Reports_LoadGames_Action", resourceCulture);
+                return ResourceManager.GetString("ReportsPage_LoadGames_Action", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to No reports found.
+        /// </summary>
+        public static string ReportsPage_NoReports {
+            get {
+                return ResourceManager.GetString("ReportsPage_NoReports", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select the date.
+        /// </summary>
+        public static string ReportsPage_SelectDate_Label {
+            get {
+                return ResourceManager.GetString("ReportsPage_SelectDate_Label", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Gamername,Start,End,Number of Moves.
         /// </summary>
-        public static string Reports_Table_Headers {
+        public static string ReportsPage_Table_Headers {
             get {
-                return ResourceManager.GetString("Reports_Table_Headers", resourceCulture);
+                return ResourceManager.GetString("ReportsPage_Table_Headers", resourceCulture);
             }
         }
         
         /// <summary>
         ///   Looks up a localized string similar to Reports.
         /// </summary>
-        public static string Reports_Title {
+        public static string ReportsPage_Title {
             get {
-                return ResourceManager.GetString("Reports_Title", resourceCulture);
+                return ResourceManager.GetString("ReportsPage_Title", resourceCulture);
             }
         }
         

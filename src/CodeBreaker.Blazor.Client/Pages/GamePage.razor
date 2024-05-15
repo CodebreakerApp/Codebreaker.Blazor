@@ -1,36 +1,60 @@
 ﻿@page "/game"
 @using CodeBreaker.Blazor.Client.Models
-@using CodeBreaker.Blazor.UI.Models.Icon
 @using Codebreaker.GameAPIs.Client.Models
 
-<NavigationLock ConfirmExternalNavigation="_gameStatus == GameMode.MoveSet" OnBeforeInternalNavigation="OnBeforeInternalNavigation" />
+<FluentCard>
+    <h2>@Loc["GamePage_Title"]</h2>
 
-@if (_gameStatus == GameMode.NotRunning)
-{
-    <div class="flex-column start-game-container">
-        <CodeBreakerTextField CssClass="user-name flex-1" @bind-Value="_name" Label="@Loc["GamePage_NameInput"]" Placeholder="@Loc["GamePage_NameInputPlaceholder"]" Required="true" MaxLength="100" />
-        <div class="flex-responsive gap-2 full-width justify-between">
-            <CodeBreakerRadioGroup T="GameType" @bind-Value="_selectedGameType" Items="_gameTypes" />
-            <CodeBreakerButton Disabled="@(string.IsNullOrWhiteSpace(_name) || _name.Length < 4 || _loadingGame)" OnClick="StartGameAsync">
-                @if (_loadingGame)
-                {
-                    <CodeBreakerProgressCircular Class="progress" />
-                }
-                @Loc["GamePage_StartButtonText"]
-            </CodeBreakerButton>
+    @if (_gameStatus == GameMode.NotRunning)
+    {
+        <FluentGrid Class="align-items-end">
+            <FluentGridItem xs="12" md="6">
+                <FluentTextField
+                    Class="full-width"
+                    Label="@Loc["GamePage_NameInput"]"
+                    Placeholder="@Loc["GamePage_NameInputPlaceholder"]"
+                    @bind-Value="_name"
+                    Immediate
+                    Required
+                    Maxlength="100" />
+            </FluentGridItem>
+            <FluentGridItem xs="12" md="3">
+                <FluentSelect
+                    Class="full-width"
+                    Items="@_gameTypes.Keys"
+                    Label="@Loc["GamePage_GameTypeInput"]"
+                    @bind-Value="SelectedGameTypeKey"
+                    Required />
+            </FluentGridItem>
+            <FluentGridItem xs="12" md="3">
+                <FluentButton
+                    Class="full-width"
+                    Appearance="Appearance.Accent"
+                    Disabled="!CanStartGame"
+                    OnClick="StartGameAsync"
+                    Loading="_loadingGame"
+                    IconEnd="new Icons.Filled.Size20.BoardGames()">
+                    @Loc["GamePage_StartButtonText"]
+                </FluentButton>
+            </FluentGridItem>
+        </FluentGrid>
+    }
+    else if (_game is not null)
+    {
+        <div class="header flex">
+            <div>
+                <h2 class="flex-1">@_game?.GameType</h2>
+                <StopWatch Running="@(_gameStatus == GameMode.MoveSet || _gameStatus == GameMode.Started)" />
+            </div>
+            <div>
+                <FluentButton
+                    IconEnd="new Icons.Filled.Size20.Dismiss()"
+                    Loading="_isGameCancelling"
+                    OnClick="CancelGame">
+                    @Loc["GamePage_CancelButtonText"]
+                </FluentButton>
+            </div>
         </div>
-    </div>
-}
-else if (_game is not null)
-{
-    <div class="header flex">
-        <div>
-            <h2 class="flex-1">@_game?.GameType</h2>
-            <StopWatch Running="@(_gameStatus == GameMode.MoveSet || _gameStatus == GameMode.Started)" />
-        </div>
-        <div>
-            <CodeBreakerIconButton Disabled="_cancelGame" OnClick="CancelGame" Icon="CodeBreakerIcon.Cancel" />
-        </div>
-    </div>
-    <Playground Game="_game" GameStatusChanged="GameStatusChanged" />
-}
+        <Playground Game="_game" GameStatusChanged="GameStatusChanged" />
+    }
+</FluentCard>

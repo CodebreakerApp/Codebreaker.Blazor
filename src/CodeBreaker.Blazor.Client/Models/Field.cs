@@ -1,6 +1,6 @@
 ﻿namespace CodeBreaker.Blazor.Client.Models;
 
-internal partial class Field
+public partial class Field
 {
     public string? Color { get; set; }
 

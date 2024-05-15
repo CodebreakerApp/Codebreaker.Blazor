@@ -2,48 +2,38 @@ using Codebreaker.GameAPIs.Client;
 using Codebreaker.GameAPIs.Client.Models;
 using CodeBreaker.Blazor.Client.Components;
 using CodeBreaker.Blazor.Client.Resources;
-using CodeBreaker.Blazor.UI.Models.DataGrid;
-using CodeBreaker.Blazor.UI.Services.Dialog;
 using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
+using Microsoft.FluentUI.AspNetCore.Components;
+using Microsoft.FluentUI.AspNetCore.Components.Extensions;
 
 namespace CodeBreaker.Blazor.Client.Pages;
 
 public partial class ReportsPage
 {
-    [Inject]
-    private IDialogService DialogService { get; set; } = default!;
-
-    [Inject]
-    private IGamesClient GameClient { get; set; } = default!;
-
-    [Inject]
-    private ILogger<ReportsPage> Logger { get; set; } = default!;
-    [Inject]
-    private IStringLocalizer<Resource> Loc { get; set; } = default!;
-
-
-    private List<GameInfo> _games = [];
+    private GameInfo[]? _games;
     private bool _isLoadingGames = false;
-    private DateOnly? _test;
+    private DateTime? _selectedDate;
 
-    private List<string> Headers => [.. Loc.GetString("Reports_Table_Headers").Value.Split(",")];
+    [Inject] private IDialogService DialogService { get; set; } = default!;
 
-    private readonly List<CodeBreakerColumnDefinition<GameInfo>> _columns = [
-        new CodeBreakerColumnDefinition<GameInfo>("Gamername", game => game.PlayerName, true),
-        new CodeBreakerColumnDefinition<GameInfo>("Start", game => game.StartTime, false),
-        new CodeBreakerColumnDefinition<GameInfo>("End", game => game.EndTime.HasValue ? game.EndTime.Value : "----", false),
-        new CodeBreakerColumnDefinition<GameInfo>("Number of Moves", game => game.Moves.Count(), true)
-    ];
+    [Inject] private IGamesClient GameClient { get; set; } = default!;
+
+    [Inject] private ILogger<ReportsPage> Logger { get; set; } = default!;
+
+    [Inject] private IStringLocalizer<Resource> Loc { get; set; } = default!;
+
+    private string[] Headers => [.. Loc.GetString("ReportsPage_Table_Headers").Value.Split(",")];
 
     public async Task GetGamesAsync()
     {
-        Logger?.LogInformation("Calling GetReport for {date}", _test);
-        _games = [];
+        var date = _selectedDate.ToDateOnly(); ;
+        Logger?.LogInformation("Calling GetReport for {date}", date);
+        _games = null;
         _isLoadingGames = true;
         try
         {
-            var query = new GamesQuery(Date: _test, Ended: true);
+            var query = new GamesQuery(Date: date, Ended: true);
             var response = await GameClient.GetGamesAsync(query);
             Logger?.LogDebug("Got response: {response}", response);
             _games = [..response ?? []];
@@ -74,10 +64,12 @@ public partial class ReportsPage
                 : $"{title}: Game was won.";
         }
 
-        DialogService.ShowDialog(new DialogContext(typeof(Playground), new Dictionary<string, object>
-            {
-                { nameof(Playground.Game), game },
-                { nameof(Playground.GameFinished), true },
-            }, title, []));
+        _ = DialogService.ShowDialogAsync<FinishedGameDialog>(game, new DialogParameters()
+        {
+            Title = title,
+            ShowTitle = true,
+            ShowDismiss = true,
+            PreventDismissOnOverlayClick = false,
+        });
     }
 }

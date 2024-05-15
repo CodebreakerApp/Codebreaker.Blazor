@@ -2,7 +2,7 @@
 
 namespace CodeBreaker.Blazor.Client.Models;
 
-internal partial class Field : IParsable<Field>
+public partial class Field : IParsable<Field>
 {
     public static Field Parse(string s, IFormatProvider? provider = null) =>
         s?.Split(';', StringSplitOptions.RemoveEmptyEntries) switch

@@ -1,33 +1,40 @@
 ﻿@page "/reports"
 @using Codebreaker.GameAPIs.Client.Models
 
-<h2>@Loc["Reports_Title"]</h2>
+<FluentCard>
+    <h2>@Loc["ReportsPage_Title"]</h2>
 
-<div class="flex-column gap-5">
-    <div class="flex-column full-width gap-2">
-        <div>
-            <CodeBreakerDatePicker Label="@Loc["Report_SelectDate_Label"]" @bind-Date="_test" />
-        </div>
-        <div style="align-self: flex-end;">
-            <CodeBreakerButton Disabled=@_isLoadingGames @onclick="async () => await GetGamesAsync()">
-                @if (_isLoadingGames)
+    <FluentGrid Class="align-items-end">
+        <FluentGridItem xs="12" md="8">
+            <FluentDatePicker Class="full-width" Label="@Loc["ReportsPage_SelectDate_Label"]" @bind-Value="@_selectedDate" />
+        </FluentGridItem>
+        <FluentGridItem xs="12" md="4">
+            <FluentButton Class="full-width" Disabled="_isLoadingGames" OnClick="GetGamesAsync" Loading="_isLoadingGames">@Loc["ReportsPage_LoadGames_Action"]</FluentButton>
+        </FluentGridItem>
+        @if (_games is not null && !_isLoadingGames)
+        {
+            <FluentGridItem xl="12">
+                @if (_games.Length != 0)
                 {
-                    <CodeBreakerProgressCircular Class="progress" />
+                <FluentDataGrid Items="_games.AsQueryable()" TGridItem="GameInfo">
+                    <PropertyColumn Property="@(x => x.PlayerName)" Title="@Headers[0]" Sortable="false" />
+                    <PropertyColumn Property="@(x => x.StartTime)" Title="@Headers[1]" Sortable="false" />
+                    <PropertyColumn Property="@(x => x.EndTime)" Title="@Headers[2]" Sortable="false" />
+                    <PropertyColumn Property="@(x => x.Moves.Count)" Title="@Headers[3]" Sortable="false" />
+                    <TemplateColumn Align="Align.End">
+                        <FluentButton IconStart="new Icons.Regular.Size20.AppsListDetail()" OnClick="() => ShowReportDialog(context)">
+                            @Loc["ReportsPage_Details"]
+                        </FluentButton>
+                    </TemplateColumn>
+                </FluentDataGrid>
                 }
-                @Loc["Reports_LoadGames_Action"]
-            </CodeBreakerButton>
-        </div>
-    </div>
-
-    @if (_games is not null && !_isLoadingGames)
-    {
-        if (_games.Count != 0)
-        {
-            <CodeBreakerDataGrid Items="_games" Columns="_columns" Headers="Headers" RowItemClicked="(GameInfo game) => ShowReportDialog(game)" />
+                else
+                {
+                <FluentMessageBar AllowDismiss="false">
+                        @Loc["ReportsPage_NoReports"]
+                </FluentMessageBar>
+                }
+            </FluentGridItem>
         }
-        else
-        {
-            <p>@Loc["Report_NoReports"]</p>
-        }
-    }
-</div>
+    </FluentGrid>
+</FluentCard>

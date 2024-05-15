@@ -1,13 +1,16 @@
 ﻿@inherits LayoutComponentBase
+@inject IStringLocalizer<Resource> Loc
 
-<CodeBreakerLayout Label="@($"{Loc["Index_Welcome"]} {Loc["AppDisplayName"]}")">
-    <ToolbarContent>
-        <div class="flex toolbar-content"></div>
-    </ToolbarContent>
-    <ChildContent>
-        <div class="content-container">@Body</div>
-    </ChildContent>
-    <DrawerContent>
-        <CodeBreakerNavMenu MenuItems="_menuItems" />
-    </DrawerContent>
-</CodeBreakerLayout>
+<FluentMainLayout>
+    <Header><h1>@($"{Loc["Index_Welcome"]} {Loc["AppDisplayName"]}")</h1></Header>
+    <Body>
+        @Body
+        <FluentDialogProvider />
+    </Body>
+    <NavMenuContent>
+        <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())">@Loc["NavMenu_Home_Title"]</FluentNavLink>
+        <FluentNavLink Href="/game" Icon="@(new Icons.Regular.Size20.BoardGames())">@Loc["NavMenu_Game_Title"]</FluentNavLink>
+        <FluentNavLink Href="/reports" Icon="@(new Icons.Regular.Size20.DataBarHorizontal())">@Loc["NavMenu_Reports_Title"]</FluentNavLink>
+        <FluentNavLink Href="/about" Icon="@(new Icons.Regular.Size20.Info())">@Loc["NavMenu_About_Title"]</FluentNavLink>
+    </NavMenuContent>
+</FluentMainLayout>

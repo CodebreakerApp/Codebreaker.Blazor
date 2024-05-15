@@ -1,9 +1,4 @@
-﻿.start-game-container {
-    align-items: flex-end;
-    gap: 1rem;
-}
-
-.container {
+﻿.container {
     --game-field-width: 3rem;
     --game-field-height: 3rem;
     --key-pegs-width: 90%;
@@ -15,10 +10,6 @@
     animation-iteration-count: 1;
     animation-duration: 2s;
 }
-
-    .container.finished {
-        pointer-events: none;
-    }
 
 @keyframes enterPlayground {
     0% {
@@ -74,19 +65,17 @@
     flex-direction: column;
 }
 
-.numbers {
-    align-self: flex-start;
+.numbers, .game-container {
+    align-self: flex-end;
 }
 
 .game-container .game-row,
 .game-container .game-move,
-.colors:not(.draggable) div {
+.colors div {
     pointer-events: none;
 }
 
-    .game-container .game-row.selectable,
-    .colors.draggable,
-    .colors:not(.draggable) .selectable {
+    .game-container {
         cursor: pointer;
         pointer-events: initial;
     }
@@ -120,107 +109,56 @@
         margin: 0 auto;
     }
 
-    .game-container .game-row.selectable .can-drop,
-    .game-container .game-row.selectable .can-drop,
-    .colors div:hover {
-        box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
-    }
-
-    .game-container .game-row.selectable div.selected {
-        border: var(--selected-border);
-        box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    }
-
-    .game-container .game-row.selectable div:last-child:hover,
-    .game-container .game-row.selectable div:last-child:active {
-        box-shadow: none;
-    }
-
-    .game-container .game-row.selectable div:last-child {
-        border: none;
-    }
-
-.finished .game-container .game-row.selectable,
-.finished .colors div {
+.colors div {
     pointer-events: none;
     cursor: auto;
 }
 
-    .finished .game-container .game-row.selectable div:last-child {
-        border: 1px solid #1b8ce3 !important;
-    }
 
-.game-container .game-row.selectable div:active {
-    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
-}
-
-
-::deep .mud-icon-button.mud-button {
-    width: 100%;
-    height: 100%;
-}
-
-
-
-.peg-selection-grid {
-    display: flex;
-    gap: 1rem;
-    flex-wrap: wrap;
-}
-
-.peg-selection-grid-item {
-    min-width: 200px;
-}
-
-@media only screen and (max-width : 667px) {
-    .start-game-container {
-        align-items: initial;
-        flex-direction: column;
-    }
-
-    .peg-selection-grid-item {
-        width: 100%;
-    }
-}
-
-.draggable {
-    touch-action: none;
-    cursor: grab;
-}
 
 /* Colors */
 .red, .blue, .green, .black, .orange, .purple {
     color: var(--white);
 }
+
 .white {
     background-color: var(--white);
     color: var(--black);
 }
+
 .yellow {
     background-color: var(--yellow);
     color: var(--black);
 }
+
 .black {
     background-color: var(--black);
 }
+
 .red {
     background-color: var(--red);
 }
+
 .blue {
     background-color: var(--blue);
 }
+
 .green {
     background-color: var(--green);
 }
+
 .purple {
     background-color: var(--purple);
 }
+
 .orange {
     background-color: var(--orange);
 }
+
 .pink {
     background-color: var(--pink);
 }
+
 .brown {
     background-color: var(--brown);
 }
@@ -232,22 +170,27 @@
     font-style: normal;
     font-size: 25px;
 }
-.rectangle::before {
-    content: '\F3C0';
-    transform: rotate(90deg);
-}
-.circle::before {
-    content: '\F28A';
-}
-.square::before {
-    content: '\F584';
-}
-.triangle::before {
-    content: '\F5E5';
-}
-.star::before {
-    content: '\F588';
-}
+
+    .rectangle::before {
+        content: '\F3C0';
+        transform: rotate(90deg);
+    }
+
+    .circle::before {
+        content: '\F28A';
+    }
+
+    .square::before {
+        content: '\F584';
+    }
+
+    .triangle::before {
+        content: '\F5E5';
+    }
+
+    .star::before {
+        content: '\F588';
+    }
 
 
 .key-pegs {
@@ -333,36 +276,3 @@
     .key-pegs .black {
         background-color: var(--black);
     }
-
-
-
-fluent-button::part(button) {
-    background-color: red;
-}
-fluent-button::part(.control) {
-    background-color: red;
-}
-fluent-button::part(control) {
-    background-color: red;
-}
-
-fluent-button /deep/ button {
-    background-color: blue;
-}
-FluentButton::part(button) {
-    background-color: red;
-}
-FluentButton::part(button) {
-    background-color: red;
-}
-
-FluentButton::part(.control) {
-    background-color: red;
-}
-
-FluentButton::part(control) {
-    background-color: red;
-}
-FluentButton /deep/ button {
-    background-color: blue;
-}
