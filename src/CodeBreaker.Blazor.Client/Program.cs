@@ -20,11 +20,13 @@ builder.Services.AddMsalAuthentication(options =>
     options.UserOptions.NameClaim = "extension_GamerName";
 });
 
-builder.Services.AddHttpClient("GameApi", (HttpClient client) =>
-    client.BaseAddress = new Uri(builder.Configuration.GetRequired("ApiBase")));
-    //.AddHttpMessageHandler<>(); // TODO
+builder.Services.AddHttpClient<IGamerNameSuggestionClient, GamerNameSuggestionClient>(configure =>
+    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("UserApiBase")));
 
-builder.Services.AddHttpClient<IGamesClient, GamesClient>("GameApi");
+builder.Services.AddHttpClient<IGamesClient, GamesClient>(configure =>
+    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("GameApiBase")));
+//.AddHttpMessageHandler<>(); // TODO
+
 builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
 
 var host = builder.Build();

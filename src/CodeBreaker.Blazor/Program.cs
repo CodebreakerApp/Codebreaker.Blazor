@@ -16,10 +16,12 @@ builder.Services.AddFluentUIComponents();
 
 builder.Services.AddLocalization();
 
-builder.Services.AddHttpClient("GameApi", configure =>
-    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("ApiBase")));
+builder.Services.AddHttpClient<IGamerNameSuggestionClient, GamerNameSuggestionClient>(configure =>
+    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("UserApiBase")));
 
-builder.Services.AddHttpClient<IGamesClient, GamesClient>("GameApi");
+builder.Services.AddHttpClient<IGamesClient, GamesClient>(configure =>
+    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("GameApiBase")));
+
 builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
 
 builder.Services.AddCors();
