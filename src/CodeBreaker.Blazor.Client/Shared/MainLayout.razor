@@ -2,7 +2,11 @@
 @inject IStringLocalizer<Resource> Loc
 
 <FluentMainLayout>
-    <Header><h1>@($"{Loc["Index_Welcome"]} {Loc["AppDisplayName"]}")</h1></Header>
+    <Header>
+        <h1>@($"{Loc["Index_Welcome"]} {Loc["AppDisplayName"]}")</h1>
+        <FluentSpacer />
+        <LoginDisplay />
+    </Header>
     <Body>
         @Body
         <FluentDialogProvider />
