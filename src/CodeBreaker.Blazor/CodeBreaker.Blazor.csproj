@@ -22,6 +22,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CodeBreaker.Blazor.Client\CodeBreaker.Blazor.Client.csproj" />
+    <ProjectReference Include="..\..\..\common\Codebreaker.ServiceDefaults\Codebreaker.ServiceDefaults.csproj" /> <!-- This project reference points to the ServiceDefaults project of the Codebreaker.Backend repository (when used as submodule in Codebreaker.Backend) -->
   </ItemGroup>
 
   <ItemGroup>

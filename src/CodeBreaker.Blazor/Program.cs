@@ -8,9 +8,7 @@ using Microsoft.FluentUI.AspNetCore.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
-#if IS_ASPIRE_COMPONENT
 builder.AddServiceDefaults(); // Aspire
-#endif
 
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
@@ -22,21 +20,12 @@ builder.Services.AddLocalization();
 
 builder.Services.AddHttpClient<IGamerNameSuggestionClient, GamerNameSuggestionClient>(configure =>
     configure.BaseAddress =
-#if IS_ASPIRE_COMPONENT
         new Uri("https://userapis") // Utilize Aspire service discovery
-#else
-        new Uri(builder.Configuration.GetRequired("UserApiBase"))
-#endif
     );
 
 builder.Services.AddHttpClient<IGamesClient, GamesClient>(configure =>
-    configure.BaseAddress =
-#if IS_ASPIRE_COMPONENT
-        new Uri("https://gameapis") // Utilize Aspire service discovery
-#else
-        new Uri(builder.Configuration.GetRequired("GameApiBase"))
-#endif
-    );
+    configure.BaseAddress = new Uri("https://gameapis") // Utilize Aspire service discovery
+);
 
 builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
 
@@ -63,9 +52,7 @@ app.UseRequestLocalization(new RequestLocalizationOptions()
     .AddSupportedCultures(["de", "en"])
     .AddSupportedUICultures(["de", "en"]));
 
-#if IS_ASPIRE_COMPONENT
 app.MapDefaultEndpoints(); // Aspire
-#endif
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
