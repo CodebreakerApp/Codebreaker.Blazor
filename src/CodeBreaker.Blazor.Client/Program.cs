@@ -24,10 +24,14 @@ builder.Services.AddMsalAuthentication(options =>
 });
 
 builder.Services.AddHttpClient<IGamerNameSuggestionClient, GamerNameSuggestionClient>(configure =>
-    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("UserApiBase")));
+    configure.BaseAddress = new Uri("https://gateway/users")
+)
+.ConfigureRemoteServiceDiscovery();
 
 builder.Services.AddHttpClient<IGamesClient, GamesClient>(configure =>
-    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("GameApiBase")));
+    configure.BaseAddress = new Uri("https://gateway/games")
+)
+.ConfigureRemoteServiceDiscovery();
 //.AddHttpMessageHandler<>(); // TODO
 
 builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
