@@ -66,3 +66,41 @@ internal static class RemoteServiceDiscoveryConfigurationExtensions
     }
 }
 
+internal static class ServiceDiscoveryHttpClientBuilderExtensions
+{
+    /// <summary>
+    /// Configures the HttpClient to use the service discovery endpoint to replace the base address with the service endpoint based on the configuration.
+    /// </summary>
+    public static IHttpClientBuilder ConfigureRemoteServiceDiscovery(this IHttpClientBuilder httpClientBuilder)
+    {
+        httpClientBuilder.ConfigureHttpClient((services, HttpClient) =>
+        {
+            var configuredBaseAddress = HttpClient.BaseAddress;
+
+            // If the base address is not configured or is not a DNS host name, do nothing
+            if (configuredBaseAddress is null || configuredBaseAddress.HostNameType != UriHostNameType.Dns)
+                return;
+
+            var oldHostName = configuredBaseAddress.Host;  // The old host name represents the service name (e.g. "backend" or "gateway")
+            var configuration = services.GetRequiredService<IConfiguration>();
+
+            var serviceEndpoint = configuration[$"services:{oldHostName}"];
+
+            // If no service endpoint is found, do nothing and use the configured base address
+            if (serviceEndpoint is null)
+                return;
+
+            var serviceEndpointUri = new Uri(serviceEndpoint);
+
+            // Replace the old host name with the new host name
+            HttpClient.BaseAddress = new UriBuilder(configuredBaseAddress)
+            {
+                Scheme = serviceEndpointUri.Scheme,
+                Host = serviceEndpointUri.Host,
+                Port = serviceEndpointUri.Port
+            }.Uri;
+        });
+
+        return httpClientBuilder;
+    }
+}
