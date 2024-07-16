@@ -1,5 +1,6 @@
 using BlazorApplicationInsights;
 using Codebreaker.GameAPIs.Client;
+using CodeBreaker.Blazor.Client.Configuration;
 using CodeBreaker.Blazor.Client.Contracts.Services;
 using CodeBreaker.Blazor.Client.Extensions;
 using CodeBreaker.Blazor.Client.Services;
@@ -7,6 +8,8 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.FluentUI.AspNetCore.Components;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
+
+builder.Configuration.AddRemoteServiceDiscovery(new Uri (builder.HostEnvironment.BaseAddress));
 
 builder.Services.AddFluentUIComponents();
 
