@@ -19,7 +19,8 @@ builder.Services.AddBlazorApplicationInsights();
 builder.Services.AddMsalAuthentication(options =>
 {
     builder.Configuration.Bind("AzureAdB2C", options.ProviderOptions.Authentication);
-    //options.ProviderOptions.DefaultAccessTokenScopes.Add("");  // TODO
+    options.ProviderOptions.DefaultAccessTokenScopes.Add("openid");
+    options.ProviderOptions.DefaultAccessTokenScopes.Add("offline_access");
     options.UserOptions.NameClaim = "extension_GamerName";
 });
 
