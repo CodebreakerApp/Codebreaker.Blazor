@@ -25,7 +25,7 @@ builder.Services.AddMsalAuthentication(options =>
 });
 
 builder.Services.AddHttpClient<IGamerNameSuggestionClient, GamerNameSuggestionClient>(configure =>
-    configure.BaseAddress = new Uri("https://gateway/users/")
+    configure.BaseAddress = new Uri("https://gateway/users/public")
 )
 .ConfigureRemoteServiceDiscovery();
 
