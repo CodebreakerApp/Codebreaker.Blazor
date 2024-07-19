@@ -4,6 +4,7 @@ using CodeBreaker.Blazor.Client.Configuration;
 using CodeBreaker.Blazor.Client.Contracts.Services;
 using CodeBreaker.Blazor.Client.Extensions;
 using CodeBreaker.Blazor.Client.Services;
+using CodeBreaker.Blazor.Client.Services.HttpMessageHandlers;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.FluentUI.AspNetCore.Components;
 
@@ -29,6 +30,8 @@ builder.Services.AddMsalAuthentication(options =>
     options.UserOptions.NameClaim = "extension_GamerName";
 });
 
+builder.Services.AddTransient<AllAuthorizationMessageHandler>();
+
 builder.Services.AddHttpClient<IGamerNameSuggestionClient, GamerNameSuggestionClient>(configure =>
     configure.BaseAddress = new Uri("https://gateway/users/public")
 )
@@ -37,8 +40,8 @@ builder.Services.AddHttpClient<IGamerNameSuggestionClient, GamerNameSuggestionCl
 builder.Services.AddHttpClient<IGamesClient, GamesClient>(configure =>
     configure.BaseAddress = new Uri("https://gateway/games/")
 )
-.ConfigureRemoteServiceDiscovery();
-//.AddHttpMessageHandler<>(); // TODO
+.ConfigureRemoteServiceDiscovery()
+.AddHttpMessageHandler<AllAuthorizationMessageHandler>();
 
 builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
 
