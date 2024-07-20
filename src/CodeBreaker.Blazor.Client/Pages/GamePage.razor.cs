@@ -56,7 +56,10 @@ public partial class GamePage : IDisposable
 
     private GameType? SelectedGameType => SelectedGameTypeKey is null ? null : _gameTypes[SelectedGameTypeKey];
 
-    private bool CanStartGame => !string.IsNullOrWhiteSpace(_gamerName) && !_loadingGame;
+    private bool CanStartGame =>
+        !string.IsNullOrWhiteSpace(_gamerName)
+        && !_loadingGame
+        && SelectedGameType is not null;
 
     protected override async Task OnInitializedAsync()
     {
