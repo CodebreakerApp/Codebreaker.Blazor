@@ -18,7 +18,7 @@ public partial class GamePage : IDisposable
     //TODO: Get Data from API
     private readonly FrozenDictionary<string, GameType> _gameTypes = new Dictionary<string, GameType>() {
         { "6x4", GameType.Game6x4 },
-        //{ "6x4 Mini", GameType.Game6x4Mini },
+        { "6x4 Mini", GameType.Game6x4Mini },
         { "8x5", GameType.Game8x5 },
         { "5x5x4", GameType.Game5x5x4 },
     }.ToFrozenDictionary();
