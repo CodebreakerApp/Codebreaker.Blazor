@@ -386,4 +386,10 @@
   <data name="Yes" xml:space="preserve">
     <value>Yes</value>
   </data>
+  <data name="GamePage_SelectGameType_Placeholder" xml:space="preserve">
+    <value>Select a gametype</value>
+  </data>
+  <data name="GamePage_NameInput_Placeholder" xml:space="preserve">
+    <value>Choose your gamername</value>
+  </data>
 </root>

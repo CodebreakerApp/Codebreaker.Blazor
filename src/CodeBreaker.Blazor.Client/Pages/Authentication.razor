@@ -42,4 +42,21 @@
 
 @code {
     [Parameter] public string? Action { get; set; }
+
+    [Inject] private NavigationManager NavigationManager { get; set; } = null!;
+
+    protected override void OnInitialized()
+    {
+        if (Action == "logout-callback")
+            NavigateToHome();
+    }
+
+    private void NavigateToHome()
+    {
+        Task.Run(async () =>
+        {
+            await Task.Delay(3000);
+            NavigationManager.NavigateTo("/", false, true);
+        });
+    }
 }

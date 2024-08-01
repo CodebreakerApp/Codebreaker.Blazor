@@ -384,11 +384,29 @@ namespace CodeBreaker.Blazor.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Choose your gamername.
+        /// </summary>
+        public static string GamePage_NameInput_Placeholder {
+            get {
+                return ResourceManager.GetString("GamePage_NameInput_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Enter your gamername.
         /// </summary>
         public static string GamePage_NameInputPlaceholder {
             get {
                 return ResourceManager.GetString("GamePage_NameInputPlaceholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a gametype.
+        /// </summary>
+        public static string GamePage_SelectGameType_Placeholder {
+            get {
+                return ResourceManager.GetString("GamePage_SelectGameType_Placeholder", resourceCulture);
             }
         }
         
