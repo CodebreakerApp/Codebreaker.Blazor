@@ -1,6 +1,7 @@
 using CodeBreaker.Blazor.Client.Pages;
 using Codebreaker.GameAPIs.Client;
 using CodeBreaker.Blazor.Components;
+using CodeBreaker.Blazor.Client.Extensions;
 using CodeBreaker.Blazor.Client.Services;
 using CodeBreaker.Blazor.Client.Contracts.Services;
 using Microsoft.FluentUI.AspNetCore.Components;
@@ -19,11 +20,11 @@ builder.Services.AddLocalization();
 
 builder.Services.AddHttpClient<IGamerNameSuggestionClient, GamerNameSuggestionClient>(configure =>
     configure.BaseAddress =
-        new Uri("https://userapis") // Utilize Aspire service discovery
+        new Uri(builder.Configuration.GetRequired("UserServicePublicBaseAddress"))
     );
 
 builder.Services.AddHttpClient<IGamesClient, GamesClient>(configure =>
-    configure.BaseAddress = new Uri("https://gameapis") // Utilize Aspire service discovery
+    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("GameServiceBaseAddress"))
 );
 
 builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
@@ -56,32 +57,5 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()
     .AddAdditionalAssemblies(typeof(GamePage).Assembly);
-
-/// <summary>
-/// Reads the environment variables for services and returns a mapping of service names to URLs.
-/// </summary>
-app.MapGet("/service-discovery", () =>
-{
-    var serviceMapping = new Dictionary<string, string>();
-    var environmentVariables = Environment.GetEnvironmentVariables();
-
-    foreach (var key in environmentVariables.Keys)
-    {
-        var keyText = key.ToString()!;
-
-        // Check if the key is a service URL (e.g. services__gameapis__http)
-        if (keyText.StartsWith("services__"))
-        {
-            // Extract the service name from the key (e.g. gameapis
-            var serviceName = keyText.Split("__")[1];
-
-            // Add the service name and URL to the mapping if it doesn't already exist
-            if (!serviceMapping.ContainsKey(serviceName))
-                serviceMapping.Add(serviceName, environmentVariables[key]!.ToString()!);
-        }
-    }
-
-    return Results.Json(serviceMapping);
-});
 
 app.Run();

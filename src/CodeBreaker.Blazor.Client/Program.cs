@@ -1,6 +1,5 @@
 using BlazorApplicationInsights;
 using Codebreaker.GameAPIs.Client;
-using CodeBreaker.Blazor.Client.Configuration;
 using CodeBreaker.Blazor.Client.Contracts.Services;
 using CodeBreaker.Blazor.Client.Extensions;
 using CodeBreaker.Blazor.Client.Services;
@@ -9,8 +8,6 @@ using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using Microsoft.FluentUI.AspNetCore.Components;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
-
-builder.Configuration.AddRemoteServiceDiscovery(new Uri (builder.HostEnvironment.BaseAddress));
 
 builder.Services.AddFluentUIComponents();
 
@@ -33,14 +30,12 @@ builder.Services.AddMsalAuthentication(options =>
 builder.Services.AddTransient<AllAuthorizationMessageHandler>();
 
 builder.Services.AddHttpClient<IGamerNameSuggestionClient, GamerNameSuggestionClient>(configure =>
-    configure.BaseAddress = new Uri("https://gateway/users/public")
-)
-.ConfigureRemoteServiceDiscovery();
+    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("UserServicePublicBaseAddress"))
+);
 
 builder.Services.AddHttpClient<IGamesClient, GamesClient>(configure =>
-    configure.BaseAddress = new Uri("https://gateway/games/")
+    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("GameServiceBaseAddress"))
 )
-.ConfigureRemoteServiceDiscovery()
 .AddHttpMessageHandler<AllAuthorizationMessageHandler>();
 
 builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
