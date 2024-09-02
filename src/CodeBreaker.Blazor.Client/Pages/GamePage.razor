@@ -1,4 +1,5 @@
 ﻿@page "/game"
+@attribute [Authorize]
 @using CodeBreaker.Blazor.Client.Models
 @using Codebreaker.GameAPIs.Client.Models
 
@@ -14,15 +15,17 @@
                     <FluentTextField
                         Class="full-width"
                         Label="@Loc["GamePage_NameInput"]"
+                        Placeholder="@Loc["GamePage_NameInput_Placeholder"]"
                         Required
                         Value="@_gamerName"
-                        ReadOnly />
+                        Disabled />
                 }
                 else
                 {
                     <FluentSelect
                         Class="full-width"
                         Label="@Loc["GamePage_NameInput"]"
+                        Placeholder="@Loc["GamePage_NameInput_Placeholder"]"
                         Items="_gamerNameSuggestions"
                         @bind-Value="_gamerName"
                         Required>
@@ -35,6 +38,7 @@
                     Class="full-width"
                     Items="@_gameTypes.Keys"
                     Label="@Loc["GamePage_GameTypeInput"]"
+                    Placeholder="@Loc["GamePage_SelectGameType_Placeholder"]"
                     @bind-Value="SelectedGameTypeKey"
                     Required />
             </FluentGridItem>

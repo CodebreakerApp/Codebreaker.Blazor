@@ -8,6 +8,8 @@ using Microsoft.FluentUI.AspNetCore.Components;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.AddServiceDefaults(); // Aspire
+
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents()
     .AddInteractiveWebAssemblyComponents();
@@ -17,10 +19,13 @@ builder.Services.AddFluentUIComponents();
 builder.Services.AddLocalization();
 
 builder.Services.AddHttpClient<IGamerNameSuggestionClient, GamerNameSuggestionClient>(configure =>
-    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("UserApiBase")));
+    configure.BaseAddress =
+        new Uri(builder.Configuration.GetRequired("UserServicePublicBaseAddress"))
+    );
 
 builder.Services.AddHttpClient<IGamesClient, GamesClient>(configure =>
-    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("GameApiBase")));
+    configure.BaseAddress = new Uri(builder.Configuration.GetRequired("GameServiceBaseAddress"))
+);
 
 builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
 
@@ -47,6 +52,7 @@ app.UseRequestLocalization(new RequestLocalizationOptions()
     .AddSupportedCultures(["de", "en"])
     .AddSupportedUICultures(["de", "en"]));
 
+app.MapDefaultEndpoints(); // Aspire
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode()
     .AddInteractiveWebAssemblyRenderMode()

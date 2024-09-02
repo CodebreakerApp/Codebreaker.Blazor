@@ -18,7 +18,7 @@ public partial class GamePage : IDisposable
     //TODO: Get Data from API
     private readonly FrozenDictionary<string, GameType> _gameTypes = new Dictionary<string, GameType>() {
         { "6x4", GameType.Game6x4 },
-        //{ "6x4 Mini", GameType.Game6x4Mini },
+        { "6x4 Mini", GameType.Game6x4Mini },
         { "8x5", GameType.Game8x5 },
         { "5x5x4", GameType.Game5x5x4 },
     }.ToFrozenDictionary();
@@ -56,7 +56,10 @@ public partial class GamePage : IDisposable
 
     private GameType? SelectedGameType => SelectedGameTypeKey is null ? null : _gameTypes[SelectedGameTypeKey];
 
-    private bool CanStartGame => !string.IsNullOrWhiteSpace(_gamerName) && !_loadingGame;
+    private bool CanStartGame =>
+        !string.IsNullOrWhiteSpace(_gamerName)
+        && !_loadingGame
+        && SelectedGameType is not null;
 
     protected override async Task OnInitializedAsync()
     {
