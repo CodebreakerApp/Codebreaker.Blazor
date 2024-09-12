@@ -13,7 +13,7 @@ public partial class ReportsPage
 {
     private GameInfo[]? _games;
     private bool _isLoadingGames = false;
-    private DateTime? _selectedDate;
+    private DateTime? _selectedDate = DateTime.Now;
 
     [Inject] private IDialogService DialogService { get; set; } = default!;
 
@@ -27,7 +27,7 @@ public partial class ReportsPage
 
     public async Task GetGamesAsync()
     {
-        var date = _selectedDate.ToDateOnly(); ;
+        var date = _selectedDate.ToDateOnly();
         Logger?.LogInformation("Calling GetReport for {date}", date);
         _games = null;
         _isLoadingGames = true;
