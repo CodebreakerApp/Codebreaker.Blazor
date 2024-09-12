@@ -21,7 +21,8 @@
                              ondragover="event.preventDefault();"
                              @ondragenter="@(() => SetDropClass(localVariable))"
                              @ondragleave="@RemoveDropClass"
-                             @ondrop="() => UpdateField(localVariable)" />
+                             @ondrop="() => UpdateField(localVariable)"
+                             @onclick="() => SelectField(localVariable)" />
                     }
                     else if (_isMobile && i == 1)
                     {
@@ -70,7 +71,8 @@
             {
                 <div draggable="true"
                      class="@($"draggable {colorField.ToLower()}")"
-                     @ondragstart="@(() => _activeColor = colorField)">
+                     @ondragstart="@(() => _activeColor = colorField)"
+                     @onclick="() => SelectColor(colorField)">
                      @colorField[0]
                 </div>
             }
@@ -91,7 +93,8 @@
             {
                 <div draggable="true"
                      class="@($"draggable shape {shapeField.ToLower()}")"
-                     @ondragstart="@(() => _activeShape = shapeField)" />
+                     @ondragstart="@(() => _activeShape = shapeField)"
+                     @onclick="() => SelectShape(shapeField)" />
             }
             else
             {
