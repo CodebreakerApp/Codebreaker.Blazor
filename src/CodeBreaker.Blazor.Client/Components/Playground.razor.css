@@ -111,6 +111,11 @@
         transition: background-color .5s ease-in-out;
     }
 
+    .game-container .game-row .selectable-game-buttons {
+        width: unset;
+        margin-left: -5px;
+    }
+
         .game-container .game-row div.key-pegs {
             width: calc(var(--game-field-width) - 4px);
             height: calc(var(--game-field-height) - 4px);
