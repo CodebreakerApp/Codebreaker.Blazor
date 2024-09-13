@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Components;
 using Microsoft.Extensions.Localization;
 using Microsoft.FluentUI.AspNetCore.Components;
 using Microsoft.FluentUI.AspNetCore.Components.Extensions;
+using System.Collections.Frozen;
 
 namespace CodeBreaker.Blazor.Client.Pages;
 
@@ -14,6 +15,15 @@ public partial class ReportsPage
     private GameInfo[]? _games;
     private bool _isLoadingGames = false;
     private DateTime? _selectedDate = DateTime.Now;
+    private string? _selectedGameTypeKey = null;
+    private readonly FrozenDictionary<string, GameType> _gameTypes = new Dictionary<string, GameType>() {
+        { "6x4", GameType.Game6x4 },
+        { "6x4 Mini", GameType.Game6x4Mini },
+        { "8x5", GameType.Game8x5 },
+        { "5x5x4", GameType.Game5x5x4 },
+    }.ToFrozenDictionary();
+
+    private GameType? SelectedGameType => _selectedGameTypeKey is null ? null : _gameTypes[_selectedGameTypeKey];
 
     [Inject] private IDialogService DialogService { get; set; } = default!;
 
@@ -33,7 +43,7 @@ public partial class ReportsPage
         _isLoadingGames = true;
         try
         {
-            var query = new GamesQuery(Date: date, Ended: true);
+            var query = new GamesQuery(Date: date, Ended: true, GameType: SelectedGameType);
             var response = await GameClient.GetGamesAsync(query);
             Logger?.LogDebug("Got response: {response}", response);
             _games = [..response ?? []];

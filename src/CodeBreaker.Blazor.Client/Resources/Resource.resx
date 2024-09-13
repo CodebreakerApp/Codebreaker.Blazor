@@ -392,4 +392,7 @@
   <data name="GamePage_NameInput_Placeholder" xml:space="preserve">
     <value>Choose your gamername</value>
   </data>
+  <data name="ReportsPage_SelectGameType_Label" xml:space="preserve">
+    <value>Select a gametype (optional)</value>
+  </data>
 </root>

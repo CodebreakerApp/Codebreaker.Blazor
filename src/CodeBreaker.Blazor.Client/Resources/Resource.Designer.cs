@@ -645,6 +645,15 @@ namespace CodeBreaker.Blazor.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select a gametype (optional).
+        /// </summary>
+        public static string ReportsPage_SelectGameType_Label {
+            get {
+                return ResourceManager.GetString("ReportsPage_SelectGameType_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Gamername,Start,End,Number of Moves.
         /// </summary>
         public static string ReportsPage_Table_Headers {
