@@ -6,11 +6,26 @@
     <h2>@Loc["ReportsPage_Title"]</h2>
 
     <FluentGrid Class="align-items-end">
-        <FluentGridItem xs="12" md="8">
-            <FluentDatePicker Class="full-width" Label="@Loc["ReportsPage_SelectDate_Label"]" @bind-Value="@_selectedDate" />
+        <FluentGridItem xs="12" md="3">
+            <FluentDatePicker Class="full-width" Label="@Loc["ReportsPage_SelectDate_Label"]" @bind-Value="@_selectedDate" Required />
         </FluentGridItem>
-        <FluentGridItem xs="12" md="4">
-            <FluentButton Class="full-width" Disabled="_isLoadingGames" OnClick="GetGamesAsync" Loading="_isLoadingGames">@Loc["ReportsPage_LoadGames_Action"]</FluentButton>
+        <FluentGridItem xs="12" md="3">
+           <FluentSelect
+               Label="@Loc["ReportsPage_SelectGameType_Label"]"
+               Items="_gameTypes"
+               Class="full-width"
+               OptionText="@(x => x.Key)"
+               @bind-Value="_selectedGameTypeKey" />
+        </FluentGridItem>
+        <FluentGridItem xs="12" md="3">
+            <FluentTextField
+                Class="full-width"
+                Label="@Loc["ReportsPage_GamerName_Label"]"
+                Placeholder="@Loc["ReportsPage_GamerName_Placeholder"]"
+                @bind-Value="_enteredPlayerName" />
+        </FluentGridItem>
+        <FluentGridItem xs="12" md="3">
+            <FluentButton Appearance="Appearance.Accent" Class="full-width" Disabled="_isLoadingGames" OnClick="GetGamesAsync" Loading="_isLoadingGames">@Loc["ReportsPage_LoadGames_Action"]</FluentButton>
         </FluentGridItem>
         @if (_games is not null && !_isLoadingGames)
         {

@@ -618,6 +618,33 @@ namespace CodeBreaker.Blazor.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Enter a gamer name (optional).
+        /// </summary>
+        public static string ReportsPage_GamerName_Label {
+            get {
+                return ResourceManager.GetString("ReportsPage_GamerName_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string ReportsPage_GamerName_Placeholder {
+            get {
+                return ResourceManager.GetString("ReportsPage_GamerName_Placeholder", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to All.
+        /// </summary>
+        public static string ReportsPage_GameType_All {
+            get {
+                return ResourceManager.GetString("ReportsPage_GameType_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Load games.
         /// </summary>
         public static string ReportsPage_LoadGames_Action {
@@ -641,6 +668,15 @@ namespace CodeBreaker.Blazor.Client.Resources {
         public static string ReportsPage_SelectDate_Label {
             get {
                 return ResourceManager.GetString("ReportsPage_SelectDate_Label", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Select a gametype (optional).
+        /// </summary>
+        public static string ReportsPage_SelectGameType_Label {
+            get {
+                return ResourceManager.GetString("ReportsPage_SelectGameType_Label", resourceCulture);
             }
         }
         

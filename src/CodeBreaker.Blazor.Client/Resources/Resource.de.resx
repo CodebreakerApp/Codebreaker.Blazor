@@ -380,4 +380,16 @@
   <data name="GamePage_NameInput_Placeholder" xml:space="preserve">
     <value>Wählen Sie Ihren Spielernamen</value>
   </data>
+  <data name="ReportsPage_SelectGameType_Label" xml:space="preserve">
+    <value>Wähle einen Spieltyp (optional)</value>
+  </data>
+  <data name="ReportsPage_GamerName_Label" xml:space="preserve">
+    <value>Gib einen Spielernamen ein (optional)</value>
+  </data>
+  <data name="ReportsPage_GameType_Placeholder" xml:space="preserve">
+    <value>Alle</value>
+  </data>
+  <data name="ReportsPage_GamerName_Placeholder" xml:space="preserve">
+    <value>Alle</value>
+  </data>
 </root>
