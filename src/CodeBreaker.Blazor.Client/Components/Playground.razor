@@ -35,9 +35,12 @@
                 }
                 @if (i == 1 && !GameFinished)
                 {
-                    <div>
+                    <div class="selectable-game-buttons">
                         <FluentButton Appearance="Appearance.Stealth" Disabled="PlayButtonDisabled" OnClick="SetMoveAsync">
                             <FluentIcon Value="new Icons.Filled.Size48.PlayCircle()" />
+                        </FluentButton>
+                        <FluentButton Appearance="Appearance.Stealth" Disabled="ClearButtonDisabled" OnClick="ResetMove">
+                            <FluentIcon Value="new Icons.Filled.Size48.DismissCircle()" />
                         </FluentButton>
                     </div>
                 }

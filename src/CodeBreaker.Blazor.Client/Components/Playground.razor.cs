@@ -35,6 +35,8 @@ public partial class Playground
         || AvailableShapes is not null && field.Shape is null
     );
 
+    private bool ClearButtonDisabled => _currentMove.All(field => field.Color is null && field.Shape is null);
+
     private string KeyPegsFormat => Game.NumberCodes > 4 ? "three-two" : "two-two";
 
     private IEnumerable<string>? AvailableColors => Game?.FieldValues.GetOrDefault("colors");
@@ -107,6 +109,9 @@ public partial class Playground
             InitialzePlayground();
         }
     }
+
+    private void ResetMove() =>
+        InitialzePlayground();
 
     #region ClickEvents
     private void SelectField(int index)
