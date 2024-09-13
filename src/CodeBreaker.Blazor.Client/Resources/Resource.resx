@@ -395,4 +395,13 @@
   <data name="ReportsPage_SelectGameType_Label" xml:space="preserve">
     <value>Select a gametype (optional)</value>
   </data>
+  <data name="ReportsPage_GamerName_Label" xml:space="preserve">
+    <value>Enter a gamer name (optional)</value>
+  </data>
+  <data name="ReportsPage_GameType_All" xml:space="preserve">
+    <value>All</value>
+  </data>
+  <data name="ReportsPage_GamerName_Placeholder" xml:space="preserve">
+    <value>All</value>
+  </data>
 </root>

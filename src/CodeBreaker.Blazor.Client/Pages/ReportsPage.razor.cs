@@ -16,14 +16,10 @@ public partial class ReportsPage
     private bool _isLoadingGames = false;
     private DateTime? _selectedDate = DateTime.Now;
     private string? _selectedGameTypeKey = null;
-    private readonly FrozenDictionary<string, GameType> _gameTypes = new Dictionary<string, GameType>() {
-        { "6x4", GameType.Game6x4 },
-        { "6x4 Mini", GameType.Game6x4Mini },
-        { "8x5", GameType.Game8x5 },
-        { "5x5x4", GameType.Game5x5x4 },
-    }.ToFrozenDictionary();
+    private string? _enteredPlayerName = null;
+    private IDictionary<string, GameType?> _gameTypes = null!;
 
-    private GameType? SelectedGameType => _selectedGameTypeKey is null ? null : _gameTypes[_selectedGameTypeKey];
+    private GameType? SelectedGameType => string.IsNullOrEmpty(_selectedGameTypeKey) ? null : _gameTypes[_selectedGameTypeKey];
 
     [Inject] private IDialogService DialogService { get; set; } = default!;
 
@@ -35,6 +31,17 @@ public partial class ReportsPage
 
     private string[] Headers => [.. Loc.GetString("ReportsPage_Table_Headers").Value.Split(",")];
 
+    protected override void OnInitialized()
+    {
+        _gameTypes = new Dictionary<string, GameType?>() {
+            { Loc["ReportsPage_GameType_All"], null },
+            { "6x4", GameType.Game6x4 },
+            { "6x4 Mini", GameType.Game6x4Mini },
+            { "8x5", GameType.Game8x5 },
+            { "5x5x4", GameType.Game5x5x4 },
+        }.ToFrozenDictionary();
+    }
+
     public async Task GetGamesAsync()
     {
         var date = _selectedDate.ToDateOnly();
@@ -43,7 +50,7 @@ public partial class ReportsPage
         _isLoadingGames = true;
         try
         {
-            var query = new GamesQuery(Date: date, Ended: true, GameType: SelectedGameType);
+            var query = new GamesQuery(Date: date, Ended: true, GameType: SelectedGameType, PlayerName: _enteredPlayerName);
             var response = await GameClient.GetGamesAsync(query);
             Logger?.LogDebug("Got response: {response}", response);
             _games = [..response ?? []];
