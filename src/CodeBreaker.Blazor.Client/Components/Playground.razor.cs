@@ -148,9 +148,6 @@ public partial class Playground
 
     private void SelectShape(string shape)
     {
-        //_currentMove[_selectedField].Selected = true;
-        //_currentMove[_selectedField].Shape = shape;
-
         int fieldIndex;
 
         // If a field is selected, use the selected field
