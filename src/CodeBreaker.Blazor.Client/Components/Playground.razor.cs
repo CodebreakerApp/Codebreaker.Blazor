@@ -135,7 +135,7 @@ public partial class Playground
         else
         {
             // If no field is selected, find the first field that is not set
-            fieldIndex = Array.FindIndex(_currentMove, f => f.Color is null && f.Shape is null);
+            fieldIndex = Array.FindIndex(_currentMove, f => f.Color is null);
 
             // If all fields are set, do not set the color
             if (fieldIndex == -1)
@@ -148,8 +148,26 @@ public partial class Playground
 
     private void SelectShape(string shape)
     {
-        _currentMove[_selectedField].Selected = true;
-        _currentMove[_selectedField].Shape = shape;
+        //_currentMove[_selectedField].Selected = true;
+        //_currentMove[_selectedField].Shape = shape;
+
+        int fieldIndex;
+
+        // If a field is selected, use the selected field
+        if (_selectedField != -1)
+            fieldIndex = _selectedField;
+        else
+        {
+            // If no field is selected, find the first field that is not set
+            fieldIndex = Array.FindIndex(_currentMove, f => f.Shape is null);
+
+            // If all fields are set, do not set the color
+            if (fieldIndex == -1)
+                return;
+        }
+
+        _currentMove[fieldIndex].Selected = true;
+        _currentMove[fieldIndex].Shape = shape;
     }
     #endregion
 
