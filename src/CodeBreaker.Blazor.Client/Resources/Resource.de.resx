@@ -386,10 +386,13 @@
   <data name="ReportsPage_GamerName_Label" xml:space="preserve">
     <value>Gib einen Spielernamen ein (optional)</value>
   </data>
+  <data name="ReportsPage_GamerName_Placeholder" xml:space="preserve">
+    <value>Alle</value>
+  </data>
   <data name="ReportsPage_GameType_Placeholder" xml:space="preserve">
     <value>Alle</value>
   </data>
-  <data name="ReportsPage_GamerName_Placeholder" xml:space="preserve">
-    <value>Alle</value>
+  <data name="NavMenu_Title" xml:space="preserve">
+    <value>Navigation</value>
   </data>
 </root>

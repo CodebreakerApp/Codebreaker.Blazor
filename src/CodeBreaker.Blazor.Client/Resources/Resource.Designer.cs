@@ -591,6 +591,15 @@ namespace CodeBreaker.Blazor.Client.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Navigation.
+        /// </summary>
+        public static string NavMenu_Title {
+            get {
+                return ResourceManager.GetString("NavMenu_Title", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to No.
         /// </summary>
         public static string No {
@@ -641,6 +650,15 @@ namespace CodeBreaker.Blazor.Client.Resources {
         public static string ReportsPage_GameType_All {
             get {
                 return ResourceManager.GetString("ReportsPage_GameType_All", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string ReportsPage_GameType_Placeholder {
+            get {
+                return ResourceManager.GetString("ReportsPage_GameType_Placeholder", resourceCulture);
             }
         }
         

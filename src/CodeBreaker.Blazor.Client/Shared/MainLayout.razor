@@ -1,20 +1,67 @@
 ﻿@inherits LayoutComponentBase
 @inject IStringLocalizer<Resource> Loc
+@inject NavigationManager NavigationManager
 
-<FluentMainLayout>
-    <Header>
+<FluentLayout>
+    <FluentHeader>
         <h1><span id="welcome-message">@Loc["Index_Welcome"]</span> @Loc["AppDisplayName"]</h1>
         <FluentSpacer />
         <LoginDisplay />
-    </Header>
-    <Body>
-        @Body
-        <FluentDialogProvider />
-    </Body>
-    <NavMenuContent>
-        <FluentNavLink Href="/" Match="NavLinkMatch.All" Icon="@(new Icons.Regular.Size20.Home())">@Loc["NavMenu_Home_Title"]</FluentNavLink>
-        <FluentNavLink Href="/game" Icon="@(new Icons.Regular.Size20.BoardGames())">@Loc["NavMenu_Game_Title"]</FluentNavLink>
-        <FluentNavLink Href="/reports" Icon="@(new Icons.Regular.Size20.DataBarHorizontal())">@Loc["NavMenu_Reports_Title"]</FluentNavLink>
-        <FluentNavLink Href="/about" Icon="@(new Icons.Regular.Size20.Info())">@Loc["NavMenu_About_Title"]</FluentNavLink>
-    </NavMenuContent>
-</FluentMainLayout>
+    </FluentHeader>
+    <div id="main-layout-stack">
+        @* Desktop navigation *@
+        <div id="large-navigation">
+            <FluentNavMenu Width="200" Style="box-shadow: var(--elevation-shadow-card-rest); height: 100%;">
+                @foreach (var navigationItem in _navigationItems)
+                {
+                    <FluentNavLink Href="@navigationItem.Href" Match="@(navigationItem.MatchAll ? NavLinkMatch.All : NavLinkMatch.Prefix)" Icon="@navigationItem.Icon">@navigationItem.Title</FluentNavLink>
+                }
+            </FluentNavMenu>
+        </div>
+
+        @* Mobile navigation *@
+        <div id="small-navigation">
+            <FluentButton Id="mobile-nav-menu-button" Appearance="Appearance.Stealth" OnClick="ToggleMobileNavMenu" IconStart="@(new Icons.Regular.Size20.Navigation())">
+                @Loc["NavMenu_Title"]
+            </FluentButton>
+            <FluentMenu @bind-Open="_isMobileNavMenuOpen" UseMenuService="true" Anchor="mobile-nav-menu-button">
+                @foreach (var navigationItem in _navigationItems)
+                {
+                    <FluentMenuItem Label="@navigationItem.Title" OnClick="() => Navigate(navigationItem)">
+                        <FluentIcon Value="@navigationItem.Icon" Slot="start" />
+                    </FluentMenuItem>
+                }
+            </FluentMenu>
+        </div>
+
+        <FluentBodyContent>
+            @Body
+            <FluentDialogProvider />
+        </FluentBodyContent>
+    </div>
+</FluentLayout>
+
+<FluentDialogProvider />
+<FluentMenuProvider />
+
+@code {
+    private record class NavigationItem(string Title, Icon Icon, string Href, bool MatchAll = false);
+
+    private bool _isMobileNavMenuOpen = false;
+    private void ToggleMobileNavMenu() =>
+        _isMobileNavMenuOpen = !_isMobileNavMenuOpen;
+    private IEnumerable<NavigationItem> _navigationItems = null!;
+
+    protected override void OnInitialized()
+    {
+        _navigationItems = [
+            new NavigationItem(Loc["NavMenu_Home_Title"], new Icons.Regular.Size20.Home(), "/", true),
+            new NavigationItem(Loc["NavMenu_Game_Title"], new Icons.Regular.Size20.BoardGames(), "/game"),
+            new NavigationItem(Loc["NavMenu_Reports_Title"], new Icons.Regular.Size20.DataBarHorizontal(), "/reports"),
+            new NavigationItem(Loc["NavMenu_About_Title"], new Icons.Regular.Size20.Info(), "/about")
+        ];
+    }
+
+    private void Navigate(NavigationItem navigationItem) =>
+        NavigationManager.NavigateTo(navigationItem.Href);
+}

@@ -404,4 +404,10 @@
   <data name="ReportsPage_GamerName_Placeholder" xml:space="preserve">
     <value>All</value>
   </data>
+  <data name="ReportsPage_GameType_Placeholder" xml:space="preserve">
+    <value />
+  </data>
+  <data name="NavMenu_Title" xml:space="preserve">
+    <value>Navigation</value>
+  </data>
 </root>
