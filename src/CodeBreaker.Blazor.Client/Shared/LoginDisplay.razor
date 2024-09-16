@@ -7,7 +7,7 @@
 
 <AuthorizeView>
     <Authorized>
-        @Loc["Auth_TextBeforeUsername"] @context.User.Identity?.Name
+        <span id="text-before-username">@Loc["Auth_TextBeforeUsername"]</span> @context.User.Identity?.Name
         <FluentSpacer Width="20" />
         <FluentButton Appearance="Appearance.Stealth" OnClick="Logout" IconStart="new Icons.Regular.Size20.SignOut()">
             @Loc["Auth_Signout"]
