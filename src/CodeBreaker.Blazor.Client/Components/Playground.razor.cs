@@ -117,10 +117,19 @@ public partial class Playground
     private void SelectField(int index)
     {
         _selectedField = index;
-        
+
+        // Set all fields to not selected
         for (int i = 0; i < _currentMove.Length; i++)
             _currentMove[i].Selected = false;
-        
+
+        // Reset the field, if it is already filled
+        if (_currentMove[_selectedField].Color is not null || _currentMove[_selectedField].Shape is not null)
+        {
+            _currentMove[_selectedField].Color = null;
+            _currentMove[_selectedField].Shape = null;
+        }
+
+        // Set the selected field to selected
         _currentMove[_selectedField].Selected = true;
         _selectable = true;
     }
@@ -148,9 +157,6 @@ public partial class Playground
 
     private void SelectShape(string shape)
     {
-        //_currentMove[_selectedField].Selected = true;
-        //_currentMove[_selectedField].Shape = shape;
-
         int fieldIndex;
 
         // If a field is selected, use the selected field
