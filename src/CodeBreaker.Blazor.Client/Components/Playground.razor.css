@@ -121,10 +121,6 @@
             height: calc(var(--game-field-height) - 4px);
         }
 
-    .game-container .game-move div {
-        margin: 0 auto;
-    }
-
     .game-container .game-row.selectable .can-drop,
     .game-container .game-row.selectable .can-drop,
     .colors div:hover {
