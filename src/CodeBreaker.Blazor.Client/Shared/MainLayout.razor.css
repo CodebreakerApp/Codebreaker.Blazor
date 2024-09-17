@@ -8,3 +8,28 @@
         display: none;
     }
 }
+
+#main-layout-stack {
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+#small-navigation {
+    display: none;
+}
+#large-navigation {
+    height: 100%;
+}
+
+@media only screen and (max-width: 1000px) {
+    #large-navigation {
+        display: none;
+    }
+    #small-navigation {
+        display: block;
+    }
+    #main-layout-stack {
+        flex-direction: column;
+    }
+}
