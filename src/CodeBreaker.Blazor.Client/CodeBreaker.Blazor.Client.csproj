@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <BlazorWebAssemblyLoadAllGlobalizationData>true</BlazorWebAssemblyLoadAllGlobalizationData>
     <Configurations>Debug;Release;</Configurations>
+    <UserSecretsId>de8c977a-d6ea-49f0-8090-ba49c09dad1f</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
