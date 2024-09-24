@@ -32,34 +32,6 @@
     }
 }
 
-@media only screen and (max-width: 763px) {
-    .container {
-        --game-field-width: 2.25rem;
-        --game-field-height: 2.25rem;
-    }
-}
-
-@media only screen and (max-height: 900px) {
-    .container {
-        --game-field-width: 2.25rem;
-        --game-field-height: 2.25rem;
-    }
-}
-
-@media only screen and (max-width: 599px) and (min-height: 800px) {
-    .container {
-        --game-field-width: 2rem;
-        --game-field-height: 2rem;
-    }
-}
-
-@media only screen and (max-width: 599px) and (max-height: 800px) {
-    .container {
-        --game-field-width: 1.5rem;
-        --game-field-height: 1.5rem;
-    }
-}
-
 .container,
 .game-container,
 .colors,
@@ -337,33 +309,6 @@
 
 
 
-fluent-button::part(button) {
-    background-color: red;
-}
-fluent-button::part(.control) {
-    background-color: red;
-}
-fluent-button::part(control) {
-    background-color: red;
-}
-
-fluent-button /deep/ button {
-    background-color: blue;
-}
-FluentButton::part(button) {
-    background-color: red;
-}
-FluentButton::part(button) {
-    background-color: red;
-}
-
-FluentButton::part(.control) {
-    background-color: red;
-}
-
-FluentButton::part(control) {
-    background-color: red;
-}
-FluentButton /deep/ button {
-    background-color: blue;
+.selectable-game-buttons ::deep > fluent-button::part(control) {
+    width: calc(var(--game-field-width) + 7px);
 }

@@ -2,15 +2,17 @@
 @inject IStringLocalizer<Resource> Loc
 @inject NavigationManager NavigationManager
 
-<FluentLayout>
-    <FluentHeader>
-        <h1><span id="welcome-message">@Loc["Index_Welcome"]</span> @Loc["AppDisplayName"]</h1>
-        <FluentSpacer />
-        <LoginDisplay />
-    </FluentHeader>
-    <div id="main-layout-stack">
+<div class="layout">
+    <div class="header-wrapper">
+        <FluentHeader>
+            <h1><span id="welcome-message">@Loc["Index_Welcome"]</span> @Loc["AppDisplayName"]</h1>
+            <FluentSpacer />
+            <LoginDisplay />
+        </FluentHeader>
+    </div>
+    <div class="main-layout-stack">
         @* Desktop navigation *@
-        <div id="large-navigation">
+        <div class="large-navigation">
             <FluentNavMenu Width="200" Style="box-shadow: var(--elevation-shadow-card-rest); height: 100%;">
                 @foreach (var navigationItem in _navigationItems)
                 {
@@ -20,7 +22,7 @@
         </div>
 
         @* Mobile navigation *@
-        <div id="small-navigation">
+        <div class="small-navigation">
             <FluentButton Id="mobile-nav-menu-button" Appearance="Appearance.Stealth" OnClick="ToggleMobileNavMenu" IconStart="@(new Icons.Regular.Size20.Navigation())">
                 @Loc["NavMenu_Title"]
             </FluentButton>
@@ -34,12 +36,12 @@
             </FluentMenu>
         </div>
 
-        <FluentBodyContent>
+        <div class="body-content">
             @Body
             <FluentDialogProvider />
-        </FluentBodyContent>
+        </div>
     </div>
-</FluentLayout>
+</div>
 
 <FluentDialogProvider />
 <FluentMenuProvider />

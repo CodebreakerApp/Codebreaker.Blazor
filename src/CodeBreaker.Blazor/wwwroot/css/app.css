@@ -42,10 +42,6 @@ html, body, #app {
     background-color: var(--neutral-layer-1);
 }
 
-.body-content {
-    padding: 1rem;
-}
-
 :root {
     --primary: #8eb8e5ff;
     --on-primary: #ffffff;

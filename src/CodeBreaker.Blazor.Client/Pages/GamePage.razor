@@ -3,7 +3,7 @@
 @using CodeBreaker.Blazor.Client.Models
 @using Codebreaker.GameAPIs.Client.Models
 
-<FluentCard>
+<FluentCard AreaRestricted="false">
     @if (_gameStatus == GameMode.NotRunning)
     {
         <h2>@Loc["GamePage_Title"]</h2>
