@@ -217,6 +217,9 @@ public partial class GamePage : IDisposable
         StateHasChanged();
     }
 
+    private string? FormatGameTypeString(string? gameTypeString) =>
+        gameTypeString?.Replace("Game", null);
+
     public void Dispose()
     {
         _timer?.Dispose();

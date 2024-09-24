@@ -20,7 +20,7 @@ builder.Services.AddMsalAuthentication(options =>
     options.ProviderOptions.DefaultAccessTokenScopes.Add("openid");
     options.ProviderOptions.DefaultAccessTokenScopes.Add("profile");
     options.ProviderOptions.DefaultAccessTokenScopes.Add("offline_access");
-    options.ProviderOptions.DefaultAccessTokenScopes.Add("https://codebreaker3000.onmicrosoft.com/gateway/games.play");
+    //options.ProviderOptions.DefaultAccessTokenScopes.Add("https://codebreaker3000.onmicrosoft.com/gateway/games.play");
     //options.ProviderOptions.DefaultAccessTokenScopes.Add("https://codebreaker3000.onmicrosoft.com/gateway/live.observe");
     //options.ProviderOptions.DefaultAccessTokenScopes.Add("https://codebreaker3000.onmicrosoft.com/gateway/ranking.query");
     //options.ProviderOptions.DefaultAccessTokenScopes.Add("https://codebreaker3000.onmicrosoft.com/gateway/bot.trigger");
