@@ -38,8 +38,6 @@ builder.Services.AddHttpClient<IGamesClient, GamesClient>(configure =>
 )
 .AddHttpMessageHandler<AllAuthorizationMessageHandler>();
 
-builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
-
 var host = builder.Build();
 
 await host.ConfigureLocalizationAsync();

@@ -15,7 +15,7 @@
                 {
                     var localVariable = y;
 
-                    if (!_isMobile && i == 1)
+                    if (i == 1)
                     {
                         <div class="@_currentMove[localVariable].GetCssClasses()"
                              ondragover="event.preventDefault();"
@@ -23,10 +23,6 @@
                              @ondragleave="@RemoveDropClass"
                              @ondrop="() => UpdateField(localVariable)"
                              @onclick="() => SelectField(localVariable)" />
-                    }
-                    else if (_isMobile && i == 1)
-                    {
-                        <div class="@_currentMove[localVariable].GetCssClasses()" @onclick="() => SelectField(localVariable)" />
                     }
                     else
                     {
@@ -67,44 +63,25 @@
         }
     </div>
     @* Available colors *@
-    <div class="@(!_isMobile ? "colors draggable" : "colors")">
+    <div class="colors draggable">
         @foreach (string colorField in AvailableColors ?? [])
         {
-            @if (!_isMobile)
-            {
-                <div draggable="true"
-                     class="@($"draggable {colorField.ToLower()}")"
-                     @ondragstart="@(() => _activeColor = colorField)"
-                     @onclick="() => SelectColor(colorField)">
-                     @colorField[0]
-                </div>
-            }
-            else
-            {
-                <div class="@(_selectable && _selectedField > -1 ? $"{colorField.ToLower()} selectable" : colorField.ToLower())"
-                     @onclick="() => SelectColor(colorField)">
-                     @colorField[0]
-                </div>
-            }
+            <div draggable="true"
+                class="@($"draggable selectable {colorField.ToLower()}")"
+                @ondragstart="@(() => _activeColor = colorField)"
+                @onclick="() => SelectColor(colorField)">
+                @colorField[0]
+            </div>
         }
     </div>
     @* Available shapes *@
-    <div class="@(!_isMobile ? "colors draggable" : "colors")">
+    <div class="colors draggable">
         @foreach (string shapeField in AvailableShapes ?? [])
         {
-            @if (!_isMobile)
-            {
-                <div draggable="true"
-                     class="@($"draggable shape {shapeField.ToLower()}")"
-                     @ondragstart="@(() => _activeShape = shapeField)"
-                     @onclick="() => SelectShape(shapeField)" />
-            }
-            else
-            {
-                <div class="@(_selectable && _selectedField > -1 ? $"{shapeField.ToLower()} shape selectable" : $"shape {shapeField.ToLower()}")"
-                     @onclick="() => SelectShape(shapeField)" />
-
-            }
+            <div draggable="true"
+                class="@($"draggable selectable shape {shapeField.ToLower()}")"
+                @ondragstart="@(() => _activeShape = shapeField)"
+                @onclick="() => SelectShape(shapeField)" />
         }
     </div>
 </div>

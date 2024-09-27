@@ -27,8 +27,6 @@ builder.Services.AddHttpClient<IGamesClient, GamesClient>(configure =>
     configure.BaseAddress = new Uri(builder.Configuration.GetRequired("GameServiceBaseAddress"))
 );
 
-builder.Services.AddScoped<IMobileDetectorService, MobileDetectorService>();
-
 builder.Services.AddCors();
 
 var app = builder.Build();

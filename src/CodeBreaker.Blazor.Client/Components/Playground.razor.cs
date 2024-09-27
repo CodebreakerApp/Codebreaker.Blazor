@@ -14,9 +14,6 @@ public partial class Playground
     [Inject]
     private IGamesClient Client { get; init; } = default!;
 
-    [Inject]
-    private IMobileDetectorService MobileDetectorService { get; set; } = default!;
-
     [Parameter, EditorRequired]
     public GameInfo Game { get; set; } = default!;
 
@@ -43,7 +40,6 @@ public partial class Playground
 
     private IEnumerable<string>? AvailableShapes => Game?.FieldValues.GetOrDefault("shapes");
 
-    private bool _isMobile = false;
     private bool _selectable = false;
     private int _selectedField = -1;
     private readonly ICollection<SelectionAndKeyPegs> _gameMoves = [];
@@ -65,9 +61,6 @@ public partial class Playground
 
     protected override async Task OnAfterRenderAsync(bool firstRender)
     {
-        if (firstRender)
-            _isMobile = await MobileDetectorService.IsMobileAsync();
-
         await base.OnAfterRenderAsync(firstRender);
     }
 
