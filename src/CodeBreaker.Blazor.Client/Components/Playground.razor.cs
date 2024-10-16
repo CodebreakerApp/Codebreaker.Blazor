@@ -122,12 +122,20 @@ public partial class Playground
         for (int i = 0; i < _currentMove.Length; i++)
             _currentMove[i].Selected = false;
 
-        // Reset the field, if it is already filled
-        if (_currentMove[_selectedField].Color is not null || _currentMove[_selectedField].Shape is not null)
+        if (AvailableShapes is null || !AvailableShapes.Any())
         {
+            // Current game only with colors
+            // Reset the color of the selected field (will be selected in the next step)
+            _currentMove[_selectedField].Color = null;
+        }
+        else if (_currentMove[_selectedField].Color is not null && _currentMove[_selectedField].Shape is not null)
+        {
+            // Current game with colors and shapes
+            // Reset the color and shape of the selected field when both are set
             _currentMove[_selectedField].Color = null;
             _currentMove[_selectedField].Shape = null;
         }
+
 
         // Set the selected field to selected
         _currentMove[_selectedField].Selected = true;
