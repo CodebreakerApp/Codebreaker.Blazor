@@ -15,8 +15,6 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" NoWarn="NU1605" />
     <PackageReference Include="Microsoft.Identity.Web" />
     <PackageReference Include="Microsoft.Identity.Web.UI" />
-    <PackageReference Include="System.Formats.Asn1" />
-    <PackageReference Include="System.Text.Json" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\CodeBreaker.Blazor.Client\CodeBreaker.Blazor.Client.csproj" />

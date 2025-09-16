@@ -13,7 +13,7 @@ using CodeBreaker.Blazor.Client.Contracts.Services;
 
 namespace CodeBreaker.Blazor.Client.Pages;
 
-public partial class GamePage : IDisposable
+public sealed partial class GamePage : IDisposable
 {
     //TODO: Get Data from API
     private readonly FrozenDictionary<string, GameType> _gameTypes = new Dictionary<string, GameType>() {
@@ -157,12 +157,12 @@ public partial class GamePage : IDisposable
             {
                 Content = new ()
                 {
-                    Message = gameMode switch
+                    MarkupMessage = new MarkupString(gameMode switch
                     {
-                        GameMode.Won => Loc["GamePage_FinishGame_Win"],
-                        GameMode.Lost => Loc["GamePage_FinishGame_Lose"],
+                        GameMode.Won => Loc["GamePage_FinishGame_Win"].Value,
+                        GameMode.Lost => Loc["GamePage_FinishGame_Lose"].Value,
                         _ => string.Empty
-                    },
+                    }),
                 },
                 PrimaryAction = Loc["GamePage_FinishGame_Ok"],
                 SecondaryAction = Loc["GamePage_FinishGame_Restart"],
